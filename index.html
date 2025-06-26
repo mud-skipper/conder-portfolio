@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wojciech Conder - Architekt</title>
+    <meta name="description" content="Portfolio architekta Wojciecha Condera - projektuję przestrzeń do życia i pracy">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header z logo i menu hamburger -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="conder-potfolio_logo.png" alt="Wojciech Conder Logo" class="logo-img">
+                </div>
+                <nav class="nav">
+                    <button class="hamburger" id="hamburger" aria-label="Menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <ul class="nav-menu" id="nav-menu">
+                        <li><a href="#home" class="nav-link">Strona główna</a></li>
+                        <li><a href="#about" class="nav-link">O mnie</a></li>
+                        <li><a href="#projects" class="nav-link">Projekty</a></li>
+                        <li><a href="#contact" class="nav-link">Kontakt</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sekcja główna - Hero -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Wojciech Conder</h1>
+                <h2 class="hero-subtitle">Architekt</h2>
+                <p class="hero-description">Projektuję przestrzeń do życia i pracy</p>
+                <a href="#projects" class="cta-button">Zobacz projekty</a>
+            </div>
+        </div>
+        <!-- Ukośne pasy retro -->
+        <div class="retro-stripes">
+            <div class="stripe stripe-yellow"></div>
+            <div class="stripe stripe-orange"></div>
+            <div class="stripe stripe-red"></div>
+        </div>
+    </section>
+
+    <!-- Sekcja O mnie -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image">
+                    <div class="profile-placeholder">
+                        <span>📸</span>
+                        <p>Zdjęcie profilowe</p>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <h2 class="section-title">O mnie</h2>
+                    <p class="about-bio">
+                        Architekt z pasją do tworzenia funkcjonalnych i estetycznych przestrzeni. 
+                        Specjalizuję się w projektowaniu mieszkań, biur i przestrzeni publicznych 
+                        z myślą o komforcie użytkowników i zrównoważonym rozwoju.
+                    </p>
+                    <a href="#timeline" class="read-more">Czytaj więcej o mojej karierze →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sekcja Projekty -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Projekty</h2>
+            <div class="projects-grid" id="projects-grid">
+                <!-- Projekty będą wczytywane dynamicznie z content.json -->
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="image-placeholder">
+                            <span>🏗️</span>
+                            <p>Zdjęcie projektu</p>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">Przykładowy projekt</h3>
+                        <div class="project-meta">
+                            <span class="project-year">2024</span>
+                            <span class="project-location">Warszawa</span>
+                        </div>
+                        <p class="project-description">
+                            Krótki opis projektu architektonicznego z uwzględnieniem 
+                            głównych założeń i rozwiązań.
+                        </p>
+                        <a href="#" class="project-link">Zobacz szczegóły</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sekcja Kontakt -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Kontakt</h2>
+            <div class="contact-content">
+                <div class="contact-form">
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Imię" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="E-mail" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" placeholder="Wiadomość" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-button">Wyślij wiadomość</button>
+                    </form>
+                </div>
+                <div class="contact-info">
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook">📘</a>
+                        <a href="#" class="social-link" aria-label="Instagram">📷</a>
+                        <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
+                    </div>
+                    <div class="location">
+                        <p>📍 Warszawa / zdalnie</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stopka -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="copyright">© 2025 Wojciech Conder</p>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Polityka prywatności</a>
+                    <span class="footer-separator">|</span>
+                    <span class="footer-credit">Stworzone z ♥ w HTML</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Timeline (ukryty na razie) -->
+    <section id="timeline" class="timeline" style="display: none;">
+        <div class="container">
+            <h2 class="section-title">Moja kariera</h2>
+            <div class="timeline-content">
+                <p>Timeline kariery będzie dodany w kolejnej wersji.</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html> 

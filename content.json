@@ -1,0 +1,105 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title": "Apartamenty Marina Bay",
+      "year": "2024",
+      "location": "Warszawa, Mokotów",
+      "description": "Kompleks apartamentów premium z widokiem na park. Projekt obejmuje 120 mieszkań o powierzchni 45-120m² z nowoczesnymi rozwiązaniami architektonicznymi i zrównoważonymi materiałami.",
+      "image": "project1.jpg",
+      "type": "mieszkaniowy",
+      "area": "15,000 m²",
+      "status": "w realizacji",
+      "link": "#"
+    },
+    {
+      "id": 2,
+      "title": "Biuro TechCorp",
+      "year": "2023",
+      "location": "Warszawa, Śródmieście",
+      "description": "Nowoczesne biuro dla firmy technologicznej z otwartą przestrzenią, strefami relaksu i zielonymi elementami. Projekt promuje kreatywność i współpracę zespołową.",
+      "image": "project2.jpg",
+      "type": "biurowy",
+      "area": "2,500 m²",
+      "status": "ukończony",
+      "link": "#"
+    },
+    {
+      "id": 3,
+      "title": "Centrum Kultury Retro",
+      "year": "2023",
+      "location": "Kraków, Kazimierz",
+      "description": "Adaptacja zabytkowego budynku na centrum kultury z zachowaniem historycznego charakteru. Projekt łączy tradycję z nowoczesnością, tworząc przestrzeń dla sztuki i spotkań.",
+      "image": "project3.jpg",
+      "type": "kulturalny",
+      "area": "3,800 m²",
+      "status": "ukończony",
+      "link": "#"
+    },
+    {
+      "id": 4,
+      "title": "Dom jednorodzinny Villa Moderna",
+      "year": "2022",
+      "location": "Konstancin-Jeziorna",
+      "description": "Luksusowy dom jednorodzinny o powierzchni 450m² z minimalistyczną bryłą i dużymi przeszkleniami. Projekt wykorzystuje naturalne światło i otwiera się na ogród.",
+      "image": "project4.jpg",
+      "type": "jednorodzinny",
+      "area": "450 m²",
+      "status": "ukończony",
+      "link": "#"
+    },
+    {
+      "id": 5,
+      "title": "Hotel Boutique Vintage",
+      "year": "2022",
+      "location": "Wrocław, Stare Miasto",
+      "description": "Hotel boutique w zabytkowej kamienicy z 30 pokojami. Projekt zachowuje historyczny charakter budynku, dodając nowoczesne udogodnienia i elegancki design.",
+      "image": "project5.jpg",
+      "type": "hotelowy",
+      "area": "2,200 m²",
+      "status": "ukończony",
+      "link": "#"
+    },
+    {
+      "id": 6,
+      "title": "Przedszkole Zielone Wzgórze",
+      "year": "2021",
+      "location": "Poznań, Grunwald",
+      "description": "Przedszkole dla 120 dzieci z dużym ogrodem i salami dydaktycznymi. Projekt promuje kontakt z naturą i rozwój kreatywności najmłodszych.",
+      "image": "project6.jpg",
+      "type": "edukacyjny",
+      "area": "1,800 m²",
+      "status": "ukończony",
+      "link": "#"
+    }
+  ],
+  "about": {
+    "name": "Wojciech Conder",
+    "title": "Architekt",
+    "bio": "Architekt z pasją do tworzenia funkcjonalnych i estetycznych przestrzeni. Specjalizuję się w projektowaniu mieszkań, biur i przestrzeni publicznych z myślą o komforcie użytkowników i zrównoważonym rozwoju.",
+    "experience": "8+ lat",
+    "specializations": [
+      "Architektura mieszkaniowa",
+      "Projektowanie biur",
+      "Adaptacje zabytków",
+      "Zrównoważone budownictwo"
+    ],
+    "education": "Politechnika Warszawska, Wydział Architektury",
+    "location": "Warszawa / zdalnie"
+  },
+  "contact": {
+    "email": "wojciech@conder-architekt.pl",
+    "phone": "+48 123 456 789",
+    "address": "Warszawa, Polska",
+    "social": {
+      "linkedin": "https://linkedin.com/in/wojciech-conder",
+      "instagram": "https://instagram.com/conder_architekt",
+      "facebook": "https://facebook.com/conder.architekt"
+    }
+  },
+  "settings": {
+    "language": "pl",
+    "theme": "retro",
+    "lastUpdated": "2025-01-20"
+  }
+} 
