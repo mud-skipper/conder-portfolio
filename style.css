@@ -1,3 +1,25 @@
+/* ===== BLOKADA PRZEGLĄDAREK - TYLKO MOBILE ===== */
+@media (min-width: 768px) {
+    body::before {
+        content: "Ta strona jest dostępna tylko na urządzeniach mobilnych";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: var(--color-white);
+        color: var(--color-black);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5em;
+        font-weight: 500;
+        text-align: center;
+        z-index: 9999;
+        padding: 20px;
+    }
+}
+
 /* ===== RESET I PODSTAWY ===== */
 * {
     margin: 0;
@@ -59,6 +81,8 @@ body {
     background-color: var(--color-white);
     overflow-x: hidden;
     min-width: 320px;
+    max-width: 767px; /* Blokada szerokich ekranów */
+    margin: 0 auto;
 }
 
 .container {
@@ -69,32 +93,35 @@ body {
 
 /* ===== HEADER ===== */
 .header {
-    position: sticky;
+    position: fixed;
     top: 0;
-    width: 100vw;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 767px;
     background: var(--color-white);
     z-index: 100;
     border-bottom: none;
+    height: 80px; /* Zwiększone pole górne */
 }
 
 .header-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 0 12px 0;
-    width: 100vw;
-    max-width: 100vw;
+    padding: 16px 0 16px 0;
+    width: 100%;
+    height: 100%;
 }
 
 .logo-block {
     display: flex;
     align-items: center;
-    gap: 12px;
     margin-left: 16px;
 }
 
 .logo-img {
-    height: 56px;
+    height: 80px; /* Zwiększony rozmiar logo */
     width: auto;
     display: block;
 }
@@ -125,8 +152,8 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     background: none;
     border: none;
     margin-right: 16px;
@@ -136,11 +163,12 @@ body {
 
 .hamburger span {
     display: block;
-    width: 26px;
+    width: 28px;
     height: 3px;
     background: var(--color-black);
     margin: 3px 0;
     border-radius: 2px;
+    transition: all 0.3s ease;
 }
 
 .hamburger.active span:nth-child(1) {
@@ -161,7 +189,7 @@ body {
     right: -100%;
     width: 250px;
     height: 100vh;
-    background: var(--color-cream);
+    background: var(--color-white);
     border-left: 3px solid var(--color-orange);
     display: flex;
     flex-direction: column;
@@ -169,7 +197,7 @@ body {
     align-items: center;
     transition: right 0.3s ease;
     z-index: 1000;
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
 }
 
 .nav-menu.active {
@@ -178,16 +206,16 @@ body {
 
 .nav-menu li {
     list-style: none;
-    margin: var(--spacing-md) 0;
+    margin: 20px 0;
 }
 
 .nav-link {
     color: var(--color-black);
     text-decoration: none;
     font-weight: 500;
-    font-size: var(--font-size-large);
+    font-size: 1.2em;
     transition: color 0.3s ease;
-    padding: var(--spacing-sm);
+    padding: 10px;
     border: 2px solid transparent;
 }
 
@@ -198,20 +226,21 @@ body {
 
 /* ===== HERO SECTION ===== */
 .hero-section {
-    width: 100vw;
+    width: 100%;
     padding: 0;
     margin: 0;
     background: var(--color-white);
+    margin-top: 80px; /* Odstęp od sticky header */
 }
 
 .hero-image-block {
     position: relative;
-    width: 100vw;
+    width: 100%;
     overflow: hidden;
 }
 
 .hero-image {
-    width: 100vw;
+    width: 100%;
     height: auto;
     display: block;
     object-fit: cover;
@@ -340,13 +369,13 @@ section {
 
 /* ===== SEKCJA O MNIE ===== */
 .about-section {
-    width: 100vw;
+    width: 100%;
     background: var(--color-white);
     padding: 0;
     margin: 0;
 }
 .about-content {
-    width: 100vw;
+    width: 100%;
     padding: 0;
     margin: 0;
 }
@@ -357,7 +386,7 @@ section {
 .about-text-block {
     padding: 24px 18px 12px 18px;
     background: var(--color-white);
-    width: 100vw;
+    width: 100%;
     box-sizing: border-box;
 }
 .about-bio {
@@ -398,13 +427,13 @@ section {
 
 /* ===== SEKCJA PROJEKTY ===== */
 .projects-section {
-    width: 100vw;
+    width: 100%;
     background: var(--color-white);
     padding: 0;
     margin: 0;
 }
 .projects-content {
-    width: 100vw;
+    width: 100%;
     padding: 0;
     margin: 0;
 }
@@ -413,7 +442,7 @@ section {
     padding: 0;
 }
 .project-gallery {
-    width: 100vw;
+    width: 100%;
     position: relative;
     display: flex;
     align-items: center;
@@ -424,7 +453,7 @@ section {
     margin: 0;
 }
 .project-image {
-    width: 100vw;
+    width: 100%;
     max-height: 260px;
     object-fit: cover;
     display: block;
@@ -449,7 +478,7 @@ section {
 .gallery-arrow.left { left: 8px; }
 .gallery-arrow.right { right: 8px; }
 .project-info-block {
-    width: 100vw;
+    width: 100%;
     padding: 18px 18px 8px 18px;
     background: var(--color-white);
     box-sizing: border-box;
@@ -480,7 +509,7 @@ section {
     line-height: 1.5;
 }
 .project-contact-btn {
-    width: 100vw;
+    width: 100%;
     height: 40px;
     border: none;
     outline: none;
@@ -504,13 +533,13 @@ section {
 
 /* ===== SEKCJA KONTAKT ===== */
 .contact-section {
-    width: 100vw;
+    width: 100%;
     background: var(--color-white);
     padding: 0;
     margin: 0;
 }
 .contact-content {
-    width: 100vw;
+    width: 100%;
     padding: 0;
     margin: 0;
 }
@@ -519,7 +548,7 @@ section {
     padding: 0;
 }
 .contact-info-block {
-    width: 100vw;
+    width: 100%;
     padding: 18px 18px 8px 18px;
     background: var(--color-white);
     box-sizing: border-box;
@@ -535,7 +564,7 @@ section {
     text-decoration: underline dotted;
 }
 .contact-form-block {
-    width: 100vw;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -706,17 +735,17 @@ section {
 
 /* ===== SEPARATOR ===== */
 .separator {
-    width: 100vw;
+    width: 100%;
     height: 1px;
     background: var(--color-separator);
     margin: 0;
 }
 
-/* ===== STICKY ZAKŁADKI ===== */
+/* ===== STICKY ZAKŁADKI - POPRAWIONE ===== */
 .section-tabs {
     position: sticky;
-    top: 72px;
-    width: 100vw;
+    top: 80px; /* Pod sticky header */
+    width: 100%;
     display: flex;
     flex-direction: column;
     z-index: 99;
@@ -727,7 +756,7 @@ section {
 }
 
 .tab {
-    width: 100vw;
+    width: 100%;
     height: 40px;
     border: none;
     outline: none;
@@ -755,12 +784,16 @@ main, .header, .separator, .section-tabs, .tab, .hero-section, .hero-image-block
     margin-right: 0 !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
-    max-width: 100vw !important;
+    max-width: 100% !important;
     box-sizing: border-box;
 }
 
 @media (min-width: 600px) {
-    .logo-img { height: 64px; }
+    .logo-img { height: 90px; }
     .hero-title { font-size: 2.5em; }
     .hero-image { max-height: 420px; }
+    .about-text-block { padding: 32px 32px 16px 32px; }
+    .project-image { max-height: 340px; }
+    .project-info-block { padding: 28px 32px 12px 32px; }
+    .contact-info-block, .contact-form-block { padding: 28px 32px 12px 32px; }
 } 

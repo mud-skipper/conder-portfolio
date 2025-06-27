@@ -16,10 +16,6 @@
         <div class="header-row">
             <div class="logo-block">
                 <img src="conder-potfolio_logo.png" alt="conder portfolio logo" class="logo-img" />
-                <div class="logo-text">
-                    <span class="logo-bold">conder</span><br>
-                    <span class="logo-light">portfolio</span>
-                </div>
             </div>
             <button class="hamburger" id="hamburger" aria-label="Menu">
                 <span></span>
@@ -35,8 +31,7 @@
     <main>
         <section id="home" class="hero-section">
             <div class="hero-image-block">
-                <!-- TODO: podmienić na właściwe zdjęcie -->
-                <img src="conder-portfolio.01.png" alt="Wojciech Conder" class="hero-image" />
+                <img src="conder-portfolio_layout.01-photo.jpg" alt="Wojciech Conder" class="hero-image" />
                 <div class="hero-text">
                     <h1 class="hero-title">Wojciech <span class="hero-title-light">Conder</span></h1>
                     <div class="hero-subtitle">DESIGN ARCHITECTURE<br>AND URBAN SPACES</div>
@@ -53,93 +48,93 @@
         </nav>
         <!-- Cienka linia 1px -->
         <div class="separator"></div>
-        <!-- Pozostałe sekcje będą dodawane w kolejnych krokach -->
+        <!-- Sekcja O mnie -->
+        <section id="about" class="about-section">
+            <div class="about-content">
+                <div class="about-tabs section-tabs">
+                    <button class="tab tab-omnie active" data-target="#about">o mnie</button>
+                    <button class="tab tab-projekty" data-target="#projects">projekty</button>
+                    <button class="tab tab-kontakt" data-target="#contact">kontakt</button>
+                </div>
+                <div class="about-text-block">
+                    <p class="about-bio">
+                        Architekt z dyplomem WAPW oraz uprawnieniami do projektowania bez ograniczeń, założyciel pracowni 22ARCHITEKCI (założonej w 2010 roku wraz z Aleksandrem Drzewieckim, Maciejem Kowalczykiem i Michałem Tatjewskim). Wcześniej partner w WXCA (2007–2010), praktykował m.in. w MCM Design Studio w Lozannie oraz w Szcześniak Denier Architects.<br><br>
+                        Projektuje budynki mieszkalne, biurowe, użyteczności publicznej, prowadząc proces od koncepcji aż po nadzór autorski
+                    </p>
+                    <ul class="about-list">
+                        <li>Kontekst i prostotę formy</li>
+                        <li>Dbałość o detal oraz logiczne rozwiązania materiałowe i konstrukcyjne</li>
+                        <li>Interdyscyplinarny dialog z klientami, użytkownikami i specjalistami dla uzyskania jakości przy optymalnym budżecie</li>
+                    </ul>
+                    <div class="about-signature">architekt | dyplom WAPW, OW SARP</div>
+                </div>
+                <!-- Cienka linia 1px -->
+                <div class="separator"></div>
+                <div class="about-tabs section-tabs">
+                    <button class="tab tab-omnie" data-target="#about">o mnie</button>
+                    <button class="tab tab-projekty" data-target="#projects">projekty</button>
+                    <button class="tab tab-kontakt" data-target="#contact">kontakt</button>
+                </div>
+            </div>
+        </section>
+        <!-- Cienka linia 1px -->
+        <div class="separator"></div>
+        <!-- Sekcja Projekty -->
+        <section id="projects" class="projects-section">
+            <div class="projects-content">
+                <div class="projects-tabs section-tabs">
+                    <button class="tab tab-omnie" data-target="#about">o mnie</button>
+                    <button class="tab tab-projekty active" data-target="#projects">projekty</button>
+                    <button class="tab tab-kontakt" data-target="#contact">kontakt</button>
+                </div>
+                <div class="project-gallery">
+                    <!-- Przygotowane pod slider/galerię na przyszłość -->
+                    <button class="gallery-arrow left" aria-label="Poprzednie zdjęcie">&#8592;</button>
+                    <img src="conder-portfolio.03.png" alt="Muzeum Pamięci Palmiry" class="project-image" />
+                    <button class="gallery-arrow right" aria-label="Następne zdjęcie">&#8594;</button>
+                </div>
+                <div class="project-info-block">
+                    <div class="project-title-row">
+                        <span class="project-title">Muzeum Pamięci Palmiry</span>
+                        <span class="project-year">– 2009</span>
+                    </div>
+                    <div class="project-description">
+                        Projekt w ramach WXCA, zwycięski w przetargu. Realizacja muzeum z ekspozycją historyczną w lesie pod Warszawą.
+                    </div>
+                </div>
+                <!-- Cienka linia 1px -->
+                <div class="separator"></div>
+                <button class="project-contact-btn tab tab-kontakt" data-target="#contact">kontakt</button>
+            </div>
+        </section>
+        <!-- Cienka linia 1px -->
+        <div class="separator"></div>
+        <!-- Sekcja Kontakt -->
+        <section id="contact" class="contact-section">
+            <div class="contact-content">
+                <div class="contact-tabs section-tabs">
+                    <button class="tab tab-omnie" data-target="#about">o mnie</button>
+                    <button class="tab tab-projekty" data-target="#projects">projekty</button>
+                    <button class="tab tab-kontakt active" data-target="#contact">kontakt</button>
+                </div>
+                <div class="contact-info-block">
+                    <div class="contact-info-line">Adres e-mail: <a href="mailto:wojtek.conder@gmail.com">wojtek.conder@gmail.com</a></div>
+                    <div class="contact-info-line">Telefon: <a href="tel:+48501313225">+48 501 313 225</a></div>
+                    <div class="contact-info-line">Data urodzenia: 22.04.1980</div>
+                </div>
+                <form class="contact-form-block">
+                    <input type="email" class="contact-input" placeholder="email adres" required />
+                    <textarea class="contact-textarea" placeholder="Wiadomość" rows="4" required></textarea>
+                    <div class="contact-btn-row">
+                        <button type="submit" class="contact-btn contact-btn-send">wyślij</button>
+                        <button type="button" class="contact-btn contact-btn-cv">CV</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <!-- Cienka linia 1px -->
+        <div class="separator"></div>
     </main>
-
-    <!-- Sekcja O mnie -->
-    <section id="about" class="about-section">
-        <div class="about-content">
-            <div class="about-tabs section-tabs">
-                <button class="tab tab-omnie active" data-target="#about">o mnie</button>
-                <button class="tab tab-projekty" data-target="#projects">projekty</button>
-                <button class="tab tab-kontakt" data-target="#contact">kontakt</button>
-            </div>
-            <div class="about-text-block">
-                <p class="about-bio">
-                    Architekt z dyplomem WAPW oraz uprawnieniami do projektowania bez ograniczeń, założyciel pracowni 22ARCHITEKCI (założonej w 2010 roku wraz z Aleksandrem Drzewieckim, Maciejem Kowalczykiem i Michałem Tatjewskim). Wcześniej partner w WXCA (2007–2010), praktykował m.in. w MCM Design Studio w Lozannie oraz w Szcześniak Denier Architects.<br><br>
-                    Projektuje budynki mieszkalne, biurowe, użyteczności publicznej, prowadząc proces od koncepcji aż po nadzór autorski
-                </p>
-                <ul class="about-list">
-                    <li>Kontekst i prostotę formy</li>
-                    <li>Dbałość o detal oraz logiczne rozwiązania materiałowe i konstrukcyjne</li>
-                    <li>Interdyscyplinarny dialog z klientami, użytkownikami i specjalistami dla uzyskania jakości przy optymalnym budżecie</li>
-                </ul>
-                <div class="about-signature">architekt | dyplom WAPW, OW SARP</div>
-            </div>
-            <!-- Cienka linia 1px -->
-            <div class="separator"></div>
-            <div class="about-tabs section-tabs">
-                <button class="tab tab-omnie" data-target="#about">o mnie</button>
-                <button class="tab tab-projekty" data-target="#projects">projekty</button>
-                <button class="tab tab-kontakt" data-target="#contact">kontakt</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sekcja Projekty -->
-    <section id="projects" class="projects-section">
-        <div class="projects-content">
-            <div class="projects-tabs section-tabs">
-                <button class="tab tab-omnie" data-target="#about">o mnie</button>
-                <button class="tab tab-projekty active" data-target="#projects">projekty</button>
-                <button class="tab tab-kontakt" data-target="#contact">kontakt</button>
-            </div>
-            <div class="project-gallery">
-                <!-- Przygotowane pod slider/galerię na przyszłość -->
-                <button class="gallery-arrow left" aria-label="Poprzednie zdjęcie">&#8592;</button>
-                <img src="conder-portfolio.03.png" alt="Muzeum Pamięci Palmiry" class="project-image" />
-                <button class="gallery-arrow right" aria-label="Następne zdjęcie">&#8594;</button>
-            </div>
-            <div class="project-info-block">
-                <div class="project-title-row">
-                    <span class="project-title">Muzeum Pamięci Palmiry</span>
-                    <span class="project-year">– 2009</span>
-                </div>
-                <div class="project-description">
-                    Projekt w ramach WXCA, zwycięski w przetargu. Realizacja muzeum z ekspozycją historyczną w lesie pod Warszawą.
-                </div>
-            </div>
-            <!-- Cienka linia 1px -->
-            <div class="separator"></div>
-            <button class="project-contact-btn tab tab-kontakt" data-target="#contact">kontakt</button>
-        </div>
-    </section>
-
-    <!-- Sekcja Kontakt -->
-    <section id="contact" class="contact-section">
-        <div class="contact-content">
-            <div class="contact-tabs section-tabs">
-                <button class="tab tab-omnie" data-target="#about">o mnie</button>
-                <button class="tab tab-projekty" data-target="#projects">projekty</button>
-                <button class="tab tab-kontakt active" data-target="#contact">kontakt</button>
-            </div>
-            <div class="contact-info-block">
-                <div class="contact-info-line">Adres e-mail: <a href="mailto:wojtek.conder@gmail.com">wojtek.conder@gmail.com</a></div>
-                <div class="contact-info-line">Telefon: <a href="tel:+48501313225">+48 501 313 225</a></div>
-                <div class="contact-info-line">Data urodzenia: 22.04.1980</div>
-            </div>
-            <form class="contact-form-block">
-                <input type="email" class="contact-input" placeholder="email adres" required />
-                <textarea class="contact-textarea" placeholder="Wiadomość" rows="4" required></textarea>
-                <div class="contact-btn-row">
-                    <button type="submit" class="contact-btn contact-btn-send">wyślij</button>
-                    <button type="button" class="contact-btn contact-btn-cv">CV</button>
-                </div>
-            </form>
-        </div>
-    </section>
-    <!-- Cienka linia 1px -->
-    <div class="separator"></div>
 
     <!-- Stopka -->
     <footer class="footer">

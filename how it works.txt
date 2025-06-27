@@ -1,0 +1,36 @@
+Czy mozemy zablokować ogladanie portfolio w przeglądarkach? Nie wyświetla się to dobrze :/ Niech będzie możliwość wyświetlania tylko w telefonie, o ile jest taka? :)
+
+Moje uwagi do obecnego conder-portfolio:
+
+Generalnie ekran mamy podzielony na 2 główne pola:
+
+1. Pole nieruchome z logo i menu hamburger
+
+2. Pole przewijania + kolorowe panele, które odpowiadają poszczególnym sekcjom: o mnie, projekty i kontakt. 
+- Panele są zlokalizowane na dole ekranu telefonu. 
+- Kiedy scrolujemy palcem ekran, razem z sekcją "o mnie" przesuwa się TYLKO pasek żółty "o mnie" (pozostałe dwa paski są cały czas zakotwiczone na dole ekranu). 
+- Pasek przesuwa się aż do tej poziomej kreski 1 px odzielającej panele (nieruchomy od ruchomego), na górze ekranu (pod logo) i tam się zatrzymuje. 
+- Jak dojedziemy do końca opisu "o mnie", to zaczyna wjeżdżać pasek pomarańczowy "projekty" razem z zawartością. 
+- Pasek dojeżdża do paska żółtego "o mnie" i zatrzymuje się pod nim (oba są w tym momencie zablokowane). 
+- Jak przeskrolujemy całą zawartość projektów i zaczyna wjeżdżać "kontakt", to analogicznie pasek czerwony "kontakt" wjeżdża do samej góry i zatrzymuje się pod paskiem pomarańczowym "projekty" (i tam wszystkie paski sie blokują).
+- Na samym dole znajdują się dwa przyciski "wyślij email" i "CV"
+KONIEC :)
+
+Analogicznie dzieje się jak scrolujemy w dół, paski kolejno sie opuszczają i blokują na dole telefonu jak pierwotnie, aż do przescrolowania całości do strony głównej z moim zdjęciem.
+
+Pole z logo i menu hamburger (nieruchome / zablokowane) - uwagi do stanu obecnego:
+
+1. Logotyp ma być ten co jest w katalogu projektu o nazwie: conder-potfolio_logo
+2. Logotyp jest dobrze umieszczony jeśli chodzi o lokalizacje, ale jest za mały. Zobacz pliki w katalogu "inspiracje".
+3. Do katalogu "inspiracje" wrzuciłem pliki .jpg pokazujące jak ma to wyglądać dokładnie - przeanalizuj zdjęcia znajdujące się w katalogu).
+4. Napis obok logotypu "conder portfolio" jest niepotrzebny. W logotypie jest juz napis. Jak będzie powiększone do odpowiednich rozmiarów to będzie widać.
+5. hamburger menu - nie funkcjonuje a powinno. Powinno mieć również możliwość przechodzenia po: menu główne (to ze zdjęciem), o mnie, projekty, kontakt
+6. czarna linia odcinająca 1 px - OK :)
+7. Całe pole górne logo i menu hamburger, powinno być o tyle większe jak na załączonych w katalogu "inspiracje" obrazkach. Tak żeby logo się zmieściło
+
+Pole scrolowane:
+1. Nie wyświetla się główne zdjęcie - wrzucam do katalogu głównego pod nazwą: conder-portfolio_layout.01-photo
+2. Kolorowe paski jeżdżą po 3 sztuki razem - jakiś błąd. Poprawić zgodnie z powyższymi uwagami!!
+
+Przeanalizuj dokładnie zdjęcia z katalogu "inspiracje". Layout ma dokładnie tak wygladać!.
+Wyłącz wyświetlanie na przegladarkach bo nie wyglada to dobrze w duzej skali!

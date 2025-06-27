@@ -10,33 +10,58 @@ document.addEventListener('DOMContentLoaded', function() {
     initSectionTabs();
 });
 
-// ===== MENU HAMBURGER =====
+// ===== MENU HAMBURGER - POPRAWIONE =====
 function initHamburgerMenu() {
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('nav-menu');
+    
+    // Sprawdź czy menu istnieje, jeśli nie - utwórz je
+    if (!navMenu) {
+        createNavMenu();
+    }
+    
+    const navMenuNew = document.getElementById('nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
 
     // Toggle menu
     hamburger.addEventListener('click', function() {
         hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
+        navMenuNew.classList.toggle('active');
     });
 
     // Zamykanie menu po kliknięciu w link
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
             hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
+            navMenuNew.classList.remove('active');
         });
     });
 
     // Zamykanie menu po kliknięciu poza nim
     document.addEventListener('click', function(event) {
-        if (!hamburger.contains(event.target) && !navMenu.contains(event.target)) {
+        if (!hamburger.contains(event.target) && !navMenuNew.contains(event.target)) {
             hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
+            navMenuNew.classList.remove('active');
         }
     });
+}
+
+// Tworzenie menu nawigacyjnego
+function createNavMenu() {
+    const nav = document.createElement('nav');
+    nav.className = 'nav-menu';
+    nav.id = 'nav-menu';
+    
+    nav.innerHTML = `
+        <ul>
+            <li><a href="#home" class="nav-link">Strona główna</a></li>
+            <li><a href="#about" class="nav-link">O mnie</a></li>
+            <li><a href="#projects" class="nav-link">Projekty</a></li>
+            <li><a href="#contact" class="nav-link">Kontakt</a></li>
+        </ul>
+    `;
+    
+    document.body.appendChild(nav);
 }
 
 // ===== WCZYTYWANIE PROJEKTÓW Z JSON =====
@@ -160,7 +185,7 @@ function displayFallbackProject() {
 
 // ===== FORMULARZ KONTAKTOWY =====
 function initContactForm() {
-    const contactForm = document.getElementById('contact-form');
+    const contactForm = document.querySelector('.contact-form-block');
     
     if (contactForm) {
         contactForm.addEventListener('submit', function(event) {
@@ -171,16 +196,12 @@ function initContactForm() {
 }
 
 function handleFormSubmission() {
-    const form = document.getElementById('contact-form');
-    const formData = new FormData(form);
-    
-    // Pobierz dane z formularza
-    const name = formData.get('name');
-    const email = formData.get('email');
-    const message = formData.get('message');
+    const form = document.querySelector('.contact-form-block');
+    const email = form.querySelector('.contact-input').value;
+    const message = form.querySelector('.contact-textarea').value;
     
     // Walidacja
-    if (!name || !email || !message) {
+    if (!email || !message) {
         showNotification('Proszę wypełnić wszystkie pola', 'error');
         return;
     }
@@ -208,74 +229,60 @@ function showNotification(message, type = 'info') {
     if (existingNotification) {
         existingNotification.remove();
     }
-    
+
     // Utwórz nowe powiadomienie
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
     notification.textContent = message;
     
-    // Style dla powiadomienia
+    // Style powiadomienia
     notification.style.cssText = `
         position: fixed;
         top: 100px;
-        right: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#2196F3'};
+        color: white;
         padding: 16px 24px;
         border-radius: 8px;
-        color: white;
         font-weight: 500;
         z-index: 10000;
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
-        max-width: 300px;
         box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        max-width: 90%;
+        text-align: center;
     `;
-    
-    // Kolory w zależności od typu
-    if (type === 'success') {
-        notification.style.background = '#4CAF50';
-    } else if (type === 'error') {
-        notification.style.background = '#f44336';
-    } else {
-        notification.style.background = '#2196F3';
-    }
     
     document.body.appendChild(notification);
     
-    // Animacja wejścia
+    // Usuń powiadomienie po 3 sekundach
     setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-    }, 100);
-    
-    // Automatyczne usunięcie po 5 sekundach
-    setTimeout(() => {
-        notification.style.transform = 'translateX(100%)';
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.remove();
-            }
-        }, 300);
-    }, 5000);
+        if (notification.parentNode) {
+            notification.remove();
+        }
+    }, 3000);
 }
 
-// ===== PŁYNE PRZEWIJANIE =====
+// ===== SMOOTH SCROLLING =====
 function initSmoothScrolling() {
+    // Smooth scrolling jest już obsługiwane przez CSS scroll-behavior: smooth
+    // Dodatkowo obsługujemy linki z hash
     const links = document.querySelectorAll('a[href^="#"]');
     
     links.forEach(link => {
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            
-            if (targetElement) {
-                const headerHeight = document.querySelector('.header').offsetHeight;
-                const targetPosition = targetElement.offsetTop - headerHeight - 20;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href !== '#') {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    const headerHeight = 80;
+                    const targetPosition = target.offsetTop - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
             }
         });
     });
@@ -283,13 +290,13 @@ function initSmoothScrolling() {
 
 // ===== ANIMACJE =====
 function initAnimations() {
-    // Intersection Observer dla animacji przy scrollowaniu
+    // Animacje fade-in dla elementów przy scrollowaniu
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
     
-    const observer = new IntersectionObserver(function(entries) {
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
@@ -299,7 +306,7 @@ function initAnimations() {
     }, observerOptions);
     
     // Obserwuj elementy do animacji
-    const animatedElements = document.querySelectorAll('.project-card, .about-content, .contact-form');
+    const animatedElements = document.querySelectorAll('.about-text-block, .project-info-block, .contact-info-block');
     animatedElements.forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
@@ -308,9 +315,7 @@ function initAnimations() {
     });
 }
 
-// ===== UTILITY FUNCTIONS =====
-
-// Funkcja do formatowania daty
+// ===== UTILITARIA =====
 function formatDate(dateString) {
     const date = new Date(dateString);
     return date.toLocaleDateString('pl-PL', {
@@ -320,7 +325,6 @@ function formatDate(dateString) {
     });
 }
 
-// Funkcja do walidacji URL
 function isValidUrl(string) {
     try {
         new URL(string);
@@ -330,7 +334,6 @@ function isValidUrl(string) {
     }
 }
 
-// Funkcja do debounce (ograniczenie częstotliwości wywołań)
 function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -343,22 +346,7 @@ function debounce(func, wait) {
     };
 }
 
-// ===== EVENT LISTENERS DODATKOWE =====
-
-// Obsługa klawisza Escape do zamykania menu
-document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('nav-menu');
-        
-        if (hamburger && navMenu) {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
-        }
-    }
-});
-
-// Lazy loading dla obrazów (gdy będą dodane)
+// ===== LAZY LOADING =====
 function initLazyLoading() {
     const images = document.querySelectorAll('img[data-src]');
     
@@ -376,17 +364,13 @@ function initLazyLoading() {
     images.forEach(img => imageObserver.observe(img));
 }
 
-// Inicjalizacja lazy loading jeśli są obrazy
-if (document.querySelectorAll('img[data-src]').length > 0) {
-    initLazyLoading();
-}
-
-// ===== DEBUG I LOGI =====
-console.log('🎨 Portfolio Wojciecha Condera - JavaScript załadowany!');
+// ===== LOGI =====
+console.log('🚀 Portfolio Wojciecha Condera - wersja mobile-first');
 console.log('📱 Strona w pełni responsywna i gotowa do użycia');
 console.log('🎯 Menu hamburger, projekty z JSON i formularz kontaktowy aktywne');
+console.log('🎨 Nowy layout z sticky paskami nawigacyjnymi');
 
-// ===== STICKY ZAKŁADKI I NAWIGACJA =====
+// ===== STICKY ZAKŁADKI I NAWIGACJA - POPRAWIONE =====
 function initSectionTabs() {
     const tabButtons = document.querySelectorAll('.tab');
     const sections = [
@@ -402,23 +386,37 @@ function initSectionTabs() {
             const target = btn.getAttribute('data-target');
             if (target && document.querySelector(target)) {
                 e.preventDefault();
-                document.querySelector(target).scrollIntoView({ behavior: 'smooth', block: 'start' });
+                document.querySelector(target).scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
             }
         });
     });
 
-    // Scrollspy - podświetlanie aktywnej zakładki
+    // Scrollspy - podświetlanie aktywnej zakładki (poprawione)
     window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset;
+        const headerHeight = 80; // Wysokość sticky header
+        
+        // Znajdź aktualną sekcję na podstawie pozycji scroll
         let currentSection = 'home';
-        for (const sec of sections) {
-            const el = document.getElementById(sec.id);
-            if (el) {
-                const rect = el.getBoundingClientRect();
-                if (rect.top <= 80) {
-                    currentSection = sec.id;
-                }
-            }
+        
+        const homeSection = document.getElementById('home');
+        const aboutSection = document.getElementById('about');
+        const projectsSection = document.getElementById('projects');
+        const contactSection = document.getElementById('contact');
+        
+        if (contactSection && scrollTop >= contactSection.offsetTop - headerHeight - 120) {
+            currentSection = 'contact';
+        } else if (projectsSection && scrollTop >= projectsSection.offsetTop - headerHeight - 120) {
+            currentSection = 'projects';
+        } else if (aboutSection && scrollTop >= aboutSection.offsetTop - headerHeight - 120) {
+            currentSection = 'about';
+        } else {
+            currentSection = 'home';
         }
+        
         // Zmień aktywność zakładek
         tabButtons.forEach(btn => {
             const target = btn.getAttribute('data-target');
