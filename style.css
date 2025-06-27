@@ -75,15 +75,14 @@ html {
 
 body {
     font-family: var(--font-primary);
-    font-size: var(--font-size-base);
-    line-height: 1.5;
+    background: var(--color-white);
     color: var(--color-black);
-    background-color: var(--color-white);
-    overflow-x: hidden;
+    font-size: 16px;
+    line-height: 1.5;
     min-width: 320px;
     max-width: 767px; /* Blokada szerokich ekranów */
     margin: 0 auto;
-    padding: 0 16px; /* Marginesy dookoła */
+    padding: 0 20px; /* Zwiększone marginesy dookoła */
 }
 
 .container {
@@ -104,7 +103,7 @@ body {
     z-index: 100;
     border-bottom: none;
     height: 160px; /* Zwiększone pole górne 2x */
-    padding: 16px; /* Marginesy dookoła */
+    padding: 20px; /* Zwiększone marginesy dookoła */
     box-sizing: border-box;
 }
 
@@ -114,7 +113,7 @@ body {
     justify-content: space-between;
     width: 100%;
     height: 100%;
-    padding-top: 16px; /* Odstęp od górnej krawędzi */
+    padding-top: 20px; /* Zwiększony odstęp od górnej krawędzi */
 }
 
 .logo-block {
@@ -238,6 +237,8 @@ body {
     position: relative;
     width: 100%;
     overflow: hidden;
+    margin: 0 20px; /* Marginesy z boków */
+    width: calc(100% - 40px); /* Szerokość z marginesami */
 }
 
 .hero-image {
@@ -382,10 +383,10 @@ section {
 }
 .about-tabs {
     margin: 0;
-    padding: 0;
+    padding: 0 20px; /* Marginesy z boków */
 }
 .about-text-block {
-    padding: 24px 18px 12px 18px;
+    padding: 24px 20px 12px 20px; /* Zwiększone marginesy */
     background: var(--color-white);
     width: 100%;
     box-sizing: border-box;
@@ -440,10 +441,10 @@ section {
 }
 .projects-tabs {
     margin: 0;
-    padding: 0;
+    padding: 0 20px; /* Marginesy z boków */
 }
 .project-gallery {
-    width: 100%;
+    width: calc(100% - 40px); /* Szerokość z marginesami */
     position: relative;
     display: flex;
     align-items: center;
@@ -451,7 +452,7 @@ section {
     background: var(--color-white);
     overflow: hidden;
     min-height: 220px;
-    margin: 0;
+    margin: 0 20px; /* Marginesy z boków */
 }
 .project-image {
     width: 100%;
@@ -480,7 +481,7 @@ section {
 .gallery-arrow.right { right: 8px; }
 .project-info-block {
     width: 100%;
-    padding: 18px 18px 8px 18px;
+    padding: 18px 20px 8px 20px; /* Zwiększone marginesy */
     background: var(--color-white);
     box-sizing: border-box;
 }
@@ -546,11 +547,11 @@ section {
 }
 .contact-tabs {
     margin: 0;
-    padding: 0;
+    padding: 0 20px; /* Marginesy z boków */
 }
 .contact-info-block {
     width: 100%;
-    padding: 18px 18px 8px 18px;
+    padding: 18px 20px 8px 20px; /* Zwiększone marginesy */
     background: var(--color-white);
     box-sizing: border-box;
 }
@@ -569,7 +570,7 @@ section {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    padding: 18px 18px 8px 18px;
+    padding: 18px 20px 8px 20px; /* Zwiększone marginesy */
     background: var(--color-white);
     box-sizing: border-box;
 }
@@ -736,10 +737,10 @@ section {
 
 /* ===== SEPARATOR ===== */
 .separator {
-    width: 100%;
+    width: calc(100% - 40px); /* Marginesy z boków */
     height: 1px;
     background: var(--color-separator);
-    margin: 0;
+    margin: 0 20px; /* Marginesy z boków */
 }
 
 /* ===== STICKY ZAKŁADKI - POPRAWIONE ===== */
@@ -752,7 +753,7 @@ section {
     z-index: 99;
     background: var(--color-white);
     border: none;
-    padding: 0;
+    padding: 0 20px; /* Marginesy z boków */
     margin: 0;
 }
 
