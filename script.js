@@ -394,10 +394,10 @@ function initSectionTabs() {
         });
     });
 
-    // Scrollspy - podświetlanie aktywnej zakładki (poprawione)
+    // Scrollspy - podświetlanie aktywnej zakładki (poprawione - sekwencyjne)
     window.addEventListener('scroll', function() {
         const scrollTop = window.pageYOffset;
-        const headerHeight = 80; // Wysokość sticky header
+        const headerHeight = 160; // Wysokość sticky header (2x większy)
         
         // Znajdź aktualną sekcję na podstawie pozycji scroll
         let currentSection = 'home';
@@ -407,17 +407,18 @@ function initSectionTabs() {
         const projectsSection = document.getElementById('projects');
         const contactSection = document.getElementById('contact');
         
-        if (contactSection && scrollTop >= contactSection.offsetTop - headerHeight - 120) {
+        // Sekwencyjne przełączanie - każda sekcja ma swoją strefę
+        if (contactSection && scrollTop >= contactSection.offsetTop - headerHeight - 200) {
             currentSection = 'contact';
-        } else if (projectsSection && scrollTop >= projectsSection.offsetTop - headerHeight - 120) {
+        } else if (projectsSection && scrollTop >= projectsSection.offsetTop - headerHeight - 200) {
             currentSection = 'projects';
-        } else if (aboutSection && scrollTop >= aboutSection.offsetTop - headerHeight - 120) {
+        } else if (aboutSection && scrollTop >= aboutSection.offsetTop - headerHeight - 200) {
             currentSection = 'about';
         } else {
             currentSection = 'home';
         }
         
-        // Zmień aktywność zakładek
+        // Zmień aktywność zakładek - tylko jedna aktywna na raz
         tabButtons.forEach(btn => {
             const target = btn.getAttribute('data-target');
             if (target === '#' + currentSection) {
