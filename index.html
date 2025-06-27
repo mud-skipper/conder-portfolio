@@ -11,133 +11,135 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Header z logo i menu hamburger -->
+    <!-- Header z logo i menu hamburger (sticky) -->
     <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <img src="conder-potfolio_logo.png" alt="Wojciech Conder Logo" class="logo-img">
+        <div class="header-row">
+            <div class="logo-block">
+                <img src="conder-potfolio_logo.png" alt="conder portfolio logo" class="logo-img" />
+                <div class="logo-text">
+                    <span class="logo-bold">conder</span><br>
+                    <span class="logo-light">portfolio</span>
                 </div>
-                <nav class="nav">
-                    <button class="hamburger" id="hamburger" aria-label="Menu">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <ul class="nav-menu" id="nav-menu">
-                        <li><a href="#home" class="nav-link">Strona główna</a></li>
-                        <li><a href="#about" class="nav-link">O mnie</a></li>
-                        <li><a href="#projects" class="nav-link">Projekty</a></li>
-                        <li><a href="#contact" class="nav-link">Kontakt</a></li>
-                    </ul>
-                </nav>
             </div>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </header>
+    <!-- Cienka linia 1px -->
+    <div class="separator"></div>
 
-    <!-- Sekcja główna - Hero -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">Wojciech Conder</h1>
-                <h2 class="hero-subtitle">Architekt</h2>
-                <p class="hero-description">Projektuję przestrzeń do życia i pracy</p>
-                <a href="#projects" class="cta-button">Zobacz projekty</a>
+    <!-- Sekcja główna (hero) -->
+    <main>
+        <section id="home" class="hero-section">
+            <div class="hero-image-block">
+                <!-- TODO: podmienić na właściwe zdjęcie -->
+                <img src="conder-portfolio.01.png" alt="Wojciech Conder" class="hero-image" />
+                <div class="hero-text">
+                    <h1 class="hero-title">Wojciech <span class="hero-title-light">Conder</span></h1>
+                    <div class="hero-subtitle">DESIGN ARCHITECTURE<br>AND URBAN SPACES</div>
+                </div>
             </div>
-        </div>
-        <!-- Ukośne pasy retro -->
-        <div class="retro-stripes">
-            <div class="stripe stripe-yellow"></div>
-            <div class="stripe stripe-orange"></div>
-            <div class="stripe stripe-red"></div>
-        </div>
-    </section>
+        </section>
+        <!-- Cienka linia 1px -->
+        <div class="separator"></div>
+        <!-- Sticky zakładki nawigacyjne -->
+        <nav class="section-tabs" id="section-tabs">
+            <button class="tab tab-omnie active" data-target="#about">o mnie</button>
+            <button class="tab tab-projekty" data-target="#projects">projekty</button>
+            <button class="tab tab-kontakt" data-target="#contact">kontakt</button>
+        </nav>
+        <!-- Cienka linia 1px -->
+        <div class="separator"></div>
+        <!-- Pozostałe sekcje będą dodawane w kolejnych krokach -->
+    </main>
 
     <!-- Sekcja O mnie -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-image">
-                    <div class="profile-placeholder">
-                        <span>📸</span>
-                        <p>Zdjęcie profilowe</p>
-                    </div>
-                </div>
-                <div class="about-text">
-                    <h2 class="section-title">O mnie</h2>
-                    <p class="about-bio">
-                        Architekt z pasją do tworzenia funkcjonalnych i estetycznych przestrzeni. 
-                        Specjalizuję się w projektowaniu mieszkań, biur i przestrzeni publicznych 
-                        z myślą o komforcie użytkowników i zrównoważonym rozwoju.
-                    </p>
-                    <a href="#timeline" class="read-more">Czytaj więcej o mojej karierze →</a>
-                </div>
+    <section id="about" class="about-section">
+        <div class="about-content">
+            <div class="about-tabs section-tabs">
+                <button class="tab tab-omnie active" data-target="#about">o mnie</button>
+                <button class="tab tab-projekty" data-target="#projects">projekty</button>
+                <button class="tab tab-kontakt" data-target="#contact">kontakt</button>
+            </div>
+            <div class="about-text-block">
+                <p class="about-bio">
+                    Architekt z dyplomem WAPW oraz uprawnieniami do projektowania bez ograniczeń, założyciel pracowni 22ARCHITEKCI (założonej w 2010 roku wraz z Aleksandrem Drzewieckim, Maciejem Kowalczykiem i Michałem Tatjewskim). Wcześniej partner w WXCA (2007–2010), praktykował m.in. w MCM Design Studio w Lozannie oraz w Szcześniak Denier Architects.<br><br>
+                    Projektuje budynki mieszkalne, biurowe, użyteczności publicznej, prowadząc proces od koncepcji aż po nadzór autorski
+                </p>
+                <ul class="about-list">
+                    <li>Kontekst i prostotę formy</li>
+                    <li>Dbałość o detal oraz logiczne rozwiązania materiałowe i konstrukcyjne</li>
+                    <li>Interdyscyplinarny dialog z klientami, użytkownikami i specjalistami dla uzyskania jakości przy optymalnym budżecie</li>
+                </ul>
+                <div class="about-signature">architekt | dyplom WAPW, OW SARP</div>
+            </div>
+            <!-- Cienka linia 1px -->
+            <div class="separator"></div>
+            <div class="about-tabs section-tabs">
+                <button class="tab tab-omnie" data-target="#about">o mnie</button>
+                <button class="tab tab-projekty" data-target="#projects">projekty</button>
+                <button class="tab tab-kontakt" data-target="#contact">kontakt</button>
             </div>
         </div>
     </section>
 
     <!-- Sekcja Projekty -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title">Projekty</h2>
-            <div class="projects-grid" id="projects-grid">
-                <!-- Projekty będą wczytywane dynamicznie z content.json -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="image-placeholder">
-                            <span>🏗️</span>
-                            <p>Zdjęcie projektu</p>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3 class="project-title">Przykładowy projekt</h3>
-                        <div class="project-meta">
-                            <span class="project-year">2024</span>
-                            <span class="project-location">Warszawa</span>
-                        </div>
-                        <p class="project-description">
-                            Krótki opis projektu architektonicznego z uwzględnieniem 
-                            głównych założeń i rozwiązań.
-                        </p>
-                        <a href="#" class="project-link">Zobacz szczegóły</a>
-                    </div>
+    <section id="projects" class="projects-section">
+        <div class="projects-content">
+            <div class="projects-tabs section-tabs">
+                <button class="tab tab-omnie" data-target="#about">o mnie</button>
+                <button class="tab tab-projekty active" data-target="#projects">projekty</button>
+                <button class="tab tab-kontakt" data-target="#contact">kontakt</button>
+            </div>
+            <div class="project-gallery">
+                <!-- Przygotowane pod slider/galerię na przyszłość -->
+                <button class="gallery-arrow left" aria-label="Poprzednie zdjęcie">&#8592;</button>
+                <img src="conder-portfolio.03.png" alt="Muzeum Pamięci Palmiry" class="project-image" />
+                <button class="gallery-arrow right" aria-label="Następne zdjęcie">&#8594;</button>
+            </div>
+            <div class="project-info-block">
+                <div class="project-title-row">
+                    <span class="project-title">Muzeum Pamięci Palmiry</span>
+                    <span class="project-year">– 2009</span>
+                </div>
+                <div class="project-description">
+                    Projekt w ramach WXCA, zwycięski w przetargu. Realizacja muzeum z ekspozycją historyczną w lesie pod Warszawą.
                 </div>
             </div>
+            <!-- Cienka linia 1px -->
+            <div class="separator"></div>
+            <button class="project-contact-btn tab tab-kontakt" data-target="#contact">kontakt</button>
         </div>
     </section>
 
     <!-- Sekcja Kontakt -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Kontakt</h2>
-            <div class="contact-content">
-                <div class="contact-form">
-                    <form id="contact-form">
-                        <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="Imię" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder="E-mail" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="message" name="message" placeholder="Wiadomość" rows="4" required></textarea>
-                        </div>
-                        <button type="submit" class="submit-button">Wyślij wiadomość</button>
-                    </form>
-                </div>
-                <div class="contact-info">
-                    <div class="social-links">
-                        <a href="#" class="social-link" aria-label="Facebook">📘</a>
-                        <a href="#" class="social-link" aria-label="Instagram">📷</a>
-                        <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
-                    </div>
-                    <div class="location">
-                        <p>📍 Warszawa / zdalnie</p>
-                    </div>
-                </div>
+    <section id="contact" class="contact-section">
+        <div class="contact-content">
+            <div class="contact-tabs section-tabs">
+                <button class="tab tab-omnie" data-target="#about">o mnie</button>
+                <button class="tab tab-projekty" data-target="#projects">projekty</button>
+                <button class="tab tab-kontakt active" data-target="#contact">kontakt</button>
             </div>
+            <div class="contact-info-block">
+                <div class="contact-info-line">Adres e-mail: <a href="mailto:wojtek.conder@gmail.com">wojtek.conder@gmail.com</a></div>
+                <div class="contact-info-line">Telefon: <a href="tel:+48501313225">+48 501 313 225</a></div>
+                <div class="contact-info-line">Data urodzenia: 22.04.1980</div>
+            </div>
+            <form class="contact-form-block">
+                <input type="email" class="contact-input" placeholder="email adres" required />
+                <textarea class="contact-textarea" placeholder="Wiadomość" rows="4" required></textarea>
+                <div class="contact-btn-row">
+                    <button type="submit" class="contact-btn contact-btn-send">wyślij</button>
+                    <button type="button" class="contact-btn contact-btn-cv">CV</button>
+                </div>
+            </form>
         </div>
     </section>
+    <!-- Cienka linia 1px -->
+    <div class="separator"></div>
 
     <!-- Stopka -->
     <footer class="footer">

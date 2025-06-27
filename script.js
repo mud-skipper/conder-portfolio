@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initContactForm();
     initSmoothScrolling();
     initAnimations();
+    initSectionTabs();
 });
 
 // ===== MENU HAMBURGER =====
@@ -383,4 +384,57 @@ if (document.querySelectorAll('img[data-src]').length > 0) {
 // ===== DEBUG I LOGI =====
 console.log('🎨 Portfolio Wojciecha Condera - JavaScript załadowany!');
 console.log('📱 Strona w pełni responsywna i gotowa do użycia');
-console.log('🎯 Menu hamburger, projekty z JSON i formularz kontaktowy aktywne'); 
+console.log('🎯 Menu hamburger, projekty z JSON i formularz kontaktowy aktywne');
+
+// ===== STICKY ZAKŁADKI I NAWIGACJA =====
+function initSectionTabs() {
+    const tabButtons = document.querySelectorAll('.tab');
+    const sections = [
+        { id: 'home', tab: '.tab-omnie' },
+        { id: 'about', tab: '.tab-omnie' },
+        { id: 'projects', tab: '.tab-projekty' },
+        { id: 'contact', tab: '.tab-kontakt' }
+    ];
+
+    // Smooth scroll po kliknięciu zakładki
+    tabButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const target = btn.getAttribute('data-target');
+            if (target && document.querySelector(target)) {
+                e.preventDefault();
+                document.querySelector(target).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    // Scrollspy - podświetlanie aktywnej zakładki
+    window.addEventListener('scroll', function() {
+        let currentSection = 'home';
+        for (const sec of sections) {
+            const el = document.getElementById(sec.id);
+            if (el) {
+                const rect = el.getBoundingClientRect();
+                if (rect.top <= 80) {
+                    currentSection = sec.id;
+                }
+            }
+        }
+        // Zmień aktywność zakładek
+        tabButtons.forEach(btn => {
+            const target = btn.getAttribute('data-target');
+            if (target === '#' + currentSection) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    });
+
+    // Obsługa przycisku CV (placeholder)
+    const cvBtns = document.querySelectorAll('.contact-btn-cv');
+    cvBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            alert('Tutaj będzie pobieranie CV lub link do pliku.');
+        });
+    });
+} 
