@@ -109,39 +109,53 @@ body {
 .header {
     position: fixed;
     top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 50%; /* Centruję względem viewport */
+    transform: translateX(-50%); /* Centruję względem viewport */
     width: 100%;
-    max-width: 727px; /* Zmniejszam o 40px (20px ramka z każdej strony) */
+    max-width: 767px; /* Taka sama szerokość jak body */
     background: var(--color-white);
-    z-index: 100;
-    border-bottom: none;
-    height: 20vh; /* Wysokość 1/5 ekranu telefonu */
-    padding: 0; /* Usuwam padding - logo i menu będą pozycjonowane względnie */
+    z-index: 1000;
+    border-bottom: none; /* Usuwam border-bottom */
+    height: 20vh;
+    padding: 0;
     box-sizing: border-box;
     display: flex;
-    align-items: flex-start; /* Logo i menu na górze */
-    justify-content: space-between; /* Logo po lewej, menu po prawej */
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%; /* Centruję */
+    transform: translateX(-50%); /* Centruję */
+    width: 727px; /* Stała szerokość - taka sama jak header-row */
+    height: 1px;
+    background: var(--color-black);
+    z-index: 1001; /* Nad headerem */
 }
 
 .header-row {
     display: flex;
-    align-items: flex-start; /* Elementy na górze */
+    align-items: flex-start;
     justify-content: space-between;
     width: 100%;
     height: 100%;
-    padding: 20px 0 0 0; /* Tylko padding górny, bez bocznych */
+    padding: 20px 20px 0 20px; /* Padding 20px z boków */
     box-sizing: border-box;
+    max-width: 727px; /* Zmniejszam o 40px (20px z każdej strony) */
+    margin: 0 auto; /* Centruję */
 }
 
 .logo-block {
     display: flex;
-    align-items: flex-start; /* Logo na górze */
-    margin-left: 20px; /* Logo odsunięte od lewej krawędzi header o 20px */
+    align-items: flex-start;
+    margin-left: 0;
 }
 
 .logo-img {
-    height: 120px; /* Dostosowuję wysokość logo do nowej wysokości header */
+    height: 120px;
     width: auto;
     display: block;
 }
@@ -178,7 +192,7 @@ body {
     border: none;
     cursor: pointer;
     z-index: 101;
-    margin-right: 20px; /* Menu odsunięte od prawej krawędzi header o 20px */
+    margin-right: 0;
 }
 
 .hamburger span {
@@ -250,15 +264,15 @@ body {
     padding: 0;
     margin: 0;
     background: var(--color-white);
-    margin-top: 20vh; /* Odstęp od sticky header (nowa wysokość) */
+    margin-top: 20vh;
 }
 
 .hero-image-block {
     position: relative;
     width: 100%;
     overflow: hidden;
-    margin: 0; /* Usuwam marginesy - ramka zapewnia odstęp */
-    width: 100%; /* Pełna szerokość */
+    margin: 0;
+    width: 100%;
 }
 
 .hero-image {
@@ -403,10 +417,10 @@ section {
 }
 .about-tabs {
     margin: 0;
-    padding: 0 20px; /* Zachowuję padding wewnętrzny */
+    padding: 0 20px;
 }
 .about-text-block {
-    padding: 24px 20px 12px 20px; /* Zwiększone marginesy */
+    padding: 24px 20px 12px 20px;
     background: var(--color-white);
     width: 100%;
     box-sizing: border-box;
@@ -461,10 +475,10 @@ section {
 }
 .projects-tabs {
     margin: 0;
-    padding: 0 20px; /* Zachowuję padding wewnętrzny */
+    padding: 0 20px;
 }
 .project-gallery {
-    width: calc(100% - 40px); /* Szerokość z marginesami */
+    width: calc(100% - 40px);
     position: relative;
     display: flex;
     align-items: center;
@@ -472,7 +486,7 @@ section {
     background: var(--color-white);
     overflow: hidden;
     min-height: 220px;
-    margin: 0 20px; /* Marginesy z boków */
+    margin: 0 20px;
 }
 .project-image {
     width: 100%;
@@ -483,7 +497,7 @@ section {
     border: none;
 }
 .gallery-arrow {
-    display: none; /* na razie ukryte, do aktywacji przy sliderze */
+    display: none;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -501,7 +515,7 @@ section {
 .gallery-arrow.right { right: 8px; }
 .project-info-block {
     width: 100%;
-    padding: 18px 20px 8px 20px; /* Zwiększone marginesy */
+    padding: 18px 20px 8px 20px;
     background: var(--color-white);
     box-sizing: border-box;
 }
@@ -531,7 +545,7 @@ section {
     line-height: 1.5;
 }
 .project-contact-btn {
-    width: 80%; /* Zmniejszona szerokość o 20% */
+    width: 80%;
     height: 40px;
     border: none;
     outline: none;
@@ -546,7 +560,7 @@ section {
     text-align: left;
     padding-left: 18px;
     border-radius: 0;
-    margin: 0 auto; /* Wyśrodkowanie */
+    margin: 0 auto;
 }
 @media (min-width: 600px) {
     .project-image { max-height: 340px; }
@@ -567,11 +581,11 @@ section {
 }
 .contact-tabs {
     margin: 0;
-    padding: 0 20px; /* Zachowuję padding wewnętrzny */
+    padding: 0 20px;
 }
 .contact-info-block {
     width: 100%;
-    padding: 18px 20px 8px 20px; /* Zwiększone marginesy */
+    padding: 18px 20px 8px 20px;
     background: var(--color-white);
     box-sizing: border-box;
 }
@@ -590,7 +604,7 @@ section {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    padding: 18px 20px 8px 20px; /* Zwiększone marginesy */
+    padding: 18px 20px 8px 20px;
     background: var(--color-white);
     box-sizing: border-box;
 }
@@ -757,41 +771,33 @@ section {
 
 /* ===== SEPARATOR ===== */
 .separator {
-    width: 100%; /* Pełna szerokość */
+    width: 100%;
     height: 1px;
     background: var(--color-separator);
-    margin: 0; /* Usuwam marginesy - ramka zapewnia odstęp */
+    margin: 0;
 }
 
 /* ===== SEPARATOR POD HEADEREM - CZARNA LINIA ===== */
 .header + .separator {
-    background: var(--color-black) !important; /* Czarna linia pod headerem - !important */
-    height: 1px !important;
-    width: 100% !important;
-    margin: 0 !important;
-    position: fixed !important; /* Zmieniam na fixed */
-    z-index: 98; /* Pod headerem (z-index: 100) */
-    display: block !important; /* Wymuszam wyświetlanie */
-    top: 20vh !important; /* Pozycjonuję pod headerem */
-    left: 0 !important;
+    display: none !important; /* Ukrywam separator w HTML - używam pseudo-elementu */
 }
 
 /* ===== STICKY ZAKŁADKI - POPRAWIONE ===== */
 .section-tabs {
     position: sticky;
-    top: 20vh; /* Pod sticky header (nowa wysokość) */
+    top: 20vh;
     width: 100%;
     display: flex;
     flex-direction: column;
     z-index: 99;
     background: var(--color-white);
     border: none;
-    padding: 0 20px; /* Zachowuję padding wewnętrzny */
+    padding: 0 20px;
     margin: 0;
 }
 
 .tab {
-    width: 80%; /* Zmniejszona szerokość o 20% */
+    width: 80%;
     height: 40px;
     border: none;
     outline: none;
@@ -805,7 +811,7 @@ section {
     letter-spacing: 0.01em;
     text-align: left;
     padding-left: 18px;
-    margin: 0 auto; /* Wyśrodkowanie */
+    margin: 0 auto;
 }
 
 .tab-omnie { background: var(--color-yellow); color: var(--color-white); }
@@ -824,8 +830,17 @@ main, .section-tabs, .tab, .hero-section, .hero-image-block {
     box-sizing: border-box;
 }
 
+/* ===== SEPARATOR - WYKLUCZONY Z EDGE-TO-EDGE ===== */
+.separator {
+    /* Separator ma własne styles i nie podlega regule edge-to-edge */
+    width: 100%;
+    height: 1px;
+    background: var(--color-separator);
+    margin: 0;
+}
+
 @media (min-width: 600px) {
-    .logo-img { height: 140px; } /* Dostosowane do nowej wysokości header */
+    .logo-img { height: 140px; }
     .hero-title { font-size: 2.5em; }
     .hero-image { max-height: 420px; }
     .about-text-block { padding: 32px 32px 16px 32px; }
