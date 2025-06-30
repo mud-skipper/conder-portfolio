@@ -137,7 +137,7 @@ body {
 .logo-block {
     display: flex;
     align-items: flex-start; /* Logo na górze */
-    margin-left: 0; /* Logo przy lewej krawędzi ramki */
+    margin-left: 20px; /* Logo odsunięte od lewej krawędzi ramki o 20px */
 }
 
 .logo-img {
@@ -178,7 +178,7 @@ body {
     border: none;
     cursor: pointer;
     z-index: 101;
-    margin-right: 0; /* Menu przy prawej krawędzi ramki */
+    margin-right: 20px; /* Menu odsunięte od prawej krawędzi ramki o 20px */
 }
 
 .hamburger span {
