@@ -1,7 +1,11 @@
 /* ===== BLOKADA PRZEGLĄDAREK - TYLKO MOBILE ===== */
 @media (min-width: 768px) {
+    html, body {
+        overflow: hidden;
+    }
+    
     body::before {
-        content: "Ta strona jest dostępna tylko na urządzeniach mobilnych";
+        content: "📱 Ta strona jest dostępna tylko na urządzeniach mobilnych";
         position: fixed;
         top: 0;
         left: 0;
@@ -15,8 +19,14 @@
         font-size: 1.5em;
         font-weight: 500;
         text-align: center;
-        z-index: 9999;
+        z-index: 99999;
         padding: 20px;
+        font-family: var(--font-primary);
+    }
+    
+    /* Ukryj wszystkie elementy na dużych ekranach */
+    .header, main, .footer, .nav-menu {
+        display: none !important;
     }
 }
 
@@ -82,7 +92,10 @@ body {
     min-width: 320px;
     max-width: 767px; /* Blokada szerokich ekranów */
     margin: 0 auto;
-    padding: 0 20px; /* Zwiększone marginesy dookoła */
+    padding: 0; /* Usuwam padding z body - ramka będzie w header */
+    border: 20px solid var(--color-white); /* Biała ramka dookoła ekranu */
+    box-sizing: border-box;
+    min-height: 100vh;
 }
 
 .container {
@@ -102,27 +115,30 @@ body {
     background: var(--color-white);
     z-index: 100;
     border-bottom: none;
-    height: 160px; /* Zwiększone pole górne 2x */
-    padding: 20px; /* Zwiększone marginesy dookoła */
+    height: 20vh; /* Wysokość 1/5 ekranu telefonu */
+    padding: 20px; /* Marginesy wewnętrzne */
     box-sizing: border-box;
+    display: flex;
+    align-items: flex-start; /* Logo i menu na górze */
+    justify-content: space-between; /* Logo po lewej, menu po prawej */
 }
 
 .header-row {
     display: flex;
-    align-items: center;
+    align-items: flex-start; /* Elementy na górze */
     justify-content: space-between;
     width: 100%;
     height: 100%;
-    padding-top: 20px; /* Zwiększony odstęp od górnej krawędzi */
+    padding-top: 0; /* Usuwam dodatkowy padding */
 }
 
 .logo-block {
     display: flex;
-    align-items: center;
+    align-items: flex-start; /* Logo na górze */
 }
 
 .logo-img {
-    height: 160px; /* Powiększone logo 2x */
+    height: 120px; /* Dostosowuję wysokość logo do nowej wysokości header */
     width: auto;
     display: block;
 }
@@ -230,7 +246,7 @@ body {
     padding: 0;
     margin: 0;
     background: var(--color-white);
-    margin-top: 160px; /* Odstęp od sticky header (2x większy) */
+    margin-top: 20vh; /* Odstęp od sticky header (nowa wysokość) */
 }
 
 .hero-image-block {
@@ -746,7 +762,7 @@ section {
 /* ===== STICKY ZAKŁADKI - POPRAWIONE ===== */
 .section-tabs {
     position: sticky;
-    top: 160px; /* Pod sticky header (2x większy) */
+    top: 20vh; /* Pod sticky header (nowa wysokość) */
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -792,7 +808,7 @@ main, .header, .separator, .section-tabs, .tab, .hero-section, .hero-image-block
 }
 
 @media (min-width: 600px) {
-    .logo-img { height: 180px; }
+    .logo-img { height: 140px; } /* Dostosowane do nowej wysokości header */
     .hero-title { font-size: 2.5em; }
     .hero-image { max-height: 420px; }
     .about-text-block { padding: 32px 32px 16px 32px; }
