@@ -763,6 +763,16 @@ section {
     margin: 0; /* Usuwam marginesy - ramka zapewnia odstęp */
 }
 
+/* ===== SEPARATOR POD HEADEREM - CZARNA LINIA ===== */
+.header + .separator {
+    background: var(--color-black); /* Czarna linia pod headerem */
+    height: 1px;
+    width: 100%;
+    margin: 0;
+    position: relative;
+    z-index: 99; /* Pod headerem ale nad resztą */
+}
+
 /* ===== STICKY ZAKŁADKI - POPRAWIONE ===== */
 .section-tabs {
     position: sticky;
