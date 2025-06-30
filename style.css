@@ -112,7 +112,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
-    max-width: 767px;
+    max-width: 727px; /* Zmniejszam o 40px (20px ramka z każdej strony) */
     background: var(--color-white);
     z-index: 100;
     border-bottom: none;
@@ -772,6 +772,7 @@ section {
     position: relative;
     z-index: 99; /* Pod headerem ale nad resztą */
     display: block !important; /* Wymuszam wyświetlanie */
+    top: 20vh; /* Pozycjonuję pod headerem */
 }
 
 /* ===== STICKY ZAKŁADKI - POPRAWIONE ===== */
@@ -813,7 +814,7 @@ section {
 .tab.active { filter: brightness(1.1); }
 
 /* ===== EDGE-TO-EDGE ===== */
-main, .separator, .section-tabs, .tab, .hero-section, .hero-image-block {
+main, .section-tabs, .tab, .hero-section, .hero-image-block {
     margin-left: 0 !important;
     margin-right: 0 !important;
     padding-left: 0 !important;
