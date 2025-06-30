@@ -92,10 +92,11 @@ body {
     min-width: 320px;
     max-width: 767px; /* Blokada szerokich ekranów */
     margin: 0 auto;
-    padding: 0; /* Usuwam padding z body - ramka będzie w header */
+    padding: 0; /* Usuwam padding z body */
     border: 20px solid var(--color-white); /* Biała ramka dookoła ekranu */
     box-sizing: border-box;
     min-height: 100vh;
+    position: relative; /* Dla pozycjonowania względnego */
 }
 
 .container {
@@ -116,7 +117,7 @@ body {
     z-index: 100;
     border-bottom: none;
     height: 20vh; /* Wysokość 1/5 ekranu telefonu */
-    padding: 20px; /* Marginesy wewnętrzne */
+    padding: 0; /* Usuwam padding - logo i menu będą pozycjonowane względnie */
     box-sizing: border-box;
     display: flex;
     align-items: flex-start; /* Logo i menu na górze */
@@ -129,12 +130,14 @@ body {
     justify-content: space-between;
     width: 100%;
     height: 100%;
-    padding-top: 0; /* Usuwam dodatkowy padding */
+    padding: 20px 20px 0 20px; /* Padding tylko góra i boki, odsunięcie od ramki */
+    box-sizing: border-box;
 }
 
 .logo-block {
     display: flex;
     align-items: flex-start; /* Logo na górze */
+    margin-left: 0; /* Logo przy lewej krawędzi ramki */
 }
 
 .logo-img {
@@ -175,6 +178,7 @@ body {
     border: none;
     cursor: pointer;
     z-index: 101;
+    margin-right: 0; /* Menu przy prawej krawędzi ramki */
 }
 
 .hamburger span {
@@ -253,8 +257,8 @@ body {
     position: relative;
     width: 100%;
     overflow: hidden;
-    margin: 0 20px; /* Marginesy z boków */
-    width: calc(100% - 40px); /* Szerokość z marginesami */
+    margin: 0; /* Usuwam marginesy - ramka zapewnia odstęp */
+    width: 100%; /* Pełna szerokość */
 }
 
 .hero-image {
@@ -399,7 +403,7 @@ section {
 }
 .about-tabs {
     margin: 0;
-    padding: 0 20px; /* Marginesy z boków */
+    padding: 0 20px; /* Zachowuję padding wewnętrzny */
 }
 .about-text-block {
     padding: 24px 20px 12px 20px; /* Zwiększone marginesy */
@@ -457,7 +461,7 @@ section {
 }
 .projects-tabs {
     margin: 0;
-    padding: 0 20px; /* Marginesy z boków */
+    padding: 0 20px; /* Zachowuję padding wewnętrzny */
 }
 .project-gallery {
     width: calc(100% - 40px); /* Szerokość z marginesami */
@@ -563,7 +567,7 @@ section {
 }
 .contact-tabs {
     margin: 0;
-    padding: 0 20px; /* Marginesy z boków */
+    padding: 0 20px; /* Zachowuję padding wewnętrzny */
 }
 .contact-info-block {
     width: 100%;
@@ -753,10 +757,10 @@ section {
 
 /* ===== SEPARATOR ===== */
 .separator {
-    width: calc(100% - 40px); /* Marginesy z boków */
+    width: 100%; /* Pełna szerokość */
     height: 1px;
     background: var(--color-separator);
-    margin: 0 20px; /* Marginesy z boków */
+    margin: 0; /* Usuwam marginesy - ramka zapewnia odstęp */
 }
 
 /* ===== STICKY ZAKŁADKI - POPRAWIONE ===== */
@@ -769,7 +773,7 @@ section {
     z-index: 99;
     background: var(--color-white);
     border: none;
-    padding: 0 20px; /* Marginesy z boków */
+    padding: 0 20px; /* Zachowuję padding wewnętrzny */
     margin: 0;
 }
 
