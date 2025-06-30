@@ -137,7 +137,7 @@ body {
 .logo-block {
     display: flex;
     align-items: flex-start; /* Logo na górze */
-    margin-left: 0; /* Usuwam dodatkowy margin - ramka na body już zapewnia odstęp */
+    margin-left: 20px; /* Logo odsunięte od lewej krawędzi header o 20px */
 }
 
 .logo-img {
@@ -178,7 +178,7 @@ body {
     border: none;
     cursor: pointer;
     z-index: 101;
-    margin-right: 0; /* Usuwam dodatkowy margin - ramka na body już zapewnia odstęp */
+    margin-right: 20px; /* Menu odsunięte od prawej krawędzi header o 20px */
 }
 
 .hamburger span {
@@ -769,10 +769,11 @@ section {
     height: 1px !important;
     width: 100% !important;
     margin: 0 !important;
-    position: relative;
-    z-index: 99; /* Pod headerem ale nad resztą */
+    position: fixed !important; /* Zmieniam na fixed */
+    z-index: 98; /* Pod headerem (z-index: 100) */
     display: block !important; /* Wymuszam wyświetlanie */
-    top: 20vh; /* Pozycjonuję pod headerem */
+    top: 20vh !important; /* Pozycjonuję pod headerem */
+    left: 0 !important;
 }
 
 /* ===== STICKY ZAKŁADKI - POPRAWIONE ===== */
