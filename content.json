@@ -107,6 +107,29 @@
       "usableArea": "36 128 m², 513 mieszkań (36–95 m²)",
       "stage": "realizacja",
       "images": []
+    },
+    {
+      "id": 9,
+      "title": "Test",
+      "year": "2025",
+      "location": "Warszawa",
+      "description": "Nowy Nikiszowiec to osiedle mieszkaniowe w formule najmu instytucjonalnego, harmonijnie nawiązujące do historycznego Nikiszowca: w układzie kwartałów, ceglastych odcieniach elewacji oraz centralnym placem sąsiedzkim. Celem było stworzenie przystępnych cenowo mieszkań dla młodych rodzin i osób na start – z wysokim standardem wykonania, dobrze skomunikowanych i otoczonych zielenią. Projekt uzyskał nominację do europejskiej nagrody Miesa van der Rohe i zdobył uznanie.",
+      "image": "images-1751384190143-826450535.jpg",
+      "type": "mieszkaniowy",
+      "area": "1000",
+      "status": "projekt wykonawczy",
+      "link": "#",
+      "investor": "Test",
+      "designer": "Test",
+      "totalArea": "1000",
+      "usableArea": "1200",
+      "stage": "projekt wykonawczy",
+      "images": [
+        "images-1751384190143-826450535.jpg",
+        "images-1751384190144-570192967.jpg",
+        "images-1751384190144-225341855.jpg",
+        "images-1751384190144-287514673.jpg"
+      ]
     }
   ],
   "about": {
