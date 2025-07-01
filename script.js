@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothScrolling();
     initAnimations();
     initSectionTabs();
+    initBottomPanel();
 });
 
 // ===== MENU HAMBURGER - POPRAWIONE =====
@@ -445,4 +446,28 @@ function initSectionTabs() {
             alert('Tutaj będzie pobieranie CV lub link do pliku.');
         });
     });
+}
+
+// ===== DOLNY PANEL Z PRZYCISKAMI AKCJI =====
+function initBottomPanel() {
+    const emailBtn = document.querySelector('.action-email');
+    const cvBtn = document.querySelector('.action-cv');
+    
+    if (emailBtn) {
+        emailBtn.addEventListener('click', function() {
+            // Przewiń do sekcji kontakt
+            const contactSection = document.getElementById('contact');
+            if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    }
+    
+    if (cvBtn) {
+        cvBtn.addEventListener('click', function() {
+            // Tutaj możesz dodać logikę dla CV
+            // Na przykład otwarcie PDF lub nowej strony
+            alert('CV będzie dostępne wkrótce!');
+        });
+    }
 } 

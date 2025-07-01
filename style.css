@@ -25,7 +25,7 @@
     }
     
     /* Ukryj wszystkie elementy na dużych ekranach */
-    .header, main, .footer, .nav-menu {
+    .header, main, .footer, .nav-menu, .bottom-panel {
         display: none !important;
     }
 }
@@ -97,6 +97,9 @@ body {
     box-sizing: border-box;
     min-height: 100vh;
     position: relative; /* Dla pozycjonowania względnego */
+    /* Obszar scrollowania między headerem a bottom-panelem */
+    padding-top: 20vh; /* Miejsce na header */
+    padding-bottom: 7vh; /* Miejsce na bottom-panel */
 }
 
 .container {
@@ -122,6 +125,67 @@ body {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
+}
+
+/* ===== DOLNY PANEL ===== */
+.bottom-panel {
+    position: fixed;
+    bottom: 0;
+    left: 50%; /* Centruję względem viewport */
+    transform: translateX(-50%); /* Centruję względem viewport */
+    width: 100%;
+    max-width: 727px; /* Taka sama szerokość jak header */
+    background: var(--color-white);
+    z-index: 1000;
+    height: 7vh; /* 3 razy niższy niż header (20vh / 3 ≈ 7vh) */
+    border-top: 1px solid var(--color-black); /* Czarna linia 1px na górze */
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bottom-panel-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    transition: all 0.3s ease;
+    min-width: 80px;
+    height: 100%;
+}
+
+.action-btn:hover {
+    background: var(--color-cream);
+}
+
+.action-icon {
+    font-size: 1.5em;
+    margin-bottom: 2px;
+    line-height: 1;
+}
+
+.action-text {
+    font-size: 0.8em;
+    font-weight: 500;
+    color: var(--color-black);
+    text-transform: lowercase;
+    line-height: 1;
 }
 
 .header::after {
@@ -539,15 +603,8 @@ section {
 .contact-input:focus, .contact-textarea:focus {
     border-color: var(--color-yellow);
 }
-.contact-btn-row {
-    display: flex;
-    flex-direction: row;
-    gap: 4%;
-    width: 100%;
-    margin-top: 4px;
-}
 .contact-btn {
-    flex: 1 1 48%;
+    width: 100%;
     height: 40px;
     border: none;
     outline: none;
@@ -555,17 +612,12 @@ section {
     font-weight: 700;
     text-transform: lowercase;
     color: var(--color-white);
+    background: var(--color-red);
     border-radius: 8px;
     cursor: pointer;
     letter-spacing: 0.01em;
     transition: background 0.2s;
-}
-.contact-btn-send {
-    background: var(--color-red);
-}
-.contact-btn-cv {
-    background: var(--color-yellow);
-    color: var(--color-black);
+    margin-top: 8px;
 }
 @media (min-width: 600px) {
     .contact-info-block, .contact-form-block { padding: 28px 32px 12px 32px; }
