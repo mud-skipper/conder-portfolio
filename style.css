@@ -246,14 +246,6 @@ body {
     letter-spacing: 2px;
 }
 
-/* ===== POZIOMA CZARNA LINIA ===== */
-.section-divider {
-    width: 100%;
-    height: 1px;
-    background: var(--color-black);
-    margin: 0;
-}
-
 /* ===== SEKCJA STRONA GŁÓWNA ===== */
 .home-section {
     position: relative;
@@ -590,54 +582,8 @@ body {
     box-shadow: none !important;
 }
 
-/* ===== FOOTER ===== */
-.footer {
-    background: var(--color-white);
-    border-top: 1px solid var(--color-black);
-    padding: var(--spacing-lg) var(--spacing-xl);
-    margin-top: var(--spacing-xxl);
-}
-
-.footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: var(--spacing-md);
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.copyright {
-    font-size: var(--font-size-small);
-    color: var(--color-gray);
-}
-
-.footer-links {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    font-size: var(--font-size-small);
-}
-
-.footer-link {
-    color: var(--color-gray);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.footer-link:hover {
-    color: var(--color-black);
-}
-
-.footer-separator {
-    color: var(--color-gray-light);
-}
-
-.footer-credit {
-    color: var(--color-gray);
-    font-style: italic;
-}
+/* ===== FOOTER - USUNIĘTY ===== */
+/* Wszystkie style footer zostały usunięte */
 
 /* ===== RESPONSYWNOŚĆ ===== */
 @media (max-width: 768px) {
@@ -671,6 +617,10 @@ body {
         margin: 0 !important;
         padding: 0 !important;
     }
+    .section-header-yellow, .section-header-orange, .section-header-red {
+        height: 28px;
+        font-size: 0.95em;
+    }
 }
 
 @media (min-width: 769px) {
@@ -702,39 +652,59 @@ body {
     margin-right: 0 !important;
 }
 
-/* KOLOROWE PASKI NAGŁÓWKÓW */
+/* KOLOROWE PASKI NAGŁÓWKÓW - POPRAWIONE */
 .section-header-yellow {
     background: var(--color-yellow);
     color: #fff;
     font-weight: 800;
-    padding: 12px 0;
-    border-radius: 8px;
+    padding: 0;
+    border-radius: 0;
     text-align: center;
-    font-size: 1.2em;
+    font-size: 1.1em;
     margin-bottom: 32px;
-    letter-spacing: 1px;
+    letter-spacing: 0.01em;
+    height: 34px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
 }
+
 .section-header-orange {
     background: var(--color-orange);
     color: #fff;
     font-weight: 800;
-    padding: 12px 0;
-    border-radius: 8px;
+    padding: 0;
+    border-radius: 0;
     text-align: center;
-    font-size: 1.2em;
+    font-size: 1.1em;
     margin-bottom: 32px;
-    letter-spacing: 1px;
+    letter-spacing: 0.01em;
+    height: 34px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
 }
+
 .section-header-red {
     background: var(--color-red);
     color: #fff;
     font-weight: 800;
-    padding: 12px 0;
-    border-radius: 8px;
+    padding: 0;
+    border-radius: 0;
     text-align: center;
-    font-size: 1.2em;
+    font-size: 1.1em;
     margin-bottom: 32px;
-    letter-spacing: 1px;
+    letter-spacing: 0.01em;
+    height: 34px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
 }
 
 /* TŁO POLA SCROLL */
@@ -742,19 +712,8 @@ body {
     background: #fff !important;
 }
 
-/* 3. Linie nad i pod sekcjami */
-.section-line {
-    width: 100%;
-    height: 1px;
-    background: #000;
-    margin: 10px 0;
-}
-.section > .section-line:first-child {
-    margin-top: 0;
-}
-.section > .section-line:last-child {
-    margin-bottom: 0;
-}
+/* ===== SECTION-LINE - USUNIĘTY ===== */
+/* Wszystkie style section-line zostały usunięte */
 
 /* Usuwam border-radius i border z innych elementów projektów */
 .project-header, .project-images, .project-content, .project-details, .project-detail {
@@ -801,4 +760,14 @@ body, .main-content, .section, .section-content, .about-section, .projects-secti
 }
 
 /* ===== BLOK: USUNIĘCIE NIEPOTRZEBNYCH !important ===== */
-/* (pozostawiam tylko tam, gdzie wymuszam styl powyżej) */ 
+/* (pozostawiam tylko tam, gdzie wymuszam styl powyżej) */
+
+/* JUSTOWANIE TEKSTÓW OBUSTRONNIE Z DZIELENIEM WYRAZÓW */
+.about-text, .project-description, .contact-item, .project-detail, .project-title, .project-meta, .project-year, .project-location {
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    word-break: break-word;
+    overflow-wrap: break-word;
+} 
