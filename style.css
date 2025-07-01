@@ -141,7 +141,7 @@ main {
     max-width: 727px; /* Taka sama szerokość jak header */
     background: var(--color-white);
     z-index: 1000;
-    height: 7vh; /* 3 razy niższy niż header (20vh / 3 ≈ 7vh) */
+    height: 8vh; /* Zwiększam wysokość */
     border-top: 1px solid var(--color-black); /* Czarna linia 1px na górze */
     box-sizing: border-box;
     display: flex;
@@ -158,6 +158,7 @@ main {
     height: 100%;
     padding: 0 20px;
     box-sizing: border-box;
+    gap: 20px; /* Dodaję odstęp między przyciskami */
 }
 
 .action-btn {
@@ -168,10 +169,10 @@ main {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 8px 16px;
+    padding: 12px 20px;
     border-radius: var(--radius-sm);
     transition: all 0.3s ease;
-    min-width: 80px;
+    min-width: 100px; /* Zwiększam szerokość */
     height: 100%;
     position: relative;
     overflow: hidden;
@@ -189,8 +190,8 @@ main {
 }
 
 .action-icon {
-    font-size: 1.5em;
-    margin-bottom: 2px;
+    font-size: 1.8em; /* Zwiększam ikonę */
+    margin-bottom: 4px;
     line-height: 1;
     transition: transform 0.3s ease;
 }
@@ -200,8 +201,8 @@ main {
 }
 
 .action-text {
-    font-size: 0.8em;
-    font-weight: 500;
+    font-size: 0.9em; /* Zwiększam tekst */
+    font-weight: 600;
     color: var(--color-black);
     text-transform: lowercase;
     line-height: 1;
@@ -210,6 +211,23 @@ main {
 
 .action-btn:hover .action-text {
     color: var(--color-black);
+}
+
+/* Kolory przycisków */
+.action-email {
+    background: var(--color-yellow);
+}
+
+.action-email:hover {
+    background: #e6b800;
+}
+
+.action-cv {
+    background: var(--color-red);
+}
+
+.action-cv:hover {
+    background: #cc0000;
 }
 
 .header::after {
@@ -408,7 +426,7 @@ main {
     letter-spacing: 0.01em;
 }
 
-/* ===== UKOŚNE PASY RETRO ===== */
+/* ===== UKOŚNE PASY RETRO - POPRAWIONE ===== */
 .retro-stripes {
     position: absolute;
     top: 0;
@@ -416,11 +434,12 @@ main {
     width: 100%;
     height: 100%;
     z-index: 1;
+    pointer-events: none; /* Nie blokuje interakcji */
 }
 
 .stripe {
     position: absolute;
-    width: 200%;
+    width: 100%;
     height: 60px;
     transform: rotate(-15deg);
     transform-origin: center;
@@ -429,27 +448,19 @@ main {
 .stripe-yellow {
     background: var(--color-yellow);
     top: 20%;
-    left: -50%;
-    animation: stripeMove 8s ease-in-out infinite;
+    left: 0;
 }
 
 .stripe-orange {
     background: var(--color-orange);
     top: 40%;
-    left: -50%;
-    animation: stripeMove 8s ease-in-out infinite 2s;
+    left: 0;
 }
 
 .stripe-red {
     background: var(--color-red);
     top: 60%;
-    left: -50%;
-    animation: stripeMove 8s ease-in-out infinite 4s;
-}
-
-@keyframes stripeMove {
-    0%, 100% { transform: rotate(-15deg) translateX(0); }
-    50% { transform: rotate(-15deg) translateX(20px); }
+    left: 0;
 }
 
 /* ===== PRZYCISKI ===== */
@@ -817,111 +828,108 @@ main, .section-tabs, .tab, .hero-section, .hero-image-block {
     padding: 20px;
 }
 
+/* ===== KARTY PROJEKTÓW - POPRAWIONE ===== */
 .project-card {
     background: var(--color-white);
     border: 2px solid var(--color-black);
     border-radius: var(--radius-md);
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
+    margin-bottom: var(--spacing-lg);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
 }
 
-.project-image {
-    width: 100%;
-    height: 200px;
-    background: var(--color-cream);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.project-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.image-placeholder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: var(--color-gray);
-    font-size: 3em;
-    line-height: 1;
-}
-
-.image-placeholder p {
-    font-size: 0.3em;
-    margin-top: 10px;
-    font-weight: 500;
-}
-
-.project-info {
+.project-header {
     padding: var(--spacing-md);
+    border-bottom: 1px solid var(--color-gray-light);
+    background: var(--color-cream);
 }
 
 .project-title {
-    font-size: var(--font-size-xl);
+    font-size: 1.4em;
     font-weight: 600;
     color: var(--color-black);
-    margin-bottom: var(--spacing-sm);
+    margin: 0 0 var(--spacing-sm) 0;
+    line-height: 1.2;
 }
 
 .project-meta {
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-sm);
-    margin-bottom: var(--spacing-sm);
-    font-size: var(--font-size-small);
+    gap: var(--spacing-md);
+    font-size: 0.9em;
     color: var(--color-gray);
 }
 
-.project-meta span {
-    background: var(--color-light-gray);
-    padding: 4px 8px;
-    border-radius: var(--radius-sm);
+.project-year, .project-location {
+    font-weight: 500;
+}
+
+.project-images {
+    position: relative;
+    background: var(--color-gray-light);
+    min-height: 200px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+}
+
+.project-image {
+    flex: 1;
+    min-width: 200px;
+    height: 200px;
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+.project-image.main-image {
+    flex: 2;
+    min-width: 300px;
+}
+
+.project-image.secondary-image {
+    flex: 1;
+    min-width: 150px;
+    height: 150px;
+}
+
+.project-image:hover {
+    transform: scale(1.05);
+    z-index: 2;
+}
+
+.project-content {
+    padding: var(--spacing-md);
 }
 
 .project-description {
-    color: var(--color-black);
+    color: var(--color-gray-dark);
     line-height: 1.6;
     margin-bottom: var(--spacing-md);
+    font-size: 0.95em;
 }
 
 .project-details {
-    margin-bottom: var(--spacing-sm);
-    font-size: var(--font-size-small);
-    color: var(--color-gray);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-sm);
+    font-size: 0.9em;
 }
 
-.project-link {
-    display: inline-block;
-    background: var(--color-orange);
-    color: var(--color-white);
-    padding: 8px 16px;
-    text-decoration: none;
+.project-detail {
+    padding: var(--spacing-sm);
+    background: var(--color-cream);
     border-radius: var(--radius-sm);
-    font-weight: 500;
-    transition: background 0.3s ease;
+    border-left: 3px solid var(--color-orange);
 }
 
-.project-link:hover {
-    background: var(--color-red);
-}
-
-.loading-projects {
-    text-align: center;
-    padding: var(--spacing-xl);
-    color: var(--color-gray);
-    font-style: italic;
+.project-detail strong {
+    color: var(--color-black);
+    font-weight: 600;
 }
 
 /* ===== ANIMACJE I EFEKTY ===== */
@@ -1002,4 +1010,22 @@ main, .section-tabs, .tab, .hero-section, .hero-image-block {
 
 .notification-close:hover {
     background: rgba(255, 255, 255, 0.2);
+}
+
+.loading-projects {
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--color-gray);
+    font-style: italic;
+}
+
+.empty-projects {
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--color-gray);
+    font-style: italic;
+    background: var(--color-cream);
+    border: 2px dashed var(--color-gray);
+    border-radius: var(--radius-md);
+    margin: 20px;
 } 

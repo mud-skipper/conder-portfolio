@@ -217,6 +217,137 @@ app.get('/api/status', (req, res) => {
     });
 });
 
+// Endpoint do usuwania projektu
+app.delete('/api/deleteProject/:id', async (req, res) => {
+    try {
+        const projectId = parseInt(req.params.id);
+        
+        // Wczytaj istniejące projekty
+        const contentPath = path.join(__dirname, 'content.json');
+        const content = JSON.parse(await fs.readFile(contentPath, 'utf8'));
+        
+        // Znajdź projekt do usunięcia
+        const projectIndex = content.projects.findIndex(p => p.id === projectId);
+        
+        if (projectIndex === -1) {
+            return res.status(404).json({
+                success: false,
+                message: 'Projekt nie został znaleziony'
+            });
+        }
+        
+        const project = content.projects[projectIndex];
+        
+        // Usuń zdjęcia projektu z folderu uploads
+        if (project.images && project.images.length > 0) {
+            for (const imageName of project.images) {
+                try {
+                    const imagePath = path.join(__dirname, 'uploads', imageName);
+                    await fs.unlink(imagePath);
+                    console.log(`Usunięto zdjęcie: ${imageName}`);
+                } catch (error) {
+                    console.log(`Nie można usunąć zdjęcia ${imageName}:`, error.message);
+                }
+            }
+        }
+        
+        // Usuń projekt z listy
+        content.projects.splice(projectIndex, 1);
+        
+        // Zapisz z powrotem do pliku
+        await fs.writeFile(contentPath, JSON.stringify(content, null, 2));
+        
+        // Wykonaj Git push
+        try {
+            await executeGitCommand('git add .');
+            await executeGitCommand(`git commit -m "Usunięto projekt: ${project.title}"`);
+            await executeGitCommand('git push');
+            console.log('Git push wykonany pomyślnie');
+        } catch (gitError) {
+            console.error('Błąd Git push:', gitError);
+        }
+        
+        res.json({
+            success: true,
+            message: 'Projekt został usunięty pomyślnie'
+        });
+        
+    } catch (error) {
+        console.error('Błąd usuwania projektu:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Błąd podczas usuwania projektu: ' + error.message
+        });
+    }
+});
+
+// Endpoint do usuwania zdjęcia z projektu
+app.post('/api/removeImage/:projectId', async (req, res) => {
+    try {
+        const projectId = parseInt(req.params.projectId);
+        const { imageName } = req.body;
+        
+        // Wczytaj istniejące projekty
+        const contentPath = path.join(__dirname, 'content.json');
+        const content = JSON.parse(await fs.readFile(contentPath, 'utf8'));
+        
+        // Znajdź projekt
+        const project = content.projects.find(p => p.id === projectId);
+        
+        if (!project) {
+            return res.status(404).json({
+                success: false,
+                message: 'Projekt nie został znaleziony'
+            });
+        }
+        
+        // Usuń zdjęcie z listy
+        const imageIndex = project.images.indexOf(imageName);
+        if (imageIndex > -1) {
+            project.images.splice(imageIndex, 1);
+            
+            // Jeśli to było główne zdjęcie, ustaw nowe
+            if (project.image === imageName) {
+                project.image = project.images.length > 0 ? project.images[0] : 'project-placeholder.jpg';
+            }
+        }
+        
+        // Usuń plik z folderu uploads
+        try {
+            const imagePath = path.join(__dirname, 'uploads', imageName);
+            await fs.unlink(imagePath);
+            console.log(`Usunięto zdjęcie: ${imageName}`);
+        } catch (error) {
+            console.log(`Nie można usunąć pliku ${imageName}:`, error.message);
+        }
+        
+        // Zapisz z powrotem do pliku
+        await fs.writeFile(contentPath, JSON.stringify(content, null, 2));
+        
+        // Wykonaj Git push
+        try {
+            await executeGitCommand('git add .');
+            await executeGitCommand(`git commit -m "Usunięto zdjęcie z projektu: ${project.title}"`);
+            await executeGitCommand('git push');
+            console.log('Git push wykonany pomyślnie');
+        } catch (gitError) {
+            console.error('Błąd Git push:', gitError);
+        }
+        
+        res.json({
+            success: true,
+            message: 'Zdjęcie zostało usunięte pomyślnie'
+        });
+        
+    } catch (error) {
+        console.error('Błąd usuwania zdjęcia:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Błąd podczas usuwania zdjęcia: ' + error.message
+        });
+    }
+});
+
 // Uruchom serwer
 app.listen(PORT, () => {
     console.log(`🚀 Serwer conder-portfolio uruchomiony na porcie ${PORT}`);

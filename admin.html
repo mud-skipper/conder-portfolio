@@ -222,6 +222,133 @@
         .back-link:hover {
             color: var(--color-red);
         }
+
+        /* Style dla listy projektów */
+        .projects-list {
+            margin-top: 20px;
+        }
+
+        .project-item {
+            border: 2px solid var(--color-black);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin-bottom: 20px;
+            background: var(--color-white);
+            position: relative;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .project-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: var(--color-black);
+            margin: 0;
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-edit, .btn-delete {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-edit {
+            background: var(--color-orange);
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: #e67e00;
+        }
+
+        .btn-delete {
+            background: var(--color-red);
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #cc0000;
+        }
+
+        .project-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .project-info {
+            font-size: 14px;
+            color: var(--color-gray);
+        }
+
+        .project-info strong {
+            color: var(--color-black);
+        }
+
+        .project-images {
+            margin-top: 15px;
+        }
+
+        .project-images h4 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+            color: var(--color-black);
+        }
+
+        .images-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+        }
+
+        .image-item {
+            position: relative;
+            border: 1px solid var(--color-gray);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .image-item img {
+            width: 100%;
+            height: 80px;
+            object-fit: cover;
+        }
+
+        .image-remove {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background: rgba(255, 0, 0, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-remove:hover {
+            background: rgba(255, 0, 0, 1);
+        }
     </style>
 </head>
 <body>
@@ -307,12 +434,28 @@
         <a href="index.html" class="back-link">← Powrót do portfolio</a>
     </div>
 
+    <!-- Sekcja podglądu projektów -->
+    <div class="admin-container" style="margin-top: 40px;">
+        <div class="admin-header">
+            <h2 class="admin-title">Podgląd projektów</h2>
+            <p class="admin-subtitle">Zarządzaj istniejącymi projektami</p>
+        </div>
+
+        <div id="projectsList" class="projects-list">
+            <!-- Projekty będą ładowane dynamicznie -->
+            <div class="loading-projects">
+                <p>Ładowanie projektów...</p>
+            </div>
+        </div>
+    </div>
+
     <script>
         // ===== INICJALIZACJA =====
         document.addEventListener('DOMContentLoaded', function() {
             initCharCounter();
             initFileValidation();
             initFormSubmission();
+            loadProjectsList();
         });
 
         // ===== LICZNIK ZNAKÓW =====
@@ -487,6 +630,130 @@
             setTimeout(() => {
                 statusDiv.style.display = 'none';
             }, 5000);
+        }
+
+        // ===== PODGLĄD PROJEKTÓW =====
+        async function loadProjectsList() {
+            try {
+                const response = await fetch('content.json');
+                const data = await response.json();
+                
+                const projectsList = document.getElementById('projectsList');
+                
+                if (data.projects && data.projects.length > 0) {
+                    projectsList.innerHTML = data.projects.map(project => createProjectItem(project)).join('');
+                } else {
+                    projectsList.innerHTML = '<p>Brak projektów do wyświetlenia</p>';
+                }
+            } catch (error) {
+                console.error('Błąd ładowania projektów:', error);
+                document.getElementById('projectsList').innerHTML = '<p>Błąd ładowania projektów</p>';
+            }
+        }
+
+        function createProjectItem(project) {
+            const imagesHtml = project.images && project.images.length > 0 
+                ? `
+                    <div class="project-images">
+                        <h4>Zdjęcia (${project.images.length}):</h4>
+                        <div class="images-grid">
+                            ${project.images.map(image => `
+                                <div class="image-item">
+                                    <img src="uploads/${image}" alt="${project.title}" onerror="this.style.display='none'">
+                                    <button class="image-remove" onclick="removeImage(${project.id}, '${image}')" title="Usuń zdjęcie">×</button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                ` : '<p>Brak zdjęć</p>';
+
+            return `
+                <div class="project-item" data-project-id="${project.id}">
+                    <div class="project-header">
+                        <h3 class="project-title">${project.title}</h3>
+                        <div class="project-actions">
+                            <button class="btn-edit" onclick="editProject(${project.id})">Edytuj</button>
+                            <button class="btn-delete" onclick="deleteProject(${project.id})">Usuń</button>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <div class="project-info">
+                            <strong>Rok:</strong> ${project.year}<br>
+                            <strong>Lokalizacja:</strong> ${project.location}<br>
+                            <strong>Typ:</strong> ${project.type}<br>
+                            <strong>Status:</strong> ${project.status}
+                        </div>
+                        <div class="project-info">
+                            <strong>Powierzchnia:</strong> ${project.area}<br>
+                            <strong>Inwestor:</strong> ${project.investor || 'Brak'}<br>
+                            <strong>Projektant:</strong> ${project.designer || 'Brak'}<br>
+                            <strong>Etap:</strong> ${project.stage || 'Brak'}
+                        </div>
+                    </div>
+                    <p><strong>Opis:</strong> ${project.description}</p>
+                    ${imagesHtml}
+                </div>
+            `;
+        }
+
+        // ===== USUWANIE PROJEKTU =====
+        async function deleteProject(projectId) {
+            if (!confirm('Czy na pewno chcesz usunąć ten projekt?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/deleteProject/${projectId}`, {
+                    method: 'DELETE'
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showStatus('Projekt został usunięty', 'success');
+                    loadProjectsList(); // Odśwież listę
+                } else {
+                    showStatus('Błąd usuwania projektu: ' + result.message, 'error');
+                }
+            } catch (error) {
+                console.error('Błąd usuwania projektu:', error);
+                showStatus('Błąd połączenia z serwerem', 'error');
+            }
+        }
+
+        // ===== USUWANIE ZDJĘCIA =====
+        async function removeImage(projectId, imageName) {
+            if (!confirm('Czy na pewno chcesz usunąć to zdjęcie?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/removeImage/${projectId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ imageName })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showStatus('Zdjęcie zostało usunięte', 'success');
+                    loadProjectsList(); // Odśwież listę
+                } else {
+                    showStatus('Błąd usuwania zdjęcia: ' + result.message, 'error');
+                }
+            } catch (error) {
+                console.error('Błąd usuwania zdjęcia:', error);
+                showStatus('Błąd połączenia z serwerem', 'error');
+            }
+        }
+
+        // ===== EDYCJA PROJEKTU =====
+        function editProject(projectId) {
+            // TODO: Implementacja edycji projektu
+            showStatus('Funkcja edycji będzie dostępna wkrótce', 'info');
         }
     </script>
 </body>
