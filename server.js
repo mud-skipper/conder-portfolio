@@ -9,15 +9,24 @@ const PORT = 3000;
 // Middleware
 app.use(express.json());
 app.use(express.static('.'));
+app.use('/uploads', express.static('uploads'));
 
 // Konfiguracja multer dla uploadu plików
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/');
+        // Upewnij się, że folder uploads istnieje
+        const uploadDir = path.join(__dirname, 'uploads');
+        if (!require('fs').existsSync(uploadDir)) {
+            require('fs').mkdirSync(uploadDir, { recursive: true });
+        }
+        console.log(`Zapisywanie pliku ${file.originalname} do ${uploadDir}`);
+        cb(null, uploadDir);
     },
     filename: function (req, file, cb) {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+        const filename = file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname);
+        console.log(`Nazwa pliku: ${filename}`);
+        cb(null, filename);
     }
 });
 
@@ -32,9 +41,13 @@ const upload = multer({
         const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
         const mimetype = allowedTypes.test(file.mimetype);
         
+        console.log(`Sprawdzanie pliku: ${file.originalname}, mimetype: ${file.mimetype}`);
+        
         if (mimetype && extname) {
+            console.log(`Plik ${file.originalname} zaakceptowany`);
             return cb(null, true);
         } else {
+            console.log(`Plik ${file.originalname} odrzucony - nieprawidłowy typ`);
             cb(new Error('Tylko pliki JPG/PNG są dozwolone!'));
         }
     }
@@ -129,6 +142,12 @@ async function saveProjectToJSON(projectData) {
 app.post('/api/addProject', upload.array('images', 5), async (req, res) => {
     try {
         console.log('Otrzymano żądanie dodania projektu');
+        console.log('Dane formularza:', req.body);
+        console.log('Liczba plików:', req.files ? req.files.length : 0);
+        
+        if (req.files && req.files.length > 0) {
+            console.log('Nazwy plików:', req.files.map(f => f.filename));
+        }
         
         // Przygotuj dane projektu
         const projectData = {
@@ -141,6 +160,8 @@ app.post('/api/addProject', upload.array('images', 5), async (req, res) => {
             description: req.body.description,
             images: req.files ? req.files.map(file => file.filename) : []
         };
+        
+        console.log('Dane projektu:', projectData);
         
         // Zapisz projekt do JSON
         const newProject = await saveProjectToJSON(projectData);
@@ -159,7 +180,8 @@ app.post('/api/addProject', upload.array('images', 5), async (req, res) => {
         res.json({
             success: true,
             message: 'Projekt został dodany pomyślnie!',
-            project: newProject
+            project: newProject,
+            uploadedFiles: req.files ? req.files.map(f => f.filename) : []
         });
         
     } catch (error) {

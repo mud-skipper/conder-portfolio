@@ -115,10 +115,17 @@ function createProjectCard(project) {
     // Sprawdź czy projekt ma obrazek i czy plik istnieje
     const hasImage = project.image && project.image !== 'project-placeholder.jpg';
     
+    // Określ ścieżkę do zdjęcia
+    let imagePath = project.image;
+    if (hasImage && !project.image.startsWith('http') && !project.image.startsWith('/')) {
+        // Jeśli to lokalny plik, dodaj ścieżkę uploads/
+        imagePath = `uploads/${project.image}`;
+    }
+    
     card.innerHTML = `
         <div class="project-image">
             ${hasImage ? 
-                `<img src="${project.image}" alt="${project.title}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'image-placeholder\\'><span>${projectIcon}</span><p>${project.title}</p></div>'">` :
+                `<img src="${imagePath}" alt="${project.title}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'image-placeholder\\'><span>${projectIcon}</span><p>${project.title}</p></div>'">` :
                 `<div class="image-placeholder">
                     <span>${projectIcon}</span>
                     <p>${project.title}</p>
