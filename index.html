@@ -25,6 +25,15 @@
         </div>
     </header>
 
+    <!-- Menu hamburger (ukryte) -->
+    <nav class="hamburger-menu" id="hamburger-menu">
+        <div class="menu-content">
+            <a href="#about" class="menu-link">O mnie</a>
+            <a href="#projects" class="menu-link">Projekty</a>
+            <a href="#contact" class="menu-link">Kontakt</a>
+        </div>
+    </nav>
+
     <!-- Sekcja główna (hero) -->
     <main>
         <section id="home" class="hero-section">
@@ -36,26 +45,13 @@
                 </div>
             </div>
         </section>
-        <!-- Cienka linia 1px -->
-        <div class="separator"></div>
-        <!-- Sticky zakładki nawigacyjne -->
-        <nav class="section-tabs" id="section-tabs">
-            <button class="tab tab-omnie active" data-target="#about">o mnie</button>
-            <button class="tab tab-projekty" data-target="#projects">projekty</button>
-            <button class="tab tab-kontakt" data-target="#contact">kontakt</button>
-        </nav>
-        <!-- Cienka linia 1px -->
-        <div class="separator"></div>
+
         <!-- Sekcja O mnie -->
         <section id="about" class="about-section">
-            <!-- Sticky header zgodnie z wytycznymi -->
-            <h2 class="section-header section-about">O mnie</h2>
+            <div class="section-header">
+                <h2>O mnie</h2>
+            </div>
             <div class="about-content">
-                <div class="about-tabs section-tabs">
-                    <button class="tab tab-omnie active" data-target="#about">o mnie</button>
-                    <button class="tab tab-projekty" data-target="#projects">projekty</button>
-                    <button class="tab tab-kontakt" data-target="#contact">kontakt</button>
-                </div>
                 <div class="about-text-block">
                     <p class="about-bio">
                         Architekt z dyplomem WAPW oraz uprawnieniami do projektowania bez ograniczeń, założyciel pracowni 22ARCHITEKCI (założonej w 2010 roku wraz z Aleksandrem Drzewieckim, Maciejem Kowalczykiem i Michałem Tatjewskim). Wcześniej partner w WXCA (2007–2010), praktykował m.in. w MCM Design Studio w Lozannie oraz w Szcześniak Denier Architects.<br><br>
@@ -68,28 +64,15 @@
                     </ul>
                     <div class="about-signature">architekt | dyplom WAPW, OW SARP</div>
                 </div>
-                <!-- Cienka linia 1px -->
-                <div class="separator"></div>
-                <div class="about-tabs section-tabs">
-                    <button class="tab tab-omnie" data-target="#about">o mnie</button>
-                    <button class="tab tab-projekty" data-target="#projects">projekty</button>
-                    <button class="tab tab-kontakt" data-target="#contact">kontakt</button>
-                </div>
             </div>
         </section>
-        <!-- Cienka linia 1px -->
-        <div class="separator"></div>
+
         <!-- Sekcja Projekty -->
         <section id="projects" class="projects-section">
-            <!-- Sticky header zgodnie z wytycznymi -->
-            <h2 class="section-header section-projects">Projekty</h2>
+            <div class="section-header">
+                <h2>Projekty</h2>
+            </div>
             <div class="projects-content">
-                <div class="projects-tabs section-tabs">
-                    <button class="tab tab-omnie" data-target="#about">o mnie</button>
-                    <button class="tab tab-projekty active" data-target="#projects">projekty</button>
-                    <button class="tab tab-kontakt" data-target="#contact">kontakt</button>
-                </div>
-                
                 <!-- Dynamiczny kontener projektów z JSON -->
                 <div id="projects-grid" class="projects-grid">
                     <!-- Projekty będą ładowane dynamicznie z content.json -->
@@ -97,24 +80,15 @@
                         <p>Ładowanie projektów...</p>
                     </div>
                 </div>
-                
-                <!-- Cienka linia 1px -->
-                <div class="separator"></div>
-                <button class="project-contact-btn tab tab-kontakt" data-target="#contact">kontakt</button>
             </div>
         </section>
-        <!-- Cienka linia 1px -->
-        <div class="separator"></div>
+
         <!-- Sekcja Kontakt -->
         <section id="contact" class="contact-section">
-            <!-- Sticky header zgodnie z wytycznymi -->
-            <h2 class="section-header section-contact">Kontakt</h2>
+            <div class="section-header">
+                <h2>Kontakt</h2>
+            </div>
             <div class="contact-content">
-                <div class="contact-tabs section-tabs">
-                    <button class="tab tab-omnie" data-target="#about">o mnie</button>
-                    <button class="tab tab-projekty" data-target="#projects">projekty</button>
-                    <button class="tab tab-kontakt active" data-target="#contact">kontakt</button>
-                </div>
                 <div class="contact-info-block">
                     <div class="contact-info-line">Adres e-mail: <a href="mailto:wojtek.conder@gmail.com">wojtek.conder@gmail.com</a></div>
                     <div class="contact-info-line">Telefon: <a href="tel:+48501313225">+48 501 313 225</a></div>
@@ -122,8 +96,6 @@
                 </div>
             </div>
         </section>
-        <!-- Cienka linia 1px -->
-        <div class="separator"></div>
     </main>
 
     <!-- Stały panel na dole z przyciskami akcji -->
@@ -155,16 +127,6 @@
             </div>
         </div>
     </footer>
-
-    <!-- Timeline (ukryty na razie) -->
-    <section id="timeline" class="timeline" style="display: none;">
-        <div class="container">
-            <h2 class="section-title">Moja kariera</h2>
-            <div class="timeline-content">
-                <p>Timeline kariery będzie dodany w kolejnej wersji.</p>
-            </div>
-        </div>
-    </section>
 
     <script src="script.js"></script>
 </body>
