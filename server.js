@@ -55,6 +55,32 @@ function executeGitCommand(command) {
     });
 }
 
+// Funkcja do określania typu projektu na podstawie tytułu i opisu
+function determineProjectType(title, description) {
+    const text = (title + ' ' + description).toLowerCase();
+    
+    if (text.includes('muzeum') || text.includes('galeria') || text.includes('teatr') || text.includes('kino') || text.includes('centrum kultury')) {
+        return 'kulturalny';
+    }
+    if (text.includes('hotel') || text.includes('pensjonat') || text.includes('resort')) {
+        return 'hotelowy';
+    }
+    if (text.includes('biuro') || text.includes('office') || text.includes('siedziba')) {
+        return 'biurowy';
+    }
+    if (text.includes('przedszkole') || text.includes('szkoła') || text.includes('uniwersytet') || text.includes('uczelnia')) {
+        return 'edukacyjny';
+    }
+    if (text.includes('dom') && (text.includes('jednorodzinny') || text.includes('willa') || text.includes('villa'))) {
+        return 'jednorodzinny';
+    }
+    if (text.includes('apartament') || text.includes('mieszkanie') || text.includes('blok') || text.includes('osiedle')) {
+        return 'mieszkaniowy';
+    }
+    
+    return 'mieszkaniowy'; // domyślnie
+}
+
 // Funkcja do zapisu projektów do JSON
 async function saveProjectToJSON(projectData) {
     try {
@@ -73,7 +99,7 @@ async function saveProjectToJSON(projectData) {
             location: projectData.location || 'Warszawa',
             description: projectData.description,
             image: projectData.images && projectData.images.length > 0 ? projectData.images[0] : 'project-placeholder.jpg',
-            type: 'mieszkaniowy', // domyślnie
+            type: determineProjectType(projectData.title, projectData.description), // Automatyczne określanie typu
             area: projectData.totalArea || projectData.usableArea || 'N/A',
             status: projectData.stage || 'w realizacji',
             link: '#',

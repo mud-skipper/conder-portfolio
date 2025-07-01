@@ -432,6 +432,9 @@
                         document.getElementById('charCounter').textContent = '0/500';
                         
                         console.log('Projekt dodany:', result.project);
+                        
+                        // Dodaj przycisk do odświeżenia portfolio
+                        showRefreshButton();
                     } else {
                         showStatus('Błąd: ' + result.message, 'error');
                     }
@@ -445,6 +448,32 @@
                     submitBtn.textContent = 'Wyślij do conder-portfolio';
                 }
             });
+        }
+
+        // ===== PRZYCISK ODŚWIEŻENIA =====
+        function showRefreshButton() {
+            const statusDiv = document.getElementById('statusMessage');
+            
+            // Dodaj przycisk odświeżenia
+            const refreshBtn = document.createElement('button');
+            refreshBtn.textContent = '🔄 Odśwież portfolio';
+            refreshBtn.style.cssText = `
+                margin-top: 10px;
+                padding: 8px 16px;
+                background: var(--color-orange);
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px;
+            `;
+            
+            refreshBtn.addEventListener('click', function() {
+                // Otwórz portfolio w nowej karcie
+                window.open('index.html', '_blank');
+            });
+            
+            statusDiv.appendChild(refreshBtn);
         }
 
         // ===== WYŚWIETLANIE STATUSU =====

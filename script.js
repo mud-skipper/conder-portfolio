@@ -68,11 +68,14 @@ function createNavMenu() {
 // ===== WCZYTYWANIE PROJEKTÓW Z JSON =====
 async function loadProjectsFromJSON() {
     try {
-        const response = await fetch('content.json');
+        // Dodaj cache-busting parameter
+        const timestamp = new Date().getTime();
+        const response = await fetch(`content.json?t=${timestamp}`);
         const data = await response.json();
         
         if (data.projects && data.projects.length > 0) {
             displayProjects(data.projects);
+            console.log(`Załadowano ${data.projects.length} projektów`);
         } else {
             console.log('Brak projektów w pliku JSON');
         }
@@ -557,4 +560,10 @@ function initBottomPanel() {
             // window.open('cv.pdf', '_blank');
         });
     }
+}
+
+// Funkcja do odświeżania projektów (można wywołać ręcznie)
+function refreshProjects() {
+    console.log('Odświeżanie projektów...');
+    loadProjectsFromJSON();
 } 
