@@ -71,6 +71,24 @@
       "area": "1,800 m²",
       "status": "ukończony",
       "link": "#"
+    },
+    {
+      "id": 7,
+      "title": "Muzeum w Palmirach",
+      "year": "2025",
+      "location": "Warszawa",
+      "description": "Projekt w ramach WXCA, zwycięski w przetargu. Realizacja muzeum z ekspozycją historyczną w kompleksie leśnym; projekt integrujący budynek z otoczeniem, z wyważonym podejściem do strefy pamięci i edukacji.",
+      "image": "project-placeholder.jpg",
+      "type": "mieszkaniowy",
+      "area": "1200",
+      "status": "realizacja",
+      "link": "#",
+      "investor": "SZRM Warszawa",
+      "designer": "WXCA",
+      "totalArea": "1200",
+      "usableArea": "1100",
+      "stage": "realizacja",
+      "images": []
     }
   ],
   "about": {
@@ -102,4 +120,4 @@
     "theme": "retro",
     "lastUpdated": "2025-01-20"
   }
-} 
+}
