@@ -28,71 +28,87 @@
     <!-- Menu hamburger (ukryte) -->
     <nav class="hamburger-menu" id="hamburger-menu">
         <div class="menu-content">
+            <a href="#home" class="menu-link">Strona główna</a>
             <a href="#about" class="menu-link">O mnie</a>
             <a href="#projects" class="menu-link">Projekty</a>
             <a href="#contact" class="menu-link">Kontakt</a>
         </div>
     </nav>
 
-    <!-- Sekcja główna (hero) -->
-    <main>
-        <section id="home" class="hero-section">
-            <div class="hero-image-block">
-                <img src="conder-portfolio_layout.01-photo.jpg" alt="Wojciech Conder" class="hero-image" />
-                <div class="hero-text">
-                    <h1 class="hero-title">Wojciech <span class="hero-title-light">Conder</span></h1>
-                    <div class="hero-subtitle">DESIGN ARCHITECTURE<br>AND URBAN SPACES</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sekcja O mnie -->
-        <section id="about" class="about-section">
-            <div class="section-header">
-                <h2>O mnie</h2>
-            </div>
-            <div class="about-content">
-                <div class="about-text-block">
-                    <p class="about-bio">
-                        Architekt z dyplomem WAPW oraz uprawnieniami do projektowania bez ograniczeń, założyciel pracowni 22ARCHITEKCI (założonej w 2010 roku wraz z Aleksandrem Drzewieckim, Maciejem Kowalczykiem i Michałem Tatjewskim). Wcześniej partner w WXCA (2007–2010), praktykował m.in. w MCM Design Studio w Lozannie oraz w Szcześniak Denier Architects.<br><br>
-                        Projektuje budynki mieszkalne, biurowe, użyteczności publicznej, prowadząc proces od koncepcji aż po nadzór autorski
-                    </p>
-                    <ul class="about-list">
-                        <li>Kontekst i prostotę formy</li>
-                        <li>Dbałość o detal oraz logiczne rozwiązania materiałowe i konstrukcyjne</li>
-                        <li>Interdyscyplinarny dialog z klientami, użytkownikami i specjalistami dla uzyskania jakości przy optymalnym budżecie</li>
-                    </ul>
-                    <div class="about-signature">architekt | dyplom WAPW, OW SARP</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sekcja Projekty -->
-        <section id="projects" class="projects-section">
-            <div class="section-header">
-                <h2>Projekty</h2>
-            </div>
-            <div class="projects-content">
-                <!-- Dynamiczny kontener projektów z JSON -->
-                <div id="projects-grid" class="projects-grid">
-                    <!-- Projekty będą ładowane dynamicznie z content.json -->
-                    <div class="loading-projects">
-                        <p>Ładowanie projektów...</p>
+    <!-- Główna zawartość z białymi ramkami -->
+    <main class="main-content">
+        <!-- Sekcja 1: Strona główna -->
+        <section id="home" class="section home-section">
+            <div class="section-content">
+                <div class="hero-image-block">
+                    <img src="conder-portfolio_layout.01-photo.jpg" alt="Wojciech Conder" class="hero-image" />
+                    <div class="hero-text">
+                        <h1 class="hero-title">Wojciech <span class="hero-title-light">Conder</span></h1>
+                        <div class="hero-subtitle">DESIGN ARCHITECTURE<br>AND URBAN SPACES</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Sekcja Kontakt -->
-        <section id="contact" class="contact-section">
-            <div class="section-header">
-                <h2>Kontakt</h2>
+        <!-- Pozioma czarna linia -->
+        <div class="section-divider"></div>
+
+        <!-- Sekcja 2: O mnie -->
+        <section id="about" class="section about-section">
+            <div class="section-content">
+                <h2 class="section-title">O mnie</h2>
+                <div class="about-content">
+                    <p class="about-text">
+                        Architekt z dyplomem WAPW oraz uprawnieniami do projektowania bez ograniczeń, założyciel pracowni 22ARCHITEKCI (założonej w 2010 roku wraz z Aleksandrem Drzewieckim, Maciejem Kowalczykiem i Michałem Tatjewskim). Wcześniej partner w WXCA (2007–2010), praktykował m.in. w MCM Design Studio w Lozannie oraz w Szcześniak Denier Architects.
+                    </p>
+                    <p class="about-text">
+                        Projektuje budynki mieszkalne, biurowe, użyteczności publicznej, prowadząc proces od koncepcji aż po nadzór autorski.
+                    </p>
+                    <div class="about-signature">architekt | dyplom WAPW, OW SARP</div>
+                </div>
             </div>
-            <div class="contact-content">
-                <div class="contact-info-block">
-                    <div class="contact-info-line">Adres e-mail: <a href="mailto:wojtek.conder@gmail.com">wojtek.conder@gmail.com</a></div>
-                    <div class="contact-info-line">Telefon: <a href="tel:+48501313225">+48 501 313 225</a></div>
-                    <div class="contact-info-line">Data urodzenia: 22.04.1980</div>
+        </section>
+
+        <!-- Pozioma czarna linia -->
+        <div class="section-divider"></div>
+
+        <!-- Sekcja 3: Projekty -->
+        <section id="projects" class="section projects-section">
+            <div class="section-content">
+                <h2 class="section-title">Projekty</h2>
+                <div class="projects-content">
+                    <!-- Dynamiczny kontener projektów z JSON -->
+                    <div id="projects-grid" class="projects-grid">
+                        <!-- Projekty będą ładowane dynamicznie z content.json -->
+                        <div class="loading-projects">
+                            <p>Ładowanie projektów...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pozioma czarna linia -->
+        <div class="section-divider"></div>
+
+        <!-- Sekcja 4: Kontakt -->
+        <section id="contact" class="section contact-section">
+            <div class="section-content">
+                <h2 class="section-title">Kontakt</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <strong>Adres e-mail:</strong> 
+                            <a href="mailto:wojtek.conder@gmail.com">wojtek.conder@gmail.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <strong>Telefon:</strong> 
+                            <a href="tel:+48501313225">+48 501 313 225</a>
+                        </div>
+                        <div class="contact-item">
+                            <strong>Data urodzenia:</strong> 22.04.1980
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -114,16 +130,14 @@
 
     <!-- Stopka -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <p class="copyright">© 2025 Wojciech Conder</p>
-                <div class="footer-links">
-                    <a href="#" class="footer-link">Polityka prywatności</a>
-                    <span class="footer-separator">|</span>
-                    <a href="admin.html" class="footer-link">Panel Admin</a>
-                    <span class="footer-separator">|</span>
-                    <span class="footer-credit">Stworzone z ♥ w HTML</span>
-                </div>
+        <div class="footer-content">
+            <p class="copyright">© 2025 Wojciech Conder</p>
+            <div class="footer-links">
+                <a href="#" class="footer-link">Polityka prywatności</a>
+                <span class="footer-separator">|</span>
+                <a href="admin.html" class="footer-link">Panel Admin</a>
+                <span class="footer-separator">|</span>
+                <span class="footer-credit">Stworzone z ♥ w HTML</span>
             </div>
         </div>
     </footer>
