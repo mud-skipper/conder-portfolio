@@ -108,12 +108,18 @@ function createProjectCard(project) {
     // Określ ikonę na podstawie typu projektu
     const projectIcon = getProjectIcon(project.type);
     
+    // Sprawdź czy projekt ma obrazek
+    const hasImage = project.image && project.image !== 'project-placeholder.jpg';
+    
     card.innerHTML = `
         <div class="project-image">
-            <div class="image-placeholder">
-                <span>${projectIcon}</span>
-                <p>${project.title}</p>
-            </div>
+            ${hasImage ? 
+                `<img src="${project.image}" alt="${project.title}" loading="lazy">` :
+                `<div class="image-placeholder">
+                    <span>${projectIcon}</span>
+                    <p>${project.title}</p>
+                </div>`
+            }
         </div>
         <div class="project-info">
             <h3 class="project-title">${project.title}</h3>
@@ -163,19 +169,22 @@ function displayFallbackProject() {
                 <div class="project-image">
                     <div class="image-placeholder">
                         <span>🏗️</span>
-                        <p>Przykładowy projekt</p>
+                        <p>Muzeum Pamięci Palmiry</p>
                     </div>
                 </div>
                 <div class="project-info">
-                    <h3 class="project-title">Przykładowy projekt</h3>
+                    <h3 class="project-title">Muzeum Pamięci Palmiry</h3>
                     <div class="project-meta">
-                        <span class="project-year">2024</span>
+                        <span class="project-year">2009</span>
                         <span class="project-location">Warszawa</span>
+                        <span class="project-status">ukończony</span>
                     </div>
                     <p class="project-description">
-                        Krótki opis projektu architektonicznego z uwzględnieniem 
-                        głównych założeń i rozwiązań.
+                        Projekt w ramach WXCA, zwycięski w przetargu. Realizacja muzeum z ekspozycją historyczną w lesie pod Warszawą.
                     </p>
+                    <div class="project-details">
+                        <span class="project-area">Powierzchnia: 2,500 m²</span>
+                    </div>
                     <a href="#" class="project-link">Zobacz szczegóły</a>
                 </div>
             </div>

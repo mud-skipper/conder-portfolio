@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Header z logo i menu hamburger (sticky) -->
@@ -48,6 +48,8 @@
         <div class="separator"></div>
         <!-- Sekcja O mnie -->
         <section id="about" class="about-section">
+            <!-- Sticky header zgodnie z wytycznymi -->
+            <h2 class="section-header section-about">O mnie</h2>
             <div class="about-content">
                 <div class="about-tabs section-tabs">
                     <button class="tab tab-omnie active" data-target="#about">o mnie</button>
@@ -79,27 +81,23 @@
         <div class="separator"></div>
         <!-- Sekcja Projekty -->
         <section id="projects" class="projects-section">
+            <!-- Sticky header zgodnie z wytycznymi -->
+            <h2 class="section-header section-projects">Projekty</h2>
             <div class="projects-content">
                 <div class="projects-tabs section-tabs">
                     <button class="tab tab-omnie" data-target="#about">o mnie</button>
                     <button class="tab tab-projekty active" data-target="#projects">projekty</button>
                     <button class="tab tab-kontakt" data-target="#contact">kontakt</button>
                 </div>
-                <div class="project-gallery">
-                    <!-- Przygotowane pod slider/galerię na przyszłość -->
-                    <button class="gallery-arrow left" aria-label="Poprzednie zdjęcie">&#8592;</button>
-                    <img src="conder-portfolio_layout.03-photo.jpg" alt="Muzeum Pamięci Palmiry" class="project-image" />
-                    <button class="gallery-arrow right" aria-label="Następne zdjęcie">&#8594;</button>
-                </div>
-                <div class="project-info-block">
-                    <div class="project-title-row">
-                        <span class="project-title">Muzeum Pamięci Palmiry</span>
-                        <span class="project-year">– 2009</span>
-                    </div>
-                    <div class="project-description">
-                        Projekt w ramach WXCA, zwycięski w przetargu. Realizacja muzeum z ekspozycją historyczną w lesie pod Warszawą.
+                
+                <!-- Dynamiczny kontener projektów z JSON -->
+                <div id="projects-grid" class="projects-grid">
+                    <!-- Projekty będą ładowane dynamicznie z content.json -->
+                    <div class="loading-projects">
+                        <p>Ładowanie projektów...</p>
                     </div>
                 </div>
+                
                 <!-- Cienka linia 1px -->
                 <div class="separator"></div>
                 <button class="project-contact-btn tab tab-kontakt" data-target="#contact">kontakt</button>
@@ -109,6 +107,8 @@
         <div class="separator"></div>
         <!-- Sekcja Kontakt -->
         <section id="contact" class="contact-section">
+            <!-- Sticky header zgodnie z wytycznymi -->
+            <h2 class="section-header section-contact">Kontakt</h2>
             <div class="contact-content">
                 <div class="contact-tabs section-tabs">
                     <button class="tab tab-omnie" data-target="#about">o mnie</button>
@@ -141,6 +141,8 @@
                 <p class="copyright">© 2025 Wojciech Conder</p>
                 <div class="footer-links">
                     <a href="#" class="footer-link">Polityka prywatności</a>
+                    <span class="footer-separator">|</span>
+                    <a href="admin.html" class="footer-link">Panel Admin</a>
                     <span class="footer-separator">|</span>
                     <span class="footer-credit">Stworzone z ♥ w HTML</span>
                 </div>

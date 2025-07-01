@@ -8,21 +8,32 @@ Portfolio architekta Wojciecha Condera stworzone w stylu retro z kremowym tłem 
 
 ## 🚀 Jak uruchomić
 
-### Lokalnie
-1. Pobierz wszystkie pliki do jednego folderu
+### Opcja 1: Z panelem administracyjnym (Node.js)
+1. Zainstaluj Node.js (https://nodejs.org/)
 2. Otwórz terminal w folderze projektu
-3. Uruchom lokalny serwer:
+3. Zainstaluj zależności:
+   ```bash
+   npm install
+   ```
+4. Uruchom serwer:
+   ```bash
+   npm start
+   ```
+5. Otwórz przeglądarkę:
+   - Portfolio: `http://localhost:3000`
+   - Panel admina: `http://localhost:3000/admin.html`
+
+### Opcja 2: Tylko portfolio (Python)
+1. Otwórz terminal w folderze projektu
+2. Uruchom lokalny serwer:
    ```bash
    # Python 3
    python -m http.server 8000
    
    # Lub Python 2
    python -m SimpleHTTPServer 8000
-   
-   # Lub Node.js (jeśli masz zainstalowany)
-   npx serve .
    ```
-4. Otwórz przeglądarkę i przejdź do `http://localhost:8000`
+3. Otwórz przeglądarkę i przejdź do `http://localhost:8000`
 
 ### Bez serwera
 Możesz też po prostu otworzyć plik `index.html` w przeglądarce, ale niektóre funkcje (wczytywanie JSON) mogą nie działać.
@@ -35,7 +46,11 @@ conder-portfolio/
 ├── style.css           # Style retro z animacjami
 ├── script.js           # Funkcjonalność JavaScript
 ├── content.json        # Dane projektów (CMS)
+├── admin.html          # Panel administracyjny
+├── server.js           # Serwer Node.js
+├── package.json        # Zależności Node.js
 ├── conder-potfolio_logo.png  # Logo
+├── uploads/            # Folder na zdjęcia projektów
 ├── README.md           # Ten plik
 ├── ai_agent_rules.md   # Zasady dla AI
 └── conder-portfolio_roadmap.md  # Roadmapa projektu
@@ -46,12 +61,14 @@ conder-portfolio/
 ### ✅ Zaimplementowane
 - **Responsywny design** - mobile-first (320-768px+)
 - **Menu hamburger** - otwierane z prawej strony
-- **Ukośne pasy retro** - animowane w tle
+- **Sticky headers sekcji** - z kolorowymi paskami nawigacyjnymi
 - **Dynamiczne projekty** - wczytywane z `content.json`
+- **Panel administracyjny** - dodawanie projektów z walidacją
+- **Automatyczny Git push** - po dodaniu nowego projektu
 - **Formularz kontaktowy** - z walidacją
 - **Płynne przewijanie** - do sekcji
 - **Animacje** - fade-in przy scrollowaniu
-- **Styl retro** - kremowe tło, czarne ramki, pomarańczowe akcenty
+- **Styl retro** - kremowe tło, czarne ramki, kolorowe akcenty
 
 ### 🔄 Do rozbudowy
 - Timeline kariery
@@ -120,13 +137,13 @@ Po wdrożeniu na hosting:
 2. Dodaj do CV, wizytówek, plansz
 3. Umożliw szybki dostęp do portfolio
 
-## 🎨 Kolory retro
+## 🎨 Kolory retro (zaktualizowane)
 
 - **Kremowe tło**: `#f5f5dc`
-- **Żółty pas**: `#ffd700`
-- **Pomarańczowy pas**: `#ff8c00`
-- **Czerwony pas**: `#dc143c`
-- **Czarny tekst**: `#1a1a1a`
+- **Żółty pas**: `#FFC000` (O mnie)
+- **Pomarańczowy pas**: `#FF8700` (Projekty)
+- **Czerwony pas**: `#FF0000` (Kontakt)
+- **Czarny tekst**: `#000000`
 - **Białe elementy**: `#ffffff`
 
 ## 🔄 Aktualizacje
