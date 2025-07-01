@@ -40,6 +40,7 @@
 /* ===== ZMIENNE CSS ===== */
 :root {
     /* Kolory */
+    --color-cream: #fff;
     --color-white: #ffffff;
     --color-black: #000000;
     --color-gray: #666666;
@@ -84,7 +85,7 @@ html {
 
 body {
     font-family: 'Figtree', sans-serif;
-    background: var(--color-white);
+    background: var(--color-cream);
     color: var(--color-black);
     line-height: 1.6;
     overflow-x: hidden;
@@ -348,9 +349,9 @@ body {
     padding: var(--spacing-xxl);
     color: var(--color-gray);
     font-style: italic;
-    background: var(--color-white);
+    background: var(--color-cream);
     border: 2px dashed var(--color-gray);
-    border-radius: 0;
+    border-radius: var(--radius-md);
     margin: var(--spacing-md);
 }
 
@@ -464,8 +465,8 @@ body {
 .contact-info {
     background: var(--color-white);
     padding: var(--spacing-xxl);
-    border-radius: 0;
-    box-shadow: none;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
 }
 
 .contact-item {
@@ -531,13 +532,14 @@ body {
     flex: 1 1 0;
     height: 34px;
     border: none;
-    border-radius: 0;
+    border-radius: 8px;
     font-size: 1.1em;
     font-weight: 800;
     text-transform: uppercase;
     cursor: pointer;
-    transition: background 0.2s, color 0.2s;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
     margin: 0 2px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     letter-spacing: 0.01em;
     outline: none;
     display: flex;
@@ -548,7 +550,7 @@ body {
 }
 
 .action-btn:active {
-    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
 }
 
 .action-email {

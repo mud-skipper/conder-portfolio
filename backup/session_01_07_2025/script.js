@@ -43,10 +43,13 @@ async function loadProjectsFromJSON() {
         
         if (data.projects && data.projects.length > 0) {
             displayProjects(data.projects);
+            console.log(`Załadowano ${data.projects.length} projektów`);
         } else {
             displayEmptyProjects();
+            console.log('Brak projektów w pliku JSON');
         }
     } catch (error) {
+        console.error('Błąd podczas wczytywania projektów:', error);
         displayEmptyProjects();
     }
 }
@@ -56,6 +59,7 @@ function displayProjects(projects) {
     const projectsGrid = document.getElementById('projects-grid');
     
     if (!projectsGrid) {
+        console.error('Nie znaleziono elementu projects-grid');
         return;
     }
 
@@ -139,6 +143,7 @@ function displayEmptyProjects() {
     const projectsGrid = document.getElementById('projects-grid');
     
     if (!projectsGrid) {
+        console.error('Nie znaleziono elementu projects-grid');
         return;
     }
 
@@ -170,18 +175,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (cvBtn) {
         cvBtn.addEventListener('click', function() {
-            // Jeśli plik cv.pdf istnieje, przekieruj, w przeciwnym razie alert
-            fetch('cv.pdf', { method: 'HEAD' })
-                .then(res => {
-                    if (res.ok) {
-                        window.open('cv.pdf', '_blank');
-                    } else {
-                        alert('CV będzie dostępne wkrótce');
-                    }
-                })
-                .catch(() => {
-                    alert('CV będzie dostępne wkrótce');
-                });
+            // TODO: Dodać link do CV
+            alert('CV będzie dostępne wkrótce');
         });
     }
 }); 

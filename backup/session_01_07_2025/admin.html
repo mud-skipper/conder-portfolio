@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administracyjny - conder-portfolio</title>
+    <meta name="description" content="Panel do zarządzania projektami w portfolio Wojciecha Condera">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* NADPISANIE BLOKADY DESKTOP DLA PANELU ADMINA */
+        @media (min-width: 768px) {
+            html, body {
+                overflow: auto !important;
+            }
+            
+            body::before {
+                display: none !important;
+            }
+            
+            .header, main, .footer, .nav-menu, .bottom-panel {
+                display: block !important;
+            }
+        }
+        
+        /* Style specyficzne dla panelu admina */
+        .admin-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: var(--color-white);
+            border: 2px solid var(--color-black);
+            border-radius: var(--radius-md);
+        }
+        
+        .admin-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--color-black);
+        }
+        
+        .admin-title {
+            font-size: 2em;
+            font-weight: 700;
+            color: var(--color-black);
+            margin-bottom: 10px;
+        }
+        
+        .admin-subtitle {
+            color: var(--color-gray);
+            font-size: 1.1em;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--color-black);
+        }
+        
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--color-black);
+            border-radius: var(--radius-sm);
+            font-family: var(--font-primary);
+            font-size: 16px;
+            background: var(--color-white);
+            color: var(--color-black);
+        }
+        
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--color-orange);
+            box-shadow: 0 0 0 3px rgba(255, 135, 0, 0.1);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .char-counter {
+            text-align: right;
+            font-size: 0.9em;
+            color: var(--color-gray);
+            margin-top: 5px;
+        }
+        
+        .char-counter.warning {
+            color: var(--color-orange);
+        }
+        
+        .char-counter.error {
+            color: var(--color-red);
+        }
+        
+        .file-input-container {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .file-input {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .file-input-label {
+            display: block;
+            padding: 12px;
+            border: 2px dashed var(--color-black);
+            border-radius: var(--radius-sm);
+            text-align: center;
+            cursor: pointer;
+            background: var(--color-cream);
+            transition: all 0.3s ease;
+        }
+        
+        .file-input-label:hover {
+            background: var(--color-yellow);
+            border-color: var(--color-orange);
+        }
+        
+        .file-list {
+            margin-top: 10px;
+            padding: 10px;
+            background: var(--color-light-gray);
+            border-radius: var(--radius-sm);
+            font-size: 0.9em;
+        }
+        
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+            border-bottom: 1px solid var(--color-gray);
+        }
+        
+        .file-item:last-child {
+            border-bottom: none;
+        }
+        
+        .file-name {
+            flex: 1;
+        }
+        
+        .file-size {
+            color: var(--color-gray);
+            margin-left: 10px;
+        }
+        
+        .file-error {
+            color: var(--color-red);
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--color-orange);
+            color: var(--color-white);
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background: var(--color-red);
+        }
+        
+        .submit-btn:disabled {
+            background: var(--color-gray);
+            cursor: not-allowed;
+        }
+        
+        .status-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: var(--radius-sm);
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--color-orange);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            color: var(--color-red);
+        }
+
+        /* Style dla listy projektów */
+        .projects-list {
+            margin-top: 20px;
+        }
+
+        .project-item {
+            border: 2px solid var(--color-black);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin-bottom: 20px;
+            background: var(--color-white);
+            position: relative;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .project-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: var(--color-black);
+            margin: 0;
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-edit, .btn-delete {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-edit {
+            background: var(--color-orange);
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: #e67e00;
+        }
+
+        .btn-delete {
+            background: var(--color-red);
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #cc0000;
+        }
+
+        .project-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .project-info {
+            font-size: 14px;
+            color: var(--color-gray);
+        }
+
+        .project-info strong {
+            color: var(--color-black);
+        }
+
+        .project-images {
+            margin-top: 15px;
+        }
+
+        .project-images h4 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+            color: var(--color-black);
+        }
+
+        .images-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+        }
+
+        .image-item {
+            position: relative;
+            border: 1px solid var(--color-gray);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .image-item img {
+            width: 100%;
+            height: 80px;
+            object-fit: cover;
+        }
+
+        .image-remove {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background: rgba(255, 0, 0, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-remove:hover {
+            background: rgba(255, 0, 0, 1);
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Header panelu -->
+        <div class="admin-header">
+            <h1 class="admin-title">Panel Administracyjny</h1>
+            <p class="admin-subtitle">Dodaj nowy projekt do portfolio</p>
+        </div>
+
+        <!-- Formularz dodawania projektu -->
+        <form id="projectForm">
+            <!-- Tytuł inwestycji -->
+            <div class="form-group">
+                <label for="title" class="form-label">Tytuł inwestycji *</label>
+                <input type="text" id="title" name="title" class="form-input" required>
+            </div>
+
+            <!-- Inwestor -->
+            <div class="form-group">
+                <label for="investor" class="form-label">Inwestor</label>
+                <input type="text" id="investor" name="investor" class="form-input">
+            </div>
+
+            <!-- Projektant / współpraca -->
+            <div class="form-group">
+                <label for="designer" class="form-label">Projektant / współpraca</label>
+                <input type="text" id="designer" name="designer" class="form-input">
+            </div>
+
+            <!-- Powierzchnia całkowita -->
+            <div class="form-group">
+                <label for="totalArea" class="form-label">Powierzchnia całkowita</label>
+                <input type="text" id="totalArea" name="totalArea" class="form-input" placeholder="np. 15,000 m²">
+            </div>
+
+            <!-- Powierzchnia użytkowa -->
+            <div class="form-group">
+                <label for="usableArea" class="form-label">Powierzchnia użytkowa</label>
+                <input type="text" id="usableArea" name="usableArea" class="form-input" placeholder="np. 12,000 m²">
+            </div>
+
+            <!-- Etap -->
+            <div class="form-group">
+                <label for="stage" class="form-label">Etap *</label>
+                <select id="stage" name="stage" class="form-select" required>
+                    <option value="">Wybierz etap</option>
+                    <option value="koncepcja">Koncepcja</option>
+                    <option value="projekt wykonawczy">Projekt wykonawczy</option>
+                    <option value="realizacja">Realizacja</option>
+                </select>
+            </div>
+
+            <!-- Opis -->
+            <div class="form-group">
+                <label for="description" class="form-label">Opis *</label>
+                <textarea id="description" name="description" class="form-textarea" maxlength="500" required placeholder="Opisz projekt (max 500 znaków)"></textarea>
+                <div id="charCounter" class="char-counter">0/500</div>
+            </div>
+
+            <!-- Zdjęcia -->
+            <div class="form-group">
+                <label for="images" class="form-label">Zdjęcia (3-5 plików)</label>
+                <div class="file-input-container">
+                    <input type="file" id="images" name="images" class="file-input" multiple accept=".jpg,.jpeg,.png">
+                    <label for="images" class="file-input-label">
+                        📁 Kliknij aby wybrać zdjęcia (JPG/PNG, max 500KB każdy)
+                    </label>
+                </div>
+                <div id="fileList" class="file-list" style="display: none;"></div>
+            </div>
+
+            <!-- Przycisk wysłania -->
+            <button type="submit" class="submit-btn" id="submitBtn">
+                Wyślij do conder-portfolio
+            </button>
+        </form>
+
+        <!-- Komunikat statusu -->
+        <div id="statusMessage" class="status-message" style="display: none;"></div>
+
+        <!-- Link powrotu -->
+        <a href="index.html" class="back-link">← Powrót do portfolio</a>
+    </div>
+
+    <!-- Sekcja podglądu projektów -->
+    <div class="admin-container" style="margin-top: 40px;">
+        <div class="admin-header">
+            <h2 class="admin-title">Podgląd projektów</h2>
+            <p class="admin-subtitle">Zarządzaj istniejącymi projektami</p>
+        </div>
+
+        <div id="projectsList" class="projects-list">
+            <!-- Projekty będą ładowane dynamicznie -->
+            <div class="loading-projects">
+                <p>Ładowanie projektów...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== INICJALIZACJA =====
+        document.addEventListener('DOMContentLoaded', function() {
+            initCharCounter();
+            initFileValidation();
+            initFormSubmission();
+            loadProjectsList();
+        });
+
+        // ===== LICZNIK ZNAKÓW =====
+        function initCharCounter() {
+            const description = document.getElementById('description');
+            const charCounter = document.getElementById('charCounter');
+            
+            description.addEventListener('input', function() {
+                const length = this.value.length;
+                const maxLength = 500;
+                
+                charCounter.textContent = `${length}/${maxLength}`;
+                
+                // Zmiana koloru przy zbliżaniu się do limitu
+                if (length >= maxLength) {
+                    charCounter.className = 'char-counter error';
+                } else if (length >= maxLength * 0.8) {
+                    charCounter.className = 'char-counter warning';
+                } else {
+                    charCounter.className = 'char-counter';
+                }
+            });
+        }
+
+        // ===== WALIDACJA PLIKÓW =====
+        function initFileValidation() {
+            const fileInput = document.getElementById('images');
+            const fileList = document.getElementById('fileList');
+            
+            fileInput.addEventListener('change', function() {
+                const files = Array.from(this.files);
+                
+                if (files.length === 0) {
+                    fileList.style.display = 'none';
+                    return;
+                }
+                
+                // Sprawdź liczbę plików
+                if (files.length > 5) {
+                    showStatus('Maksymalnie 5 zdjęć!', 'error');
+                    this.value = '';
+                    fileList.style.display = 'none';
+                    return;
+                }
+                
+                // Sprawdź każdy plik
+                let validFiles = [];
+                let errors = [];
+                
+                files.forEach(file => {
+                    // Sprawdź rozmiar (500KB = 512000 bytes)
+                    if (file.size > 512000) {
+                        errors.push(`${file.name} - za duży plik (${(file.size / 1024).toFixed(0)}KB)`);
+                    } else {
+                        validFiles.push(file);
+                    }
+                });
+                
+                if (errors.length > 0) {
+                    showStatus('Błędy w plikach: ' + errors.join(', '), 'error');
+                    this.value = '';
+                    fileList.style.display = 'none';
+                    return;
+                }
+                
+                // Wyświetl listę plików
+                displayFileList(validFiles);
+            });
+        }
+
+        function displayFileList(files) {
+            const fileList = document.getElementById('fileList');
+            
+            fileList.innerHTML = files.map(file => `
+                <div class="file-item">
+                    <span class="file-name">${file.name}</span>
+                    <span class="file-size">${(file.size / 1024).toFixed(0)}KB</span>
+                </div>
+            `).join('');
+            
+            fileList.style.display = 'block';
+        }
+
+        // ===== WYSYŁANIE FORMULARZA =====
+        function initFormSubmission() {
+            const form = document.getElementById('projectForm');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Wyłącz przycisk podczas wysyłania
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Wysyłanie...';
+                
+                try {
+                    // Zbierz dane z formularza
+                    const formData = new FormData(form);
+                    
+                    // Sprawdź czy serwer jest dostępny
+                    const serverUrl = window.location.port === '3000' ? '' : 'http://localhost:3000';
+                    
+                    // Wyślij dane do serwera
+                    const response = await fetch(`${serverUrl}/api/addProject`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        showStatus(result.message, 'success');
+                        
+                        // Reset formularza
+                        form.reset();
+                        document.getElementById('fileList').style.display = 'none';
+                        document.getElementById('charCounter').textContent = '0/500';
+                        
+                        console.log('Projekt dodany:', result.project);
+                        
+                        // Dodaj przycisk do odświeżenia portfolio
+                        showRefreshButton();
+                    } else {
+                        showStatus('Błąd: ' + result.message, 'error');
+                    }
+                    
+                } catch (error) {
+                    console.error('Błąd wysyłania:', error);
+                    showStatus('Błąd połączenia z serwerem. Sprawdź czy serwer jest uruchomiony.', 'error');
+                } finally {
+                    // Przywróć przycisk
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Wyślij do conder-portfolio';
+                }
+            });
+        }
+
+        // ===== PRZYCISK ODŚWIEŻENIA =====
+        function showRefreshButton() {
+            const statusDiv = document.getElementById('statusMessage');
+            
+            // Dodaj przycisk odświeżenia
+            const refreshBtn = document.createElement('button');
+            refreshBtn.textContent = '🔄 Odśwież portfolio';
+            refreshBtn.style.cssText = `
+                margin-top: 10px;
+                padding: 8px 16px;
+                background: var(--color-orange);
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px;
+            `;
+            
+            refreshBtn.addEventListener('click', function() {
+                // Otwórz portfolio w nowej karcie
+                window.open('index.html', '_blank');
+            });
+            
+            statusDiv.appendChild(refreshBtn);
+        }
+
+        // ===== WYŚWIETLANIE STATUSU =====
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('statusMessage');
+            statusDiv.textContent = message;
+            statusDiv.className = `status-message status-${type}`;
+            statusDiv.style.display = 'block';
+            
+            // Ukryj po 5 sekundach
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        // ===== PODGLĄD PROJEKTÓW =====
+        async function loadProjectsList() {
+            try {
+                const response = await fetch('content.json');
+                const data = await response.json();
+                
+                const projectsList = document.getElementById('projectsList');
+                
+                if (data.projects && data.projects.length > 0) {
+                    projectsList.innerHTML = data.projects.map(project => createProjectItem(project)).join('');
+                } else {
+                    projectsList.innerHTML = '<p>Brak projektów do wyświetlenia</p>';
+                }
+            } catch (error) {
+                console.error('Błąd ładowania projektów:', error);
+                document.getElementById('projectsList').innerHTML = '<p>Błąd ładowania projektów</p>';
+            }
+        }
+
+        function createProjectItem(project) {
+            const imagesHtml = project.images && project.images.length > 0 
+                ? `
+                    <div class="project-images">
+                        <h4>Zdjęcia (${project.images.length}):</h4>
+                        <div class="images-grid">
+                            ${project.images.map(image => `
+                                <div class="image-item">
+                                    <img src="uploads/${image}" alt="${project.title}" onerror="this.style.display='none'">
+                                    <button class="image-remove" onclick="removeImage(${project.id}, '${image}')" title="Usuń zdjęcie">×</button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                ` : '<p>Brak zdjęć</p>';
+
+            return `
+                <div class="project-item" data-project-id="${project.id}">
+                    <div class="project-header">
+                        <h3 class="project-title">${project.title}</h3>
+                        <div class="project-actions">
+                            <button class="btn-edit" onclick="editProject(${project.id})">Edytuj</button>
+                            <button class="btn-delete" onclick="deleteProject(${project.id})">Usuń</button>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <div class="project-info">
+                            <strong>Rok:</strong> ${project.year}<br>
+                            <strong>Lokalizacja:</strong> ${project.location}<br>
+                            <strong>Typ:</strong> ${project.type}<br>
+                            <strong>Status:</strong> ${project.status}
+                        </div>
+                        <div class="project-info">
+                            <strong>Powierzchnia:</strong> ${project.area}<br>
+                            <strong>Inwestor:</strong> ${project.investor || 'Brak'}<br>
+                            <strong>Projektant:</strong> ${project.designer || 'Brak'}<br>
+                            <strong>Etap:</strong> ${project.stage || 'Brak'}
+                        </div>
+                    </div>
+                    <p><strong>Opis:</strong> ${project.description}</p>
+                    ${imagesHtml}
+                </div>
+            `;
+        }
+
+        // ===== USUWANIE PROJEKTU =====
+        async function deleteProject(projectId) {
+            if (!confirm('Czy na pewno chcesz usunąć ten projekt?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/deleteProject/${projectId}`, {
+                    method: 'DELETE'
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showStatus('Projekt został usunięty', 'success');
+                    loadProjectsList(); // Odśwież listę
+                } else {
+                    showStatus('Błąd usuwania projektu: ' + result.message, 'error');
+                }
+            } catch (error) {
+                console.error('Błąd usuwania projektu:', error);
+                showStatus('Błąd połączenia z serwerem', 'error');
+            }
+        }
+
+        // ===== USUWANIE ZDJĘCIA =====
+        async function removeImage(projectId, imageName) {
+            if (!confirm('Czy na pewno chcesz usunąć to zdjęcie?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/removeImage/${projectId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ imageName })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showStatus('Zdjęcie zostało usunięte', 'success');
+                    loadProjectsList(); // Odśwież listę
+                } else {
+                    showStatus('Błąd usuwania zdjęcia: ' + result.message, 'error');
+                }
+            } catch (error) {
+                console.error('Błąd usuwania zdjęcia:', error);
+                showStatus('Błąd połączenia z serwerem', 'error');
+            }
+        }
+
+        // ===== EDYCJA PROJEKTU =====
+        function editProject(projectId) {
+            // TODO: Implementacja edycji projektu
+            showStatus('Funkcja edycji będzie dostępna wkrótce', 'info');
+        }
+    </script>
+</body>
+</html> 

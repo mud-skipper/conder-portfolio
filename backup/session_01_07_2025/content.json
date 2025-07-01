@@ -1,0 +1,56 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title": "Nowy Nikiszowiec",
+      "year": "2025",
+      "location": "Warszawa",
+      "description": "Nowy Nikiszowiec to osiedle mieszkaniowe w formule najmu instytucjonalnego, harmonijnie nawiązujące do historycznego Nikiszowca: w układzie kwartałów, ceglastych odcieniach elewacji oraz centralnym placem sąsiedzkim. Celem było stworzenie przystępnych cenowo mieszkań dla młodych rodzin i osób na start – z wysokim standardem wykonania, dobrze skomunikowanych i otoczonych zielenią. Projekt uzyskał nominację do europejskiej nagrody Miesa van der Rohe i zdobył uznanie mediów.",
+      "image": "images-1751384986912-617165795.jpg",
+      "type": "mieszkaniowy",
+      "area": "~36 128 m², 513 mieszkań (36–95 m²)",
+      "status": "realizacja",
+      "link": "#",
+      "investor": "PFR Nieruchomości (MDR Katowice sp. z o.o., TBS Katowice)",
+      "designer": "22ARCHITEKCI",
+      "totalArea": "",
+      "usableArea": "~36 128 m², 513 mieszkań (36–95 m²)",
+      "stage": "realizacja",
+      "images": [
+        "images-1751384986912-617165795.jpg",
+        "images-1751384986912-957568303.jpg",
+        "images-1751384986912-682066056.jpg",
+        "images-1751384986912-375407962.jpg"
+      ]
+    }
+  ],
+  "about": {
+    "name": "Wojciech Conder",
+    "title": "Architekt",
+    "bio": "Architekt z pasją do tworzenia funkcjonalnych i estetycznych przestrzeni. Specjalizuję się w projektowaniu mieszkań, biur i przestrzeni publicznych z myślą o komforcie użytkowników i zrównoważonym rozwoju.",
+    "experience": "8+ lat",
+    "specializations": [
+      "Architektura mieszkaniowa",
+      "Projektowanie biur",
+      "Adaptacje zabytków",
+      "Zrównoważone budownictwo"
+    ],
+    "education": "Politechnika Warszawska, Wydział Architektury",
+    "location": "Warszawa / zdalnie"
+  },
+  "contact": {
+    "email": "wojciech@conder-architekt.pl",
+    "phone": "+48 123 456 789",
+    "address": "Warszawa, Polska",
+    "social": {
+      "linkedin": "https://linkedin.com/in/wojciech-conder",
+      "instagram": "https://instagram.com/conder_architekt",
+      "facebook": "https://facebook.com/conder.architekt"
+    }
+  },
+  "settings": {
+    "language": "pl",
+    "theme": "retro",
+    "lastUpdated": "2025-01-20"
+  }
+}
