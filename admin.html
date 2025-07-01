@@ -10,6 +10,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* NADPISANIE BLOKADY DESKTOP DLA PANELU ADMINA */
+        @media (min-width: 768px) {
+            html, body {
+                overflow: auto !important;
+            }
+            
+            body::before {
+                display: none !important;
+            }
+            
+            .header, main, .footer, .nav-menu, .bottom-panel {
+                display: block !important;
+            }
+        }
+        
         /* Style specyficzne dla panelu admina */
         .admin-container {
             max-width: 600px;
