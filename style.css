@@ -232,7 +232,7 @@ body {
 .section-content {
     width: 100%;
     max-width: 1200px;
-    padding: 0 var(--spacing-xl);
+    padding: 0;
 }
 
 .section-title {
@@ -248,7 +248,6 @@ body {
 /* ===== SEKCJA STRONA GŁÓWNA ===== */
 .home-section {
     position: relative;
-    padding: 0;
 }
 
 .hero-image-block {
@@ -608,7 +607,6 @@ body {
         font-size: 0.95em;
     }
     .main-content,
-    .section,
     .section-content,
     .about-content,
     .projects-content,
