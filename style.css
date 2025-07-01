@@ -596,6 +596,10 @@ body {
         border-left: 6px solid var(--color-white) !important;
         border-right: 6px solid var(--color-white) !important;
     }
+    
+    .section {
+        padding: var(--spacing-xxl) 6px !important;
+    }
     .bottom-panel {
         height: 44px;
     }
@@ -628,12 +632,33 @@ body {
 }
 
 /* ===== DOSTOSOWANIE SZEROKOŚCI WSZYSTKICH ELEMENTÓW W POLU SCROLL ===== */
-.main-content,
-.section,
+.main-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box;
+}
+
+.section {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: var(--spacing-xxl) 10px !important;
+    box-sizing: border-box;
+}
+
 .section-content,
 .about-content,
 .projects-content,
-.contact-content,
+.contact-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box;
+}
+
 .projects-grid {
     width: 100% !important;
     max-width: 100% !important;
@@ -642,7 +667,7 @@ body {
     box-sizing: border-box;
 }
 
-/* Usuwam paddingy i marginesy z sekcji i kontenerów */
+/* Przywracam normalne marginesy dla tekstów */
 .section-title, .about-signature, .about-text, .contact-item {
     padding-left: 0 !important;
     padding-right: 0 !important;
