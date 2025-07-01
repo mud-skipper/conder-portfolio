@@ -109,13 +109,13 @@ function createProjectCard(project) {
     // Określ ikonę na podstawie typu projektu
     const projectIcon = getProjectIcon(project.type);
     
-    // Sprawdź czy projekt ma obrazek
+    // Sprawdź czy projekt ma obrazek i czy plik istnieje
     const hasImage = project.image && project.image !== 'project-placeholder.jpg';
     
     card.innerHTML = `
         <div class="project-image">
             ${hasImage ? 
-                `<img src="${project.image}" alt="${project.title}" loading="lazy">` :
+                `<img src="${project.image}" alt="${project.title}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'image-placeholder\\'><span>${projectIcon}</span><p>${project.title}</p></div>'">` :
                 `<div class="image-placeholder">
                     <span>${projectIcon}</span>
                     <p>${project.title}</p>
@@ -198,34 +198,67 @@ function initContactForm() {
     const contactForm = document.querySelector('.contact-form-block');
     
     if (contactForm) {
-        contactForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            handleFormSubmission();
+        contactForm.addEventListener('submit', function(e) {
+            handleFormSubmission(e);
         });
     }
 }
 
-function handleFormSubmission() {
-    const form = document.querySelector('.contact-form-block');
-    const email = form.querySelector('.contact-input').value;
-    const message = form.querySelector('.contact-textarea').value;
+function handleFormSubmission(e) {
+    e.preventDefault();
+    
+    const emailInput = document.querySelector('.contact-input');
+    const messageInput = document.querySelector('.contact-textarea');
+    
+    if (!emailInput || !messageInput) {
+        console.error('Nie znaleziono pól formularza');
+        return;
+    }
+    
+    const email = emailInput.value.trim();
+    const message = messageInput.value.trim();
     
     // Walidacja
-    if (!email || !message) {
-        showNotification('Proszę wypełnić wszystkie pola', 'error');
+    if (!email) {
+        showNotification('Proszę podać adres email', 'error');
+        emailInput.focus();
         return;
     }
     
     if (!isValidEmail(email)) {
         showNotification('Proszę podać poprawny adres email', 'error');
+        emailInput.focus();
         return;
     }
     
-    // Symulacja wysłania (w rzeczywistej implementacji byłby tu fetch do serwera)
-    showNotification('Dziękuję za wiadomość! Odpowiem najszybciej jak to możliwe.', 'success');
+    if (!message) {
+        showNotification('Proszę wpisać wiadomość', 'error');
+        messageInput.focus();
+        return;
+    }
     
-    // Wyczyść formularz
-    form.reset();
+    if (message.length < 10) {
+        showNotification('Wiadomość musi mieć co najmniej 10 znaków', 'error');
+        messageInput.focus();
+        return;
+    }
+    
+    // Symulacja wysłania (w rzeczywistej aplikacji tutaj byłby fetch do serwera)
+    showNotification('Wysyłanie wiadomości...', 'info');
+    
+    setTimeout(() => {
+        // Wyczyść formularz
+        emailInput.value = '';
+        messageInput.value = '';
+        
+        showNotification('Wiadomość została wysłana! Dziękujemy za kontakt.', 'success');
+        
+        // Otwórz email client jako fallback
+        const subject = 'Nowa wiadomość z portfolio - Wojciech Conder';
+        const body = `Email: ${email}\n\nWiadomość:\n${message}`;
+        const mailtoLink = `mailto:wojtek.conder@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.open(mailtoLink);
+    }, 2000);
 }
 
 function isValidEmail(email) {
@@ -234,79 +267,121 @@ function isValidEmail(email) {
 }
 
 function showNotification(message, type = 'info') {
-    // Usuń istniejące powiadomienia
-    const existingNotification = document.querySelector('.notification');
-    if (existingNotification) {
-        existingNotification.remove();
-    }
-
-    // Utwórz nowe powiadomienie
+    // Usuń istniejące notyfikacje
+    const existingNotifications = document.querySelectorAll('.notification');
+    existingNotifications.forEach(notification => notification.remove());
+    
+    // Utwórz nową notyfikację
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
-    notification.textContent = message;
-    
-    // Style powiadomienia
-    notification.style.cssText = `
-        position: fixed;
-        top: 100px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#2196F3'};
-        color: white;
-        padding: 16px 24px;
-        border-radius: 8px;
-        font-weight: 500;
-        z-index: 10000;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        max-width: 90%;
-        text-align: center;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <span class="notification-message">${message}</span>
+            <button class="notification-close">&times;</button>
+        </div>
     `;
     
+    // Dodaj style inline
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: ${type === 'error' ? '#ff4444' : type === 'success' ? '#44ff44' : '#4444ff'};
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        z-index: 10000;
+        font-size: 14px;
+        font-weight: 500;
+        max-width: 90%;
+        text-align: center;
+        animation: slideInDown 0.3s ease-out;
+    `;
+    
+    // Dodaj do body
     document.body.appendChild(notification);
     
-    // Usuń powiadomienie po 3 sekundach
+    // Obsługa zamknięcia
+    const closeBtn = notification.querySelector('.notification-close');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            notification.remove();
+        });
+    }
+    
+    // Automatyczne zamknięcie po 5 sekundach
     setTimeout(() => {
         if (notification.parentNode) {
-            notification.remove();
+            notification.style.animation = 'slideOutUp 0.3s ease-out';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 300);
         }
-    }, 3000);
+    }, 5000);
 }
 
-// ===== SMOOTH SCROLLING =====
+// ===== SMOOTH SCROLLING - POPRAWIONE =====
 function initSmoothScrolling() {
-    // Smooth scrolling jest już obsługiwane przez CSS scroll-behavior: smooth
-    // Dodatkowo obsługujemy linki z hash
-    const links = document.querySelectorAll('a[href^="#"]');
+    // Smooth scroll dla linków nawigacyjnych
+    const navLinks = document.querySelectorAll('.nav-link');
     
-    links.forEach(link => {
+    navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            if (href !== '#') {
-                e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) {
-                    const headerHeight = 80;
-                    const targetPosition = target.offsetTop - headerHeight;
-                    
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                }
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            
+            if (targetSection) {
+                const headerHeight = window.innerHeight * 0.2; // 20vh
+                const offset = headerHeight + 10; // Dodatkowy offset
+                
+                const targetPosition = targetSection.offsetTop - offset;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
             }
         });
     });
+    
+    // Smooth scroll dla przycisku "kontakt" w sekcji projektów
+    const projectContactBtn = document.querySelector('.project-contact-btn');
+    if (projectContactBtn) {
+        projectContactBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const contactSection = document.querySelector('#contact');
+            if (contactSection) {
+                const headerHeight = window.innerHeight * 0.2;
+                const stickyHeaderHeight = 50;
+                const offset = headerHeight + stickyHeaderHeight + 10;
+                
+                const targetPosition = contactSection.offsetTop - offset;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    }
 }
 
-// ===== ANIMACJE =====
+// ===== ANIMACJE - POPRAWIONE =====
 function initAnimations() {
-    // Animacje fade-in dla elementów przy scrollowaniu
+    // Intersection Observer dla animacji przy scrollowaniu
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
     
-    const observer = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
@@ -316,13 +391,23 @@ function initAnimations() {
     }, observerOptions);
     
     // Obserwuj elementy do animacji
-    const animatedElements = document.querySelectorAll('.about-text-block, .project-info-block, .contact-info-block');
+    const animatedElements = document.querySelectorAll('.project-card, .about-text-block, .contact-info-block');
+    
     animatedElements.forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
         el.style.transition = 'all 0.6s ease-out';
         observer.observe(el);
     });
+    
+    // Animacja hero section
+    const heroSection = document.querySelector('.hero-section');
+    if (heroSection) {
+        setTimeout(() => {
+            heroSection.style.opacity = '1';
+            heroSection.style.transform = 'translateY(0)';
+        }, 300);
+    }
 }
 
 // ===== UTILITARIA =====
@@ -380,72 +465,70 @@ console.log('📱 Strona w pełni responsywna i gotowa do użycia');
 console.log('🎯 Menu hamburger, projekty z JSON i formularz kontaktowy aktywne');
 console.log('🎨 Nowy layout z sticky paskami nawigacyjnymi');
 
-// ===== STICKY ZAKŁADKI I NAWIGACJA - POPRAWIONE =====
+// ===== ZAKŁADKI SEKCJI - POPRAWIONE =====
 function initSectionTabs() {
-    const tabButtons = document.querySelectorAll('.tab');
-    const sections = [
-        { id: 'home', tab: '.tab-omnie' },
-        { id: 'about', tab: '.tab-omnie' },
-        { id: 'projects', tab: '.tab-projekty' },
-        { id: 'contact', tab: '.tab-kontakt' }
-    ];
-
-    // Smooth scroll po kliknięciu zakładki
-    tabButtons.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            const target = btn.getAttribute('data-target');
-            if (target && document.querySelector(target)) {
-                e.preventDefault();
-                document.querySelector(target).scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'start' 
+    const tabs = document.querySelectorAll('.tab');
+    
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('data-target');
+            const targetSection = document.querySelector(targetId);
+            
+            if (targetSection) {
+                // Usuń aktywną klasę ze wszystkich zakładek
+                tabs.forEach(t => t.classList.remove('active'));
+                
+                // Dodaj aktywną klasę do klikniętej zakładki
+                this.classList.add('active');
+                
+                // Przewiń do sekcji z offsetem dla sticky header
+                const headerHeight = window.innerHeight * 0.2; // 20vh
+                const stickyHeaderHeight = 50; // Wysokość sticky header
+                const offset = headerHeight + stickyHeaderHeight + 10; // Dodatkowy offset
+                
+                const targetPosition = targetSection.offsetTop - offset;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
                 });
             }
         });
     });
-
-    // Scrollspy - podświetlanie aktywnej zakładki (poprawione - sekwencyjne)
-    window.addEventListener('scroll', function() {
-        const scrollTop = window.pageYOffset;
-        const headerHeight = 160; // Wysokość sticky header (2x większy)
+    
+    // Aktualizuj aktywną zakładkę podczas scrollowania
+    window.addEventListener('scroll', debounce(function() {
+        const sections = ['#about', '#projects', '#contact'];
+        const headerHeight = window.innerHeight * 0.2;
+        const stickyHeaderHeight = 50;
+        const offset = headerHeight + stickyHeaderHeight;
         
-        // Znajdź aktualną sekcję na podstawie pozycji scroll
-        let currentSection = 'home';
+        let currentSection = '';
         
-        const homeSection = document.getElementById('home');
-        const aboutSection = document.getElementById('about');
-        const projectsSection = document.getElementById('projects');
-        const contactSection = document.getElementById('contact');
-        
-        // Sekwencyjne przełączanie - każda sekcja ma swoją strefę
-        if (contactSection && scrollTop >= contactSection.offsetTop - headerHeight - 200) {
-            currentSection = 'contact';
-        } else if (projectsSection && scrollTop >= projectsSection.offsetTop - headerHeight - 200) {
-            currentSection = 'projects';
-        } else if (aboutSection && scrollTop >= aboutSection.offsetTop - headerHeight - 200) {
-            currentSection = 'about';
-        } else {
-            currentSection = 'home';
-        }
-        
-        // Zmień aktywność zakładek - tylko jedna aktywna na raz
-        tabButtons.forEach(btn => {
-            const target = btn.getAttribute('data-target');
-            if (target === '#' + currentSection) {
-                btn.classList.add('active');
-            } else {
-                btn.classList.remove('active');
+        sections.forEach(sectionId => {
+            const section = document.querySelector(sectionId);
+            if (section) {
+                const sectionTop = section.offsetTop - offset;
+                const sectionBottom = sectionTop + section.offsetHeight;
+                
+                if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionBottom) {
+                    currentSection = sectionId;
+                }
             }
         });
-    });
-
-    // Obsługa przycisku CV (placeholder)
-    const cvBtns = document.querySelectorAll('.contact-btn-cv');
-    cvBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            alert('Tutaj będzie pobieranie CV lub link do pliku.');
+        
+        // Aktualizuj aktywną zakładkę
+        tabs.forEach(tab => {
+            const tabTarget = tab.getAttribute('data-target');
+            if (tabTarget === currentSection) {
+                tab.classList.add('active');
+            } else {
+                tab.classList.remove('active');
+            }
         });
-    });
+    }, 100));
 }
 
 // ===== DOLNY PANEL Z PRZYCISKAMI AKCJI =====
@@ -455,19 +538,23 @@ function initBottomPanel() {
     
     if (emailBtn) {
         emailBtn.addEventListener('click', function() {
-            // Przewiń do sekcji kontakt
-            const contactSection = document.getElementById('contact');
-            if (contactSection) {
-                contactSection.scrollIntoView({ behavior: 'smooth' });
-            }
+            // Otwórz email client
+            const email = 'wojtek.conder@gmail.com';
+            const subject = 'Zapytanie o portfolio - Wojciech Conder';
+            const body = 'Dzień dobry,\n\nInteresuję się Państwa portfolio architektonicznym.\n\nPozdrawiam,';
+            
+            const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.open(mailtoLink);
         });
     }
     
     if (cvBtn) {
         cvBtn.addEventListener('click', function() {
-            // Tutaj możesz dodać logikę dla CV
-            // Na przykład otwarcie PDF lub nowej strony
-            alert('CV będzie dostępne wkrótce!');
+            // Tutaj możesz dodać link do CV lub wyświetlić CV w modal
+            showNotification('CV będzie dostępne wkrótce!', 'info');
+            
+            // Alternatywnie - otwórz CV w nowym oknie
+            // window.open('cv.pdf', '_blank');
         });
     }
 } 
