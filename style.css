@@ -145,12 +145,12 @@ body {
 }
 
 .logo-img {
-    height: calc(100% - 20px) !important; /* header height minus 2x10px ramka */
-    width: auto !important;
-    margin: 0 !important;
-    display: block;
-    align-self: center;
+    height: 100% !important;
     max-height: none !important;
+    object-fit: contain;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block;
 }
 
 .hamburger {
@@ -263,14 +263,19 @@ body {
 .hero-image-block {
     position: relative;
     width: 100%;
-    height: 100vh;
+    height: 60vh;
+    min-height: 220px;
+    max-height: 70vh;
     overflow: hidden;
+    background: #fff;
 }
 
 .hero-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
+    display: block;
 }
 
 .hero-text {
@@ -701,4 +706,44 @@ body {
     padding-right: 0 !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
+}
+
+/* KOLOROWE PASKI NAGŁÓWKÓW */
+.section-header-yellow {
+    background: var(--color-yellow);
+    color: #fff;
+    font-weight: 800;
+    padding: 12px 0;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 32px;
+    letter-spacing: 1px;
+}
+.section-header-orange {
+    background: var(--color-orange);
+    color: #fff;
+    font-weight: 800;
+    padding: 12px 0;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 32px;
+    letter-spacing: 1px;
+}
+.section-header-red {
+    background: var(--color-red);
+    color: #fff;
+    font-weight: 800;
+    padding: 12px 0;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 32px;
+    letter-spacing: 1px;
+}
+
+/* TŁO POLA SCROLL */
+.main-content, .section, .section-content {
+    background: #fff !important;
 } 
