@@ -40,7 +40,7 @@
 /* ===== ZMIENNE CSS ===== */
 :root {
     /* Kolory */
-    --color-cream: #f5f5dc;
+    --color-cream: #fff;
     --color-white: #ffffff;
     --color-black: #000000;
     --color-gray: #666666;
@@ -365,17 +365,10 @@ body {
 
 /* ===== KARTY PROJEKTÓW ===== */
 .project-card {
-    background: var(--color-white);
-    border: 2px solid var(--color-black);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow-sm);
-}
-
-.project-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
+    background: #fff;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
 }
 
 .project-header {
@@ -745,5 +738,32 @@ body {
 
 /* TŁO POLA SCROLL */
 .main-content, .section, .section-content {
+    background: #fff !important;
+}
+
+/* 3. Linie nad i pod sekcjami */
+.section-line {
+    width: 100%;
+    height: 1px;
+    background: #000;
+    margin: 10px 0;
+}
+.section > .section-line:first-child {
+    margin-top: 0;
+}
+.section > .section-line:last-child {
+    margin-bottom: 0;
+}
+
+/* Usuwam border-radius i border z innych elementów projektów */
+.project-header, .project-images, .project-content, .project-details, .project-detail {
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: #fff !important;
+}
+
+/* 1. Wszystko na białym tle */
+body, .main-content, .section, .section-content, .about-section, .projects-section, .contact-section, .about-content, .projects-content, .contact-content {
     background: #fff !important;
 } 
