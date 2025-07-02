@@ -349,6 +349,102 @@
         .image-remove:hover {
             background: rgba(255, 0, 0, 1);
         }
+
+        /* ===== SYSTEM KADROWANIA ZDJĘĆ ===== */
+        .image-cropper {
+            margin-top: 20px;
+            border: 2px solid var(--color-black);
+            border-radius: var(--radius-md);
+            background: var(--color-white);
+            padding: 20px;
+        }
+
+        .cropper-container {
+            text-align: center;
+        }
+
+        .cropper-mask {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+            border: 2px dashed var(--color-orange);
+            background: var(--color-light-gray);
+            overflow: hidden;
+        }
+
+        .cropper-mask::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        #cropperImage {
+            max-width: 100%;
+            max-height: 400px;
+            display: block;
+            cursor: move;
+        }
+
+        .crop-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 200px;
+            border: 2px solid var(--color-yellow);
+            background: transparent;
+            z-index: 2;
+            cursor: move;
+            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+        }
+
+        .cropper-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .crop-btn {
+            padding: 8px 16px;
+            border: 2px solid var(--color-black);
+            border-radius: var(--radius-sm);
+            background: var(--color-white);
+            color: var(--color-black);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .crop-btn:hover {
+            background: var(--color-orange);
+            color: var(--color-white);
+            border-color: var(--color-orange);
+        }
+
+        #cropConfirm {
+            background: var(--color-yellow);
+            color: var(--color-black);
+        }
+
+        #cropConfirm:hover {
+            background: var(--color-orange);
+            color: var(--color-white);
+        }
+
+        #cropCancel {
+            background: var(--color-red);
+            color: var(--color-white);
+        }
+
+        #cropCancel:hover {
+            background: #cc0000;
+        }
     </style>
 </head>
 <body>
@@ -367,16 +463,51 @@
                 <input type="text" id="title" name="title" class="form-input" required>
             </div>
 
+            <!-- Autor -->
+            <div class="form-group">
+                <label for="author" class="form-label">Autor *</label>
+                <input type="text" id="author" name="author" class="form-input" required placeholder="np. Wojciech Conder">
+            </div>
+
+            <!-- Rodzaj inwestycji -->
+            <div class="form-group">
+                <label for="projectType" class="form-label">Rodzaj inwestycji *</label>
+                <select id="projectType" name="projectType" class="form-select" required>
+                    <option value="">Wybierz rodzaj</option>
+                    <option value="mieszkaniowy">Mieszkaniowy</option>
+                    <option value="biurowy">Biurowy</option>
+                    <option value="handlowy">Handlowy</option>
+                    <option value="kulturalny">Kulturalny</option>
+                    <option value="edukacyjny">Edukacyjny</option>
+                    <option value="hotelowy">Hotelowy</option>
+                    <option value="przemysłowy">Przemysłowy</option>
+                    <option value="infrastrukturalny">Infrastrukturalny</option>
+                    <option value="inny">Inny</option>
+                </select>
+            </div>
+
+            <!-- Lokalizacja -->
+            <div class="form-group">
+                <label for="location" class="form-label">Lokalizacja *</label>
+                <input type="text" id="location" name="location" class="form-input" required placeholder="np. Warszawa, Mokotów">
+            </div>
+
+            <!-- Rok wykonania -->
+            <div class="form-group">
+                <label for="year" class="form-label">Rok wykonania *</label>
+                <input type="number" id="year" name="year" class="form-input" required min="1900" max="2030" value="2025">
+            </div>
+
             <!-- Inwestor -->
             <div class="form-group">
                 <label for="investor" class="form-label">Inwestor</label>
-                <input type="text" id="investor" name="investor" class="form-input">
+                <input type="text" id="investor" name="investor" class="form-input" placeholder="np. PFR Nieruchomości">
             </div>
 
             <!-- Projektant / współpraca -->
             <div class="form-group">
                 <label for="designer" class="form-label">Projektant / współpraca</label>
-                <input type="text" id="designer" name="designer" class="form-input">
+                <input type="text" id="designer" name="designer" class="form-input" placeholder="np. 22ARCHITEKCI">
             </div>
 
             <!-- Powierzchnia całkowita -->
@@ -397,6 +528,8 @@
                 <select id="stage" name="stage" class="form-select" required>
                     <option value="">Wybierz etap</option>
                     <option value="koncepcja">Koncepcja</option>
+                    <option value="koncepcja wielobranżowa">Koncepcja wielobranżowa</option>
+                    <option value="projekt budowlany">Projekt budowlany</option>
                     <option value="projekt wykonawczy">Projekt wykonawczy</option>
                     <option value="realizacja">Realizacja</option>
                 </select>
@@ -405,11 +538,11 @@
             <!-- Opis -->
             <div class="form-group">
                 <label for="description" class="form-label">Opis *</label>
-                <textarea id="description" name="description" class="form-textarea" maxlength="500" required placeholder="Opisz projekt (max 500 znaków)"></textarea>
-                <div id="charCounter" class="char-counter">0/500</div>
+                <textarea id="description" name="description" class="form-textarea" maxlength="800" required placeholder="Opisz projekt (max 800 znaków)"></textarea>
+                <div id="charCounter" class="char-counter">0/800</div>
             </div>
 
-            <!-- Zdjęcia -->
+            <!-- Zdjęcia z systemem kadrowania -->
             <div class="form-group">
                 <label for="images" class="form-label">Zdjęcia (3-5 plików)</label>
                 <div class="file-input-container">
@@ -419,6 +552,18 @@
                     </label>
                 </div>
                 <div id="fileList" class="file-list" style="display: none;"></div>
+                <div id="imageCropper" class="image-cropper" style="display: none;">
+                    <div class="cropper-container">
+                        <div class="cropper-mask">
+                            <img id="cropperImage" src="" alt="Podgląd do kadrowania">
+                            <div class="crop-overlay"></div>
+                        </div>
+                        <div class="cropper-controls">
+                            <button type="button" id="cropConfirm" class="crop-btn">✓ Zatwierdź kadr</button>
+                            <button type="button" id="cropCancel" class="crop-btn">✗ Anuluj</button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Przycisk wysłania -->
@@ -454,6 +599,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             initCharCounter();
             initFileValidation();
+            initImageCropper();
             initFormSubmission();
             loadProjectsList();
         });
@@ -465,7 +611,7 @@
             
             description.addEventListener('input', function() {
                 const length = this.value.length;
-                const maxLength = 500;
+                const maxLength = 800;
                 
                 charCounter.textContent = `${length}/${maxLength}`;
                 
@@ -521,21 +667,166 @@
                     return;
                 }
                 
-                // Wyświetl listę plików
-                displayFileList(validFiles);
+                // Wyświetl listę plików z opcją kadrowania
+                displayFileListWithCropping(validFiles);
             });
         }
 
-        function displayFileList(files) {
+        function displayFileListWithCropping(files) {
             const fileList = document.getElementById('fileList');
             
-            fileList.innerHTML = files.map(file => `
+            fileList.innerHTML = files.map((file, index) => `
                 <div class="file-item">
                     <span class="file-name">${file.name}</span>
                     <span class="file-size">${(file.size / 1024).toFixed(0)}KB</span>
+                    <button type="button" class="crop-btn" onclick="startCrop(${JSON.stringify(file.name).replace(/"/g, '&quot;')})" style="margin-left: 10px; padding: 4px 8px; font-size: 12px;">
+                        ✂️ Kadruj
+                    </button>
                 </div>
             `).join('');
             
+            fileList.style.display = 'block';
+        }
+
+        // ===== SYSTEM KADROWANIA ZDJĘĆ =====
+        let currentCropData = null;
+        let isDragging = false;
+        let dragStart = { x: 0, y: 0 };
+
+        function initImageCropper() {
+            const cropConfirm = document.getElementById('cropConfirm');
+            const cropCancel = document.getElementById('cropCancel');
+            const cropperImage = document.getElementById('cropperImage');
+            const cropOverlay = document.querySelector('.crop-overlay');
+
+            if (cropConfirm) {
+                cropConfirm.addEventListener('click', confirmCrop);
+            }
+            if (cropCancel) {
+                cropCancel.addEventListener('click', cancelCrop);
+            }
+            if (cropperImage) {
+                cropperImage.addEventListener('mousedown', startDrag);
+                cropperImage.addEventListener('touchstart', startDrag);
+            }
+            if (cropOverlay) {
+                cropOverlay.addEventListener('mousedown', startDragOverlay);
+                cropOverlay.addEventListener('touchstart', startDragOverlay);
+            }
+
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('touchmove', drag);
+            document.addEventListener('mouseup', stopDrag);
+            document.addEventListener('touchend', stopDrag);
+        }
+
+        function startCrop(file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const cropperImage = document.getElementById('cropperImage');
+                const imageCropper = document.getElementById('imageCropper');
+                
+                cropperImage.src = e.target.result;
+                imageCropper.style.display = 'block';
+                
+                // Zapisz dane pliku do przycięcia
+                currentCropData = {
+                    file: file,
+                    originalSrc: e.target.result
+                };
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function startDrag(e) {
+            e.preventDefault();
+            isDragging = true;
+            const rect = e.target.getBoundingClientRect();
+            dragStart.x = e.clientX - rect.left;
+            dragStart.y = e.clientY - rect.top;
+        }
+
+        function startDragOverlay(e) {
+            e.preventDefault();
+            isDragging = true;
+            const rect = e.target.getBoundingClientRect();
+            dragStart.x = e.clientX - rect.left;
+            dragStart.y = e.clientY - rect.top;
+        }
+
+        function drag(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            
+            const cropperImage = document.getElementById('cropperImage');
+            const cropOverlay = document.querySelector('.crop-overlay');
+            
+            if (cropperImage && cropOverlay) {
+                const rect = cropperImage.getBoundingClientRect();
+                const x = e.clientX - rect.left - dragStart.x;
+                const y = e.clientY - rect.top - dragStart.y;
+                
+                // Ogranicz ruch do granic obrazu
+                const maxX = rect.width - cropOverlay.offsetWidth;
+                const maxY = rect.height - cropOverlay.offsetHeight;
+                
+                const clampedX = Math.max(0, Math.min(x, maxX));
+                const clampedY = Math.max(0, Math.min(y, maxY));
+                
+                cropOverlay.style.left = clampedX + 'px';
+                cropOverlay.style.top = clampedY + 'px';
+                cropOverlay.style.transform = 'none';
+            }
+        }
+
+        function stopDrag() {
+            isDragging = false;
+        }
+
+        function confirmCrop() {
+            if (!currentCropData) return;
+            
+            const cropOverlay = document.querySelector('.crop-overlay');
+            const cropperImage = document.getElementById('cropperImage');
+            
+            if (cropOverlay && cropperImage) {
+                const rect = cropperImage.getBoundingClientRect();
+                const cropRect = cropOverlay.getBoundingClientRect();
+                
+                // Oblicz współrzędne przycięcia względem obrazu
+                const cropData = {
+                    x: (cropRect.left - rect.left) / rect.width,
+                    y: (cropRect.top - rect.top) / rect.height,
+                    width: cropOverlay.offsetWidth / rect.width,
+                    height: cropOverlay.offsetHeight / rect.height
+                };
+                
+                // Tutaj można dodać logikę przycinania obrazu
+                console.log('Dane przycięcia:', cropData);
+                
+                // Ukryj kropowanie i dodaj do listy
+                document.getElementById('imageCropper').style.display = 'none';
+                addCroppedImageToList(currentCropData.file, cropData);
+                
+                currentCropData = null;
+            }
+        }
+
+        function cancelCrop() {
+            document.getElementById('imageCropper').style.display = 'none';
+            currentCropData = null;
+        }
+
+        function addCroppedImageToList(file, cropData) {
+            // Dodaj przycięty obraz do listy plików
+            const fileList = document.getElementById('fileList');
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+            fileItem.innerHTML = `
+                <span class="file-name">${file.name} (przycięty)</span>
+                <span class="file-size">${(file.size / 1024).toFixed(0)}KB</span>
+            `;
+            fileList.appendChild(fileItem);
             fileList.style.display = 'block';
         }
 
@@ -555,6 +846,12 @@
                     // Zbierz dane z formularza
                     const formData = new FormData(form);
                     
+                    // Dodaj nowe pola do formData
+                    formData.append('author', document.getElementById('author').value);
+                    formData.append('projectType', document.getElementById('projectType').value);
+                    formData.append('location', document.getElementById('location').value);
+                    formData.append('year', document.getElementById('year').value);
+                    
                     // Sprawdź czy serwer jest dostępny
                     const serverUrl = window.location.port === '3000' ? '' : 'http://localhost:3000';
                     
@@ -572,7 +869,8 @@
                         // Reset formularza
                         form.reset();
                         document.getElementById('fileList').style.display = 'none';
-                        document.getElementById('charCounter').textContent = '0/500';
+                        document.getElementById('charCounter').textContent = '0/800';
+                        document.getElementById('year').value = '2025'; // Przywróć domyślną wartość roku
                         
                         console.log('Projekt dodany:', result.project);
                         
@@ -678,16 +976,17 @@
                     </div>
                     <div class="project-details">
                         <div class="project-info">
-                            <strong>Rok:</strong> ${project.year}<br>
-                            <strong>Lokalizacja:</strong> ${project.location}<br>
-                            <strong>Typ:</strong> ${project.type}<br>
-                            <strong>Status:</strong> ${project.status}
+                            <strong>Autor:</strong> ${project.author || 'Brak'}<br>
+                            <strong>Rodzaj:</strong> ${project.projectType || project.type || 'Brak'}<br>
+                            <strong>Lokalizacja:</strong> ${project.location || 'Brak'}<br>
+                            <strong>Rok:</strong> ${project.year || 'Brak'}<br>
+                            <strong>Etap:</strong> ${project.stage || 'Brak'}
                         </div>
                         <div class="project-info">
-                            <strong>Powierzchnia:</strong> ${project.area}<br>
+                            <strong>Powierzchnia całkowita:</strong> ${project.totalArea || 'Brak'}<br>
+                            <strong>Powierzchnia użytkowa:</strong> ${project.usableArea || 'Brak'}<br>
                             <strong>Inwestor:</strong> ${project.investor || 'Brak'}<br>
-                            <strong>Projektant:</strong> ${project.designer || 'Brak'}<br>
-                            <strong>Etap:</strong> ${project.stage || 'Brak'}
+                            <strong>Projektant:</strong> ${project.designer || 'Brak'}
                         </div>
                     </div>
                     <p><strong>Opis:</strong> ${project.description}</p>

@@ -108,11 +108,13 @@ async function saveProjectToJSON(projectData) {
         const newProject = {
             id: newId,
             title: projectData.title,
-            year: new Date().getFullYear().toString(),
+            author: projectData.author || 'Wojciech Conder',
+            projectType: projectData.projectType || determineProjectType(projectData.title, projectData.description),
             location: projectData.location || 'Warszawa',
+            year: projectData.year || new Date().getFullYear().toString(),
             description: projectData.description,
             image: projectData.images && projectData.images.length > 0 ? projectData.images[0] : 'project-placeholder.jpg',
-            type: determineProjectType(projectData.title, projectData.description), // Automatyczne określanie typu
+            type: projectData.projectType || determineProjectType(projectData.title, projectData.description), // Zachowaj kompatybilność
             area: projectData.totalArea || projectData.usableArea || 'N/A',
             status: projectData.stage || 'w realizacji',
             link: '#',
@@ -152,6 +154,10 @@ app.post('/api/addProject', upload.array('images', 5), async (req, res) => {
         // Przygotuj dane projektu
         const projectData = {
             title: req.body.title,
+            author: req.body.author,
+            projectType: req.body.projectType,
+            location: req.body.location,
+            year: req.body.year,
             investor: req.body.investor,
             designer: req.body.designer,
             totalArea: req.body.totalArea,
