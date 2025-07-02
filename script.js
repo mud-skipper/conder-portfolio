@@ -234,17 +234,24 @@ async function loadAboutData() {
                 mainProfileImage.style.display = 'block';
             }
 
+            // Funkcja pomocnicza do formatowania tekstu
+            const formatText = (text) => {
+                if (!text) return '';
+                // Zamień zarówno \r\n jak i \n na <br>
+                return text.replace(/\r\n/g, '<br>').replace(/\n/g, '<br>');
+            };
+
             // Opis "O mnie"
             const aboutBio = document.getElementById('aboutBio');
             if (aboutBio && data.about.bio) {
-                aboutBio.innerHTML = data.about.bio.replace(/\r\n/g, '<br>');
+                aboutBio.innerHTML = formatText(data.about.bio);
             }
 
             // Edukacja
             const educationSection = document.getElementById('educationSection');
             const educationText = document.getElementById('educationText');
             if (educationSection && educationText && data.about.education && data.about.education.trim() !== '') {
-                educationText.innerHTML = data.about.education.replace(/\r\n/g, '<br>');
+                educationText.innerHTML = formatText(data.about.education);
                 educationSection.style.display = 'block';
             }
 
@@ -252,7 +259,7 @@ async function loadAboutData() {
             const experienceSection = document.getElementById('experienceSection');
             const experienceText = document.getElementById('experienceText');
             if (experienceSection && experienceText && data.about.experience && data.about.experience.trim() !== '') {
-                experienceText.innerHTML = data.about.experience.replace(/\r\n/g, '<br>');
+                experienceText.innerHTML = formatText(data.about.experience);
                 experienceSection.style.display = 'block';
             }
 
@@ -260,7 +267,7 @@ async function loadAboutData() {
             const achievementsSection = document.getElementById('achievementsSection');
             const achievementsText = document.getElementById('achievementsText');
             if (achievementsSection && achievementsText && data.about.achievements && data.about.achievements.trim() !== '') {
-                achievementsText.innerHTML = data.about.achievements.replace(/\r\n/g, '<br>');
+                achievementsText.innerHTML = formatText(data.about.achievements);
                 achievementsSection.style.display = 'block';
             }
 
@@ -268,7 +275,7 @@ async function loadAboutData() {
             const collaborationSection = document.getElementById('collaborationSection');
             const collaborationText = document.getElementById('collaborationText');
             if (collaborationSection && collaborationText && data.about.collaboration && data.about.collaboration.trim() !== '') {
-                collaborationText.innerHTML = data.about.collaboration.replace(/\r\n/g, '<br>');
+                collaborationText.innerHTML = formatText(data.about.collaboration);
                 collaborationSection.style.display = 'block';
             }
 
@@ -276,7 +283,7 @@ async function loadAboutData() {
             const skillsSection = document.getElementById('skillsSection');
             const skillsText = document.getElementById('skillsText');
             if (skillsSection && skillsText && data.about.skills && data.about.skills.trim() !== '') {
-                skillsText.innerHTML = data.about.skills.replace(/\r\n/g, '<br>');
+                skillsText.innerHTML = formatText(data.about.skills);
                 skillsSection.style.display = 'block';
             }
 
@@ -284,7 +291,7 @@ async function loadAboutData() {
             const softwareSection = document.getElementById('softwareSection');
             const softwareText = document.getElementById('softwareText');
             if (softwareSection && softwareText && data.about.software && data.about.software.trim() !== '') {
-                softwareText.innerHTML = data.about.software.replace(/\r\n/g, '<br>');
+                softwareText.innerHTML = formatText(data.about.software);
                 softwareSection.style.display = 'block';
             }
 
@@ -292,7 +299,7 @@ async function loadAboutData() {
             const interestsSection = document.getElementById('interestsSection');
             const interestsText = document.getElementById('interestsText');
             if (interestsSection && interestsText && data.about.interests && data.about.interests.trim() !== '') {
-                interestsText.innerHTML = data.about.interests.replace(/\r\n/g, '<br>');
+                interestsText.innerHTML = formatText(data.about.interests);
                 interestsSection.style.display = 'block';
             }
         }

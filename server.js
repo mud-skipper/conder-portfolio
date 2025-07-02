@@ -450,6 +450,7 @@ app.post('/api/updateAbout', upload.single('profileImage'), async (req, res) => 
         if (req.file) {
             console.log('Otrzymano plik profilowy:', req.file.originalname, req.file.path);
         }
+        
         // Wczytaj istniejące dane
         const contentPath = path.join(__dirname, 'content.json');
         let content;
@@ -459,43 +460,87 @@ app.post('/api/updateAbout', upload.single('profileImage'), async (req, res) => 
             console.error('Błąd odczytu content.json:', err);
             return res.status(500).json({ success: false, message: 'Błąd odczytu pliku content.json: ' + err.message });
         }
-        // Przygotuj dane do aktualizacji
-        const aboutData = {
-            name: content.about?.name || 'Wojciech Conder',
-            title: content.about?.title || 'Architekt',
-            bio: req.body.aboutText || content.about?.bio || '',
-            profileImage: content.about?.profileImage || '',
-            education: req.body.education || content.about?.education || '',
-            experience: req.body.experience || content.about?.experience || '',
-            achievements: req.body.achievements || content.about?.achievements || '',
-            collaboration: req.body.collaboration || content.about?.collaboration || '',
-            skills: req.body.skills || content.about?.skills || '',
-            software: req.body.software || content.about?.software || '',
-            interests: req.body.interests || content.about?.interests || '',
-            experience_years: content.about?.experience_years || '8+ lat',
-            specializations: content.about?.specializations || [
-                'Architektura mieszkaniowa',
-                'Projektowanie biur',
-                'Adaptacje zabytków',
-                'Zrównoważone budownictwo'
-            ],
-            location: content.about?.location || 'Warszawa / zdalnie'
-        };
-        // Przetwórz zdjęcie profilowe jeśli zostało przesłane
-        if (req.file) {
-            try {
-                const profileDir = path.join(__dirname, 'uploads', 'profile');
-                await fs.mkdir(profileDir, { recursive: true });
-                const optimizedFileName = await processAndOptimizeImage(req.file.path, 'profile');
-                aboutData.profileImage = `profile/${optimizedFileName}`;
-                console.log(`Zapisywanie zdjęcia profilowego: ${aboutData.profileImage}`);
-            } catch (error) {
-                console.error('Błąd przetwarzania zdjęcia profilowego:', error);
-                return res.status(500).json({ success: false, message: 'Błąd przetwarzania zdjęcia profilowego: ' + error.message });
+        
+        // Sprawdź czy to aktualizacja pojedynczego pola (JSON) czy całego formularza
+        const isSingleFieldUpdate = req.headers['content-type'] === 'application/json';
+        
+        if (isSingleFieldUpdate) {
+            // Aktualizacja pojedynczego pola
+            const updateData = req.body;
+            const fieldName = Object.keys(updateData)[0];
+            const fieldValue = updateData[fieldName];
+            
+            console.log(`Aktualizacja pojedynczego pola: ${fieldName} = ${fieldValue}`);
+            
+            // Inicjalizuj sekcję about jeśli nie istnieje
+            if (!content.about) {
+                content.about = {
+                    name: 'Wojciech Conder',
+                    title: 'Architekt',
+                    bio: '',
+                    profileImage: '',
+                    education: '',
+                    experience: '',
+                    achievements: '',
+                    collaboration: '',
+                    skills: '',
+                    software: '',
+                    interests: '',
+                    experience_years: '8+ lat',
+                    specializations: [
+                        'Architektura mieszkaniowa',
+                        'Projektowanie biur',
+                        'Adaptacje zabytków',
+                        'Zrównoważone budownictwo'
+                    ],
+                    location: 'Warszawa / zdalnie'
+                };
             }
+            
+            // Aktualizuj konkretne pole
+            content.about[fieldName] = fieldValue;
+            
+        } else {
+            // Aktualizacja całego formularza (FormData)
+            const aboutData = {
+                name: content.about?.name || 'Wojciech Conder',
+                title: content.about?.title || 'Architekt',
+                bio: req.body.aboutText || content.about?.bio || '',
+                profileImage: content.about?.profileImage || '',
+                education: req.body.education || content.about?.education || '',
+                experience: req.body.experience || content.about?.experience || '',
+                achievements: req.body.achievements || content.about?.achievements || '',
+                collaboration: req.body.collaboration || content.about?.collaboration || '',
+                skills: req.body.skills || content.about?.skills || '',
+                software: req.body.software || content.about?.software || '',
+                interests: req.body.interests || content.about?.interests || '',
+                experience_years: content.about?.experience_years || '8+ lat',
+                specializations: content.about?.specializations || [
+                    'Architektura mieszkaniowa',
+                    'Projektowanie biur',
+                    'Adaptacje zabytków',
+                    'Zrównoważone budownictwo'
+                ],
+                location: content.about?.location || 'Warszawa / zdalnie'
+            };
+            
+            // Przetwórz zdjęcie profilowe jeśli zostało przesłane
+            if (req.file) {
+                try {
+                    const profileDir = path.join(__dirname, 'uploads', 'profile');
+                    await fs.mkdir(profileDir, { recursive: true });
+                    const optimizedFileName = await processAndOptimizeImage(req.file.path, 'profile');
+                    aboutData.profileImage = `profile/${optimizedFileName}`;
+                    console.log(`Zapisywanie zdjęcia profilowego: ${aboutData.profileImage}`);
+                } catch (error) {
+                    console.error('Błąd przetwarzania zdjęcia profilowego:', error);
+                    return res.status(500).json({ success: false, message: 'Błąd przetwarzania zdjęcia profilowego: ' + error.message });
+                }
+            }
+            
+            content.about = aboutData;
         }
-        // Aktualizuj dane
-        content.about = aboutData;
+        
         // Zapisz z powrotem do pliku
         try {
             await fs.writeFile(contentPath, JSON.stringify(content, null, 2), 'utf8');
@@ -503,6 +548,7 @@ app.post('/api/updateAbout', upload.single('profileImage'), async (req, res) => 
             console.error('Błąd zapisu content.json:', err);
             return res.status(500).json({ success: false, message: 'Błąd zapisu pliku content.json: ' + err.message });
         }
+        
         // Wykonaj Git push
         try {
             await executeGitCommand('git add .');
@@ -512,10 +558,11 @@ app.post('/api/updateAbout', upload.single('profileImage'), async (req, res) => 
         } catch (gitError) {
             console.error('Błąd Git push:', gitError);
         }
+        
         res.json({
             success: true,
             message: 'Sekcja "O mnie" została zaktualizowana pomyślnie!',
-            about: aboutData
+            about: content.about
         });
     } catch (error) {
         console.error('Błąd aktualizacji "O mnie":', error);

@@ -1870,59 +1870,66 @@
                 const data = await response.json();
                 
                 if (data.about) {
+                    // Funkcja pomocnicza do formatowania tekstu dla inputów
+                    const formatTextForInput = (text) => {
+                        if (!text) return '';
+                        // Zamień \r\n na \n dla inputów
+                        return text.replace(/\r\n/g, '\n');
+                    };
+                    
                     // Opis "O mnie"
                     const aboutText = document.getElementById('aboutText');
                     if (aboutText) {
-                        aboutText.value = data.about.bio || '';
+                        aboutText.value = formatTextForInput(data.about.bio || '');
                         aboutText.dispatchEvent(new Event('input'));
                     }
 
                     // Edukacja
                     const education = document.getElementById('education');
                     if (education) {
-                        education.value = data.about.education || '';
+                        education.value = formatTextForInput(data.about.education || '');
                         education.dispatchEvent(new Event('input'));
                     }
 
                     // Doświadczenie
                     const experience = document.getElementById('experience');
                     if (experience) {
-                        experience.value = data.about.experience || '';
+                        experience.value = formatTextForInput(data.about.experience || '');
                         experience.dispatchEvent(new Event('input'));
                     }
 
                     // Kluczowe osiągnięcia
                     const achievements = document.getElementById('achievements');
                     if (achievements) {
-                        achievements.value = data.about.achievements || '';
+                        achievements.value = formatTextForInput(data.about.achievements || '');
                         achievements.dispatchEvent(new Event('input'));
                     }
 
                     // Współpraca
                     const collaboration = document.getElementById('collaboration');
                     if (collaboration) {
-                        collaboration.value = data.about.collaboration || '';
+                        collaboration.value = formatTextForInput(data.about.collaboration || '');
                         collaboration.dispatchEvent(new Event('input'));
                     }
 
                     // Umiejętności
                     const skills = document.getElementById('skills');
                     if (skills) {
-                        skills.value = data.about.skills || '';
+                        skills.value = formatTextForInput(data.about.skills || '');
                         skills.dispatchEvent(new Event('input'));
                     }
 
                     // Programy komputerowe
                     const software = document.getElementById('software');
                     if (software) {
-                        software.value = data.about.software || '';
+                        software.value = formatTextForInput(data.about.software || '');
                         software.dispatchEvent(new Event('input'));
                     }
 
                     // Zainteresowania
                     const interests = document.getElementById('interests');
                     if (interests) {
-                        interests.value = data.about.interests || '';
+                        interests.value = formatTextForInput(data.about.interests || '');
                         interests.dispatchEvent(new Event('input'));
                     }
                 }
