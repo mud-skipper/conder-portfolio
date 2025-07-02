@@ -388,6 +388,81 @@ app.delete('/api/deleteProject/:id', async (req, res) => {
     }
 });
 
+// Endpoint do aktualizacji sekcji "O mnie"
+app.post('/api/updateAbout', upload.single('profileImage'), async (req, res) => {
+    try {
+        console.log('Otrzymano żądanie aktualizacji "O mnie"');
+        console.log('Dane formularza:', req.body);
+        
+        // Wczytaj istniejące dane
+        const contentPath = path.join(__dirname, 'content.json');
+        const content = JSON.parse(await fs.readFile(contentPath, 'utf8'));
+        
+        // Przygotuj dane do aktualizacji
+        const aboutData = {
+            name: content.about?.name || 'Wojciech Conder',
+            title: content.about?.title || 'Architekt',
+            bio: req.body.aboutText || content.about?.bio || '',
+            experience: content.about?.experience || '8+ lat',
+            specializations: content.about?.specializations || [
+                'Architektura mieszkaniowa',
+                'Projektowanie biur',
+                'Adaptacje zabytków',
+                'Zrównoważone budownictwo'
+            ],
+            education: content.about?.education || 'Politechnika Warszawska, Wydział Architektury',
+            location: content.about?.location || 'Warszawa / zdalnie'
+        };
+        
+        // Przetwórz zdjęcie profilowe jeśli zostało przesłane
+        if (req.file) {
+            try {
+                // Utwórz folder profile jeśli nie istnieje
+                const profileDir = path.join(__dirname, 'uploads', 'profile');
+                await fs.mkdir(profileDir, { recursive: true });
+                
+                // Zoptymalizuj i zapisz zdjęcie
+                const optimizedFileName = await processAndOptimizeImage(req.file.path, 'profile');
+                aboutData.profileImage = `profile/${optimizedFileName}`;
+                
+                console.log(`Zapisywanie zdjęcia profilowego: ${aboutData.profileImage}`);
+            } catch (error) {
+                console.error('Błąd przetwarzania zdjęcia profilowego:', error);
+                // Kontynuuj bez zdjęcia
+            }
+        }
+        
+        // Aktualizuj dane
+        content.about = aboutData;
+        
+        // Zapisz z powrotem do pliku
+        await fs.writeFile(contentPath, JSON.stringify(content, null, 2));
+        
+        // Wykonaj Git push
+        try {
+            await executeGitCommand('git add .');
+            await executeGitCommand('git commit -m "Aktualizacja sekcji O mnie"');
+            await executeGitCommand('git push');
+            console.log('Git push wykonany pomyślnie');
+        } catch (gitError) {
+            console.error('Błąd Git push:', gitError);
+        }
+        
+        res.json({
+            success: true,
+            message: 'Sekcja "O mnie" została zaktualizowana pomyślnie!',
+            about: aboutData
+        });
+        
+    } catch (error) {
+        console.error('Błąd aktualizacji "O mnie":', error);
+        res.status(500).json({
+            success: false,
+            message: 'Błąd podczas aktualizacji sekcji "O mnie": ' + error.message
+        });
+    }
+});
+
 // Endpoint do usuwania zdjęcia z projektu
 app.post('/api/removeImage/:projectId', async (req, res) => {
     try {

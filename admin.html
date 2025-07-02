@@ -34,6 +34,43 @@
             border: 2px solid var(--color-black);
             border-radius: var(--radius-md);
         }
+
+        /* Style dla tabów */
+        .admin-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--color-black);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            background: var(--color-light-gray);
+            color: var(--color-gray);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background: var(--color-white);
+            color: var(--color-black);
+            border-bottom: 3px solid var(--color-orange);
+        }
+
+        .tab-btn:hover {
+            background: var(--color-yellow);
+            color: var(--color-black);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
         
         .admin-header {
             text-align: center;
@@ -490,10 +527,18 @@
         <!-- Header panelu -->
         <div class="admin-header">
             <h1 class="admin-title">Panel Administracyjny</h1>
-            <p class="admin-subtitle">Dodaj nowy projekt do portfolio</p>
+            <p class="admin-subtitle">Zarządzaj portfolio Wojciecha Condera</p>
         </div>
 
-        <!-- Formularz dodawania projektu -->
+        <!-- Tabs dla różnych sekcji -->
+        <div class="admin-tabs">
+            <button type="button" class="tab-btn active" onclick="showTab('projects')">Projekty</button>
+            <button type="button" class="tab-btn" onclick="showTab('about')">O mnie</button>
+        </div>
+
+        <!-- Tab: Projekty -->
+        <div id="projects-tab" class="tab-content active">
+            <!-- Formularz dodawania projektu -->
         <form id="projectForm">
             <!-- Tytuł inwestycji -->
             <div class="form-group">
@@ -615,6 +660,45 @@
 
         <!-- Link powrotu -->
         <a href="index.html" class="back-link">← Powrót do portfolio</a>
+        </div>
+
+        <!-- Tab: O mnie -->
+        <div id="about-tab" class="tab-content">
+            <div class="admin-header">
+                <h2 class="admin-title">Sekcja "O mnie"</h2>
+                <p class="admin-subtitle">Edytuj informacje o architekcie</p>
+            </div>
+
+            <!-- Formularz edycji "O mnie" -->
+            <form id="aboutForm" enctype="multipart/form-data">
+                <!-- Zdjęcie profilowe -->
+                <div class="form-group">
+                    <label for="profileImage" class="form-label">Zdjęcie profilowe</label>
+                    <div class="file-input-container">
+                        <input type="file" id="profileImage" name="profileImage" class="file-input" accept=".jpg,.jpeg,.png">
+                        <label for="profileImage" class="file-input-label">
+                            📷 Kliknij aby wybrać zdjęcie profilowe (JPG/PNG)
+                        </label>
+                    </div>
+                    <div id="profileImagePreview" class="file-list" style="display: none;"></div>
+                </div>
+
+                <!-- Opis "O mnie" -->
+                <div class="form-group">
+                    <label for="aboutText" class="form-label">Opis "O mnie" *</label>
+                    <textarea id="aboutText" name="aboutText" class="form-textarea" maxlength="1000" required placeholder="Opisz siebie i swoją pracę (max 1000 znaków)"></textarea>
+                    <div id="aboutCharCounter" class="char-counter">0/1000</div>
+                </div>
+
+                <!-- Przycisk zapisu -->
+                <button type="submit" class="submit-btn" id="aboutSubmitBtn">
+                    Zapisz zmiany "O mnie"
+                </button>
+            </form>
+
+            <!-- Komunikat statusu dla "O mnie" -->
+            <div id="aboutStatusMessage" class="status-message" style="display: none;"></div>
+        </div>
     </div>
 
     <!-- Sekcja podglądu projektów -->
@@ -636,11 +720,32 @@
         // ===== INICJALIZACJA =====
         document.addEventListener('DOMContentLoaded', function() {
             initCharCounter();
+            initAboutCharCounter();
             initFileValidation();
+            initProfileImageValidation();
             initImageCropper();
             initFormSubmission();
+            initAboutFormSubmission();
             loadProjectsList();
+            loadAboutData();
         });
+
+        // ===== SYSTEM TABÓW =====
+        function showTab(tabName) {
+            // Ukryj wszystkie taby
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(tab => tab.classList.remove('active'));
+            
+            // Usuń aktywną klasę ze wszystkich przycisków
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(btn => btn.classList.remove('active'));
+            
+            // Pokaż wybrany tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+            
+            // Aktywuj przycisk
+            event.target.classList.add('active');
+        }
 
         // ===== LICZNIK ZNAKÓW =====
         function initCharCounter() {
@@ -660,6 +765,27 @@
                     charCounter.className = 'char-counter warning';
                 } else {
                     charCounter.className = 'char-counter';
+                }
+            });
+        }
+
+        function initAboutCharCounter() {
+            const aboutText = document.getElementById('aboutText');
+            const aboutCharCounter = document.getElementById('aboutCharCounter');
+            
+            aboutText.addEventListener('input', function() {
+                const length = this.value.length;
+                const maxLength = 1000;
+                
+                aboutCharCounter.textContent = `${length}/${maxLength}`;
+                
+                // Zmiana koloru przy zbliżaniu się do limitu
+                if (length >= maxLength) {
+                    aboutCharCounter.className = 'char-counter error';
+                } else if (length >= maxLength * 0.8) {
+                    aboutCharCounter.className = 'char-counter warning';
+                } else {
+                    aboutCharCounter.className = 'char-counter';
                 }
             });
         }
@@ -895,16 +1021,52 @@
         }
 
         function addCroppedImageToList(file, cropData) {
-            // Dodaj przycięty obraz do listy plików
-            const fileList = document.getElementById('fileList');
-            const fileItem = document.createElement('div');
-            fileItem.className = 'file-item';
-            fileItem.innerHTML = `
-                <span class="file-name">${file.name} (przycięty)</span>
-                <span class="file-size">${(file.size / 1024).toFixed(0)}KB</span>
-            `;
-            fileList.appendChild(fileItem);
-            fileList.style.display = 'block';
+            // Przycinaj obraz na podstawie danych kadrowania
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            
+            img.onload = function() {
+                // Oblicz wymiary przyciętego obrazu
+                const cropWidth = img.width * cropData.width;
+                const cropHeight = img.height * cropData.height;
+                const cropX = img.width * cropData.x;
+                const cropY = img.height * cropData.y;
+                
+                // Ustaw wymiary canvas
+                canvas.width = cropWidth;
+                canvas.height = cropHeight;
+                
+                // Przycinaj obraz
+                ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
+                
+                // Konwertuj canvas do Blob
+                canvas.toBlob(function(blob) {
+                    // Utwórz nowy plik z przyciętym obrazem
+                    const croppedFile = new File([blob], file.name.replace(/\.[^/.]+$/, '_cropped.jpg'), {
+                        type: 'image/jpeg',
+                        lastModified: Date.now()
+                    });
+                    
+                    // Dodaj do listy plików
+                    if (!window.selectedFiles) {
+                        window.selectedFiles = [];
+                    }
+                    
+                    // Zastąp oryginalny plik przyciętym
+                    if (currentCropData && currentCropData.index !== undefined) {
+                        window.selectedFiles[currentCropData.index] = croppedFile;
+                    } else {
+                        window.selectedFiles.push(croppedFile);
+                    }
+                    
+                    // Odśwież wyświetlanie
+                    displayFileListWithCropping(window.selectedFiles);
+                    
+                }, 'image/jpeg', 0.9);
+            };
+            
+            img.src = URL.createObjectURL(file);
         }
 
         function removeFile(index) {
@@ -1158,6 +1320,132 @@
         function editProject(projectId) {
             // TODO: Implementacja edycji projektu
             showStatus('Funkcja edycji będzie dostępna wkrótce', 'info');
+        }
+
+        // ===== WALIDACJA ZDJĘCIA PROFILOWEGO =====
+        function initProfileImageValidation() {
+            const profileImageInput = document.getElementById('profileImage');
+            const profileImagePreview = document.getElementById('profileImagePreview');
+            
+            profileImageInput.addEventListener('change', function() {
+                const file = this.files[0];
+                
+                if (!file) {
+                    profileImagePreview.style.display = 'none';
+                    return;
+                }
+                
+                // Sprawdź typ pliku
+                const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+                if (!allowedTypes.includes(file.type)) {
+                    showAboutStatus('Nieprawidłowy typ pliku. Użyj JPG lub PNG.', 'error');
+                    this.value = '';
+                    profileImagePreview.style.display = 'none';
+                    return;
+                }
+                
+                // Pokaż podgląd
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    profileImagePreview.innerHTML = `
+                        <div class="file-item">
+                            <div class="file-preview">
+                                <img src="${e.target.result}" alt="Podgląd" class="file-thumbnail" style="display: block;">
+                            </div>
+                            <div class="file-info">
+                                <div class="file-name">${file.name}</div>
+                                <div class="file-size">${(file.size / 1024).toFixed(0)}KB</div>
+                            </div>
+                        </div>
+                    `;
+                    profileImagePreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // ===== OBSŁUGA FORMULARZA "O MNIE" =====
+        function initAboutFormSubmission() {
+            const aboutForm = document.getElementById('aboutForm');
+            const aboutSubmitBtn = document.getElementById('aboutSubmitBtn');
+            
+            aboutForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Wyłącz przycisk podczas wysyłania
+                aboutSubmitBtn.disabled = true;
+                aboutSubmitBtn.textContent = 'Zapisywanie...';
+                
+                try {
+                    // Zbierz dane z formularza
+                    const formData = new FormData(aboutForm);
+                    
+                    // Sprawdź czy serwer jest dostępny
+                    const serverUrl = window.location.port === '3000' ? '' : 'http://localhost:3000';
+                    
+                    // Wyślij dane do serwera
+                    const response = await fetch(`${serverUrl}/api/updateAbout`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        showAboutStatus(result.message, 'success');
+                        
+                        // Reset formularza
+                        aboutForm.reset();
+                        document.getElementById('profileImagePreview').style.display = 'none';
+                        document.getElementById('aboutCharCounter').textContent = '0/1000';
+                        
+                        console.log('Dane "O mnie" zaktualizowane:', result.about);
+                    } else {
+                        showAboutStatus('Błąd: ' + result.message, 'error');
+                    }
+                    
+                } catch (error) {
+                    console.error('Błąd wysyłania:', error);
+                    showAboutStatus('Błąd połączenia z serwerem. Sprawdź czy serwer jest uruchomiony.', 'error');
+                } finally {
+                    // Przywróć przycisk
+                    aboutSubmitBtn.disabled = false;
+                    aboutSubmitBtn.textContent = 'Zapisz zmiany "O mnie"';
+                }
+            });
+        }
+
+        // ===== ŁADOWANIE DANYCH "O MNIE" =====
+        async function loadAboutData() {
+            try {
+                const response = await fetch('content.json');
+                const data = await response.json();
+                
+                if (data.about) {
+                    const aboutText = document.getElementById('aboutText');
+                    if (aboutText) {
+                        aboutText.value = data.about.bio || '';
+                        // Wywołaj licznik znaków
+                        const event = new Event('input');
+                        aboutText.dispatchEvent(event);
+                    }
+                }
+            } catch (error) {
+                console.error('Błąd ładowania danych "O mnie":', error);
+            }
+        }
+
+        // ===== WYŚWIETLANIE STATUSU "O MNIE" =====
+        function showAboutStatus(message, type) {
+            const statusDiv = document.getElementById('aboutStatusMessage');
+            statusDiv.textContent = message;
+            statusDiv.className = `status-message status-${type}`;
+            statusDiv.style.display = 'block';
+            
+            // Ukryj po 5 sekundach
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 5000);
         }
     </script>
 </body>
