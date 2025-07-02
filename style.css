@@ -302,7 +302,8 @@ body {
 .about-content {
     max-width: 800px;
     margin: 0 auto;
-    text-align: center;
+    text-align: left;
+    padding: 0 10px;
 }
 
 .about-text {
@@ -310,64 +311,41 @@ body {
     line-height: 1.8;
     margin-bottom: var(--spacing-lg);
     color: var(--color-gray-dark);
-}
-
-.about-signature {
-    font-size: var(--font-size-base);
-    color: var(--color-gray);
-    font-style: italic;
-    margin-top: var(--spacing-xl);
-    padding-top: var(--spacing-lg);
-    border-top: 1px solid var(--color-gray-light);
-}
-
-/* ===== NOWE ELEMENTY SEKCJI O MNIE ===== */
-.profile-image-container {
-    margin-bottom: var(--spacing-lg);
-    text-align: center;
-}
-
-.profile-image {
-    max-width: 200px;
-    max-height: 200px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid var(--color-black);
-}
-
-.about-section-block, .about-content, .about-text {
+    text-align: left;
+    padding: 0;
     background: none !important;
     border: none !important;
     box-shadow: none !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-}
-
-.about-section-block {
-    margin-bottom: 18px;
-    padding: 0;
-}
-
-.about-subtitle {
-    font-size: 1.05em !important;
-    font-weight: 500;
-    margin-bottom: 4px;
-    color: var(--color-black);
-    letter-spacing: 0.01em;
 }
 
 .about-signature {
     display: none !important;
 }
 
+.about-section-block {
+    margin-bottom: 24px;
+    padding: 0;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    text-align: left;
+}
+
+.about-subtitle {
+    font-size: 1.1em !important;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--color-black);
+    letter-spacing: 0.01em;
+    text-align: left;
+}
+
 .section-content {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+    padding: 0 10px !important;
 }
 
 .main-content {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+    padding: 0 !important;
 }
 
 /* ===== SEKCJA PROJEKTÓW ===== */

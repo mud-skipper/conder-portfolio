@@ -218,12 +218,6 @@ async function loadAboutData() {
                 mainProfileImage.style.display = 'block';
             }
 
-            // NIE wyświetlaj już osobno profileImage w sekcji O mnie
-            const profileImageContainer = document.getElementById('profileImageContainer');
-            if (profileImageContainer) {
-                profileImageContainer.style.display = 'none';
-            }
-
             // Opis "O mnie"
             const aboutBio = document.getElementById('aboutBio');
             if (aboutBio && data.about.bio) {
@@ -236,8 +230,6 @@ async function loadAboutData() {
             if (educationSection && educationText && data.about.education && data.about.education.trim() !== '') {
                 educationText.textContent = data.about.education;
                 educationSection.style.display = 'block';
-            } else if (educationSection) {
-                educationSection.style.display = 'none';
             }
 
             // Doświadczenie
@@ -246,8 +238,6 @@ async function loadAboutData() {
             if (experienceSection && experienceText && data.about.experience && data.about.experience.trim() !== '') {
                 experienceText.textContent = data.about.experience;
                 experienceSection.style.display = 'block';
-            } else if (experienceSection) {
-                experienceSection.style.display = 'none';
             }
 
             // Kluczowe osiągnięcia
@@ -256,8 +246,6 @@ async function loadAboutData() {
             if (achievementsSection && achievementsText && data.about.achievements && data.about.achievements.trim() !== '') {
                 achievementsText.textContent = data.about.achievements;
                 achievementsSection.style.display = 'block';
-            } else if (achievementsSection) {
-                achievementsSection.style.display = 'none';
             }
 
             // Współpraca
@@ -266,8 +254,6 @@ async function loadAboutData() {
             if (collaborationSection && collaborationText && data.about.collaboration && data.about.collaboration.trim() !== '') {
                 collaborationText.textContent = data.about.collaboration;
                 collaborationSection.style.display = 'block';
-            } else if (collaborationSection) {
-                collaborationSection.style.display = 'none';
             }
 
             // Umiejętności
@@ -276,8 +262,6 @@ async function loadAboutData() {
             if (skillsSection && skillsText && data.about.skills && data.about.skills.trim() !== '') {
                 skillsText.textContent = data.about.skills;
                 skillsSection.style.display = 'block';
-            } else if (skillsSection) {
-                skillsSection.style.display = 'none';
             }
 
             // Programy komputerowe
@@ -286,8 +270,6 @@ async function loadAboutData() {
             if (softwareSection && softwareText && data.about.software && data.about.software.trim() !== '') {
                 softwareText.textContent = data.about.software;
                 softwareSection.style.display = 'block';
-            } else if (softwareSection) {
-                softwareSection.style.display = 'none';
             }
 
             // Zainteresowania
@@ -296,8 +278,6 @@ async function loadAboutData() {
             if (interestsSection && interestsText && data.about.interests && data.about.interests.trim() !== '') {
                 interestsText.textContent = data.about.interests;
                 interestsSection.style.display = 'block';
-            } else if (interestsSection) {
-                interestsSection.style.display = 'none';
             }
         }
     } catch (error) {
