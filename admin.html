@@ -1597,12 +1597,20 @@
                         
                         console.log('Dane "O mnie" zaktualizowane:', result.about);
                     } else {
-                        showAboutStatus('Błąd: ' + result.message, 'error');
+                        showAboutStatus('Błąd: ' + (result.message || 'Nieznany błąd'), 'error');
                     }
                     
                 } catch (error) {
                     console.error('Błąd wysyłania:', error);
-                    showAboutStatus('Błąd połączenia z serwerem. Sprawdź czy serwer jest uruchomiony.', 'error');
+                    if (error.response) {
+                        error.response.json().then(data => {
+                            showAboutStatus('Błąd: ' + (data.message || error.message), 'error');
+                        }).catch(() => {
+                            showAboutStatus('Błąd połączenia z serwerem. Sprawdź czy serwer jest uruchomiony.', 'error');
+                        });
+                    } else {
+                        showAboutStatus('Błąd połączenia z serwerem. Sprawdź czy serwer jest uruchomiony.', 'error');
+                    }
                 } finally {
                     // Przywróć przycisk
                     aboutSubmitBtn.disabled = false;

@@ -393,11 +393,18 @@ app.post('/api/updateAbout', upload.single('profileImage'), async (req, res) => 
     try {
         console.log('Otrzymano żądanie aktualizacji "O mnie"');
         console.log('Dane formularza:', req.body);
-        
+        if (req.file) {
+            console.log('Otrzymano plik profilowy:', req.file.originalname, req.file.path);
+        }
         // Wczytaj istniejące dane
         const contentPath = path.join(__dirname, 'content.json');
-        const content = JSON.parse(await fs.readFile(contentPath, 'utf8'));
-        
+        let content;
+        try {
+            content = JSON.parse(await fs.readFile(contentPath, 'utf8'));
+        } catch (err) {
+            console.error('Błąd odczytu content.json:', err);
+            return res.status(500).json({ success: false, message: 'Błąd odczytu pliku content.json: ' + err.message });
+        }
         // Przygotuj dane do aktualizacji
         const aboutData = {
             name: content.about?.name || 'Wojciech Conder',
@@ -420,31 +427,28 @@ app.post('/api/updateAbout', upload.single('profileImage'), async (req, res) => 
             ],
             location: content.about?.location || 'Warszawa / zdalnie'
         };
-        
         // Przetwórz zdjęcie profilowe jeśli zostało przesłane
         if (req.file) {
             try {
-                // Utwórz folder profile jeśli nie istnieje
                 const profileDir = path.join(__dirname, 'uploads', 'profile');
                 await fs.mkdir(profileDir, { recursive: true });
-                
-                // Zoptymalizuj i zapisz zdjęcie
                 const optimizedFileName = await processAndOptimizeImage(req.file.path, 'profile');
                 aboutData.profileImage = `profile/${optimizedFileName}`;
-                
                 console.log(`Zapisywanie zdjęcia profilowego: ${aboutData.profileImage}`);
             } catch (error) {
                 console.error('Błąd przetwarzania zdjęcia profilowego:', error);
-                // Kontynuuj bez zdjęcia
+                return res.status(500).json({ success: false, message: 'Błąd przetwarzania zdjęcia profilowego: ' + error.message });
             }
         }
-        
         // Aktualizuj dane
         content.about = aboutData;
-        
         // Zapisz z powrotem do pliku
-        await fs.writeFile(contentPath, JSON.stringify(content, null, 2));
-        
+        try {
+            await fs.writeFile(contentPath, JSON.stringify(content, null, 2), 'utf8');
+        } catch (err) {
+            console.error('Błąd zapisu content.json:', err);
+            return res.status(500).json({ success: false, message: 'Błąd zapisu pliku content.json: ' + err.message });
+        }
         // Wykonaj Git push
         try {
             await executeGitCommand('git add .');
@@ -454,13 +458,11 @@ app.post('/api/updateAbout', upload.single('profileImage'), async (req, res) => 
         } catch (gitError) {
             console.error('Błąd Git push:', gitError);
         }
-        
         res.json({
             success: true,
             message: 'Sekcja "O mnie" została zaktualizowana pomyślnie!',
             about: aboutData
         });
-        
     } catch (error) {
         console.error('Błąd aktualizacji "O mnie":', error);
         res.status(500).json({
