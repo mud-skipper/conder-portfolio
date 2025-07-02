@@ -1,29 +1,6 @@
 {
   "projects": [
     {
-      "id": 1,
-      "title": "Nowy Nikiszowiec",
-      "year": "2025",
-      "location": "Warszawa",
-      "description": "Nowy Nikiszowiec to osiedle mieszkaniowe w formule najmu instytucjonalnego, harmonijnie nawiązujące do historycznego Nikiszowca: w układzie kwartałów, ceglastych odcieniach elewacji oraz centralnym placem sąsiedzkim. Celem było stworzenie przystępnych cenowo mieszkań dla młodych rodzin i osób na start – z wysokim standardem wykonania, dobrze skomunikowanych i otoczonych zielenią. Projekt uzyskał nominację do europejskiej nagrody Miesa van der Rohe i zdobył uznanie mediów.",
-      "image": "images-1751384986912-617165795.jpg",
-      "type": "mieszkaniowy",
-      "area": "~36 128 m², 513 mieszkań (36–95 m²)",
-      "status": "realizacja",
-      "link": "#",
-      "investor": "PFR Nieruchomości (MDR Katowice sp. z o.o., TBS Katowice)",
-      "designer": "22ARCHITEKCI",
-      "totalArea": "",
-      "usableArea": "~36 128 m², 513 mieszkań (36–95 m²)",
-      "stage": "realizacja",
-      "images": [
-        "images-1751384986912-617165795.jpg",
-        "images-1751384986912-957568303.jpg",
-        "images-1751384986912-682066056.jpg",
-        "images-1751384986912-375407962.jpg"
-      ]
-    },
-    {
       "id": 2,
       "title": "Insta21",
       "author": "22ARCHITEKCI",
