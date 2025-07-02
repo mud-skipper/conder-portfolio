@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     initHamburgerMenu();
     loadProjectsFromJSON();
+    loadAboutData();
     initAutoRefresh();
 });
 
@@ -195,7 +196,107 @@ function displayEmptyProjects() {
 function initAutoRefresh() {
     setInterval(() => {
         loadProjectsFromJSON();
+        loadAboutData();
     }, 30000); // 30 sekund
+}
+
+// ===== ŁADOWANIE DANYCH "O MNIE" =====
+async function loadAboutData() {
+    try {
+        const timestamp = new Date().getTime();
+        const response = await fetch(`content.json?t=${timestamp}`);
+        const data = await response.json();
+        
+        if (data.about) {
+            // Zdjęcie profilowe
+            const profileImageContainer = document.getElementById('profileImageContainer');
+            const profileImage = document.getElementById('profileImage');
+            if (data.about.profileImage && data.about.profileImage.trim() !== '') {
+                profileImage.src = `uploads/${data.about.profileImage}`;
+                profileImageContainer.style.display = 'block';
+            } else {
+                profileImageContainer.style.display = 'none';
+            }
+
+            // Opis "O mnie"
+            const aboutBio = document.getElementById('aboutBio');
+            if (aboutBio && data.about.bio) {
+                aboutBio.textContent = data.about.bio;
+            }
+
+            // Edukacja
+            const educationSection = document.getElementById('educationSection');
+            const educationText = document.getElementById('educationText');
+            if (educationSection && educationText && data.about.education && data.about.education.trim() !== '') {
+                educationText.textContent = data.about.education;
+                educationSection.style.display = 'block';
+            } else if (educationSection) {
+                educationSection.style.display = 'none';
+            }
+
+            // Doświadczenie
+            const experienceSection = document.getElementById('experienceSection');
+            const experienceText = document.getElementById('experienceText');
+            if (experienceSection && experienceText && data.about.experience && data.about.experience.trim() !== '') {
+                experienceText.textContent = data.about.experience;
+                experienceSection.style.display = 'block';
+            } else if (experienceSection) {
+                experienceSection.style.display = 'none';
+            }
+
+            // Kluczowe osiągnięcia
+            const achievementsSection = document.getElementById('achievementsSection');
+            const achievementsText = document.getElementById('achievementsText');
+            if (achievementsSection && achievementsText && data.about.achievements && data.about.achievements.trim() !== '') {
+                achievementsText.textContent = data.about.achievements;
+                achievementsSection.style.display = 'block';
+            } else if (achievementsSection) {
+                achievementsSection.style.display = 'none';
+            }
+
+            // Współpraca
+            const collaborationSection = document.getElementById('collaborationSection');
+            const collaborationText = document.getElementById('collaborationText');
+            if (collaborationSection && collaborationText && data.about.collaboration && data.about.collaboration.trim() !== '') {
+                collaborationText.textContent = data.about.collaboration;
+                collaborationSection.style.display = 'block';
+            } else if (collaborationSection) {
+                collaborationSection.style.display = 'none';
+            }
+
+            // Umiejętności
+            const skillsSection = document.getElementById('skillsSection');
+            const skillsText = document.getElementById('skillsText');
+            if (skillsSection && skillsText && data.about.skills && data.about.skills.trim() !== '') {
+                skillsText.textContent = data.about.skills;
+                skillsSection.style.display = 'block';
+            } else if (skillsSection) {
+                skillsSection.style.display = 'none';
+            }
+
+            // Programy komputerowe
+            const softwareSection = document.getElementById('softwareSection');
+            const softwareText = document.getElementById('softwareText');
+            if (softwareSection && softwareText && data.about.software && data.about.software.trim() !== '') {
+                softwareText.textContent = data.about.software;
+                softwareSection.style.display = 'block';
+            } else if (softwareSection) {
+                softwareSection.style.display = 'none';
+            }
+
+            // Zainteresowania
+            const interestsSection = document.getElementById('interestsSection');
+            const interestsText = document.getElementById('interestsText');
+            if (interestsSection && interestsText && data.about.interests && data.about.interests.trim() !== '') {
+                interestsText.textContent = data.about.interests;
+                interestsSection.style.display = 'block';
+            } else if (interestsSection) {
+                interestsSection.style.display = 'none';
+            }
+        }
+    } catch (error) {
+        console.error('Błąd ładowania danych "O mnie":', error);
+    }
 }
 
 // ===== NAWIGACJA ZDJĘĆ =====

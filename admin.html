@@ -690,6 +690,55 @@
                     <div id="aboutCharCounter" class="char-counter">0/1000</div>
                 </div>
 
+                <!-- Edukacja -->
+                <div class="form-group">
+                    <label for="education" class="form-label">Edukacja</label>
+                    <textarea id="education" name="education" class="form-textarea" maxlength="2000" placeholder="Wprowadź informacje o edukacji"></textarea>
+                    <div id="educationCharCounter" class="char-counter">0/2000</div>
+                </div>
+
+                <!-- Doświadczenie -->
+                <div class="form-group">
+                    <label for="experience" class="form-label">Doświadczenie</label>
+                    <textarea id="experience" name="experience" class="form-textarea" maxlength="2000" placeholder="Wprowadź informacje o doświadczeniu zawodowym"></textarea>
+                    <div id="experienceCharCounter" class="char-counter">0/2000</div>
+                </div>
+
+                <!-- Kluczowe osiągnięcia -->
+                <div class="form-group">
+                    <label for="achievements" class="form-label">Kluczowe osiągnięcia</label>
+                    <textarea id="achievements" name="achievements" class="form-textarea" maxlength="2000" placeholder="Wprowadź kluczowe osiągnięcia i projekty"></textarea>
+                    <div id="achievementsCharCounter" class="char-counter">0/2000</div>
+                </div>
+
+                <!-- Współpraca -->
+                <div class="form-group">
+                    <label for="collaboration" class="form-label">Współpraca</label>
+                    <textarea id="collaboration" name="collaboration" class="form-textarea" maxlength="1000" placeholder="Wprowadź informacje o współpracy"></textarea>
+                    <div id="collaborationCharCounter" class="char-counter">0/1000</div>
+                </div>
+
+                <!-- Umiejętności -->
+                <div class="form-group">
+                    <label for="skills" class="form-label">Umiejętności</label>
+                    <textarea id="skills" name="skills" class="form-textarea" maxlength="2000" placeholder="Wprowadź umiejętności zawodowe"></textarea>
+                    <div id="skillsCharCounter" class="char-counter">0/2000</div>
+                </div>
+
+                <!-- Obsługiwane programy komputerowe -->
+                <div class="form-group">
+                    <label for="software" class="form-label">Obsługiwane programy komputerowe</label>
+                    <textarea id="software" name="software" class="form-textarea" maxlength="1000" placeholder="Wprowadź listę programów komputerowych"></textarea>
+                    <div id="softwareCharCounter" class="char-counter">0/1000</div>
+                </div>
+
+                <!-- Zainteresowania -->
+                <div class="form-group">
+                    <label for="interests" class="form-label">Zainteresowania</label>
+                    <textarea id="interests" name="interests" class="form-textarea" maxlength="1000" placeholder="Wprowadź zainteresowania i hobby"></textarea>
+                    <div id="interestsCharCounter" class="char-counter">0/1000</div>
+                </div>
+
                 <!-- Przycisk zapisu -->
                 <button type="submit" class="submit-btn" id="aboutSubmitBtn">
                     Zapisz zmiany "O mnie"
@@ -721,6 +770,13 @@
         document.addEventListener('DOMContentLoaded', function() {
             initCharCounter();
             initAboutCharCounter();
+            initEducationCharCounter();
+            initExperienceCharCounter();
+            initAchievementsCharCounter();
+            initCollaborationCharCounter();
+            initSkillsCharCounter();
+            initSoftwareCharCounter();
+            initInterestsCharCounter();
             initFileValidation();
             initProfileImageValidation();
             initImageCropper();
@@ -786,6 +842,146 @@
                     aboutCharCounter.className = 'char-counter warning';
                 } else {
                     aboutCharCounter.className = 'char-counter';
+                }
+            });
+        }
+
+        function initEducationCharCounter() {
+            const education = document.getElementById('education');
+            const educationCharCounter = document.getElementById('educationCharCounter');
+            
+            education.addEventListener('input', function() {
+                const length = this.value.length;
+                const maxLength = 2000;
+                
+                educationCharCounter.textContent = `${length}/${maxLength}`;
+                
+                if (length >= maxLength) {
+                    educationCharCounter.className = 'char-counter error';
+                } else if (length >= maxLength * 0.8) {
+                    educationCharCounter.className = 'char-counter warning';
+                } else {
+                    educationCharCounter.className = 'char-counter';
+                }
+            });
+        }
+
+        function initExperienceCharCounter() {
+            const experience = document.getElementById('experience');
+            const experienceCharCounter = document.getElementById('experienceCharCounter');
+            
+            experience.addEventListener('input', function() {
+                const length = this.value.length;
+                const maxLength = 2000;
+                
+                experienceCharCounter.textContent = `${length}/${maxLength}`;
+                
+                if (length >= maxLength) {
+                    experienceCharCounter.className = 'char-counter error';
+                } else if (length >= maxLength * 0.8) {
+                    experienceCharCounter.className = 'char-counter warning';
+                } else {
+                    experienceCharCounter.className = 'char-counter';
+                }
+            });
+        }
+
+        function initAchievementsCharCounter() {
+            const achievements = document.getElementById('achievements');
+            const achievementsCharCounter = document.getElementById('achievementsCharCounter');
+            
+            achievements.addEventListener('input', function() {
+                const length = this.value.length;
+                const maxLength = 2000;
+                
+                achievementsCharCounter.textContent = `${length}/${maxLength}`;
+                
+                if (length >= maxLength) {
+                    achievementsCharCounter.className = 'char-counter error';
+                } else if (length >= maxLength * 0.8) {
+                    achievementsCharCounter.className = 'char-counter warning';
+                } else {
+                    achievementsCharCounter.className = 'char-counter';
+                }
+            });
+        }
+
+        function initCollaborationCharCounter() {
+            const collaboration = document.getElementById('collaboration');
+            const collaborationCharCounter = document.getElementById('collaborationCharCounter');
+            
+            collaboration.addEventListener('input', function() {
+                const length = this.value.length;
+                const maxLength = 1000;
+                
+                collaborationCharCounter.textContent = `${length}/${maxLength}`;
+                
+                if (length >= maxLength) {
+                    collaborationCharCounter.className = 'char-counter error';
+                } else if (length >= maxLength * 0.8) {
+                    collaborationCharCounter.className = 'char-counter warning';
+                } else {
+                    collaborationCharCounter.className = 'char-counter';
+                }
+            });
+        }
+
+        function initSkillsCharCounter() {
+            const skills = document.getElementById('skills');
+            const skillsCharCounter = document.getElementById('skillsCharCounter');
+            
+            skills.addEventListener('input', function() {
+                const length = this.value.length;
+                const maxLength = 2000;
+                
+                skillsCharCounter.textContent = `${length}/${maxLength}`;
+                
+                if (length >= maxLength) {
+                    skillsCharCounter.className = 'char-counter error';
+                } else if (length >= maxLength * 0.8) {
+                    skillsCharCounter.className = 'char-counter warning';
+                } else {
+                    skillsCharCounter.className = 'char-counter';
+                }
+            });
+        }
+
+        function initSoftwareCharCounter() {
+            const software = document.getElementById('software');
+            const softwareCharCounter = document.getElementById('softwareCharCounter');
+            
+            software.addEventListener('input', function() {
+                const length = this.value.length;
+                const maxLength = 1000;
+                
+                softwareCharCounter.textContent = `${length}/${maxLength}`;
+                
+                if (length >= maxLength) {
+                    softwareCharCounter.className = 'char-counter error';
+                } else if (length >= maxLength * 0.8) {
+                    softwareCharCounter.className = 'char-counter warning';
+                } else {
+                    softwareCharCounter.className = 'char-counter';
+                }
+            });
+        }
+
+        function initInterestsCharCounter() {
+            const interests = document.getElementById('interests');
+            const interestsCharCounter = document.getElementById('interestsCharCounter');
+            
+            interests.addEventListener('input', function() {
+                const length = this.value.length;
+                const maxLength = 1000;
+                
+                interestsCharCounter.textContent = `${length}/${maxLength}`;
+                
+                if (length >= maxLength) {
+                    interestsCharCounter.className = 'char-counter error';
+                } else if (length >= maxLength * 0.8) {
+                    interestsCharCounter.className = 'char-counter warning';
+                } else {
+                    interestsCharCounter.className = 'char-counter';
                 }
             });
         }
@@ -1422,12 +1618,60 @@
                 const data = await response.json();
                 
                 if (data.about) {
+                    // Opis "O mnie"
                     const aboutText = document.getElementById('aboutText');
                     if (aboutText) {
                         aboutText.value = data.about.bio || '';
-                        // Wywołaj licznik znaków
-                        const event = new Event('input');
-                        aboutText.dispatchEvent(event);
+                        aboutText.dispatchEvent(new Event('input'));
+                    }
+
+                    // Edukacja
+                    const education = document.getElementById('education');
+                    if (education) {
+                        education.value = data.about.education || '';
+                        education.dispatchEvent(new Event('input'));
+                    }
+
+                    // Doświadczenie
+                    const experience = document.getElementById('experience');
+                    if (experience) {
+                        experience.value = data.about.experience || '';
+                        experience.dispatchEvent(new Event('input'));
+                    }
+
+                    // Kluczowe osiągnięcia
+                    const achievements = document.getElementById('achievements');
+                    if (achievements) {
+                        achievements.value = data.about.achievements || '';
+                        achievements.dispatchEvent(new Event('input'));
+                    }
+
+                    // Współpraca
+                    const collaboration = document.getElementById('collaboration');
+                    if (collaboration) {
+                        collaboration.value = data.about.collaboration || '';
+                        collaboration.dispatchEvent(new Event('input'));
+                    }
+
+                    // Umiejętności
+                    const skills = document.getElementById('skills');
+                    if (skills) {
+                        skills.value = data.about.skills || '';
+                        skills.dispatchEvent(new Event('input'));
+                    }
+
+                    // Programy komputerowe
+                    const software = document.getElementById('software');
+                    if (software) {
+                        software.value = data.about.software || '';
+                        software.dispatchEvent(new Event('input'));
+                    }
+
+                    // Zainteresowania
+                    const interests = document.getElementById('interests');
+                    if (interests) {
+                        interests.value = data.about.interests || '';
+                        interests.dispatchEvent(new Event('input'));
                     }
                 }
             } catch (error) {

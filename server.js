@@ -403,14 +403,21 @@ app.post('/api/updateAbout', upload.single('profileImage'), async (req, res) => 
             name: content.about?.name || 'Wojciech Conder',
             title: content.about?.title || 'Architekt',
             bio: req.body.aboutText || content.about?.bio || '',
-            experience: content.about?.experience || '8+ lat',
+            profileImage: content.about?.profileImage || '',
+            education: req.body.education || content.about?.education || '',
+            experience: req.body.experience || content.about?.experience || '',
+            achievements: req.body.achievements || content.about?.achievements || '',
+            collaboration: req.body.collaboration || content.about?.collaboration || '',
+            skills: req.body.skills || content.about?.skills || '',
+            software: req.body.software || content.about?.software || '',
+            interests: req.body.interests || content.about?.interests || '',
+            experience_years: content.about?.experience_years || '8+ lat',
             specializations: content.about?.specializations || [
                 'Architektura mieszkaniowa',
                 'Projektowanie biur',
                 'Adaptacje zabytków',
                 'Zrównoważone budownictwo'
             ],
-            education: content.about?.education || 'Politechnika Warszawska, Wydział Architektury',
             location: content.about?.location || 'Warszawa / zdalnie'
         };
         
