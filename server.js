@@ -44,15 +44,16 @@ const storage = multer.diskStorage({
 const upload = multer({ 
     storage: storage,
     limits: {
-        fileSize: 50 * 1024 * 1024, // 50MB - praktycznie bez limitu
-        files: 5 // max 5 plików
+        fileSize: 100 * 1024 * 1024, // 100MB - bardzo duży limit
+        files: 5, // max 5 plików
+        fieldSize: 10 * 1024 * 1024 // 10MB dla pól tekstowych
     },
     fileFilter: function (req, file, cb) {
         const allowedTypes = /jpeg|jpg|png/;
         const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
         const mimetype = allowedTypes.test(file.mimetype);
         
-        console.log(`Sprawdzanie pliku: ${file.originalname}, mimetype: ${file.mimetype}`);
+        console.log(`Sprawdzanie pliku: ${file.originalname}, mimetype: ${file.mimetype}, rozmiar: ${(file.size / 1024 / 1024).toFixed(1)}MB`);
         
         if (mimetype && extname) {
             console.log(`Plik ${file.originalname} zaakceptowany`);
@@ -261,6 +262,34 @@ app.post('/api/addProject', upload.array('images', 5), async (req, res) => {
             message: 'Błąd podczas dodawania projektu: ' + error.message
         });
     }
+});
+
+// Middleware do obsługi błędów multer
+app.use((error, req, res, next) => {
+    if (error instanceof multer.MulterError) {
+        console.error('Błąd Multer:', error);
+        
+        if (error.code === 'LIMIT_FILE_SIZE') {
+            return res.status(400).json({
+                success: false,
+                message: 'Plik jest za duży. Maksymalny rozmiar to 100MB.'
+            });
+        }
+        
+        if (error.code === 'LIMIT_FILE_COUNT') {
+            return res.status(400).json({
+                success: false,
+                message: 'Za dużo plików. Maksymalnie 5 zdjęć.'
+            });
+        }
+        
+        return res.status(400).json({
+            success: false,
+            message: 'Błąd uploadu pliku: ' + error.message
+        });
+    }
+    
+    next(error);
 });
 
 // Endpoint do pobierania projektów
