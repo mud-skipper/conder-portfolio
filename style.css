@@ -45,11 +45,13 @@
     --color-gray: #666666;
     --color-gray-light: #e0e0e0;
     --color-gray-dark: #333333;
-    
-    /* Kolory retro pasków */
     --color-yellow: #FFC000;
     --color-orange: #FF8700;
     --color-red: #FF0000;
+    --color-cream: #fffbe6;
+    --color-light-gray: #f5f5f5;
+    /* Fonty */
+    --font-primary: 'Figtree', sans-serif;
     
     /* Spacing */
     --spacing-xs: 8px;
