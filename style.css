@@ -311,15 +311,11 @@ body {
     line-height: 1.8;
     margin-bottom: var(--spacing-lg);
     color: var(--color-gray-dark);
-    text-align: left;
+    text-align: justify;
     padding: 0;
     background: none !important;
     border: none !important;
     box-shadow: none !important;
-}
-
-.about-signature {
-    display: none !important;
 }
 
 .about-section-block {
@@ -333,11 +329,31 @@ body {
 
 .about-subtitle {
     font-size: 1.1em !important;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 8px;
     color: var(--color-black);
     letter-spacing: 0.01em;
     text-align: left;
+    position: relative;
+}
+
+.about-subtitle::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: var(--color-orange);
+}
+
+/* Specjalne style dla tekstu w sekcjach (edukacja, doświadczenie itp.) */
+#educationText, #experienceText, #achievementsText, #collaborationText, #skillsText, #softwareText, #interestsText {
+    text-align: left !important;
+}
+
+.about-signature {
+    display: none !important;
 }
 
 .section-content {

@@ -207,13 +207,29 @@ async function loadAboutData() {
         const response = await fetch(`content.json?t=${timestamp}`);
         const data = await response.json();
         
+        console.log('Dane "O mnie" załadowane:', data.about);
+        
         if (data.about) {
             // Ustaw hero-image na zdjęcie profilowe
             const mainProfileImage = document.getElementById('mainProfileImage');
+            console.log('Element mainProfileImage:', mainProfileImage);
+            console.log('profileImage z danych:', data.about.profileImage);
+            
             if (mainProfileImage && data.about.profileImage && data.about.profileImage.trim() !== '') {
-                mainProfileImage.src = `uploads/${data.about.profileImage}`;
+                const imagePath = `uploads/${data.about.profileImage}`;
+                console.log('Ustawiam ścieżkę zdjęcia:', imagePath);
+                mainProfileImage.src = imagePath;
                 mainProfileImage.style.display = 'block';
+                
+                // Dodaj event listener żeby sprawdzić czy zdjęcie się załadowało
+                mainProfileImage.onload = function() {
+                    console.log('Zdjęcie profilowe załadowane pomyślnie');
+                };
+                mainProfileImage.onerror = function() {
+                    console.error('Błąd ładowania zdjęcia profilowego:', imagePath);
+                };
             } else if (mainProfileImage) {
+                console.log('Używam fallback zdjęcia');
                 mainProfileImage.src = 'conder-portfolio_layout.01-photo.jpg';
                 mainProfileImage.style.display = 'block';
             }
