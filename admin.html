@@ -576,8 +576,8 @@
 
         <!-- Tabs dla różnych sekcji -->
         <div class="admin-tabs">
-            <button type="button" class="tab-btn active" onclick="showTab('projects')">Projekty</button>
-            <button type="button" class="tab-btn" onclick="showTab('about')">O mnie</button>
+            <button type="button" class="tab-btn active" onclick="showTab('projects', event)">Projekty</button>
+            <button type="button" class="tab-btn" onclick="showTab('about', event)">O mnie</button>
         </div>
 
         <!-- Tab: Projekty -->
@@ -727,10 +727,10 @@
                 <!-- Opis "O mnie" -->
                 <div class="form-group">
                     <label for="aboutText" class="form-label">Opis "O mnie" *</label>
-                    <textarea id="aboutText" name="aboutText" class="form-textarea" maxlength="1000" required></textarea>
+                    <textarea id="aboutText" name="aboutText" class="form-textarea" maxlength="1000"></textarea>
                     <div id="aboutCharCounter" class="char-counter">0/1000</div>
-                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('bio')">Aktualizuj opis</button>
-                    <div id="status-bio" class="status-message" style="display:none;"></div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('aboutText')">Aktualizuj opis</button>
+                    <div id="status-aboutText" class="status-message" style="display:none;"></div>
                 </div>
                 <!-- Edukacja -->
                 <div class="form-group">
@@ -789,6 +789,9 @@
                     <div id="status-interests" class="status-message" style="display:none;"></div>
                 </div>
             </div>
+            
+            <!-- Komunikat statusu dla sekcji "O mnie" -->
+            <div id="aboutStatusMessage" class="status-message" style="display: none;"></div>
         </div>
     </div>
 
@@ -829,7 +832,7 @@
         });
 
         // ===== SYSTEM TABÓW =====
-        function showTab(tabName) {
+        function showTab(tabName, event) {
             // Ukryj wszystkie taby
             const tabContents = document.querySelectorAll('.tab-content');
             tabContents.forEach(tab => tab.classList.remove('active'));
@@ -842,7 +845,9 @@
             document.getElementById(tabName + '-tab').classList.add('active');
             
             // Aktywuj przycisk
-            event.target.classList.add('active');
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
         }
 
         // ===== LICZNIK ZNAKÓW =====
@@ -1033,6 +1038,11 @@
             const fileInput = document.getElementById('images');
             const fileList = document.getElementById('fileList');
             
+            if (!fileInput || !fileList) {
+                console.error('Nie znaleziono elementów do walidacji plików');
+                return;
+            }
+            
             fileInput.addEventListener('change', function() {
                 const files = Array.from(this.files);
                 
@@ -1077,6 +1087,11 @@
 
         function displayFileListWithCropping(files) {
             const fileList = document.getElementById('fileList');
+            
+            if (!fileList) {
+                console.error('Nie znaleziono elementu fileList');
+                return;
+            }
             
             fileList.innerHTML = files.map((file, index) => `
                 <div class="file-item" data-file-index="${index}">
@@ -1157,6 +1172,11 @@
             reader.onload = function(e) {
                 const cropperImage = document.getElementById('cropperImage');
                 const imageCropper = document.getElementById('imageCropper');
+                
+                if (!cropperImage || !imageCropper) {
+                    console.error('Nie znaleziono elementów do kadrowania');
+                    return;
+                }
                 
                 cropperImage.src = e.target.result;
                 imageCropper.style.display = 'block';
@@ -1246,7 +1266,8 @@
                 console.log('Dane przycięcia:', cropData);
                 
                 // Ukryj kropowanie i dodaj do listy
-                document.getElementById('imageCropper').style.display = 'none';
+                const imageCropper = document.getElementById('imageCropper');
+                if (imageCropper) imageCropper.style.display = 'none';
                 addCroppedImageToList(currentCropData.file, cropData);
                 
                 currentCropData = null;
@@ -1254,7 +1275,8 @@
         }
 
         function cancelCrop() {
-            document.getElementById('imageCropper').style.display = 'none';
+            const imageCropper = document.getElementById('imageCropper');
+            if (imageCropper) imageCropper.style.display = 'none';
             currentCropData = null;
         }
 
@@ -1319,18 +1341,25 @@
             if (window.selectedFiles.length > 0) {
                 displayFileListWithCropping(window.selectedFiles);
             } else {
-                document.getElementById('fileList').style.display = 'none';
+                const fileList = document.getElementById('fileList');
+                if (fileList) fileList.style.display = 'none';
                 window.selectedFiles = [];
             }
             
             // Resetuj input file
-            document.getElementById('images').value = '';
+            const imagesInput = document.getElementById('images');
+            if (imagesInput) imagesInput.value = '';
         }
 
         // ===== WYSYŁANIE FORMULARZA =====
         function initFormSubmission() {
             const form = document.getElementById('projectForm');
             const submitBtn = document.getElementById('submitBtn');
+            
+            if (!form || !submitBtn) {
+                console.error('Nie znaleziono formularza lub przycisku submit');
+                return;
+            }
             
             form.addEventListener('submit', async function(e) {
                 e.preventDefault();
@@ -1372,9 +1401,12 @@
                         
                         // Reset formularza
                         form.reset();
-                        document.getElementById('fileList').style.display = 'none';
-                        document.getElementById('charCounter').textContent = '0/800';
-                        document.getElementById('year').value = '2025'; // Przywróć domyślną wartość roku
+                        const fileList = document.getElementById('fileList');
+                        if (fileList) fileList.style.display = 'none';
+                        const charCounter = document.getElementById('charCounter');
+                        if (charCounter) charCounter.textContent = '0/800';
+                        const year = document.getElementById('year');
+                        if (year) year.value = '2025'; // Przywróć domyślną wartość roku
                         window.selectedFiles = []; // Wyczyść globalną tablicę plików
                         
                         console.log('Projekt dodany:', result.project);
@@ -1399,6 +1431,11 @@
         // ===== PRZYCISK ODŚWIEŻENIA =====
         function showRefreshButton() {
             const statusDiv = document.getElementById('statusMessage');
+            
+            if (!statusDiv) {
+                console.error('Nie znaleziono elementu statusMessage');
+                return;
+            }
             
             // Dodaj przycisk odświeżenia
             const refreshBtn = document.createElement('button');
@@ -1425,14 +1462,18 @@
         // ===== WYŚWIETLANIE STATUSU =====
         function showStatus(message, type) {
             const statusDiv = document.getElementById('statusMessage');
-            statusDiv.textContent = message;
-            statusDiv.className = `status-message status-${type}`;
-            statusDiv.style.display = 'block';
-            
-            // Ukryj po 5 sekundach
-            setTimeout(() => {
-                statusDiv.style.display = 'none';
-            }, 5000);
+            if (statusDiv) {
+                statusDiv.textContent = message;
+                statusDiv.className = `status-message status-${type}`;
+                statusDiv.style.display = 'block';
+                
+                // Ukryj po 5 sekundach
+                setTimeout(() => {
+                    statusDiv.style.display = 'none';
+                }, 5000);
+            } else {
+                console.error('Nie znaleziono elementu statusMessage');
+            }
         }
 
         // ===== PODGLĄD PROJEKTÓW =====
@@ -1450,7 +1491,10 @@
                 }
             } catch (error) {
                 console.error('Błąd ładowania projektów:', error);
-                document.getElementById('projectsList').innerHTML = '<p>Błąd ładowania projektów</p>';
+                const projectsList = document.getElementById('projectsList');
+                if (projectsList) {
+                    projectsList.innerHTML = '<p>Błąd ładowania projektów</p>';
+                }
             }
         }
 
@@ -1521,7 +1565,10 @@
         async function updateProjectField(projectId, field) {
             const input = document.getElementById(`project-${projectId}-${field}`);
             const status = document.getElementById(`status-project-${projectId}-${field}`);
-            if (!input || !status) return;
+            if (!input || !status) {
+                console.error('Nie znaleziono elementu:', `project-${projectId}-${field}`);
+                return;
+            }
             status.style.display = 'inline';
             status.textContent = 'Aktualizuję...';
             status.className = 'status-message';
@@ -1542,6 +1589,7 @@
                     status.className = 'status-message status-error';
                 }
             } catch (e) {
+                console.error('Błąd aktualizacji pola projektu:', e);
                 status.textContent = 'Błąd połączenia z serwerem';
                 status.className = 'status-message status-error';
             }
@@ -1613,6 +1661,11 @@
             const profileImageInput = document.getElementById('profileImage');
             const profileImagePreview = document.getElementById('profileImagePreview');
             
+            if (!profileImageInput || !profileImagePreview) {
+                console.error('Nie znaleziono elementów do walidacji zdjęcia profilowego');
+                return;
+            }
+            
             profileImageInput.addEventListener('change', function() {
                 const file = this.files[0];
                 
@@ -1652,61 +1705,8 @@
 
         // ===== OBSŁUGA FORMULARZA "O MNIE" =====
         function initAboutFormSubmission() {
-            const aboutForm = document.getElementById('aboutForm');
-            const aboutSubmitBtn = document.getElementById('aboutSubmitBtn');
-            
-            aboutForm.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                
-                // Wyłącz przycisk podczas wysyłania
-                aboutSubmitBtn.disabled = true;
-                aboutSubmitBtn.textContent = 'Zapisywanie...';
-                
-                try {
-                    // Zbierz dane z formularza
-                    const formData = new FormData(aboutForm);
-                    
-                    // Sprawdź czy serwer jest dostępny
-                    const serverUrl = window.location.port === '3000' ? '' : 'http://localhost:3000';
-                    
-                    // Wyślij dane do serwera
-                    const response = await fetch(`${serverUrl}/api/updateAbout`, {
-                        method: 'POST',
-                        body: formData
-                    });
-                    
-                    const result = await response.json();
-                    
-                    if (result.success) {
-                        showAboutStatus(result.message, 'success');
-                        
-                        // Reset formularza
-                        aboutForm.reset();
-                        document.getElementById('profileImagePreview').style.display = 'none';
-                        document.getElementById('aboutCharCounter').textContent = '0/1000';
-                        
-                        console.log('Dane "O mnie" zaktualizowane:', result.about);
-                    } else {
-                        showAboutStatus('Błąd: ' + (result.message || 'Nieznany błąd'), 'error');
-                    }
-                    
-                } catch (error) {
-                    console.error('Błąd wysyłania:', error);
-                    if (error.response) {
-                        error.response.json().then(data => {
-                            showAboutStatus('Błąd: ' + (data.message || error.message), 'error');
-                        }).catch(() => {
-                            showAboutStatus('Błąd połączenia z serwerem. Sprawdź czy serwer jest uruchomiony.', 'error');
-                        });
-                    } else {
-                        showAboutStatus('Błąd połączenia z serwerem. Sprawdź czy serwer jest uruchomiony.', 'error');
-                    }
-                } finally {
-                    // Przywróć przycisk
-                    aboutSubmitBtn.disabled = false;
-                    aboutSubmitBtn.textContent = 'Zapisz zmiany "O mnie"';
-                }
-            });
+            // Ta funkcja jest już obsługiwana przez updateAboutField
+            console.log('Inicjalizacja formularza "O mnie" - gotowe');
         }
 
         // ===== ŁADOWANIE DANYCH "O MNIE" =====
@@ -1780,65 +1780,103 @@
         // ===== WYŚWIETLANIE STATUSU "O MNIE" =====
         function showAboutStatus(message, type) {
             const statusDiv = document.getElementById('aboutStatusMessage');
-            statusDiv.textContent = message;
-            statusDiv.className = `status-message status-${type}`;
-            statusDiv.style.display = 'block';
-            
-            // Ukryj po 5 sekundach
-            setTimeout(() => {
-                statusDiv.style.display = 'none';
-            }, 5000);
+            if (statusDiv) {
+                statusDiv.textContent = message;
+                statusDiv.className = `status-message status-${type}`;
+                statusDiv.style.display = 'block';
+                
+                // Ukryj po 5 sekundach
+                setTimeout(() => {
+                    statusDiv.style.display = 'none';
+                }, 5000);
+            } else {
+                console.error('Nie znaleziono elementu aboutStatusMessage');
+            }
         }
 
         // ===== Aktualizacja pola "O mnie" =====
-        function updateAboutField(field) {
-            const value = document.getElementById(field).value;
+        async function updateAboutField(field) {
+            const input = document.getElementById(field);
             const statusDiv = document.getElementById(`status-${field}`);
             
-            // Wyłącz przycisk podczas wysyłania
-            document.getElementById(`submitBtn-${field}`).disabled = true;
-            document.getElementById(`submitBtn-${field}`).textContent = 'Aktualizowanie...';
+            if (!input || !statusDiv) {
+                console.error('Nie znaleziono elementu:', field);
+                return;
+            }
+            
+            // Pokaż status
+            statusDiv.style.display = 'inline';
+            statusDiv.textContent = 'Aktualizuję...';
+            statusDiv.className = 'status-message';
             
             try {
                 // Sprawdź czy serwer jest dostępny
                 const serverUrl = window.location.port === '3000' ? '' : 'http://localhost:3000';
                 
-                // Wyślij dane do serwera
-                const response = await fetch(`${serverUrl}/api/updateAbout`, {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ [field]: value })
-                });
+                let response;
+                
+                // Specjalna obsługa dla zdjęcia profilowego
+                if (field === 'profileImage') {
+                    const file = input.files[0];
+                    if (!file) {
+                        statusDiv.textContent = 'Wybierz plik!';
+                        statusDiv.className = 'status-message status-error';
+                        setTimeout(() => { statusDiv.style.display = 'none'; }, 3000);
+                        return;
+                    }
+                    
+                    const formData = new FormData();
+                    formData.append('profileImage', file);
+                    
+                    response = await fetch(`${serverUrl}/api/updateAbout`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                } else {
+                    // Mapowanie pól HTML na pola JSON
+                    const fieldMapping = {
+                        'aboutText': 'bio',
+                        'profileImage': 'profileImage',
+                        'education': 'education',
+                        'experience': 'experience',
+                        'achievements': 'achievements',
+                        'collaboration': 'collaboration',
+                        'skills': 'skills',
+                        'software': 'software',
+                        'interests': 'interests'
+                    };
+                    
+                    const jsonField = fieldMapping[field] || field;
+                    const value = input.value;
+                    
+                    response = await fetch(`${serverUrl}/api/updateAbout`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ [jsonField]: value })
+                    });
+                }
                 
                 const result = await response.json();
                 
                 if (result.success) {
-                    showAboutStatus(result.message, 'success');
-                    
-                    // Reset pola
-                    document.getElementById(field).value = '';
-                    document.getElementById(`${field}CharCounter`).textContent = '0/2000';
+                    statusDiv.textContent = 'Zaktualizowano!';
+                    statusDiv.className = 'status-message status-success';
                 } else {
-                    showAboutStatus('Błąd: ' + (result.message || 'Nieznany błąd'), 'error');
+                    statusDiv.textContent = 'Błąd: ' + (result.message || 'Nieznany błąd');
+                    statusDiv.className = 'status-message status-error';
                 }
             } catch (error) {
                 console.error('Błąd wysyłania:', error);
-                if (error.response) {
-                    error.response.json().then(data => {
-                        showAboutStatus('Błąd: ' + (data.message || error.message), 'error');
-                    }).catch(() => {
-                        showAboutStatus('Błąd połączenia z serwerem. Sprawdź czy serwer jest uruchomiony.', 'error');
-                    });
-                } else {
-                    showAboutStatus('Błąd połączenia z serwerem. Sprawdź czy serwer jest uruchomiony.', 'error');
-                }
-            } finally {
-                // Przywróć przycisk
-                document.getElementById(`submitBtn-${field}`).disabled = false;
-                document.getElementById(`submitBtn-${field}`).textContent = 'Aktualizuj';
+                statusDiv.textContent = 'Błąd połączenia z serwerem';
+                statusDiv.className = 'status-message status-error';
             }
+            
+            // Ukryj status po 3 sekundach
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 3000);
         }
     </script>
 </body>
