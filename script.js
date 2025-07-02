@@ -90,13 +90,28 @@ function displayProjects(projects) {
             </div>
         `;
 
+        // Normalizuj dane - jeśli pole jest tablicą, weź pierwszy element
+        const normalizeField = (field) => {
+            if (Array.isArray(field)) {
+                return field[0] || '';
+            }
+            return field || '';
+        };
+
+        // Przygotuj dane do wyświetlenia
+        const displayYear = normalizeField(project.year);
+        const displayLocation = normalizeField(project.location);
+        const displayType = normalizeField(project.type);
+        const displayAuthor = normalizeField(project.author);
+        const displayProjectType = normalizeField(project.projectType);
+
         return `
             <div class="project-card" data-project-id="${project.id}">
                 <div class="project-header">
                     <h3 class="project-title">${project.title}</h3>
                     <div class="project-meta">
-                        <span class="project-year">${project.year}</span>
-                        <span class="project-location">${project.location}</span>
+                        <span class="project-year">${displayYear}</span>
+                        <span class="project-location">${displayLocation}</span>
                     </div>
                 </div>
                 
@@ -106,14 +121,31 @@ function displayProjects(projects) {
                     <p class="project-description">${project.description}</p>
                     
                     <div class="project-details">
+                        ${displayAuthor ? `
+                            <div class="project-detail">
+                                <strong>Autor:</strong> ${displayAuthor}
+                            </div>
+                        ` : ''}
                         <div class="project-detail">
-                            <strong>Typ:</strong> ${project.type || 'Brak'}
+                            <strong>Typ:</strong> ${displayProjectType || displayType || 'Brak'}
                         </div>
+                        ${project.totalArea ? `
+                            <div class="project-detail">
+                                <strong>Powierzchnia całkowita:</strong> ${project.totalArea}
+                            </div>
+                        ` : ''}
+                        ${project.usableArea ? `
+                            <div class="project-detail">
+                                <strong>Powierzchnia użytkowa:</strong> ${project.usableArea}
+                            </div>
+                        ` : ''}
+                        ${!project.totalArea && !project.usableArea && project.area ? `
+                            <div class="project-detail">
+                                <strong>Powierzchnia:</strong> ${project.area}
+                            </div>
+                        ` : ''}
                         <div class="project-detail">
-                            <strong>Powierzchnia:</strong> ${project.area || 'Brak'}
-                        </div>
-                        <div class="project-detail">
-                            <strong>Status:</strong> ${project.status || 'Brak'}
+                            <strong>Status:</strong> ${project.stage || project.status || 'Brak'}
                         </div>
                         ${project.investor ? `
                             <div class="project-detail">

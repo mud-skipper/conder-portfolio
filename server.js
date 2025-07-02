@@ -116,17 +116,25 @@ async function saveProjectToJSON(projectData) {
         // Generuj nowe ID
         const newId = Math.max(...content.projects.map(p => p.id), 0) + 1;
         
+        // Normalizuj dane - jeśli pole jest tablicą, weź pierwszy element
+        const normalizeField = (field) => {
+            if (Array.isArray(field)) {
+                return field[0] || '';
+            }
+            return field || '';
+        };
+
         // Przygotuj nowy projekt
         const newProject = {
             id: newId,
             title: projectData.title,
-            author: projectData.author || 'Wojciech Conder',
-            projectType: projectData.projectType || determineProjectType(projectData.title, projectData.description),
-            location: projectData.location || 'Warszawa',
-            year: projectData.year || new Date().getFullYear().toString(),
+            author: normalizeField(projectData.author) || 'Wojciech Conder',
+            projectType: normalizeField(projectData.projectType) || determineProjectType(projectData.title, projectData.description),
+            location: normalizeField(projectData.location) || 'Warszawa',
+            year: normalizeField(projectData.year) || new Date().getFullYear().toString(),
             description: projectData.description,
             image: projectData.images && projectData.images.length > 0 ? projectData.images[0] : 'project-placeholder.jpg',
-            type: projectData.projectType || determineProjectType(projectData.title, projectData.description), // Zachowaj kompatybilność
+            type: normalizeField(projectData.projectType) || determineProjectType(projectData.title, projectData.description), // Zachowaj kompatybilność
             area: projectData.totalArea || projectData.usableArea || 'N/A',
             status: projectData.stage || 'w realizacji',
             link: '#',

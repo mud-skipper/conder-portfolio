@@ -26,28 +26,13 @@
     {
       "id": 2,
       "title": "Insta21",
-      "author": [
-        "22ARCHITEKCI",
-        "22ARCHITEKCI"
-      ],
-      "projectType": [
-        "mieszkaniowy",
-        "mieszkaniowy"
-      ],
-      "location": [
-        "Warszawa",
-        "Warszawa"
-      ],
-      "year": [
-        "2022",
-        "2022"
-      ],
+      "author": "22ARCHITEKCI",
+      "projectType": "mieszkaniowy",
+      "location": "Warszawa",
+      "year": "2022",
       "description": "Projekt Insta21 to kameralny budynek mieszkaniowo-usługowy o nowoczesnej estetyce, zlokalizowany w dobrze skomunikowanym sąsiedztwie Parku Szczęśliwickiego. Kompozycja funkcjonalna – mieszkania 2‑, 3‑ i 4‑pokojowe (38–70 m²) wyposażone w loggie lub ogródki – łączy prostą formę z detalem precyzyjnie dopasowanym do kontekstu. Materiały wykończeniowe i przemyślane układy wnętrz tworzą spokojną, sprzyjającą codziennemu życiu przestrzeń.",
       "image": "insta21/images-1751461914745-953030477.jpg",
-      "type": [
-        "mieszkaniowy",
-        "mieszkaniowy"
-      ],
+      "type": "mieszkaniowy",
       "area": "~3987 m² (87 mieszkań; powierzchnia handlowo-usługowa 149 m²)",
       "status": "realizacja",
       "link": "#",
