@@ -19,8 +19,19 @@ const storage = multer.diskStorage({
         if (!require('fs').existsSync(uploadDir)) {
             require('fs').mkdirSync(uploadDir, { recursive: true });
         }
-        console.log(`Zapisywanie pliku ${file.originalname} do ${uploadDir}`);
-        cb(null, uploadDir);
+        
+        // Utwórz podkatalog dla projektu (jeśli mamy tytuł)
+        let projectDir = uploadDir;
+        if (req.body.title) {
+            const projectName = req.body.title.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
+            projectDir = path.join(uploadDir, projectName);
+            if (!require('fs').existsSync(projectDir)) {
+                require('fs').mkdirSync(projectDir, { recursive: true });
+            }
+        }
+        
+        console.log(`Zapisywanie pliku ${file.originalname} do ${projectDir}`);
+        cb(null, projectDir);
     },
     filename: function (req, file, cb) {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
@@ -33,7 +44,7 @@ const storage = multer.diskStorage({
 const upload = multer({ 
     storage: storage,
     limits: {
-        fileSize: 512000, // 500KB
+        fileSize: 50 * 1024 * 1024, // 50MB - praktycznie bez limitu
         files: 5 // max 5 plików
     },
     fileFilter: function (req, file, cb) {
@@ -140,6 +151,44 @@ async function saveProjectToJSON(projectData) {
     }
 }
 
+// Funkcja do przetwarzania i optymalizacji obrazów
+async function processAndOptimizeImage(filePath, projectName) {
+    try {
+        const sharp = require('sharp');
+        const fs = require('fs').promises;
+        
+        // Wczytaj obraz
+        const image = sharp(filePath);
+        const metadata = await image.metadata();
+        
+        // Optymalizuj obraz
+        const optimizedImage = image
+            .resize(1200, 1600, { // Format telefonu
+                fit: 'inside',
+                withoutEnlargement: true
+            })
+            .jpeg({ 
+                quality: 85,
+                progressive: true
+            });
+        
+        // Zapisz zoptymalizowany obraz
+        const optimizedPath = filePath.replace(/\.[^/.]+$/, '_optimized.jpg');
+        await optimizedImage.toFile(optimizedPath);
+        
+        // Usuń oryginalny plik i zmień nazwę zoptymalizowanego
+        await fs.unlink(filePath);
+        await fs.rename(optimizedPath, filePath);
+        
+        console.log(`Zoptymalizowano obraz: ${filePath}`);
+        return path.basename(filePath);
+        
+    } catch (error) {
+        console.log(`Błąd optymalizacji obrazu ${filePath}:`, error.message);
+        return path.basename(filePath); // Zwróć oryginalną nazwę jeśli optymalizacja się nie udała
+    }
+}
+
 // Endpoint do dodawania projektu
 app.post('/api/addProject', upload.array('images', 5), async (req, res) => {
     try {
@@ -164,8 +213,23 @@ app.post('/api/addProject', upload.array('images', 5), async (req, res) => {
             usableArea: req.body.usableArea,
             stage: req.body.stage,
             description: req.body.description,
-            images: req.files ? req.files.map(file => file.filename) : []
+            images: []
         };
+        
+        // Przetwórz i zoptymalizuj obrazy
+        if (req.files && req.files.length > 0) {
+            const projectName = req.body.title.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
+            
+            for (const file of req.files) {
+                try {
+                    const optimizedFileName = await processAndOptimizeImage(file.path, projectName);
+                    projectData.images.push(`${projectName}/${optimizedFileName}`);
+                } catch (error) {
+                    console.error(`Błąd przetwarzania pliku ${file.filename}:`, error);
+                    projectData.images.push(`${projectName}/${file.filename}`);
+                }
+            }
+        }
         
         console.log('Dane projektu:', projectData);
         

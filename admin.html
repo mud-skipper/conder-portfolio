@@ -396,7 +396,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             width: 300px;
-            height: 200px;
+            height: 400px; /* Format telefonu - wyższy niż szerszy */
             border: 2px solid var(--color-yellow);
             background: transparent;
             z-index: 2;
@@ -492,12 +492,6 @@
                 <input type="text" id="location" name="location" class="form-input" required placeholder="np. Warszawa, Mokotów">
             </div>
 
-            <!-- Rok wykonania -->
-            <div class="form-group">
-                <label for="year" class="form-label">Rok wykonania *</label>
-                <input type="number" id="year" name="year" class="form-input" required min="1900" max="2030" value="2025">
-            </div>
-
             <!-- Inwestor -->
             <div class="form-group">
                 <label for="investor" class="form-label">Inwestor</label>
@@ -535,6 +529,12 @@
                 </select>
             </div>
 
+            <!-- Rok wykonania -->
+            <div class="form-group">
+                <label for="year" class="form-label">Rok wykonania *</label>
+                <input type="number" id="year" name="year" class="form-input" required min="1900" max="2030" value="2025">
+            </div>
+
             <!-- Opis -->
             <div class="form-group">
                 <label for="description" class="form-label">Opis *</label>
@@ -548,7 +548,7 @@
                 <div class="file-input-container">
                     <input type="file" id="images" name="images" class="file-input" multiple accept=".jpg,.jpeg,.png">
                     <label for="images" class="file-input-label">
-                        📁 Kliknij aby wybrać zdjęcia (JPG/PNG, max 500KB każdy)
+                        📁 Kliknij aby wybrać zdjęcia (JPG/PNG, dowolny rozmiar)
                     </label>
                 </div>
                 <div id="fileList" class="file-list" style="display: none;"></div>
@@ -647,14 +647,15 @@
                     return;
                 }
                 
-                // Sprawdź każdy plik
+                // Sprawdź typ plików (bez ograniczeń rozmiaru)
                 let validFiles = [];
                 let errors = [];
                 
                 files.forEach(file => {
-                    // Sprawdź rozmiar (500KB = 512000 bytes)
-                    if (file.size > 512000) {
-                        errors.push(`${file.name} - za duży plik (${(file.size / 1024).toFixed(0)}KB)`);
+                    // Sprawdź tylko typ pliku
+                    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+                    if (!allowedTypes.includes(file.type)) {
+                        errors.push(`${file.name} - nieprawidłowy typ pliku`);
                     } else {
                         validFiles.push(file);
                     }
@@ -678,7 +679,7 @@
             fileList.innerHTML = files.map((file, index) => `
                 <div class="file-item">
                     <span class="file-name">${file.name}</span>
-                    <span class="file-size">${(file.size / 1024).toFixed(0)}KB</span>
+                    <span class="file-size">${(file.size / 1024 / 1024).toFixed(1)}MB</span>
                     <button type="button" class="crop-btn" onclick="startCrop(${JSON.stringify(file.name).replace(/"/g, '&quot;')})" style="margin-left: 10px; padding: 4px 8px; font-size: 12px;">
                         ✂️ Kadruj
                     </button>
@@ -686,6 +687,12 @@
             `).join('');
             
             fileList.style.display = 'block';
+            
+            // Dodaj informację o optymalizacji
+            const infoDiv = document.createElement('div');
+            infoDiv.style.cssText = 'margin-top: 10px; padding: 10px; background: var(--color-yellow); color: var(--color-black); border-radius: 4px; font-size: 14px;';
+            infoDiv.innerHTML = 'ℹ️ Obrazy zostaną automatycznie zoptymalizowane do formatu telefonu (1200x1600px)';
+            fileList.appendChild(infoDiv);
         }
 
         // ===== SYSTEM KADROWANIA ZDJĘĆ =====
