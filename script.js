@@ -69,22 +69,29 @@ function displayProjects(projects) {
         const hasImages = project.images && project.images.length > 0;
         const mainImage = hasImages ? project.images[0] : (project.image || 'project-placeholder.jpg');
         
-        // Przygotuj HTML dla zdjęć
+        // Przygotuj HTML dla zdjęć z nawigacją
         const imagesHTML = hasImages ? `
-            <div class="project-images">
+            <div class="project-images" data-project-id="${project.id}">
                 ${project.images.map((image, index) => `
                     <img src="uploads/${image}" 
                          alt="${project.title} - zdjęcie ${index + 1}" 
-                         class="project-image ${index === 0 ? 'main-image' : 'secondary-image'}"
+                         class="project-image ${index === 0 ? 'main-image active' : ''}"
+                         data-index="${index}"
                          onerror="this.src='project-placeholder.jpg'; this.style.display='none';"
                          loading="lazy">
                 `).join('')}
+                
+                ${project.images.length > 1 ? `
+                    <button class="image-nav prev" onclick="changeImage(${project.id}, -1)">‹</button>
+                    <button class="image-nav next" onclick="changeImage(${project.id}, 1)">›</button>
+                    <div class="image-counter">1/${project.images.length}</div>
+                ` : ''}
             </div>
         ` : `
             <div class="project-images">
                 <img src="${mainImage.startsWith('uploads/') ? mainImage : `uploads/${mainImage}`}" 
                      alt="${project.title}" 
-                     class="project-image main-image"
+                     class="project-image main-image active"
                      onerror="this.src='project-placeholder.jpg';"
                      loading="lazy">
             </div>
@@ -118,7 +125,9 @@ function displayProjects(projects) {
                 ${imagesHTML}
                 
                 <div class="project-content">
-                    <p class="project-description">${project.description}</p>
+                    <div class="project-description">
+                        <p>${project.description}</p>
+                    </div>
                     
                     <div class="project-details">
                         ${displayAuthor ? `
@@ -187,6 +196,53 @@ function initAutoRefresh() {
     setInterval(() => {
         loadProjectsFromJSON();
     }, 30000); // 30 sekund
+}
+
+// ===== NAWIGACJA ZDJĘĆ =====
+function changeImage(projectId, direction) {
+    const projectImages = document.querySelector(`[data-project-id="${projectId}"]`);
+    if (!projectImages) return;
+    
+    const images = projectImages.querySelectorAll('.project-image');
+    const counter = projectImages.querySelector('.image-counter');
+    const prevBtn = projectImages.querySelector('.image-nav.prev');
+    const nextBtn = projectImages.querySelector('.image-nav.next');
+    
+    if (images.length <= 1) return;
+    
+    // Znajdź aktualnie aktywne zdjęcie
+    let currentIndex = 0;
+    images.forEach((img, index) => {
+        if (img.classList.contains('active')) {
+            currentIndex = index;
+        }
+    });
+    
+    // Oblicz nowy indeks
+    let newIndex = currentIndex + direction;
+    if (newIndex < 0) newIndex = images.length - 1;
+    if (newIndex >= images.length) newIndex = 0;
+    
+    // Ukryj wszystkie zdjęcia
+    images.forEach(img => {
+        img.classList.remove('active');
+        img.style.display = 'none';
+    });
+    
+    // Pokaż nowe zdjęcie
+    images[newIndex].classList.add('active');
+    images[newIndex].style.display = 'block';
+    
+    // Aktualizuj licznik
+    if (counter) {
+        counter.textContent = `${newIndex + 1}/${images.length}`;
+    }
+    
+    // Aktualizuj widoczność przycisków
+    if (prevBtn && nextBtn) {
+        prevBtn.classList.toggle('hidden', images.length <= 1);
+        nextBtn.classList.toggle('hidden', images.length <= 1);
+    }
 }
 
 // ===== PRZYCISKI DOLNEGO PANELU =====
