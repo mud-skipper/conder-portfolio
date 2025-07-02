@@ -526,6 +526,97 @@ app.post('/api/updateAbout', upload.single('profileImage'), async (req, res) => 
     }
 });
 
+// Endpoint do dodawania zdjęć do istniejącego projektu
+app.post('/api/addImagesToProject', upload.array('images', 5), async (req, res) => {
+    try {
+        const projectId = parseInt(req.body.projectId);
+        
+        console.log(`Dodawanie zdjęć do projektu ${projectId}`);
+        console.log('Liczba plików:', req.files ? req.files.length : 0);
+        
+        if (!req.files || req.files.length === 0) {
+            return res.status(400).json({
+                success: false,
+                message: 'Nie wybrano żadnych plików'
+            });
+        }
+        
+        // Wczytaj istniejące projekty
+        const contentPath = path.join(__dirname, 'content.json');
+        const content = JSON.parse(await fs.readFile(contentPath, 'utf8'));
+        
+        // Znajdź projekt
+        const project = content.projects.find(p => p.id === projectId);
+        
+        if (!project) {
+            return res.status(404).json({
+                success: false,
+                message: 'Projekt nie został znaleziony'
+            });
+        }
+        
+        // Sprawdź limit zdjęć (maksymalnie 10 na projekt)
+        const currentImageCount = project.images ? project.images.length : 0;
+        if (currentImageCount + req.files.length > 10) {
+            return res.status(400).json({
+                success: false,
+                message: `Za dużo zdjęć. Projekt może mieć maksymalnie 10 zdjęć (obecnie: ${currentImageCount})`
+            });
+        }
+        
+        // Przygotuj folder dla projektu
+        const projectName = project.title.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
+        const projectDir = path.join(__dirname, 'uploads', projectName);
+        await fs.mkdir(projectDir, { recursive: true });
+        
+        // Przetwórz i zoptymalizuj obrazy
+        const newImages = [];
+        for (const file of req.files) {
+            try {
+                const optimizedFileName = await processAndOptimizeImage(file.path, projectName);
+                const imagePath = `${projectName}/${optimizedFileName}`;
+                newImages.push(imagePath);
+                console.log(`Dodano zdjęcie: ${imagePath}`);
+            } catch (error) {
+                console.error(`Błąd przetwarzania pliku ${file.filename}:`, error);
+                newImages.push(`${projectName}/${file.filename}`);
+            }
+        }
+        
+        // Dodaj nowe zdjęcia do projektu
+        if (!project.images) {
+            project.images = [];
+        }
+        project.images.push(...newImages);
+        
+        // Zapisz z powrotem do pliku
+        await fs.writeFile(contentPath, JSON.stringify(content, null, 2));
+        
+        // Wykonaj Git push
+        try {
+            await executeGitCommand('git add .');
+            await executeGitCommand(`git commit -m "Dodano ${newImages.length} zdjęć do projektu: ${project.title}"`);
+            await executeGitCommand('git push');
+            console.log('Git push wykonany pomyślnie');
+        } catch (gitError) {
+            console.error('Błąd Git push:', gitError);
+        }
+        
+        res.json({
+            success: true,
+            message: `Dodano ${newImages.length} zdjęć do projektu`,
+            newImages: newImages
+        });
+        
+    } catch (error) {
+        console.error('Błąd dodawania zdjęć do projektu:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Błąd podczas dodawania zdjęć: ' + error.message
+        });
+    }
+});
+
 // Endpoint do usuwania zdjęcia z projektu
 app.post('/api/removeImage/:projectId', async (req, res) => {
     try {

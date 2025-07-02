@@ -398,6 +398,20 @@
             overflow: hidden;
         }
 
+        .add-images-section {
+            margin-top: 20px;
+            padding: 15px;
+            border: 2px dashed var(--color-gray);
+            border-radius: var(--radius-md);
+            background: var(--color-cream);
+        }
+
+        .add-images-section h4 {
+            margin: 0 0 15px 0;
+            color: var(--color-black);
+            font-size: 16px;
+        }
+
         .image-item img {
             width: 100%;
             height: 80px;
@@ -1513,6 +1527,22 @@
                         </div>
                     </div>
                 ` : '<p>Brak zdjęć</p>';
+            
+            // Sekcja dodawania nowych zdjęć
+            const addImagesHtml = `
+                <div class="add-images-section">
+                    <h4>Dodaj nowe zdjęcia:</h4>
+                    <div class="file-input-container">
+                        <input type="file" id="project-images-${project.id}" class="file-input" multiple accept="image/*" onchange="handleProjectImagesChange(${project.id})">
+                        <label for="project-images-${project.id}" class="file-input-label">
+                            📷 Wybierz zdjęcia (max 5)
+                        </label>
+                    </div>
+                    <div id="project-images-preview-${project.id}" class="file-list" style="display:none;"></div>
+                    <button type="button" class="btn-edit" onclick="addImagesToProject(${project.id})" style="margin-top:10px;">Dodaj zdjęcia</button>
+                    <span class="status-message" id="status-project-images-${project.id}" style="display:none;"></span>
+                </div>
+            `;
 
             // Pola edytowalne z osobnym przyciskiem i komunikatem
             function editableField(label, field, value, type = 'text', rows = 1) {
@@ -1557,6 +1587,7 @@
                     </div>
                     ${editableField('Opis', 'description', project.description, 'textarea', 4)}
                     ${imagesHtml}
+                    ${addImagesHtml}
                 </div>
             `;
         }
@@ -1654,6 +1685,129 @@
         function editProject(projectId) {
             // TODO: Implementacja edycji projektu
             showStatus('Funkcja edycji będzie dostępna wkrótce', 'info');
+        }
+
+        // ===== OBSŁUGA DODAWANIA ZDJĘĆ DO PROJEKTU =====
+        function handleProjectImagesChange(projectId) {
+            const input = document.getElementById(`project-images-${projectId}`);
+            const preview = document.getElementById(`project-images-preview-${projectId}`);
+            
+            if (!input || !preview) {
+                console.error('Nie znaleziono elementów do obsługi zdjęć projektu');
+                return;
+            }
+            
+            const files = input.files;
+            if (!files || files.length === 0) {
+                preview.style.display = 'none';
+                return;
+            }
+            
+            // Sprawdź limit plików
+            if (files.length > 5) {
+                alert('Maksymalnie 5 zdjęć na raz!');
+                input.value = '';
+                preview.style.display = 'none';
+                return;
+            }
+            
+            // Sprawdź typy plików
+            const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+            for (let file of files) {
+                if (!allowedTypes.includes(file.type)) {
+                    alert(`Plik ${file.name} ma nieprawidłowy typ. Użyj JPG lub PNG.`);
+                    input.value = '';
+                    preview.style.display = 'none';
+                    return;
+                }
+            }
+            
+            // Pokaż podgląd
+            let previewHTML = '';
+            for (let file of files) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewHTML += `
+                        <div class="file-item">
+                            <div class="file-preview">
+                                <img src="${e.target.result}" alt="Podgląd" class="file-thumbnail" style="display: block;">
+                            </div>
+                            <div class="file-info">
+                                <div class="file-name">${file.name}</div>
+                                <div class="file-size">${(file.size / 1024).toFixed(0)}KB</div>
+                            </div>
+                        </div>
+                    `;
+                    preview.innerHTML = previewHTML;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // ===== DODAWANIE ZDJĘĆ DO PROJEKTU =====
+        async function addImagesToProject(projectId) {
+            const input = document.getElementById(`project-images-${projectId}`);
+            const status = document.getElementById(`status-project-images-${projectId}`);
+            
+            if (!input || !status) {
+                console.error('Nie znaleziono elementów do dodawania zdjęć');
+                return;
+            }
+            
+            const files = input.files;
+            if (!files || files.length === 0) {
+                status.textContent = 'Wybierz pliki!';
+                status.className = 'status-message status-error';
+                status.style.display = 'inline';
+                setTimeout(() => { status.style.display = 'none'; }, 3000);
+                return;
+            }
+            
+            // Pokaż status
+            status.style.display = 'inline';
+            status.textContent = 'Dodaję zdjęcia...';
+            status.className = 'status-message';
+            
+            try {
+                const formData = new FormData();
+                for (let file of files) {
+                    formData.append('images', file);
+                }
+                formData.append('projectId', projectId);
+                
+                const response = await fetch('/api/addImagesToProject', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    status.textContent = 'Zdjęcia dodane!';
+                    status.className = 'status-message status-success';
+                    
+                    // Wyczyść input i podgląd
+                    input.value = '';
+                    const preview = document.getElementById(`project-images-preview-${projectId}`);
+                    if (preview) {
+                        preview.style.display = 'none';
+                        preview.innerHTML = '';
+                    }
+                    
+                    // Odśwież listę projektów
+                    loadProjectsList();
+                } else {
+                    status.textContent = 'Błąd: ' + (result.message || 'Nie udało się dodać zdjęć');
+                    status.className = 'status-message status-error';
+                }
+            } catch (error) {
+                console.error('Błąd dodawania zdjęć:', error);
+                status.textContent = 'Błąd połączenia z serwerem';
+                status.className = 'status-message status-error';
+            }
+            
+            setTimeout(() => { status.style.display = 'none'; }, 3000);
         }
 
         // ===== WALIDACJA ZDJĘCIA PROFILOWEGO =====
@@ -1847,7 +2001,8 @@
                     };
                     
                     const jsonField = fieldMapping[field] || field;
-                    const value = input.value;
+                    // Zachowaj znaki nowej linii - zamień \n na \r\n dla spójności z backendem
+                    const value = input.value.replace(/\n/g, '\r\n');
                     
                     response = await fetch(`${serverUrl}/api/updateAbout`, {
                         method: 'POST',
