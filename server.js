@@ -388,6 +388,60 @@ app.delete('/api/deleteProject/:id', async (req, res) => {
     }
 });
 
+// Endpoint do aktualizacji pojedynczego pola projektu
+app.patch('/api/updateProjectField/:id', async (req, res) => {
+    try {
+        const projectId = parseInt(req.params.id);
+        const { field, value } = req.body;
+        
+        console.log(`Aktualizacja pola ${field} dla projektu ${projectId}:`, value);
+        
+        // Wczytaj istniejące projekty
+        const contentPath = path.join(__dirname, 'content.json');
+        const content = JSON.parse(await fs.readFile(contentPath, 'utf8'));
+        
+        // Znajdź projekt do aktualizacji
+        const projectIndex = content.projects.findIndex(p => p.id === projectId);
+        
+        if (projectIndex === -1) {
+            return res.status(404).json({
+                success: false,
+                message: 'Projekt nie został znaleziony'
+            });
+        }
+        
+        const project = content.projects[projectIndex];
+        
+        // Aktualizuj pole
+        project[field] = value;
+        
+        // Zapisz z powrotem do pliku
+        await fs.writeFile(contentPath, JSON.stringify(content, null, 2));
+        
+        // Wykonaj Git push
+        try {
+            await executeGitCommand('git add .');
+            await executeGitCommand(`git commit -m "Aktualizacja pola ${field} w projekcie: ${project.title}"`);
+            await executeGitCommand('git push');
+            console.log('Git push wykonany pomyślnie');
+        } catch (gitError) {
+            console.error('Błąd Git push:', gitError);
+        }
+        
+        res.json({
+            success: true,
+            message: `Pole ${field} zostało zaktualizowane pomyślnie`
+        });
+        
+    } catch (error) {
+        console.error('Błąd aktualizacji pola projektu:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Błąd podczas aktualizacji pola: ' + error.message
+        });
+    }
+});
+
 // Endpoint do aktualizacji sekcji "O mnie"
 app.post('/api/updateAbout', upload.single('profileImage'), async (req, res) => {
     try {

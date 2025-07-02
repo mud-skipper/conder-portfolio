@@ -520,6 +520,50 @@
         #cropCancel:hover {
             background: #cc0000;
         }
+
+        /* Style dla pól edytowalnych w projektach */
+        .editable-field {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid var(--color-gray-light);
+            border-radius: 4px;
+            background: #f9f9f9;
+        }
+
+        .editable-field label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--color-black);
+        }
+
+        .editable-field .form-input {
+            width: 100%;
+            margin-bottom: 8px;
+            padding: 8px;
+            border: 1px solid var(--color-gray);
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .editable-field textarea.form-input {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .editable-field .btn-edit {
+            padding: 6px 12px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .editable-field .status-message {
+            display: inline-block;
+            margin-left: 10px;
+            padding: 4px 8px;
+            font-size: 12px;
+            border-radius: 3px;
+        }
     </style>
 </head>
 <body>
@@ -668,85 +712,83 @@
                 <h2 class="admin-title">Sekcja "O mnie"</h2>
                 <p class="admin-subtitle">Edytuj informacje o architekcie</p>
             </div>
-
-            <!-- Formularz edycji "O mnie" -->
-            <form id="aboutForm" enctype="multipart/form-data">
+            <div id="aboutFields">
                 <!-- Zdjęcie profilowe -->
                 <div class="form-group">
                     <label for="profileImage" class="form-label">Zdjęcie profilowe</label>
                     <div class="file-input-container">
                         <input type="file" id="profileImage" name="profileImage" class="file-input" accept=".jpg,.jpeg,.png">
-                        <label for="profileImage" class="file-input-label">
-                            📷 Kliknij aby wybrać zdjęcie profilowe (JPG/PNG)
-                        </label>
+                        <label for="profileImage" class="file-input-label">📷 Kliknij aby wybrać zdjęcie profilowe (JPG/PNG)</label>
                     </div>
                     <div id="profileImagePreview" class="file-list" style="display: none;"></div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('profileImage')">Aktualizuj zdjęcie</button>
+                    <div id="status-profileImage" class="status-message" style="display:none;"></div>
                 </div>
-
                 <!-- Opis "O mnie" -->
                 <div class="form-group">
                     <label for="aboutText" class="form-label">Opis "O mnie" *</label>
-                    <textarea id="aboutText" name="aboutText" class="form-textarea" maxlength="1000" required placeholder="Opisz siebie i swoją pracę (max 1000 znaków)"></textarea>
+                    <textarea id="aboutText" name="aboutText" class="form-textarea" maxlength="1000" required></textarea>
                     <div id="aboutCharCounter" class="char-counter">0/1000</div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('bio')">Aktualizuj opis</button>
+                    <div id="status-bio" class="status-message" style="display:none;"></div>
                 </div>
-
                 <!-- Edukacja -->
                 <div class="form-group">
                     <label for="education" class="form-label">Edukacja</label>
-                    <textarea id="education" name="education" class="form-textarea" maxlength="2000" placeholder="Wprowadź informacje o edukacji"></textarea>
+                    <textarea id="education" name="education" class="form-textarea" maxlength="2000"></textarea>
                     <div id="educationCharCounter" class="char-counter">0/2000</div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('education')">Aktualizuj edukację</button>
+                    <div id="status-education" class="status-message" style="display:none;"></div>
                 </div>
-
                 <!-- Doświadczenie -->
                 <div class="form-group">
                     <label for="experience" class="form-label">Doświadczenie</label>
-                    <textarea id="experience" name="experience" class="form-textarea" maxlength="2000" placeholder="Wprowadź informacje o doświadczeniu zawodowym"></textarea>
+                    <textarea id="experience" name="experience" class="form-textarea" maxlength="2000"></textarea>
                     <div id="experienceCharCounter" class="char-counter">0/2000</div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('experience')">Aktualizuj doświadczenie</button>
+                    <div id="status-experience" class="status-message" style="display:none;"></div>
                 </div>
-
                 <!-- Kluczowe osiągnięcia -->
                 <div class="form-group">
                     <label for="achievements" class="form-label">Kluczowe osiągnięcia</label>
-                    <textarea id="achievements" name="achievements" class="form-textarea" maxlength="2000" placeholder="Wprowadź kluczowe osiągnięcia i projekty"></textarea>
+                    <textarea id="achievements" name="achievements" class="form-textarea" maxlength="2000"></textarea>
                     <div id="achievementsCharCounter" class="char-counter">0/2000</div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('achievements')">Aktualizuj osiągnięcia</button>
+                    <div id="status-achievements" class="status-message" style="display:none;"></div>
                 </div>
-
                 <!-- Współpraca -->
                 <div class="form-group">
                     <label for="collaboration" class="form-label">Współpraca</label>
-                    <textarea id="collaboration" name="collaboration" class="form-textarea" maxlength="1000" placeholder="Wprowadź informacje o współpracy"></textarea>
+                    <textarea id="collaboration" name="collaboration" class="form-textarea" maxlength="1000"></textarea>
                     <div id="collaborationCharCounter" class="char-counter">0/1000</div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('collaboration')">Aktualizuj współpracę</button>
+                    <div id="status-collaboration" class="status-message" style="display:none;"></div>
                 </div>
-
                 <!-- Umiejętności -->
                 <div class="form-group">
                     <label for="skills" class="form-label">Umiejętności</label>
-                    <textarea id="skills" name="skills" class="form-textarea" maxlength="2000" placeholder="Wprowadź umiejętności zawodowe"></textarea>
+                    <textarea id="skills" name="skills" class="form-textarea" maxlength="2000"></textarea>
                     <div id="skillsCharCounter" class="char-counter">0/2000</div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('skills')">Aktualizuj umiejętności</button>
+                    <div id="status-skills" class="status-message" style="display:none;"></div>
                 </div>
-
                 <!-- Obsługiwane programy komputerowe -->
                 <div class="form-group">
                     <label for="software" class="form-label">Obsługiwane programy komputerowe</label>
-                    <textarea id="software" name="software" class="form-textarea" maxlength="1000" placeholder="Wprowadź listę programów komputerowych"></textarea>
+                    <textarea id="software" name="software" class="form-textarea" maxlength="1000"></textarea>
                     <div id="softwareCharCounter" class="char-counter">0/1000</div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('software')">Aktualizuj programy</button>
+                    <div id="status-software" class="status-message" style="display:none;"></div>
                 </div>
-
                 <!-- Zainteresowania -->
                 <div class="form-group">
                     <label for="interests" class="form-label">Zainteresowania</label>
-                    <textarea id="interests" name="interests" class="form-textarea" maxlength="1000" placeholder="Wprowadź zainteresowania i hobby"></textarea>
+                    <textarea id="interests" name="interests" class="form-textarea" maxlength="1000"></textarea>
                     <div id="interestsCharCounter" class="char-counter">0/1000</div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('interests')">Aktualizuj zainteresowania</button>
+                    <div id="status-interests" class="status-message" style="display:none;"></div>
                 </div>
-
-                <!-- Przycisk zapisu -->
-                <button type="submit" class="submit-btn" id="aboutSubmitBtn">
-                    Zapisz zmiany "O mnie"
-                </button>
-            </form>
-
-            <!-- Komunikat statusu dla "O mnie" -->
-            <div id="aboutStatusMessage" class="status-message" style="display: none;"></div>
+            </div>
         </div>
     </div>
 
@@ -1428,34 +1470,82 @@
                     </div>
                 ` : '<p>Brak zdjęć</p>';
 
+            // Pola edytowalne z osobnym przyciskiem i komunikatem
+            function editableField(label, field, value, type = 'text', rows = 1) {
+                const inputId = `project-${project.id}-${field}`;
+                return `
+                    <div class="editable-field">
+                        <label for="${inputId}"><strong>${label}:</strong></label><br>
+                        ${type === 'textarea' ?
+                            `<textarea id="${inputId}" rows="${rows}" class="form-input">${value || ''}</textarea>` :
+                            `<input type="${type}" id="${inputId}" class="form-input" value="${value || ''}">`
+                        }
+                        <button class="btn-edit" onclick="updateProjectField(${project.id}, '${field}')">Aktualizuj</button>
+                        <span class="status-message" id="status-${inputId}" style="display:none;"></span>
+                    </div>
+                `;
+            }
+
             return `
                 <div class="project-item" data-project-id="${project.id}">
                     <div class="project-header">
                         <h3 class="project-title">${project.title}</h3>
                         <div class="project-actions">
-                            <button class="btn-edit" onclick="editProject(${project.id})">Edytuj</button>
                             <button class="btn-delete" onclick="deleteProject(${project.id})">Usuń</button>
                         </div>
                     </div>
                     <div class="project-details">
                         <div class="project-info">
-                            <strong>Autor:</strong> ${project.author || 'Brak'}<br>
-                            <strong>Rodzaj:</strong> ${project.projectType || project.type || 'Brak'}<br>
-                            <strong>Lokalizacja:</strong> ${project.location || 'Brak'}<br>
-                            <strong>Rok:</strong> ${project.year || 'Brak'}<br>
-                            <strong>Etap:</strong> ${project.stage || 'Brak'}
+                            ${editableField('Tytuł', 'title', project.title)}
+                            ${editableField('Autor', 'author', project.author)}
+                            ${editableField('Rodzaj', 'projectType', project.projectType || project.type)}
+                            ${editableField('Lokalizacja', 'location', project.location)}
+                            ${editableField('Rok', 'year', project.year)}
+                            ${editableField('Etap', 'stage', project.stage || project.status)}
                         </div>
                         <div class="project-info">
-                            <strong>Powierzchnia całkowita:</strong> ${project.totalArea || 'Brak'}<br>
-                            <strong>Powierzchnia użytkowa:</strong> ${project.usableArea || 'Brak'}<br>
-                            <strong>Inwestor:</strong> ${project.investor || 'Brak'}<br>
-                            <strong>Projektant:</strong> ${project.designer || 'Brak'}
+                            ${editableField('Powierzchnia całkowita', 'totalArea', project.totalArea)}
+                            ${editableField('Powierzchnia użytkowa', 'usableArea', project.usableArea)}
+                            ${editableField('Powierzchnia', 'area', project.area)}
+                            ${editableField('Inwestor', 'investor', project.investor)}
+                            ${editableField('Projektant', 'designer', project.designer)}
                         </div>
                     </div>
-                    <p><strong>Opis:</strong> ${project.description}</p>
+                    ${editableField('Opis', 'description', project.description, 'textarea', 4)}
                     ${imagesHtml}
                 </div>
             `;
+        }
+
+        // ===== AKTUALIZACJA POJEDYNCZEGO POLA PROJEKTU =====
+        async function updateProjectField(projectId, field) {
+            const input = document.getElementById(`project-${projectId}-${field}`);
+            const status = document.getElementById(`status-project-${projectId}-${field}`);
+            if (!input || !status) return;
+            status.style.display = 'inline';
+            status.textContent = 'Aktualizuję...';
+            status.className = 'status-message';
+            try {
+                const value = input.value;
+                const response = await fetch(`/api/updateProjectField/${projectId}`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ field, value })
+                });
+                const result = await response.json();
+                if (result.success) {
+                    status.textContent = 'Zaktualizowano!';
+                    status.className = 'status-message status-success';
+                    loadProjectsList();
+                } else {
+                    status.textContent = 'Błąd: ' + (result.message || 'Nie udało się zaktualizować');
+                    status.className = 'status-message status-error';
+                }
+            } catch (e) {
+                status.textContent = 'Błąd połączenia z serwerem';
+                status.className = 'status-message status-error';
+            }
+            setTimeout(() => { status.style.display = 'none'; }, 2500);
         }
 
         // ===== USUWANIE PROJEKTU =====
@@ -1698,6 +1788,57 @@
             setTimeout(() => {
                 statusDiv.style.display = 'none';
             }, 5000);
+        }
+
+        // ===== Aktualizacja pola "O mnie" =====
+        function updateAboutField(field) {
+            const value = document.getElementById(field).value;
+            const statusDiv = document.getElementById(`status-${field}`);
+            
+            // Wyłącz przycisk podczas wysyłania
+            document.getElementById(`submitBtn-${field}`).disabled = true;
+            document.getElementById(`submitBtn-${field}`).textContent = 'Aktualizowanie...';
+            
+            try {
+                // Sprawdź czy serwer jest dostępny
+                const serverUrl = window.location.port === '3000' ? '' : 'http://localhost:3000';
+                
+                // Wyślij dane do serwera
+                const response = await fetch(`${serverUrl}/api/updateAbout`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ [field]: value })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showAboutStatus(result.message, 'success');
+                    
+                    // Reset pola
+                    document.getElementById(field).value = '';
+                    document.getElementById(`${field}CharCounter`).textContent = '0/2000';
+                } else {
+                    showAboutStatus('Błąd: ' + (result.message || 'Nieznany błąd'), 'error');
+                }
+            } catch (error) {
+                console.error('Błąd wysyłania:', error);
+                if (error.response) {
+                    error.response.json().then(data => {
+                        showAboutStatus('Błąd: ' + (data.message || error.message), 'error');
+                    }).catch(() => {
+                        showAboutStatus('Błąd połączenia z serwerem. Sprawdź czy serwer jest uruchomiony.', 'error');
+                    });
+                } else {
+                    showAboutStatus('Błąd połączenia z serwerem. Sprawdź czy serwer jest uruchomiony.', 'error');
+                }
+            } finally {
+                // Przywróć przycisk
+                document.getElementById(`submitBtn-${field}`).disabled = false;
+                document.getElementById(`submitBtn-${field}`).textContent = 'Aktualizuj';
+            }
         }
     </script>
 </body>
