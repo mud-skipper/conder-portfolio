@@ -335,32 +335,39 @@ body {
     border: 3px solid var(--color-black);
 }
 
+.about-section-block, .about-content, .about-text {
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
 .about-section-block {
-    margin-bottom: var(--spacing-xl);
-    text-align: left;
-    padding: var(--spacing-md);
-    background: var(--color-white);
-    border: 1px solid var(--color-gray-light);
-    border-radius: 0;
+    margin-bottom: 18px;
+    padding: 0;
 }
 
 .about-subtitle {
-    font-size: var(--font-size-xl);
-    font-weight: 700;
+    font-size: 1.05em !important;
+    font-weight: 500;
+    margin-bottom: 4px;
     color: var(--color-black);
-    margin-bottom: var(--spacing-md);
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-    border-bottom: 2px solid var(--color-yellow);
-    padding-bottom: var(--spacing-sm);
+    letter-spacing: 0.01em;
 }
 
-.about-section-block .about-text {
-    text-align: left;
-    margin-bottom: 0;
-    white-space: pre-line;
-    line-height: 1.8;
-    font-size: var(--font-size-base);
+.about-signature {
+    display: none !important;
+}
+
+.section-content {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.main-content {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 
 /* ===== SEKCJA PROJEKTÓW ===== */

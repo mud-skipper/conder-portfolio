@@ -208,13 +208,19 @@ async function loadAboutData() {
         const data = await response.json();
         
         if (data.about) {
-            // Zdjęcie profilowe
+            // Ustaw hero-image na zdjęcie profilowe
+            const mainProfileImage = document.getElementById('mainProfileImage');
+            if (mainProfileImage && data.about.profileImage && data.about.profileImage.trim() !== '') {
+                mainProfileImage.src = `uploads/${data.about.profileImage}`;
+                mainProfileImage.style.display = 'block';
+            } else if (mainProfileImage) {
+                mainProfileImage.src = 'conder-portfolio_layout.01-photo.jpg';
+                mainProfileImage.style.display = 'block';
+            }
+
+            // NIE wyświetlaj już osobno profileImage w sekcji O mnie
             const profileImageContainer = document.getElementById('profileImageContainer');
-            const profileImage = document.getElementById('profileImage');
-            if (data.about.profileImage && data.about.profileImage.trim() !== '') {
-                profileImage.src = `uploads/${data.about.profileImage}`;
-                profileImageContainer.style.display = 'block';
-            } else {
+            if (profileImageContainer) {
                 profileImageContainer.style.display = 'none';
             }
 
