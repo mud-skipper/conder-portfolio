@@ -260,6 +260,7 @@ body {
     max-height: 70vh;
     overflow: hidden;
     background: #fff;
+    margin-top: -20px; /* Podniesienie zdjęcia o 20px */
 }
 
 .hero-image {
@@ -303,13 +304,13 @@ body {
     max-width: 800px;
     margin: 0 auto;
     text-align: left;
-    padding: 0 10px;
+    padding: 0 16px; /* Ujednolicony odstęp z 10px na 16px */
 }
 
 .about-text {
     font-size: var(--font-size-large);
     line-height: 1.8;
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: 16px; /* Ujednolicony odstęp z var(--spacing-lg) na 16px */
     color: var(--color-gray-dark);
     text-align: justify;
     padding: 0;
@@ -319,7 +320,7 @@ body {
 }
 
 .about-section-block {
-    margin-bottom: 24px;
+    margin-bottom: 16px; /* Ujednolicony odstęp z 24px na 16px */
     padding: 0;
     background: none !important;
     border: none !important;
@@ -330,7 +331,7 @@ body {
 .about-subtitle {
     font-size: 1.1em !important;
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 16px; /* Ujednolicony odstęp z 8px na 16px */
     color: var(--color-black);
     letter-spacing: 0.01em;
     text-align: left;
@@ -340,7 +341,7 @@ body {
 .about-subtitle::after {
     content: '';
     position: absolute;
-    bottom: -4px;
+    bottom: -16px; /* Ujednolicony odstęp z -4px na -16px */
     left: 0;
     right: 0;
     height: 1px;
@@ -357,7 +358,7 @@ body {
 }
 
 .section-content {
-    padding: 0 10px !important;
+    padding: 0 16px !important; /* Ujednolicony odstęp z 10px na 16px */
 }
 
 .main-content {
@@ -376,12 +377,12 @@ body {
 .projects-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--spacing-xl);
+    gap: 16px; /* Ujednolicony odstęp z var(--spacing-xl) na 16px */
 }
 
 .loading-projects {
     text-align: center;
-    padding: var(--spacing-xxl);
+    padding: 16px; /* Ujednolicony odstęp z var(--spacing-xxl) na 16px */
     color: var(--color-gray);
     font-style: italic;
     font-size: var(--font-size-large);
@@ -389,13 +390,13 @@ body {
 
 .empty-projects {
     text-align: center;
-    padding: var(--spacing-xxl);
+    padding: 16px; /* Ujednolicony odstęp z var(--spacing-xxl) na 16px */
     color: var(--color-gray);
     font-style: italic;
     background: var(--color-white);
     border: 2px dashed var(--color-gray);
     border-radius: 0;
-    margin: var(--spacing-md);
+    margin: 16px; /* Ujednolicony odstęp z var(--spacing-md) na 16px */
 }
 
 /* ===== NOWA STRUKTURA KART PROJEKTÓW ===== */
@@ -404,12 +405,12 @@ body {
     border: none !important;
     border-radius: 0 !important;
     box-shadow: none !important;
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: 16px; /* Ujednolicony odstęp z var(--spacing-xl) na 16px */
 }
 
 /* Nazwa projektu na górze */
 .project-header {
-    padding: var(--spacing-md) var(--spacing-md) var(--spacing-sm) var(--spacing-md);
+    padding: 16px 16px 16px 16px; /* Ujednolicony odstęp z var(--spacing-md) i var(--spacing-sm) na 16px */
     background: #fff !important;
     border-bottom: 2px solid var(--color-black);
 }
@@ -426,10 +427,10 @@ body {
 
 .project-meta {
     display: flex;
-    gap: var(--spacing-md);
+    gap: 16px; /* Ujednolicony odstęp z var(--spacing-md) na 16px */
     font-size: 0.9em;
     color: var(--color-gray);
-    margin-top: var(--spacing-sm);
+    margin-top: 16px; /* Ujednolicony odstęp z var(--spacing-sm) na 16px */
 }
 
 .project-year, .project-location {
@@ -485,11 +486,11 @@ body {
 }
 
 .image-nav.prev {
-    left: 10px;
+    left: 16px; /* Ujednolicony odstęp z 10px na 16px */
 }
 
 .image-nav.next {
-    right: 10px;
+    right: 16px; /* Ujednolicony odstęp z 10px na 16px */
 }
 
 .image-nav.hidden {
@@ -499,11 +500,11 @@ body {
 /* Licznik zdjęć */
 .image-counter {
     position: absolute;
-    bottom: 10px;
-    right: 10px;
+    bottom: 16px; /* Ujednolicony odstęp z 10px na 16px */
+    right: 16px; /* Ujednolicony odstęp z 10px na 16px */
     background: rgba(0, 0, 0, 0.7);
     color: white;
-    padding: 4px 8px;
+    padding: 16px; /* Ujednolicony odstęp z 4px 8px na 16px */
     font-size: 12px;
     border-radius: 2px;
     z-index: 10;
@@ -511,23 +512,23 @@ body {
 
 /* Zawartość projektu w dwóch kolumnach */
 .project-content {
-    padding: var(--spacing-md);
+    padding: 16px; /* Ujednolicony odstęp z var(--spacing-md) na 16px */
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-lg);
+    gap: 16px; /* Ujednolicony odstęp z var(--spacing-lg) na 16px */
     background: #fff;
 }
 
-/* Opis wyjustowany do białej ramki 10px */
+/* Opis wyjustowany do białej ramki 16px */
 .project-description {
     color: var(--color-gray-dark);
     line-height: 1.6;
-    margin-bottom: var(--spacing-md);
+    margin-bottom: 16px; /* Ujednolicony odstęp z var(--spacing-md) na 16px */
     font-size: 0.95em;
     text-align: justify;
     hyphens: auto;
     word-break: break-word;
-    padding: 10px;
+    padding: 16px; /* Ujednolicony odstęp z 10px na 16px */
     background: #fff;
     border: 1px solid var(--color-gray-light);
     border-radius: 0;
@@ -537,12 +538,12 @@ body {
 .project-details {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-sm);
+    gap: 16px; /* Ujednolicony odstęp z var(--spacing-sm) na 16px */
     font-size: 0.9em;
 }
 
 .project-detail {
-    padding: var(--spacing-sm);
+    padding: 16px; /* Ujednolicony odstęp z var(--spacing-sm) na 16px */
     background: #fff !important;
     border-radius: 0 !important;
     border-left: 3px solid var(--color-orange);
@@ -566,20 +567,20 @@ body {
 
 .contact-info {
     background: var(--color-white);
-    padding: var(--spacing-xxl);
+    padding: 16px; /* Ujednolicony odstęp z var(--spacing-xxl) na 16px */
     border-radius: 0;
     box-shadow: none;
 }
 
 .contact-item {
-    padding: var(--spacing-md) 0;
+    padding: 16px 0; /* Ujednolicony odstęp z var(--spacing-md) na 16px */
     border-bottom: 1px solid var(--color-gray-light);
     font-size: var(--font-size-large);
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: var(--spacing-sm);
+    gap: 16px; /* Ujednolicony odstęp z var(--spacing-sm) na 16px */
 }
 
 .contact-item:last-child {
@@ -624,8 +625,8 @@ body {
     display: flex;
     width: 100%;
     height: 100%;
-    padding: 10px 6px;
-    gap: 10px;
+    padding: 16px 6px; /* Ujednolicony odstęp z 10px na 16px */
+    gap: 16px; /* Ujednolicony odstęp z 10px na 16px */
     justify-content: center;
     align-items: center;
 }
@@ -640,7 +641,7 @@ body {
     text-transform: uppercase;
     cursor: pointer;
     transition: background 0.2s, color 0.2s;
-    margin: 0 2px;
+    margin: 0 16px; /* Ujednolicony odstęp z 2px na 16px */
     letter-spacing: 0.01em;
     outline: none;
     display: flex;
@@ -701,7 +702,7 @@ body {
     }
     
     .section {
-        padding: var(--spacing-xxl) 6px !important;
+        padding: 16px 16px !important; /* Ujednolicony odstęp z 6px na 16px */
     }
     .bottom-panel {
         height: 44px;
@@ -729,7 +730,7 @@ body {
     /* Responsywność dla nowej struktury projektów */
     .project-content {
         grid-template-columns: 1fr;
-        gap: var(--spacing-md);
+        gap: 16px; /* Ujednolicony odstęp z var(--spacing-md) na 16px */
     }
     
     .project-details {
@@ -752,6 +753,8 @@ body {
         width: 35px;
         height: 35px;
         font-size: 16px;
+        left: 16px; /* Ujednolicony odstęp z 10px na 16px */
+        right: 16px; /* Ujednolicony odstęp z 10px na 16px */
     }
 }
 
@@ -774,7 +777,7 @@ body {
     width: 100% !important;
     max-width: 100% !important;
     margin: 0 !important;
-    padding: var(--spacing-xxl) 10px !important;
+    padding: 16px 16px !important; /* Ujednolicony odstęp z 10px na 16px */
     box-sizing: border-box;
 }
 
@@ -814,7 +817,7 @@ body {
     border-radius: 0;
     text-align: center;
     font-size: 1.1em;
-    margin-bottom: 32px;
+    margin-bottom: 16px; /* Zmniejszony odstęp z 32px na 16px */
     letter-spacing: 0.01em;
     height: 34px;
     width: 100%;
@@ -832,7 +835,7 @@ body {
     border-radius: 0;
     text-align: center;
     font-size: 1.1em;
-    margin-bottom: 32px;
+    margin-bottom: 16px; /* Zmniejszony odstęp z 32px na 16px */
     letter-spacing: 0.01em;
     height: 34px;
     width: 100%;
@@ -850,7 +853,7 @@ body {
     border-radius: 0;
     text-align: center;
     font-size: 1.1em;
-    margin-bottom: 32px;
+    margin-bottom: 16px; /* Zmniejszony odstęp z 32px na 16px */
     letter-spacing: 0.01em;
     height: 34px;
     width: 100%;
