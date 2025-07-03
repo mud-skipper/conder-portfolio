@@ -105,10 +105,10 @@ body {
 .main-content {
     border-left: 10px solid var(--color-white) !important;
     border-right: 10px solid var(--color-white) !important;
-    margin-top: 16vh;
-    margin-bottom: 54px;
+    margin-top: 0; /* Usunięcie marginesu górnego - teraz jest w hero-image-block */
+    margin-bottom: 64px; /* Zwiększenie marginesu dolnego o 10px */
     background: var(--color-white);
-    min-height: calc(100vh - 16vh - 54px);
+    min-height: calc(100vh - 16vh - 64px);
 }
 
 /* ===== HEADER ===== */
@@ -253,17 +253,17 @@ body {
     align-items: flex-start !important;
     justify-content: flex-start !important;
     padding-top: 0 !important;
-    min-height: calc(100vh - 16vh - 54px) !important;
+    min-height: calc(100vh - 16vh - 64px) !important; /* Dostosowane do nowej wysokości bottom panel */
 }
 
 .hero-image-block {
     position: relative;
     width: 100%;
-    height: calc(100vh - 16vh - 54px); /* Pełna wysokość minus header i bottom panel */
+    height: calc(100vh - 16vh - 64px); /* Zwiększona wysokość bottom panel o 10px */
     min-height: 400px;
     overflow: hidden;
     background: #fff;
-    margin-top: 0; /* Usunięcie negatywnego marginesu */
+    margin-top: 16vh; /* Dodanie marginesu górnego równemu wysokości header */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -621,7 +621,7 @@ body {
     max-width: 727px;
     background: var(--color-white);
     z-index: 1000;
-    height: 54px;
+    height: 64px; /* Zwiększenie wysokości o 10px */
     border-top: 1px solid var(--color-black);
     box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
     display: flex;
@@ -718,11 +718,12 @@ body {
     }
     
     .hero-image-block {
-        height: calc(100vh - 14vh - 44px); /* Dostosowane do mobile */
+        height: calc(100vh - 14vh - 54px); /* Dostosowane do mobile z większym bottom panel */
         min-height: 300px;
+        margin-top: 14vh; /* Dodanie marginesu górnego dla mobile */
     }
     .bottom-panel {
-        height: 44px;
+        height: 54px; /* Zwiększenie wysokości o 10px dla mobile */
     }
     .action-btn {
         height: 28px;
