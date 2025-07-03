@@ -636,15 +636,15 @@ body {
     display: flex;
     width: 100%;
     height: 100%;
-    padding: 16px 6px; /* Ujednolicony odstęp z 10px na 16px */
-    gap: 16px; /* Ujednolicony odstęp z 10px na 16px */
+    padding: 10px 10px; /* 10px od góry i dołu, 10px od lewej i prawej */
+    gap: 10px; /* 10px przerwy między przyciskami */
     justify-content: center;
     align-items: center;
 }
 
 .action-btn {
     flex: 1 1 0;
-    height: 34px;
+    height: 44px; /* Zwiększenie wysokości o 10px (64px - 20px padding) */
     border: none;
     border-radius: 0;
     font-size: 1.1em;
@@ -652,7 +652,7 @@ body {
     text-transform: uppercase;
     cursor: pointer;
     transition: background 0.2s, color 0.2s;
-    margin: 0 16px; /* Ujednolicony odstęp z 2px na 16px */
+    margin: 0; /* Usunięcie marginesów - teraz kontrolowane przez gap i padding */
     letter-spacing: 0.01em;
     outline: none;
     display: flex;
@@ -732,7 +732,7 @@ body {
         height: 54px; /* Zwiększenie wysokości o 10px dla mobile */
     }
     .action-btn {
-        height: 28px;
+        height: 34px; /* Zwiększenie wysokości o 6px (54px - 20px padding) */
         font-size: 0.95em;
     }
     .main-content,
