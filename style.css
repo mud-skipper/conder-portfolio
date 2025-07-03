@@ -97,14 +97,14 @@ body {
 .main-content,
 .bottom-panel {
     box-sizing: border-box;
-    border: 10px solid var(--color-white);
+    border: 20px solid var(--color-white);
     background-clip: padding-box;
 }
 
-/* Usuwam border-left/right z main-content */
+/* Ujednolicone ramki 20px */
 .main-content {
-    border-left: 10px solid var(--color-white) !important;
-    border-right: 10px solid var(--color-white) !important;
+    border-left: 20px solid var(--color-white) !important;
+    border-right: 20px solid var(--color-white) !important;
     margin-top: 0; /* Usunięcie marginesu górnego - teraz jest w hero-image-block */
     margin-bottom: 64px; /* Zwiększenie marginesu dolnego o 10px */
     background: var(--color-white);
@@ -267,8 +267,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-left: 10px solid var(--color-white) !important;
-    border-right: 10px solid var(--color-white) !important;
+    border-left: 20px solid var(--color-white) !important;
+    border-right: 20px solid var(--color-white) !important;
     box-sizing: border-box;
 }
 
@@ -708,12 +708,12 @@ body {
         max-height: none !important;
     }
     .main-content {
-        border-left: 6px solid var(--color-white) !important;
-        border-right: 6px solid var(--color-white) !important;
+        border-left: 12px solid var(--color-white) !important;
+        border-right: 12px solid var(--color-white) !important;
     }
     
     .section {
-        padding: 16px 16px !important; /* Ujednolicony odstęp z 6px na 16px */
+        padding: 12px 12px !important; /* Ujednolicony odstęp na 12px dla mobile */
     }
     
     .home-section {
@@ -724,8 +724,8 @@ body {
         height: calc(100vh - 14vh - 54px); /* Dostosowane do mobile z większym bottom panel */
         min-height: 300px;
         margin-top: 14vh; /* Dodanie marginesu górnego dla mobile */
-        border-left: 6px solid var(--color-white) !important; /* Białe ramki dla mobile (6px zamiast 10px) */
-        border-right: 6px solid var(--color-white) !important;
+        border-left: 12px solid var(--color-white) !important; /* Białe ramki dla mobile (12px zamiast 6px) */
+        border-right: 12px solid var(--color-white) !important;
         box-sizing: border-box;
     }
     .bottom-panel {
@@ -777,8 +777,8 @@ body {
         width: 35px;
         height: 35px;
         font-size: 16px;
-        left: 16px; /* Ujednolicony odstęp z 10px na 16px */
-        right: 16px; /* Ujednolicony odstęp z 10px na 16px */
+        left: 20px; /* Ujednolicony odstęp na 20px */
+        right: 20px; /* Ujednolicony odstęp na 20px */
     }
 }
 
@@ -801,7 +801,7 @@ body {
     width: 100% !important;
     max-width: 100% !important;
     margin: 0 !important;
-    padding: 16px 16px !important; /* Ujednolicony odstęp z 10px na 16px */
+    padding: 20px 20px !important; /* Ujednolicony odstęp na 20px */
     box-sizing: border-box;
 }
 
