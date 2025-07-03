@@ -499,22 +499,20 @@ section {
 }
 
 .social-link:hover {
-    transform: scale(1.1);
-    color: var(--color-orange);
+    transform: scale(1.2);
 }
 
 .location {
-    font-size: var(--font-size-small);
+    font-size: var(--font-size-large);
     color: var(--color-gray);
-    margin-top: var(--spacing-sm);
 }
 
-/* ===== FOOTER ===== */
+/* ===== STOPKA ===== */
 .footer {
     background: var(--color-black);
     color: var(--color-white);
-    padding: var(--spacing-lg) 0;
-    text-align: center;
+    padding: var(--spacing-xl) 0;
+    margin-top: var(--spacing-2xl);
 }
 
 .footer-content {
@@ -525,52 +523,57 @@ section {
 }
 
 .copyright {
-    font-size: var(--font-size-small);
+    font-weight: 500;
 }
 
 .footer-links {
     display: flex;
-    gap: var(--spacing-md);
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-small);
 }
 
 .footer-link {
-    color: var(--color-white);
+    color: var(--color-light-gray);
     text-decoration: none;
-    font-size: var(--font-size-small);
     transition: color 0.3s ease;
 }
 
 .footer-link:hover {
-    color: var(--color-yellow);
+    color: var(--color-orange);
 }
 
 .footer-separator {
-    margin: 0 8px;
     color: var(--color-gray);
 }
 
 .footer-credit {
-    font-size: 12px;
-    color: var(--color-gray);
-    margin-top: 8px;
+    color: var(--color-light-gray);
 }
 
+/* ===== RESPONSYWNOŚĆ ===== */
 @media (min-width: 768px) {
     .container {
-        max-width: 900px;
+        padding: 0 var(--spacing-lg);
     }
+    
     .hero-title {
-        font-size: var(--font-size-3xl);
+        font-size: 64px;
     }
+    
     .about-content {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 2fr;
+        gap: var(--spacing-2xl);
     }
+    
     .projects-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
+    
     .contact-content {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 2fr 1fr;
     }
+    
     .footer-content {
         flex-direction: row;
         justify-content: space-between;
@@ -579,28 +582,40 @@ section {
 
 @media (min-width: 1024px) {
     .hero-title {
-        font-size: var(--font-size-3xl);
+        font-size: 72px;
     }
+    
     .projects-grid {
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
+/* ===== ANIMACJE I EFEKTY ===== */
 @keyframes fadeInUp {
-    0% {
+    from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(30px);
     }
-    100% {
+    to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
 .hero-content,
-.profile-placeholder,
-.about-image,
+.about-content,
 .project-card,
 .contact-form {
-    animation: fadeInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) both;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+/* ===== PLACEHOLDERY ===== */
+.profile-placeholder,
+.image-placeholder {
+    background: linear-gradient(45deg, var(--color-light-gray) 25%, transparent 25%), 
+                linear-gradient(-45deg, var(--color-light-gray) 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, var(--color-light-gray) 75%), 
+                linear-gradient(-45deg, transparent 75%, var(--color-light-gray) 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
 } 
