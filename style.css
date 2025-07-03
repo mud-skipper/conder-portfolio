@@ -267,6 +267,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    border-left: 10px solid var(--color-white) !important;
+    border-right: 10px solid var(--color-white) !important;
+    box-sizing: border-box;
 }
 
 .hero-image {
@@ -721,6 +724,9 @@ body {
         height: calc(100vh - 14vh - 54px); /* Dostosowane do mobile z większym bottom panel */
         min-height: 300px;
         margin-top: 14vh; /* Dodanie marginesu górnego dla mobile */
+        border-left: 6px solid var(--color-white) !important; /* Białe ramki dla mobile (6px zamiast 10px) */
+        border-right: 6px solid var(--color-white) !important;
+        box-sizing: border-box;
     }
     .bottom-panel {
         height: 54px; /* Zwiększenie wysokości o 10px dla mobile */
