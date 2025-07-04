@@ -186,23 +186,23 @@ body {
     display: block;
 }
 
-/* Header SVG - Kolba (stała szerokość) */
-.header-kolba-svg {
+/* Header SVG - Lufa (skalowana) */
+.header-lufa-svg {
     position: absolute;
     top: 0;
     left: 0;
-    width: 480px;
+    width: calc(100% - 480px);
     height: 120px;
     z-index: 0;
     pointer-events: none;
 }
 
-/* Header SVG - Lufa (skalowana) */
-.header-lufa-svg {
+/* Header SVG - Kolba (stała szerokość) */
+.header-kolba-svg {
     position: absolute;
     top: 0;
     right: 0;
-    width: calc(100% - 480px);
+    width: 480px;
     height: 120px;
     z-index: 0;
     pointer-events: none;
