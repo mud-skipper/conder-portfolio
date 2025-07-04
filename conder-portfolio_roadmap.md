@@ -140,3 +140,10 @@ Po kliknięciu:
 - Logo nadal pełni rolę przycisku menu
 - Zmiany nie naruszają innych funkcji strony
 - Wymagane testy wizualne na różnych urządzeniach i przeglądarkach
+
+## UWAGA! NIE RUSZAĆ HEADERA (PASKA GÓRNEGO) I JEGO CIENIA!
+
+Stan na dziś (ostatnia akceptacja):
+- Kształt, SVG, cień, logo, menu hamburger – wszystko działa i jest zaakceptowane.
+- Nie wolno wprowadzać żadnych zmian w kodzie headera, SVG, cienia, paddingów, menu itp. bez wyraźnej zgody Wojtka.
+- Jeśli pojawi się potrzeba zmiany – czekaj na jasny sygnał od użytkownika!

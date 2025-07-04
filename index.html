@@ -163,6 +163,19 @@
         </div>
     </div>
 
+    <!-- Pasek dolny (footer-bar) -->
+    <div class="footer-bar">
+        <svg class="footer-bg-svg" width="100%" height="60" viewBox="0 0 1000 60" preserveAspectRatio="none" style="position:absolute;bottom:0;left:0;width:100%;height:60px;z-index:0;">
+            <polygon points="0,60 0,0 400,0 600,40 1000,40 1000,60 0,60" fill="white" />
+            <polyline points="0,60 400,60 600,40 1000,40 1000,40" fill="none" stroke="#999999" stroke-width="1" filter="url(#footerShadow)" />
+            <defs>
+                <filter id="footerShadow" x="-20%" y="0" width="140%" height="200%">
+                    <feDropShadow dx="0" dy="-6" stdDeviation="6" flood-color="#222" flood-opacity="0.6"/>
+                </filter>
+            </defs>
+        </svg>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html> 
