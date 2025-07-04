@@ -67,6 +67,14 @@
 - **Cień footer**: zmniejszone rozproszenie z stdDeviation="6" na "3" i przybliżony z dy="-6" na "-4",
 - Oba paski mają teraz geometrycznie poprawny kąt 45° z zachowaniem proporcji "kolba" i "lufa".
 
+### [2025-01-07] 🔧 Rozwiązanie problemu skalowania kąta 45° - podział headera
+- **Problem**: Cały SVG headera skalował się, deformując kąt 45° na różnych szerokościach ekranu
+- **Rozwiązanie**: Podział headera na dwie części:
+  - **Kolba** (stała): SVG 480px szerokości, preserveAspectRatio="xMidYMid meet" - nie skalowana
+  - **Lufa** (skalowana): SVG calc(100% - 480px) szerokości, preserveAspectRatio="none" - skalowana do ekranu
+- **Rezultat**: Kąt 45° zachowany na wszystkich urządzeniach, kolba zawsze proporcjonalna
+- **Implementacja**: Zastąpienie jednego SVG dwoma elementami z odpowiednimi CSS
+
 ### [2025-01-07] Walka z footerem - problemy ze skalowaniem
 - **Problem**: Footer nie wyglądał poprawnie na urządzeniach mobilnych - "kolba" się rozciągała
 - **Próba 1**: Split footer (fixed "kolba" SVG + flexible "lufa" div) - nie rozwiązało problemu
