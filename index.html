@@ -152,7 +152,7 @@
         </section>
     </main>
 
-    <!-- Pasek dolny (footer-bar) - rysowany od zera -->
+    <!-- Pasek dolny (footer-bar) - poprawione odbicie headera -->
     <div class="footer-bar">
         <svg class="footer-bg-svg" width="100%" height="60" viewBox="0 0 1000 60" preserveAspectRatio="none" style="position:absolute;bottom:0;left:0;width:100%;height:60px;z-index:0;">
             <defs>
@@ -160,9 +160,9 @@
                     <feDropShadow dx="0" dy="-6" stdDeviation="6" flood-color="#222" flood-opacity="0.6"/>
                 </filter>
             </defs>
-            <!-- Lewa 60px, skośna 45° od 400,60 do 440,20, prawa 20px -->
-            <polygon points="0,60 400,60 440,20 1000,20 1000,60 0,60" fill="white" />
-            <polyline points="0,60 400,60 440,20 1000,20 1000,20" fill="none" stroke="#999999" stroke-width="1" filter="url(#footerShadow)" />
+            <!-- Lufa po prawej, kolba po lewej, skośna 45° -->
+            <polygon points="0,60 560,60 600,20 1000,20 1000,60 0,60" fill="white" />
+            <polyline points="0,60 560,60 600,20 1000,20 1000,20" fill="none" stroke="#999999" stroke-width="1" filter="url(#footerShadow)" />
         </svg>
     </div>
 
