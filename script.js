@@ -3,6 +3,39 @@ document.addEventListener('DOMContentLoaded', function() {
     loadProjectsFromJSON();
     loadAboutData();
     initAutoRefresh();
+
+    // Hamburger menu (logo)
+    const logoMenuBtn = document.getElementById('logo-menu-btn');
+    const sideMenu = document.getElementById('side-menu');
+    const sideMenuBackdrop = document.getElementById('side-menu-backdrop');
+    const sideMenuLinks = document.querySelectorAll('#side-menu a');
+
+    function closeSideMenu() {
+        sideMenu.classList.remove('active');
+        sideMenuBackdrop.classList.remove('active');
+    }
+    function openSideMenu() {
+        sideMenu.classList.add('active');
+        sideMenuBackdrop.classList.add('active');
+    }
+    if (logoMenuBtn && sideMenu && sideMenuBackdrop) {
+        logoMenuBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (sideMenu.classList.contains('active')) {
+                closeSideMenu();
+            } else {
+                openSideMenu();
+            }
+        });
+        sideMenuBackdrop.addEventListener('click', closeSideMenu);
+        sideMenu.addEventListener('click', function(e) { e.stopPropagation(); });
+        sideMenuLinks.forEach(link => {
+            link.addEventListener('click', closeSideMenu);
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeSideMenu();
+        });
+    }
 });
 
 // ===== WCZYTYWANIE PROJEKTÓW Z JSON =====
