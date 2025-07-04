@@ -110,7 +110,8 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: calc(100% - min(480px, 60vw));
+    width: calc(100% - 60vw);
+    max-width: calc(100% - 480px);
     height: 120px;
     background: transparent;
     z-index: 1000;
@@ -189,7 +190,8 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    width: calc(100% - min(480px, 60vw));
+    width: calc(100% - 60vw);
+    max-width: calc(100% - 480px);
     height: 120px;
     z-index: 0;
     pointer-events: none;
@@ -200,7 +202,8 @@ body {
     position: fixed;
     top: 0;
     right: 0;
-    width: min(480px, 60vw);
+    width: 60vw;
+    max-width: 480px;
     height: 120px;
     z-index: 1000;
     pointer-events: none;

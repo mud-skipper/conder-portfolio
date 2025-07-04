@@ -20,13 +20,13 @@
     <!-- Header z logo i menu hamburger (sticky) -->
     <header class="header">
         <!-- Lufa (skalowana do rozmiaru ekranu) -->
-        <svg class="header-lufa-svg" width="calc(100% - 60vw)" height="120" viewBox="0 0 520 120" preserveAspectRatio="none" style="position:absolute;top:0;left:0;width:calc(100% - 60vw);max-width:calc(100% - 480px);height:120px;z-index:0;">
+        <svg class="header-lufa-svg" width="calc(100% - min(480px, 60vw))" height="120" viewBox="0 0 520 120" preserveAspectRatio="none" style="position:absolute;top:0;left:0;width:calc(100% - min(480px, 60vw));height:120px;z-index:0;">
             <polygon points="0,0 0,120 520,120 520,0 0,0" fill="white" />
             <polyline points="0,120 520,120 520,120" fill="none" stroke="#999999" stroke-width="1" filter="url(#headerShadow)" />
         </svg>
         
         <!-- Kolba (responsywna szerokość) -->
-        <svg class="header-kolba-svg" width="60vw" height="120" viewBox="0 0 480 120" preserveAspectRatio="xMidYMid meet" style="position:absolute;top:0;right:0;width:60vw;max-width:480px;height:120px;z-index:0;">
+        <svg class="header-kolba-svg" width="min(480px, 60vw)" height="120" viewBox="0 0 480 120" preserveAspectRatio="xMidYMid meet" style="position:absolute;top:0;right:0;width:min(480px, 60vw);height:120px;z-index:0;">
             <defs>
                 <filter id="headerShadow" x="-20%" y="0" width="140%" height="200%">
                     <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#222" flood-opacity="0.6"/>
