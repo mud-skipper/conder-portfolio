@@ -20,8 +20,13 @@
     <!-- Header z logo i menu hamburger (sticky) -->
     <header class="header">
         <svg class="header-bg-svg" width="100%" height="140" viewBox="0 0 1000 140" preserveAspectRatio="none" style="position:absolute;top:0;left:0;width:100%;height:140px;z-index:0;">
+            <defs>
+                <filter id="headerShadow" x="-20%" y="0" width="140%" height="200%">
+                    <feDropShadow dx="0" dy="0" stdDeviation="12" flood-color="#444" flood-opacity="1"/>
+                </filter>
+            </defs>
             <polygon points="0,0 0,40 400,40 600,120 1000,120 1000,0 0,0" fill="white" />
-            <polyline points="0,40 400,40 600,120 1000,120 1000,120" fill="none" stroke="#999999" stroke-width="1" />
+            <polyline points="0,40 400,40 600,120 1000,120 1000,120" fill="none" stroke="#999999" stroke-width="1" filter="url(#headerShadow)" />
         </svg>
         <div class="header-row" style="position:relative;z-index:1;">
             <div class="logo-block" id="logo-menu-btn" tabindex="0" aria-label="Menu">
@@ -29,17 +34,6 @@
             </div>
         </div>
     </header>
-    <!-- Pasek cienia pod headerem -->
-    <div class="header-shadow-bar" style="position:absolute;top:120px;left:0;width:100%;height:32px;z-index:900;pointer-events:none;">
-        <svg width="100%" height="32" viewBox="0 0 1000 32" preserveAspectRatio="none">
-            <defs>
-                <filter id="headerShadowBar" x="-20%" y="0" width="140%" height="200%">
-                    <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#222" flood-opacity="1"/>
-                </filter>
-            </defs>
-            <polyline points="0,2 400,2 600,30 1000,30 1000,30" fill="none" stroke="#999999" stroke-width="1" filter="url(#headerShadowBar)" />
-        </svg>
-    </div>
 
     <!-- Boczne menu hamburger -->
     <nav id="side-menu" class="side-menu">
