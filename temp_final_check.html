@@ -17,9 +17,43 @@
     <meta property="og:type" content="website">
 </head>
 <body>
+    <!-- Header z logo i menu hamburger (sticky) -->
+    <header class="header">
+        <!-- Lufa (skalowana do rozmiaru ekranu) -->
+        <svg class="header-lufa-svg" width="calc(100% - 60vw)" height="120" viewBox="0 0 520 120" preserveAspectRatio="none" style="position:absolute;top:0;left:0;width:calc(100% - 60vw);max-width:calc(100% - 480px);height:120px;z-index:0;">
+            <polygon points="0,0 0,120 520,120 520,0 0,0" fill="white" />
+            <polyline points="0,120 520,120 520,120" fill="none" stroke="#999999" stroke-width="1" filter="url(#headerShadow)" />
+        </svg>
+        
+        <!-- Kolba (responsywna szerokość) -->
+        <svg class="header-kolba-svg" width="60vw" height="120" viewBox="0 0 480 120" preserveAspectRatio="xMidYMid meet" style="position:fixed;top:0;right:0;width:60vw;max-width:480px;height:120px;z-index:1000;">
+            <defs>
+                <filter id="headerShadow" x="-20%" y="0" width="140%" height="200%">
+                    <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#222" flood-opacity="0.6"/>
+                </filter>
+            </defs>
+            <polygon points="0,0 0,40 400,40 480,120 480,0 0,0" fill="white" />
+            <polyline points="0,40 400,40 480,120 480,120" fill="none" stroke="#999999" stroke-width="1" filter="url(#headerShadow)" />
+        </svg>
+        
+        <div class="header-row" style="position:relative;z-index:1;">
+            <div class="logo-block" id="logo-menu-btn" tabindex="0" aria-label="Menu">
+                <img src="conder-potfolio_logo.png" alt="conder portfolio logo" class="logo-img" />
+            </div>
+        </div>
+    </header>
 
+    <!-- Boczne menu hamburger -->
+    <nav id="side-menu" class="side-menu">
+        <ul>
+            <li><a href="#about">O mnie</a></li>
+            <li><a href="#projects">Projekty</a></li>
+            <li><a href="#contact">Kontakt</a></li>
+        </ul>
+    </nav>
+    <div id="side-menu-backdrop" class="side-menu-backdrop"></div>
 
-    <!-- Główna zawartość -->
+    <!-- Główna zawartość z białymi ramkami -->
     <main class="main-content">
         <!-- Sekcja 1: Strona główna -->
         <section id="home" class="section home-section">

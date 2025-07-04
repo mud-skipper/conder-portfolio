@@ -25,7 +25,7 @@
     }
     
     /* Ukryj wszystkie elementy na dużych ekranach */
-    .header, main, .nav-menu {
+    main, .nav-menu {
         display: none !important;
     }
 }
@@ -105,235 +105,14 @@ body {
     padding: 0 var(--spacing-sm);
 }
 
-/* ===== HEADER ===== */
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: calc(100% - 60vw);
-    max-width: calc(100% - 480px);
-    height: 120px;
-    background: transparent;
-    z-index: 1000;
-    border-bottom: none;
-    box-sizing: border-box;
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding: 0;
-}
-
-.header-row {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-}
-
-.logo-block {
-    display: flex;
-    align-items: flex-start;
-    margin-left: 0;
-}
-
-.logo-img {
-    height: 120px;
-    width: auto;
-    display: block;
-}
-
-.logo-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1;
-    margin-left: 8px;
-}
-
-.logo-bold {
-    font-weight: 700;
-    font-size: 1.2em;
-    color: var(--color-black);
-}
-
-.logo-light {
-    font-weight: 300;
-    font-size: 1.1em;
-    color: var(--color-black);
-    letter-spacing: 0.01em;
-}
-
-.logo-block#logo-menu-btn {
-    cursor: pointer;
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-    height: 80px;
-    padding: 20px 20px 20px 0;
-    position: relative;
-    top: 0;
-    right: 0;
-}
-
-.logo-block#logo-menu-btn .logo-img {
-    height: 80px;
-    width: auto;
-    margin: 0;
-    padding: 0;
-    display: block;
-}
-
-/* Header SVG - Lufa (skalowana) */
-.header-lufa-svg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: calc(100% - 60vw);
-    max-width: calc(100% - 480px);
-    height: 120px;
-    z-index: 0;
-    pointer-events: none;
-}
-
-/* Header SVG - Kolba (responsywna szerokość) */
-.header-kolba-svg {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 60vw;
-    max-width: 480px;
-    height: 120px;
-    z-index: 1000;
-    pointer-events: none;
-}
-
 .main-content {
-    margin-top: 120px;
     position: relative;
     z-index: 1;
 }
 
-/* ===== HERO SECTION ===== */
-.hero-section {
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    background: var(--color-white);
-    margin-top: 20vh;
-}
 
-.hero-image-block {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    margin: 0;
-    width: 100%;
-}
 
-.hero-image {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-    max-height: 340px;
-}
 
-.hero-text {
-    position: absolute;
-    top: 18px;
-    right: 18px;
-    text-align: right;
-    color: var(--color-white);
-    text-shadow: 0 2px 8px rgba(0,0,0,0.45);
-}
-
-.hero-title {
-    font-size: 2.1em;
-    font-weight: 700;
-    margin-bottom: 0.1em;
-    letter-spacing: -0.01em;
-}
-
-.hero-title-light {
-    font-weight: 300;
-    color: #ededed;
-}
-
-.hero-subtitle {
-    font-size: 1em;
-    font-weight: 400;
-    margin-top: 0.1em;
-    color: #ededed;
-    letter-spacing: 0.01em;
-}
-
-/* ===== UKOŚNE PASY RETRO ===== */
-.retro-stripes {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-}
-
-.stripe {
-    position: absolute;
-    width: 200%;
-    height: 60px;
-    transform: rotate(-15deg);
-    transform-origin: center;
-}
-
-.stripe-yellow {
-    background: var(--color-yellow);
-    top: 20%;
-    left: -50%;
-    animation: stripeMove 8s ease-in-out infinite;
-}
-
-.stripe-orange {
-    background: var(--color-orange);
-    top: 40%;
-    left: -50%;
-    animation: stripeMove 8s ease-in-out infinite 2s;
-}
-
-.stripe-red {
-    background: var(--color-red);
-    top: 60%;
-    left: -50%;
-    animation: stripeMove 8s ease-in-out infinite 4s;
-}
-
-@keyframes stripeMove {
-    0%, 100% { transform: rotate(-15deg) translateX(0); }
-    50% { transform: rotate(-15deg) translateX(20px); }
-}
-
-/* ===== PRZYCISKI ===== */
-.cta-button {
-    display: inline-block;
-    padding: var(--spacing-md) var(--spacing-xl);
-    background: var(--color-white);
-    color: var(--color-black);
-    text-decoration: none;
-    font-weight: 600;
-    border: 3px solid var(--color-black);
-    border-radius: var(--radius-md);
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow-sm);
-}
-
-.cta-button:hover {
-    background: var(--color-orange);
-    color: var(--color-white);
-    border-color: var(--color-orange);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-}
 
 /* ===== SEKCJE OGÓLNE ===== */
 section {
@@ -372,10 +151,7 @@ section {
     padding: 0;
     margin: 0;
 }
-.about-tabs {
-    margin: 0;
-    padding: 0 20px;
-}
+
 .about-text-block {
     padding: 24px 20px 12px 20px;
     background: var(--color-white);
@@ -430,10 +206,7 @@ section {
     padding: 0;
     margin: 0;
 }
-.projects-tabs {
-    margin: 0;
-    padding: 0 20px;
-}
+
 .project-gallery {
     width: calc(100% - 40px);
     position: relative;
@@ -536,10 +309,7 @@ section {
     padding: 0;
     margin: 0;
 }
-.contact-tabs {
-    margin: 0;
-    padding: 0 20px;
-}
+
 .contact-info-block {
     width: 100%;
     padding: 18px 20px 8px 20px;
@@ -621,9 +391,7 @@ section {
         padding: 0 var(--spacing-lg);
     }
     
-    .hero-title {
-        font-size: 64px;
-    }
+
     
     .about-content {
         grid-template-columns: 1fr 2fr;
@@ -642,9 +410,7 @@ section {
 }
 
 @media (min-width: 1024px) {
-    .hero-title {
-        font-size: 72px;
-    }
+
     
     .projects-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -663,7 +429,6 @@ section {
     }
 }
 
-.hero-content,
 .about-content,
 .project-card,
 .contact-form {
@@ -682,7 +447,7 @@ section {
 }
 
 /* ===== EDGE-TO-EDGE ===== */
-main, .section-tabs, .tab, .hero-section, .hero-image-block {
+main {
     margin-left: 0 !important;
     margin-right: 0 !important;
     padding-left: 0 !important;
@@ -692,9 +457,8 @@ main, .section-tabs, .tab, .hero-section, .hero-image-block {
 }
 
 @media (min-width: 600px) {
-    .logo-img { height: 140px; }
-    .hero-title { font-size: 2.5em; }
-    .hero-image { max-height: 420px; }
+
+
     .about-text-block { padding: 32px 32px 16px 32px; }
     .project-image { max-height: 340px; }
     .project-info-block { padding: 28px 32px 12px 32px; }
@@ -704,94 +468,6 @@ main, .section-tabs, .tab, .hero-section, .hero-image-block {
 /* ===== SEPARATOR ===== */
 /* Separator jest teraz zaimplementowany jako pseudo-element ::after w headerze */
 
-/* ===== STICKY ZAKŁADKI - POPRAWIONE ===== */
-.section-tabs {
-    position: sticky;
-    top: 20vh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    z-index: 99;
-    background: var(--color-white);
-    border: none;
-    padding: 0 20px;
-    margin: 0;
-}
 
-.tab {
-    width: 80%;
-    height: 40px;
-    border: none;
-    outline: none;
-    font-size: 1.1em;
-    font-weight: 700;
-    text-transform: lowercase;
-    color: var(--color-white);
-    background: var(--color-separator);
-    transition: background 0.2s;
-    cursor: pointer;
-    letter-spacing: 0.01em;
-    text-align: left;
-    padding-left: 18px;
-    margin: 0 auto;
-}
 
-.tab-omnie { background: var(--color-yellow); color: var(--color-white); }
-.tab-projekty { background: var(--color-orange); color: var(--color-white); }
-.tab-kontakt { background: var(--color-red); color: var(--color-white); }
-.tab:not(.active) { opacity: 0.85; }
-.tab.active { filter: brightness(1.1); }
-
-.side-menu {
-    position: fixed;
-    top: 0;
-    right: -260px;
-    width: 240px;
-    height: 100vh;
-    background: var(--color-white);
-    box-shadow: -4px 0 24px rgba(0,0,0,0.18);
-    z-index: 2000;
-    transition: right 0.3s cubic-bezier(.4,1.4,.6,1);
-    display: flex;
-    flex-direction: column;
-    padding-top: 60px;
-    font-size: 1.2em;
-}
-.side-menu.active {
-    right: 0;
-}
-.side-menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-.side-menu li {
-    margin: 32px 0;
-    text-align: center;
-}
-.side-menu a {
-    color: var(--color-black);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1.3em;
-    transition: color 0.2s;
-}
-.side-menu a:hover {
-    color: var(--color-orange);
-}
-.side-menu-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0,0,0,0.18);
-    z-index: 1999;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s;
-}
-.side-menu-backdrop.active {
-    opacity: 1;
-    pointer-events: auto;
-} 
+ 
