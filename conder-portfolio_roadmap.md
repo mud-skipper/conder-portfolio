@@ -120,3 +120,23 @@ Po kliknięciu:
 **Krok 10:** Wygeneruj QR i dodaj do CV
 
 **Koniec misji!** ✅
+
+## [DATA: dzisiaj] Zmiany w menu i headerze
+
+- Usunięto całkowicie menu hamburger (HTML, CSS, JS)
+- Przeniesiono logo w miejsce menu hamburger
+- Logo pełni teraz rolę przycisku menu (przygotowane pod dalszą rozbudowę)
+- Logo ma wysokość 100px i padding 10px od góry, prawej i dołu
+- Usunięto całą logikę JS i style związane z hamburgerem i menu-link
+- Zmiany wykonane z zachowaniem ostrożności, nie naruszono innych funkcji strony
+- Wymagane dalsze testy po wdrożeniu nieregularnych pasków (header/footer)
+
+## [DATA: dzisiaj] Wdrożenie nieregularnych pasków (header i bottom-panel)
+
+- Header: SVG, lewa 40px, skośna od 40% szerokości, prawa 120px (kąt 45°)
+- Bottom-panel: SVG, lewa 80px, skośna od 60% szerokości, prawa 20px (kąt 45°)
+- SVG jako tło, treść i logo pozycjonowane z zachowaniem paddingów
+- Zabezpieczono, by treść nie nachodziła na paski (margin/padding)
+- Logo nadal pełni rolę przycisku menu
+- Zmiany nie naruszają innych funkcji strony
+- Wymagane testy wizualne na różnych urządzeniach i przeglądarkach

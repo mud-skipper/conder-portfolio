@@ -1,38 +1,9 @@
 // ===== INICJALIZACJA =====
 document.addEventListener('DOMContentLoaded', function() {
-    initHamburgerMenu();
     loadProjectsFromJSON();
     loadAboutData();
     initAutoRefresh();
 });
-
-// ===== MENU HAMBURGER =====
-function initHamburgerMenu() {
-    const hamburger = document.getElementById('hamburger');
-    const hamburgerMenu = document.getElementById('hamburger-menu');
-    const menuLinks = document.querySelectorAll('.menu-link');
-
-    hamburger.addEventListener('click', function() {
-        hamburger.classList.toggle('active');
-        hamburgerMenu.classList.toggle('active');
-    });
-
-    // Zamykanie menu po kliknięciu w link
-    menuLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            hamburger.classList.remove('active');
-            hamburgerMenu.classList.remove('active');
-        });
-    });
-
-    // Zamykanie menu po kliknięciu poza nim
-    document.addEventListener('click', function(event) {
-        if (!hamburger.contains(event.target) && !hamburgerMenu.contains(event.target)) {
-            hamburger.classList.remove('active');
-            hamburgerMenu.classList.remove('active');
-        }
-    });
-}
 
 // ===== WCZYTYWANIE PROJEKTÓW Z JSON =====
 async function loadProjectsFromJSON() {

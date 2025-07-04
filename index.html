@@ -19,27 +19,15 @@
 <body>
     <!-- Header z logo i menu hamburger (sticky) -->
     <header class="header">
-        <div class="header-row">
-            <div class="logo-block">
+        <svg class="header-bg-svg" width="100%" height="120" viewBox="0 0 1000 120" preserveAspectRatio="none" style="position:absolute;top:0;left:0;width:100%;height:120px;z-index:0;">
+            <polygon points="0,0 400,0 600,120 1000,120 1000,0 0,0" fill="white" stroke="black" stroke-width="3" />
+        </svg>
+        <div class="header-row" style="position:relative;z-index:1;">
+            <div class="logo-block" id="logo-menu-btn" tabindex="0" aria-label="Menu">
                 <img src="conder-potfolio_logo.png" alt="conder portfolio logo" class="logo-img" />
             </div>
-            <button class="hamburger" id="hamburger" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
         </div>
     </header>
-
-    <!-- Menu hamburger (ukryte) -->
-    <nav class="hamburger-menu" id="hamburger-menu">
-        <div class="menu-content">
-            <a href="#home" class="menu-link">Strona główna</a>
-            <a href="#about" class="menu-link">O mnie</a>
-            <a href="#projects" class="menu-link">Projekty</a>
-            <a href="#contact" class="menu-link">Kontakt</a>
-        </div>
-    </nav>
 
     <!-- Główna zawartość z białymi ramkami -->
     <main class="main-content">
@@ -150,7 +138,10 @@
 
     <!-- Stały panel na dole z przyciskami akcji -->
     <div class="bottom-panel">
-        <div class="bottom-panel-content">
+        <svg class="footer-bg-svg" width="100%" height="80" viewBox="0 0 1000 80" preserveAspectRatio="none" style="position:absolute;bottom:0;left:0;width:100%;height:80px;z-index:0;">
+            <polygon points="0,0 600,0 800,80 1000,80 1000,0 0,0" fill="white" stroke="black" stroke-width="3" />
+        </svg>
+        <div class="bottom-panel-content" style="position:relative;z-index:1;">
             <button class="action-btn action-email">wyślij</button>
             <button class="action-btn action-cv">CV</button>
         </div>
