@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wojciech Conder - Architekt</title>
+    <meta name="description" content="Portfolio architekta Wojciecha Condera - projektuję przestrzeń do życia i pracy">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header z logo i menu hamburger (sticky) -->
+    <header class="header">
+        <div class="header-row">
+            <div class="logo-block">
+                <img src="conder-potfolio_logo.png" alt="conder portfolio logo" class="logo-img" />
+            </div>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Menu hamburger (ukryte) -->
+    <nav class="hamburger-menu" id="hamburger-menu">
+        <div class="menu-content">
+            <a href="#home" class="menu-link">Strona główna</a>
+            <a href="#about" class="menu-link">O mnie</a>
+            <a href="#projects" class="menu-link">Projekty</a>
+            <a href="#contact" class="menu-link">Kontakt</a>
+        </div>
+    </nav>
+
+    <!-- Główna zawartość z białymi ramkami -->
+    <main class="main-content">
+        <!-- Sekcja 1: Strona główna -->
+        <section id="home" class="section home-section">
+            <div class="section-content">
+                <div class="hero-image-block">
+                    <img src="conder-portfolio_layout.01-photo.jpg" alt="Wojciech Conder" class="hero-image" />
+                    <div class="hero-text">
+                        <h1 class="hero-title">Wojciech <span class="hero-title-light">Conder</span></h1>
+                        <div class="hero-subtitle">DESIGN ARCHITECTURE<br>AND URBAN SPACES</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sekcja 2: O mnie -->
+        <section id="about" class="section about-section">
+            <div class="section-content">
+                <h2 class="section-header-yellow">O mnie</h2>
+                <div class="about-content">
+                    <p class="about-text">
+                        Architekt z dyplomem WAPW oraz uprawnieniami do projektowania bez ograniczeń, założyciel pracowni 22ARCHITEKCI (założonej w 2010 roku wraz z Aleksandrem Drzewieckim, Maciejem Kowalczykiem i Michałem Tatjewskim). Wcześniej partner w WXCA (2007–2010), praktykował m.in. w MCM Design Studio w Lozannie oraz w Szcześniak Denier Architects.
+                    </p>
+                    <p class="about-text">
+                        Projektuje budynki mieszkalne, biurowe, użyteczności publicznej, prowadząc proces od koncepcji aż po nadzór autorski.
+                    </p>
+                    <div class="about-signature">architekt | dyplom WAPW, OW SARP</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sekcja 3: Projekty -->
+        <section id="projects" class="section projects-section">
+            <div class="section-content">
+                <h2 class="section-header-orange">Projekty</h2>
+                <div class="projects-content">
+                    <!-- Dynamiczny kontener projektów z JSON -->
+                    <div id="projects-grid" class="projects-grid">
+                        <!-- Projekty będą ładowane dynamicznie z content.json -->
+                        <div class="loading-projects">
+                            <p>Ładowanie projektów...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sekcja 4: Kontakt -->
+        <section id="contact" class="section contact-section">
+            <div class="section-content">
+                <h2 class="section-header-red">Kontakt</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <strong>Adres e-mail:</strong> 
+                            <a href="mailto:wojtek.conder@gmail.com">wojtek.conder@gmail.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <strong>Telefon:</strong> 
+                            <a href="tel:+48501313225">+48 501 313 225</a>
+                        </div>
+                        <div class="contact-item">
+                            <strong>Data urodzenia:</strong> 22.04.1980
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Stały panel na dole z przyciskami akcji -->
+    <div class="bottom-panel">
+        <div class="bottom-panel-content">
+            <button class="action-btn action-email">wyślij</button>
+            <button class="action-btn action-cv">CV</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

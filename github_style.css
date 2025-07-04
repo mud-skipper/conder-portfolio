@@ -113,7 +113,7 @@ body {
     transform: translateX(-50%);
     width: 100%;
     max-width: 767px;
-    height: 140px;
+    height: 120px;
     background: transparent;
     z-index: 1000;
     border-bottom: none;
@@ -186,30 +186,18 @@ body {
     display: block;
 }
 
-/* Header SVG - Kolba (stała szerokość) */
-.header-kolba-svg {
+.header-bg-svg {
     position: absolute;
     top: 0;
     left: 0;
-    width: 480px;
-    height: 140px;
-    z-index: 0;
-    pointer-events: none;
-}
-
-/* Header SVG - Lufa (skalowana) */
-.header-lufa-svg {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: calc(100% - 480px);
-    height: 140px;
+    width: 100%;
+    height: 120px;
     z-index: 0;
     pointer-events: none;
 }
 
 .main-content {
-    margin-top: 140px;
+    margin-top: 120px;
     position: relative;
     z-index: 1;
 }
