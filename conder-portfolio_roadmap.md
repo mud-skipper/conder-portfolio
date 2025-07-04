@@ -131,10 +131,9 @@ Po kliknięciu:
 - Zmiany wykonane z zachowaniem ostrożności, nie naruszono innych funkcji strony
 - Wymagane dalsze testy po wdrożeniu nieregularnych pasków (header/footer)
 
-## [DATA: dzisiaj] Wdrożenie nieregularnych pasków (header i bottom-panel)
+## [DATA: dzisiaj] Wdrożenie nieregularnych pasków (header)
 
 - Header: SVG, lewa 40px, skośna od 40% szerokości, prawa 120px (kąt 45°)
-- Bottom-panel: SVG, lewa 80px, skośna od 60% szerokości, prawa 20px (kąt 45°)
 - SVG jako tło, treść i logo pozycjonowane z zachowaniem paddingów
 - Zabezpieczono, by treść nie nachodziła na paski (margin/padding)
 - Logo nadal pełni rolę przycisku menu
