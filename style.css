@@ -110,7 +110,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: calc(100% - 480px);
+    width: calc(100% - min(480px, 60vw));
     height: 120px;
     background: transparent;
     z-index: 1000;
@@ -189,18 +189,18 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    width: calc(100% - 480px);
+    width: calc(100% - min(480px, 60vw));
     height: 120px;
     z-index: 0;
     pointer-events: none;
 }
 
-/* Header SVG - Kolba (stała szerokość) */
+/* Header SVG - Kolba (responsywna szerokość) */
 .header-kolba-svg {
     position: fixed;
     top: 0;
     right: 0;
-    width: 480px;
+    width: min(480px, 60vw);
     height: 120px;
     z-index: 1000;
     pointer-events: none;
