@@ -171,15 +171,15 @@ body {
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
-    height: 100px;
-    padding: 10px 10px 10px 0;
+    height: 80px;
+    padding: 20px 20px 20px 0;
     position: relative;
     top: 0;
     right: 0;
 }
 
 .logo-block#logo-menu-btn .logo-img {
-    height: 100px;
+    height: 80px;
     width: auto;
     margin: 0;
     padding: 0;
