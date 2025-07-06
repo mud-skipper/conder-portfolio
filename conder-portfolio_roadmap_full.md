@@ -216,6 +216,18 @@
 - **Rezultat**: Wszystkie zdjęcia uploadowane przez panel admina są automatycznie skalowane do szerokości ekranu minus 40px
 - **Lekcja**: Automatyczna optymalizacja podczas uploadu zapewnia spójność wizualną wszystkich zdjęć
 
+### [2025-07-06] NAPRAWA SKALOWANIA ZDJĘCIA - USUNIĘCIE SZTYWNEJ WYSOKOŚCI I OBJECT-FIT
+- **Problem**: Zdjęcie było przycinane i nie wyśrodkowane z powodu sztywnej wysokości i `object-fit: cover`
+- **Rozwiązanie**: 
+  - Usunięto `height: 60vh`, `min-height: 220px`, `max-height: 70vh` z `.hero-image-block`
+  - Usunięto `height: 100%` i `object-fit: cover` z `.hero-image`
+  - Ustawiono `height: auto` i `margin: 0 auto` dla proporcjonalnego skalowania
+  - Dodano `margin: 0 auto` do `.hero-image-block` dla wyśrodkowania
+  - Usunięto konfliktujący plik `github_style.css`
+  - Zwiększono wersję CSS do v1.7
+- **Rezultat**: Zdjęcie jest teraz wyśrodkowane, skalowane proporcjonalnie do szerokości ekranu minus 40px, bez przycinania
+- **Lekcja**: `height: auto` z `width: 100%` zapewnia proporcjonalne skalowanie bez przycinania
+
 ## Najważniejsze porażki i lekcje
 - SVG z preserveAspectRatio="none" rozciąga kształt na różnych szerokościach – lepiej używać "meet" lub "slice".
 - SVG nie obsługuje procentów w points – trzeba przeliczać na wartości względem viewBox.
