@@ -179,6 +179,15 @@
 - **Rezultat**: Wszystkie sekcje mają teraz prawidłowe style i layout
 - **Lekcja**: Podczas czyszczenia kodu należy zachować ostrożność i sprawdzać, czy wszystkie używane klasy mają odpowiednie style CSS
 
+### [2025-07-06] OSTATECZNA POPRAWKA SKALOWANIA GŁÓWNEGO ZDJĘCIA
+- **Problem**: Główne zdjęcie nie było poprawnie skalowane do szerokości ekranu z uwzględnieniem ramki
+- **Rozwiązanie**: 
+  - Zmieniono `width: 100%` na `width: calc(100% - 40px)` w `.hero-image-block`
+  - Dodano `margin: 0 20px` do `.hero-image-block` dla lepszego pozycjonowania
+  - Zwiększono wersję CSS do v1.3 dla wymuszenia odświeżenia cache
+- **Rezultat**: Główne zdjęcie jest teraz skalowane do szerokości ekranu minus 40px (20px z każdej strony), z uwzględnieniem ramki body
+- **Lekcja**: Przy projektowaniu responsywnych elementów należy uwzględniać wszystkie marginesy, paddingi i ramki rodzica
+
 ## Najważniejsze porażki i lekcje
 - SVG z preserveAspectRatio="none" rozciąga kształt na różnych szerokościach – lepiej używać "meet" lub "slice".
 - SVG nie obsługuje procentów w points – trzeba przeliczać na wartości względem viewBox.
