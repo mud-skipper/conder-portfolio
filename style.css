@@ -137,6 +137,61 @@ section {
     background: var(--color-orange);
 }
 
+/* Dodaję brakujące style dla nagłówków sekcji */
+.section-header-yellow {
+    background: var(--color-yellow);
+    color: #fff;
+    font-weight: 800;
+    padding: 0;
+    border-radius: 0;
+    text-align: center;
+    font-size: 1.1em;
+    margin-bottom: 32px;
+    letter-spacing: 0.01em;
+    height: 34px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+}
+
+.section-header-orange {
+    background: var(--color-orange);
+    color: #fff;
+    font-weight: 800;
+    padding: 0;
+    border-radius: 0;
+    text-align: center;
+    font-size: 1.1em;
+    margin-bottom: 32px;
+    letter-spacing: 0.01em;
+    height: 34px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+}
+
+.section-header-red {
+    background: var(--color-red);
+    color: #fff;
+    font-weight: 800;
+    padding: 0;
+    border-radius: 0;
+    text-align: center;
+    font-size: 1.1em;
+    margin-bottom: 32px;
+    letter-spacing: 0.01em;
+    height: 34px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+}
+
 /* ===== SEKCJA O MNIE ===== */
 .about-section {
     width: 100%;
@@ -148,6 +203,29 @@ section {
     width: 100%;
     padding: 0;
     margin: 0;
+}
+
+/* Dodaję brakujące style dla .about-section-block i .about-text */
+.about-section-block {
+    padding: 24px 20px 12px 20px;
+    background: var(--color-white);
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+}
+
+.about-text {
+    font-size: 1em;
+    color: var(--color-black);
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.about-subtitle {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: var(--color-black);
+    margin-bottom: 8px;
 }
 
 .about-text-block {
@@ -308,22 +386,38 @@ section {
     margin: 0;
 }
 
+/* Dodaję brakujące style dla .contact-info i .contact-item */
+.contact-info {
+    background: var(--color-white);
+    padding: 18px 20px 8px 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.contact-item {
+    font-size: 1em;
+    color: var(--color-black);
+    margin-bottom: 6px;
+    line-height: 1.4;
+}
+
+.contact-item strong {
+    color: var(--color-black);
+    font-weight: 600;
+}
+
+.contact-item a {
+    color: var(--color-black);
+    text-decoration: underline dotted;
+}
+
 .contact-info-block {
     width: 100%;
     padding: 18px 20px 8px 20px;
     background: var(--color-white);
     box-sizing: border-box;
 }
-.contact-info-line {
-    font-size: 1em;
-    color: var(--color-black);
-    margin-bottom: 6px;
-    line-height: 1.4;
-}
-.contact-info-line a {
-    color: var(--color-black);
-    text-decoration: underline dotted;
-}
+
 .contact-form-block {
     width: 100%;
     display: flex;

@@ -165,6 +165,20 @@
 - **Rezultat**: Zdjęcie główne wróciło do poprzedniego stanu z pozycjonowaniem względnym
 - **Lekcja**: Pozycjonowanie absolutne może zaburzyć naturalny flow dokumentu i powodować problemy z layoutem
 
+### [2025-07-06] NAPRAWA BRAKUJĄCYCH STYLÓW CSS - PROBLEMY Z LAYOUTEM
+- **Problem**: Po czyszczeniu projektu brakowało wielu stylów CSS, co powodowało problemy z layoutem:
+  - Brak stylów dla `.about-section-block` i `.about-text` (używane w HTML)
+  - Brak stylów dla nagłówków sekcji (`.section-header-yellow`, `.section-header-orange`, `.section-header-red`)
+  - Brak stylów dla `.contact-info` i `.contact-item` (używane w HTML)
+  - Tekst "O mnie" wjeżdżał na górę, zdjęcie przykrywało treść
+- **Rozwiązanie**: 
+  - Dodano style dla `.about-section-block`, `.about-text`, `.about-subtitle`
+  - Dodano style dla nagłówków sekcji z kolorowymi paskami
+  - Dodano style dla `.contact-info` i `.contact-item`
+  - Przywrócono prawidłowy layout sekcji
+- **Rezultat**: Wszystkie sekcje mają teraz prawidłowe style i layout
+- **Lekcja**: Podczas czyszczenia kodu należy zachować ostrożność i sprawdzać, czy wszystkie używane klasy mają odpowiednie style CSS
+
 ## Najważniejsze porażki i lekcje
 - SVG z preserveAspectRatio="none" rozciąga kształt na różnych szerokościach – lepiej używać "meet" lub "slice".
 - SVG nie obsługuje procentów w points – trzeba przeliczać na wartości względem viewBox.
