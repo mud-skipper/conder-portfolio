@@ -564,7 +564,7 @@ main {
     max-height: 70vh;
     overflow: hidden;
     background: #fff;
-    margin: 0 20px; /* Dodaję margines 20px z każdej strony */
+    /* Usuwam margin: 0 20px - powoduje podwójne przycięcie */
 }
 
 .hero-image {
