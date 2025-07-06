@@ -558,13 +558,13 @@ main {
 
 .hero-image-block {
     position: relative; /* Wracam do pozycjonowania względnego */
-    width: 100%; /* Przywracam oryginalną szerokość */
+    width: calc(100% - 40px); /* Szerokość ekranu minus 40px (20px z każdej strony) */
     height: 60vh;
     min-height: 220px;
     max-height: 70vh;
     overflow: hidden;
     background: #fff;
-    /* Usuwam margin: 0 20px - nakłada się z ramką body */
+    margin: 0 20px; /* Dodaję margines 20px z każdej strony */
 }
 
 .hero-image {
