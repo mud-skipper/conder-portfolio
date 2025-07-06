@@ -101,6 +101,33 @@
 - **Lekcja**: Robić backupy po każdej większej zmianie, nie tylko po problemach
 - **Status**: Projekt czysty, zoptymalizowany, gotowy do dalszej pracy
 
+### [2025-07-04] CZYSZCZENIE PROJEKTU I PRZYGOTOWANIE DO NOWEGO HEADERA
+- Usunięto wszystkie kody, pliki i style związane z headerem, footerem, menu hamburger, side-menu oraz nieużywane sekcje CSS/JS.
+- Pozostawiono tylko główne sekcje: O mnie, Projekty, Kontakt. Panel administratora i roadmapa bez zmian.
+- Kod został zoptymalizowany i przygotowany do wstawienia nowego headera i footera od zera.
+- Projekt wypchnięty na GitHub – gotowy do testów i dalszej pracy.
+- **Następny krok:** Implementacja nowego headera zgodnie z wcześniejszymi wytycznymi (SVG "pistolet" + logo jako menu hamburger).
+- **WYTYCZNE DO NOWEGO HEADERA:**
+  - **Kolba**: Stały kształt, nieskalowana, przypięta do prawego górnego narożnika ekranu (position: fixed; top: 0; right: 0)
+  - **Logo**: Umieszczone w kolbie, działa jako menu hamburger
+  - **Lufa**: Zaczepiona do lewej krawędzi ekranu, skaluje się prawą krawędzią do lokalizacji kolby
+  - **Zachowanie**: Kolba z logo ZAWSZE w prawym górnym rogu (fixed), skaluje się tylko lufa
+  - **WYMIARY**: Lufa 40px wysokości, kolba 120px wysokości
+  - **LOGO**: Wysokość 80px, odstawione od górnej krawędzi 20px, lewej 20px, dolnej 20px
+  - **KOLORY**: Wypełnienie białe, linia 1px szara (#999999)
+  - **CIEŃ**: 225 stopni (feDropShadow z odpowiednimi parametrami)
+- **Potrzebne:** Szczegółowe wytyczne projektowe do nowego headera (układ, proporcje, zachowanie, animacje, itp.)
+
+### [2025-01-07] 🔧 NAPRAWA PROBLEMU Z SZEROKOŚCIĄ ZDJĘCIA GŁÓWNEGO I POZIOMYM SCROLLOWANIEM
+- **Problem**: Podczas czyszczenia projektu usunięto style dla `.hero-image` i `.hero-image-block`, co spowodowało brak ograniczeń szerokości zdjęcia głównego
+- **Objawy**: Zdjęcie główne rozszerzało się poza ekran, powodując poziomy scroll mimo braku zawartości
+- **Rozwiązanie**: 
+  - Przywrócono style dla `.hero-image-block` (width: 100%, height: 60vh, min-height: 220px, max-height: 70vh, overflow: hidden)
+  - Przywrócono style dla `.hero-image` (width: 100%, height: 100%, object-fit: cover, object-position: center)
+  - Dodano `overflow-x: hidden` do `html` i `body` dla dodatkowej ochrony przed poziomym scrollowaniem
+- **Rezultat**: Zdjęcie główne jest teraz poprawnie ograniczone do szerokości ekranu, brak poziomego scrollowania
+- **Lekcja**: Podczas czyszczenia kodu należy zachować ostrożność i nie usuwać stylów dla elementów, które są używane w HTML
+
 ## Najważniejsze porażki i lekcje
 - SVG z preserveAspectRatio="none" rozciąga kształt na różnych szerokościach – lepiej używać "meet" lub "slice".
 - SVG nie obsługuje procentów w points – trzeba przeliczać na wartości względem viewBox.
