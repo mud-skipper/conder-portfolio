@@ -1,0 +1,64 @@
+{
+  "projects": [
+    {
+      "id": 2,
+      "title": "Insta21",
+      "author": "22ARCHITEKCI",
+      "projectType": "mieszkaniowy",
+      "location": "Warszawa",
+      "year": "2022",
+      "description": "Projekt Insta21 to kameralny budynek mieszkaniowo-usługowy o nowoczesnej estetyce, zlokalizowany w dobrze skomunikowanym sąsiedztwie Parku Szczęśliwickiego. Kompozycja funkcjonalna – mieszkania 2‑, 3‑ i 4‑pokojowe (38–70 m²) wyposażone w loggie lub ogródki – łączy prostą formę z detalem precyzyjnie dopasowanym do kontekstu. Materiały wykończeniowe i przemyślane układy wnętrz tworzą spokojną, sprzyjającą codziennemu życiu przestrzeń.",
+      "image": "insta21/images-1751461914745-953030477.jpg",
+      "type": "mieszkaniowy",
+      "area": "~3987 m² (87 mieszkań; powierzchnia handlowo-usługowa 149 m²)",
+      "status": "realizacja",
+      "link": "#",
+      "investor": "Polski Holding Nieruchomości (PHN)",
+      "designer": "22ARCHITEKCI",
+      "totalArea": "",
+      "usableArea": "~3987 m² (87 mieszkań; powierzchnia handlowo-usługowa 149 m²)",
+      "stage": "realizacja",
+      "images": [
+        "insta21/images-1751461914745-953030477.jpg",
+        "insta21/images-1751461914751-870203691.jpg",
+        "insta21/images-1751461914760-728256534.jpg"
+      ]
+    }
+  ],
+  "about": {
+    "name": "Wojciech Conder",
+    "title": "Architekt",
+    "bio": "Architekt z dyplomem WAPW, partner w pracowni 22ARCHITEKCI (założonej w 2010 roku wraz z Aleksandrem Drzewieckim, Maciejem Kowalczykiem i Michałem Tatjewskim). Wcześniej partner w WXCA (2007–2010), praktykował m.in. w MCM Design Studio w Lozannie oraz w Szcześniak Denier Architects. Projektuje budynki mieszkaniowe, biurowe, użyteczności publicznej, prowadząc proces od koncepcji aż po nadzór autorski",
+    "profileImage": "profile/profileImage-1751822166669-695003627.jpg",
+    "education": "● 2000 r. – 2008 r. – Politechnika Warszawska wydz. Architektury [dyplom ukończenia studiów]\r\n2003 r. – Detroit University of Mercy faculty of Architecture [wymiana studencka]\r\n● 1995 r. – 1999 r. – 28 LO. Im Jana Kochanowskiego w Warszawie [profil matematyczno-fizyczny]",
+    "experience": "● 2021 r. – 2025 r. – współpraca z inwestorami z sektora prywatnego w ramach własnej działalności gospodarczej\r\n● 2010 r. – 2021 r. – 22ARCHITEKCI Sp. z o.o. [wspólnik spółki]\r\n● 2007 r. – 2010 r. – WXCA Szczepan Wroński, Wojciech Conder Architekci [wspólnik spółki]\r\n● 2005 r. – SDA Szcześniak Denier Architekci sp. z o.o [pracownik]\r\n● 2004 r. – Autorskie Pracownie Projektowe Unimed Sp. J. [współpraca projektowa]\r\n● 2003 r. – MCM Architecture, Milena Cvijanovich, Denis Müller Lausanne Switzerland [praktyki zawodowe]",
+    "achievements": "● 2021 r. – Budynek mieszkalny wielorodzinny „Insta21” w Warszawie dla Polski Holding Nieruchomości [22architekci] [konkurs – I miejsce] Realizacja\r\n● 2020 r. – Osiedle mieszkaniowe „Nowy Nikiszowiec” w Katowicach dla PFR Nieruchomości\r\n[22architekci] [konkurs – I miejsce] Realizacja\r\n● 2019 r. – Budynek biurowo-produkcyjny „GABEC” w Radomiu dla prywatnego inwestora\r\n[22architekci] [przetarg – I miejsce] Realizacja\r\n● 2016 r. – Budynek biurowy „Punto Mila” w Warszawie dla prywatnego inwestora\r\n[22architekci] [przetarg – I miejsce] Realizacja\r\n● 2015 r. – Osiedle „Fi” w Krakowie dla Megapolis Development\r\n[22architekci + AJ Biuro] [konkurs – I miejsce] Realizacja\r\n● 2009 r. – Muzeum Pamięci Palmiry dla SZRM Warszawa\r\n[WXCA] [przetarg – I miejsce] Realizacja\r\n● 2008 r. – Port Lotniczy w Świdniku dla Port Lotniczy Lublin S.A.\r\n[WXCA] [konkurs – II miejsce]",
+    "collaboration": "● Prywatni inwestorzy\n● Polski Holding Nieruchomości SA\n● PFR Nieruchomości\n● AMW SINEVIA Sp. z o.o.\n● Agencja Mienia Wojskowego odział regionalny w Warszawie",
+    "skills": "● Zarządzanie procesem projektowym:\r\nprzygotowanie materiałów wyjściowych, projekt koncepcyjny, projekt budowlany wraz z przygotowaniem niezbędnych dokumentów do uzyskania pozwolenia na budowę, projekt wykonawczy, nadzór autorski.\r\n● Przygotowanie dokumentów do uzyskania decyzji WZiZT\r\n● Praca przy umowach: przygotowanie dokumentów, negocjacje\r\n● Przygotowanie dokumentów do procedur przetargowych\r\n● Konkursy architektoniczne - nadzór i przygotowanie dokumentów w tym nadzór nad procesem przygotowania pracy konkursowej wraz z weryfikacją postanowień SIWZ\r\n● Uprawnienia budowlane w specjalności architektonicznej do projektowania bez ograniczeń.\r\n● Prawo jazdy kategorii A i B",
+    "software": "● MS Office\n● AutoCAD\n● ZWCad\n● Revit\n● Sketchup\n● Photoshop\n● Illustrator\n● Enscape\n● Cursor - code editor",
+    "interests": "● Lotnictwo:\r\n● Licencja pilota szybowcowego SPL – członek Aeroklubu Warszawskiego [w trakcie wykonywania]\r\n● Licencja pilota samolotowego PPL Private Pilot License – [w trakcie wykonywania]\r\n● Modelarstwo,\r\n● Astronomia,\r\n● Sport: Piłka nożna, F1, Windsurfing, tenis",
+    "experience_years": "8+ lat",
+    "specializations": [
+      "Architektura mieszkaniowa",
+      "Projektowanie biur",
+      "Adaptacje zabytków",
+      "Zrównoważone budownictwo"
+    ],
+    "location": "Warszawa / zdalnie"
+  },
+  "contact": {
+    "email": "wojciech@conder-architekt.pl",
+    "phone": "+48 123 456 789",
+    "address": "Warszawa, Polska",
+    "social": {
+      "linkedin": "https://linkedin.com/in/wojciech-conder",
+      "instagram": "https://instagram.com/conder_architekt",
+      "facebook": "https://facebook.com/conder.architekt"
+    }
+  },
+  "settings": {
+    "language": "pl",
+    "theme": "retro",
+    "lastUpdated": "2025-01-20"
+  }
+}
