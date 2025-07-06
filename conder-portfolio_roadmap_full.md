@@ -205,6 +205,17 @@
 - **Rezultat**: Główne zdjęcie jest teraz skalowane w całości bez przycinania, zachowując proporcje
 - **Lekcja**: `object-fit: cover` przycina zdjęcie, `object-fit: contain` skaluje w całości
 
+### [2025-07-06] AUTOMATYCZNE SKALOWANIE ZDJĘĆ PODCZAS UPLOADU - OPTYMALIZACJA DO SZEROKOŚCI EKRANU
+- **Problem**: Zdjęcia uploadowane przez panel admina nie były automatycznie skalowane do szerokości ekranu
+- **Rozwiązanie**: 
+  - Zmieniono funkcję `processAndOptimizeImage` w `server.js`
+  - Zmieniono `fit: 'inside'` na `fit: 'cover'` z `position: 'center'`
+  - Ustawiono szerokość na 727px (767px max-width - 40px ramki)
+  - Wysokość ustawiona na `null` - proporcjonalne skalowanie
+  - Przywrócono `object-fit: cover` w CSS dla lepszego wypełnienia
+- **Rezultat**: Wszystkie zdjęcia uploadowane przez panel admina są automatycznie skalowane do szerokości ekranu minus 40px
+- **Lekcja**: Automatyczna optymalizacja podczas uploadu zapewnia spójność wizualną wszystkich zdjęć
+
 ## Najważniejsze porażki i lekcje
 - SVG z preserveAspectRatio="none" rozciąga kształt na różnych szerokościach – lepiej używać "meet" lub "slice".
 - SVG nie obsługuje procentów w points – trzeba przeliczać na wartości względem viewBox.
