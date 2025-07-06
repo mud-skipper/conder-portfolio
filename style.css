@@ -558,7 +558,7 @@ main {
 
 .hero-image-block {
     position: relative;
-    width: calc(100% - 40px); /* Szerokość ekranu minus 40px (20px z każdej strony) */
+    width: 100%; /* Pełna szerokość - body już ma ramkę 20px z każdej strony */
     margin: 0 auto; /* Wyśrodkowuje blok */
     background: #fff;
     overflow: hidden;
