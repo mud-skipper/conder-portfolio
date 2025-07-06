@@ -197,6 +197,14 @@
 - **Rezultat**: Główne zdjęcie jest teraz skalowane tylko przez `calc(100% - 40px)`, bez dodatkowych marginesów powodujących podwójne przycięcie
 - **Lekcja**: Należy unikać duplikowania marginesów i paddingów, które mogą powodować nieoczekiwane efekty wizualne
 
+### [2025-07-06] NAPRAWA SKALOWANIA ZDJĘCIA - OBJECT-FIT: CONTAIN ZAMIAST COVER
+- **Problem**: `object-fit: cover` powodowało przycinanie zdjęcia zamiast skalowania w całości
+- **Rozwiązanie**: 
+  - Zmieniono `object-fit: cover` na `object-fit: contain` w `.hero-image`
+  - Zwiększono wersję CSS do v1.5 dla wymuszenia odświeżenia cache
+- **Rezultat**: Główne zdjęcie jest teraz skalowane w całości bez przycinania, zachowując proporcje
+- **Lekcja**: `object-fit: cover` przycina zdjęcie, `object-fit: contain` skaluje w całości
+
 ## Najważniejsze porażki i lekcje
 - SVG z preserveAspectRatio="none" rozciąga kształt na różnych szerokościach – lepiej używać "meet" lub "slice".
 - SVG nie obsługuje procentów w points – trzeba przeliczać na wartości względem viewBox.
