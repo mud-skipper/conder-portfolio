@@ -463,14 +463,16 @@ main {
 }
 
 .hero-image-block {
-    position: relative;
-    width: 100%; /* Przywracam oryginalną szerokość */
+    position: absolute; /* Pozycjonowanie absolutne */
+    top: 20px; /* 20px od góry */
+    left: 20px; /* 20px od lewej */
+    width: calc(100vw - 40px); /* Maksymalna szerokość ekranu minus 20px z każdej strony */
     height: 60vh;
     min-height: 220px;
     max-height: 70vh;
     overflow: hidden;
     background: #fff;
-    /* Usuwam margin: 0 20px - nakłada się z ramką body */
+    z-index: 1; /* Upewniam się, że jest nad innymi elementami */
 }
 
 .hero-image {
