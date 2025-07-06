@@ -228,6 +228,15 @@
 - **Rezultat**: Zdjęcie jest teraz wyśrodkowane, skalowane proporcjonalnie do szerokości ekranu minus 40px, bez przycinania
 - **Lekcja**: `height: auto` z `width: 100%` zapewnia proporcjonalne skalowanie bez przycinania
 
+### [2025-07-06] NAPRAWA PODWÓJNEJ RAMKI - USUNIĘCIE CALC(100% - 40PX)
+- **Problem**: `calc(100% - 40px)` powodowało podwójną ramkę - body już ma ramkę 20px z każdej strony
+- **Rozwiązanie**: 
+  - Zmieniono `width: calc(100% - 40px)` na `width: 100%` w `.hero-image-block`
+  - Body ma już `border: 20px solid var(--color-white)` - to wystarcza
+  - Zwiększono wersję CSS do v1.8
+- **Rezultat**: Zdjęcie ma teraz tylko jedną ramkę (body), bez dodatkowych marginesów
+- **Lekcja**: Należy unikać duplikowania ramek - jeśli body ma ramkę, nie dodawać dodatkowych marginesów
+
 ## Najważniejsze porażki i lekcje
 - SVG z preserveAspectRatio="none" rozciąga kształt na różnych szerokościach – lepiej używać "meet" lub "slice".
 - SVG nie obsługuje procentów w points – trzeba przeliczać na wartości względem viewBox.
