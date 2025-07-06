@@ -147,6 +147,15 @@
 - **Efekt**: Nawet jeśli upload lub optymalizacja pliku zadziała niezgodnie z planem, backend zawsze zapewnia spójność ścieżki i fizycznego położenia zdjęcia profilowego.
 - **Lekcja**: Każda operacja uploadu powinna być domknięta walidacją i automatyczną naprawą ścieżek plików, szczególnie przy edycji przez panel administratora.
 
+### [2025-07-06] USUNIĘCIE DODATKOWEJ RAMKI 20PX ZE ZDJĘCIA GŁÓWNEGO
+- **Problem**: Dodatkowa ramka 20px (`calc(100% - 40px)` i `margin: 0 20px`) na zdjęciu głównym nakładała się z główną ramką body (`border: 20px solid var(--color-white)`), tworząc podwójną ramkę.
+- **Rozwiązanie**: 
+  - Przywrócono `width: 100%` w `.hero-image-block` (usunięto `calc(100% - 40px)`)
+  - Usunięto `margin: 0 20px` z `.hero-image-block`
+  - Zdjęcie główne teraz używa tylko głównej ramki body (20px)
+- **Rezultat**: Zdjęcie główne ma teraz jednolitą ramkę 20px, zgodną z resztą strony, bez nakładania się ramek
+- **Lekcja**: Przy projektowaniu responsywnych elementów należy unikać duplikowania ramek i marginesów z elementów nadrzędnych
+
 ## Najważniejsze porażki i lekcje
 - SVG z preserveAspectRatio="none" rozciąga kształt na różnych szerokościach – lepiej używać "meet" lub "slice".
 - SVG nie obsługuje procentów w points – trzeba przeliczać na wartości względem viewBox.

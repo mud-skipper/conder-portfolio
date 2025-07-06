@@ -464,13 +464,13 @@ main {
 
 .hero-image-block {
     position: relative;
-    width: calc(100% - 40px); /* Uwzględnia 20px ramkę z każdej strony */
+    width: 100%; /* Przywracam oryginalną szerokość */
     height: 60vh;
     min-height: 220px;
     max-height: 70vh;
     overflow: hidden;
     background: #fff;
-    margin: 0 20px; /* Dodaje margines zamiast padding */
+    /* Usuwam margin: 0 20px - nakłada się z ramką body */
 }
 
 .hero-image {
