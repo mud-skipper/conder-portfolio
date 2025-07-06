@@ -188,6 +188,15 @@
 - **Rezultat**: Główne zdjęcie jest teraz skalowane do szerokości ekranu minus 40px (20px z każdej strony), z uwzględnieniem ramki body
 - **Lekcja**: Przy projektowaniu responsywnych elementów należy uwzględniać wszystkie marginesy, paddingi i ramki rodzica
 
+### [2025-07-06] NAPRAWA PODWÓJNEGO PRZYCINANIA ZDJĘCIA - USUNIĘCIE DODATKOWYCH MARGINESÓW
+- **Problem**: Dodatkowe marginesy `margin: 0 20px` powodowały podwójne przycięcie zdjęcia o kolejne 20px z każdej strony
+- **Rozwiązanie**: 
+  - Usunięto `margin: 0 20px` z `.hero-image-block`
+  - Pozostawiono tylko `width: calc(100% - 40px)` bez dodatkowych marginesów
+  - Zwiększono wersję CSS do v1.4 dla wymuszenia odświeżenia cache
+- **Rezultat**: Główne zdjęcie jest teraz skalowane tylko przez `calc(100% - 40px)`, bez dodatkowych marginesów powodujących podwójne przycięcie
+- **Lekcja**: Należy unikać duplikowania marginesów i paddingów, które mogą powodować nieoczekiwane efekty wizualne
+
 ## Najważniejsze porażki i lekcje
 - SVG z preserveAspectRatio="none" rozciąga kształt na różnych szerokościach – lepiej używać "meet" lub "slice".
 - SVG nie obsługuje procentów w points – trzeba przeliczać na wartości względem viewBox.
