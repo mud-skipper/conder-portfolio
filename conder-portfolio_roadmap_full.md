@@ -137,6 +137,16 @@
 - **Rezultat**: Zdjęcie główne jest teraz poprawnie skalowane w poziomie, uwzględniając 20px ramkę z body, bez przycinania boków
 - **Lekcja**: Przy projektowaniu responsywnych elementów należy uwzględniać wszystkie marginesy, paddingi i ramki rodzica
 
+### [2025-07-06] DODATKOWE ZABEZPIECZENIE: SPÓJNOŚĆ ŚCIEŻEK ZDJĘCIA PROFILOWEGO
+- **Problem**: Po aktualizacji zdjęcia przez panel admina plik mógł trafić do złego folderu (`uploads/` zamiast `uploads/profile/`), przez co nie wyświetlał się w portfolio mimo poprawnej ścieżki w `content.json`.
+- **Zabezpieczenie**:
+  - Backend po każdej aktualizacji zdjęcia profilowego sprawdza, czy plik istnieje w `uploads/profile/`.
+  - Jeśli plik jest w innym miejscu (np. w `uploads/`), backend automatycznie przenosi go do `uploads/profile/` i poprawia ścieżkę w `content.json`.
+  - Jeśli plik nie istnieje nigdzie, backend zgłasza błąd i nie nadpisuje danych.
+  - Dodano szczegółowe logi i komentarze blokowe w kodzie serwera.
+- **Efekt**: Nawet jeśli upload lub optymalizacja pliku zadziała niezgodnie z planem, backend zawsze zapewnia spójność ścieżki i fizycznego położenia zdjęcia profilowego.
+- **Lekcja**: Każda operacja uploadu powinna być domknięta walidacją i automatyczną naprawą ścieżek plików, szczególnie przy edycji przez panel administratora.
+
 ## Najważniejsze porażki i lekcje
 - SVG z preserveAspectRatio="none" rozciąga kształt na różnych szerokościach – lepiej używać "meet" lub "slice".
 - SVG nie obsługuje procentów w points – trzeba przeliczać na wartości względem viewBox.

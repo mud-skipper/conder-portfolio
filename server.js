@@ -530,8 +530,30 @@ app.post('/api/updateAbout', upload.single('profileImage'), async (req, res) => 
                     const profileDir = path.join(__dirname, 'uploads', 'profile');
                     await fs.mkdir(profileDir, { recursive: true });
                     const optimizedFileName = await processAndOptimizeImage(req.file.path, 'profile');
-                    aboutData.profileImage = `profile/${optimizedFileName}`;
-                    console.log(`Zapisywanie zdjęcia profilowego: ${aboutData.profileImage}`);
+                    let finalProfilePath = path.join(profileDir, optimizedFileName);
+                    let sourcePath = req.file.path;
+
+                    // ===== BLOK ZABEZPIECZAJĄCY: UPEWNIJ SIĘ, ŻE PLIK JEST W uploads/profile/ =====
+                    if (sourcePath !== finalProfilePath) {
+                        // Jeśli plik nie jest w uploads/profile/, przenieś go tam
+                        try {
+                            await fs.rename(sourcePath, finalProfilePath);
+                        } catch (moveErr) {
+                            // Jeśli już istnieje, usuń źródłowy
+                            try { await fs.unlink(sourcePath); } catch {}
+                        }
+                    }
+                    // Sprawdź czy plik istnieje w uploads/profile/
+                    try {
+                        await fs.access(finalProfilePath);
+                        aboutData.profileImage = `profile/${optimizedFileName}`;
+                        console.log(`[SAFE] Zdjęcie profilowe na miejscu: ${aboutData.profileImage}`);
+                    } catch (notFoundErr) {
+                        // Jeśli nie ma pliku, zgłoś błąd
+                        console.error('[SAFE] Błąd: zdjęcie profilowe nie istnieje w uploads/profile/');
+                        return res.status(500).json({ success: false, message: 'Błąd: zdjęcie profilowe nie zostało poprawnie zapisane.' });
+                    }
+                    // ===== KONIEC BLOKU ZABEZPIECZAJĄCEGO =====
                 } catch (error) {
                     console.error('Błąd przetwarzania zdjęcia profilowego:', error);
                     return res.status(500).json({ success: false, message: 'Błąd przetwarzania zdjęcia profilowego: ' + error.message });
