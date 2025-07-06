@@ -170,10 +170,11 @@ async function processAndOptimizeImage(filePath, projectName) {
         const image = sharp(filePath);
         const metadata = await image.metadata();
         
-        // Optymalizuj obraz
+        // Optymalizuj obraz - skalowanie do szerokości ekranu minus 40px
         const optimizedImage = image
-            .resize(1200, 1600, { // Format telefonu
-                fit: 'inside',
+            .resize(727, null, { // 767px (max-width) - 40px = 727px szerokości
+                fit: 'cover',
+                position: 'center',
                 withoutEnlargement: true
             })
             .jpeg({ 

@@ -570,8 +570,8 @@ main {
 .hero-image {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Zmieniam z cover na contain - skalowanie bez przycinania */
-    object-position: center;
+    object-fit: cover; /* Wracam do cover - wypełnia szerokość, może przyciąć u góry/dole */
+    object-position: center; /* Wyśrodkowuje zdjęcie */
     display: block;
 }
 
