@@ -156,15 +156,14 @@
 - **Rezultat**: Zdjęcie główne ma teraz jednolitą ramkę 20px, zgodną z resztą strony, bez nakładania się ramek
 - **Lekcja**: Przy projektowaniu responsywnych elementów należy unikać duplikowania ramek i marginesów z elementów nadrzędnych
 
-### [2025-07-06] NOWE POZYCJONOWANIE ZDJĘCIA GŁÓWNEGO - POZYCJONOWANIE ABSOLUTNE
-- **Problem**: Zdjęcie główne było nadal przycinane przez ramkę body, mimo usunięcia dodatkowych marginesów
+### [2025-07-06] COFNIĘCIE POZYCJONOWANIA ABSOLUTNEGO ZDJĘCIA GŁÓWNEGO
+- **Problem**: Próba pozycjonowania absolutnego zdjęcia głównego spowodowała problemy z layoutem strony
 - **Rozwiązanie**: 
-  - Zmieniono `position: relative` na `position: absolute` w `.hero-image-block`
-  - Dodano `top: 20px` i `left: 20px` - odsunięcie od lewego górnego narożnika
-  - Zmieniono `width: 100%` na `width: calc(100vw - 40px)` - skalowanie do maksymalnej szerokości ekranu minus 20px z każdej strony
-  - Dodano `z-index: 1` dla upewnienia się, że zdjęcie jest nad innymi elementami
-- **Rezultat**: Zdjęcie główne jest teraz pozycjonowane niezależnie od ramki body, z precyzyjnym odsunięciem 20px od krawędzi ekranu
-- **Lekcja**: Pozycjonowanie absolutne pozwala na precyzyjne kontrolowanie położenia elementów względem viewport, niezależnie od struktury DOM
+  - Cofnięto zmiany pozycjonowania absolutnego
+  - Przywrócono `position: relative` i `width: 100%` w `.hero-image-block`
+  - Usunięto `top: 20px`, `left: 20px`, `width: calc(100vw - 40px)` i `z-index: 1`
+- **Rezultat**: Zdjęcie główne wróciło do poprzedniego stanu z pozycjonowaniem względnym
+- **Lekcja**: Pozycjonowanie absolutne może zaburzyć naturalny flow dokumentu i powodować problemy z layoutem
 
 ## Najważniejsze porażki i lekcje
 - SVG z preserveAspectRatio="none" rozciąga kształt na różnych szerokościach – lepiej używać "meet" lub "slice".
