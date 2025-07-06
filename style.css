@@ -557,22 +557,20 @@ main {
 }
 
 .hero-image-block {
-    position: relative; /* Wracam do pozycjonowania względnego */
+    position: relative;
     width: calc(100% - 40px); /* Szerokość ekranu minus 40px (20px z każdej strony) */
-    height: 60vh;
-    min-height: 220px;
-    max-height: 70vh;
-    overflow: hidden;
+    margin: 0 auto; /* Wyśrodkowuje blok */
     background: #fff;
-    /* Usuwam margin: 0 20px - powoduje podwójne przycięcie */
+    overflow: hidden;
+    /* Usuwam sztywną wysokość - pozwalam na skalowanie proporcjonalne */
 }
 
 .hero-image {
     width: 100%;
-    height: 100%;
-    object-fit: cover; /* Wracam do cover - wypełnia szerokość, może przyciąć u góry/dole */
-    object-position: center; /* Wyśrodkowuje zdjęcie */
+    height: auto; /* Automatyczna wysokość - proporcjonalne skalowanie */
     display: block;
+    margin: 0 auto; /* Wyśrodkowuje zdjęcie */
+    /* Usuwam object-fit - nie potrzebujemy go przy height: auto */
 }
 
  
