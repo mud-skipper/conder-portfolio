@@ -128,6 +128,15 @@
 - **Rezultat**: Zdjęcie główne jest teraz poprawnie ograniczone do szerokości ekranu, brak poziomego scrollowania
 - **Lekcja**: Podczas czyszczenia kodu należy zachować ostrożność i nie usuwać stylów dla elementów, które są używane w HTML
 
+### [2025-01-07] 🔧 NAPRAWA PRZYCINANIA ZDJĘCIA GŁÓWNEGO PRZEZ 20PX RAMKĘ
+- **Problem**: Zdjęcie główne było przycinane przez 20px ramkę (border) z body, co powodowało uciekanie boków zdjęcia
+- **Przyczyna**: `.hero-image-block` miał `width: 100%`, ale body ma `border: 20px solid var(--color-white)`, co powodowało konflikt szerokości
+- **Rozwiązanie**: 
+  - Zmieniono `width: 100%` na `width: calc(100% - 40px)` w `.hero-image-block` (uwzględnia 20px ramkę z każdej strony)
+  - Dodano `margin: 0 20px` do `.hero-image-block` dla lepszego pozycjonowania
+- **Rezultat**: Zdjęcie główne jest teraz poprawnie skalowane w poziomie, uwzględniając 20px ramkę z body, bez przycinania boków
+- **Lekcja**: Przy projektowaniu responsywnych elementów należy uwzględniać wszystkie marginesy, paddingi i ramki rodzica
+
 ## Najważniejsze porażki i lekcje
 - SVG z preserveAspectRatio="none" rozciąga kształt na różnych szerokościach – lepiej używać "meet" lub "slice".
 - SVG nie obsługuje procentów w points – trzeba przeliczać na wartości względem viewBox.
