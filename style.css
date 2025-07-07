@@ -218,8 +218,10 @@ section {
     margin: 0;
 }
 
-/* NORMALNE MARGINESY DLA ELEMENTÓW W SEKCJI "O MNIE" */
-.about-content * {
+/* RESET TYLKO DLA PODSTAWOWYCH ELEMENTÓW */
+.about-content h3,
+.about-content p,
+.about-content div {
     margin: 0;
     padding: 0;
     line-height: 1.4;
