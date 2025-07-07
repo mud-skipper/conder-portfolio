@@ -212,6 +212,7 @@ section {
 .about-text {
     font-size: 1em;
     color: var(--color-black);
+    margin-top: 0.5em; /* Odsunięcie tekstu od linii */
 }
 
 .about-subtitle {
@@ -224,7 +225,7 @@ section {
 .about-subtitle::after {
     content: '';
     position: absolute;
-    bottom: -0.75em; /* Połowa odstępu między sekcjami */
+    bottom: -0.5em; /* Zmniejszony dystans - bliżej nazwy sekcji */
     left: 0;
     right: 0;
     height: 1px;
