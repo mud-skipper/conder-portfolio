@@ -205,6 +205,37 @@ section {
     margin: 0;
 }
 
+/* WYMUSZENIE MAŁYCH MARGINESÓW DLA WSZYSTKICH ELEMENTÓW W SEKCJI "O MNIE" */
+.about-content * {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.about-section-block {
+    padding: 24px 0 12px 0 !important;
+    margin-bottom: 4px !important;
+}
+
+.about-text {
+    margin-bottom: 6px !important;
+}
+
+.about-subtitle {
+    margin-bottom: 8px !important;
+}
+
+.about-bio {
+    margin-bottom: 9px !important;
+}
+
+.about-list {
+    margin: 0 0 9px 0 !important;
+}
+
+.about-signature {
+    margin-top: 6px !important;
+}
+
 /* Dodaję brakujące style dla .about-section-block i .about-text */
 .about-section-block {
     padding: 24px 0 12px 0;
