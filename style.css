@@ -211,14 +211,14 @@ section {
     background: var(--color-white);
     width: 100%;
     box-sizing: border-box;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
 }
 
 .about-text {
     font-size: 1em;
     color: var(--color-black);
     line-height: 1.6;
-    margin-bottom: 12px;
+    margin-bottom: 6px;
 }
 
 .about-subtitle {
@@ -248,12 +248,12 @@ section {
 .about-bio {
     font-size: 1em;
     color: var(--color-black);
-    margin-bottom: 18px;
+    margin-bottom: 9px;
     line-height: 1.6;
 }
 .about-list {
     list-style-type: none;
-    margin: 0 0 18px 0;
+    margin: 0 0 9px 0;
     padding: 0;
 }
 .about-list li {
@@ -273,7 +273,7 @@ section {
 .about-signature {
     font-size: 0.95em;
     color: var(--color-black);
-    margin-top: 12px;
+    margin-top: 6px;
     font-weight: 400;
     letter-spacing: 0.01em;
 }
