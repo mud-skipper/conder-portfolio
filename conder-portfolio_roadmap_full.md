@@ -19,6 +19,37 @@
 - Wszystko edytowalne przez JSON.
 - Kod czysty, z komentarzami, łatwy do rozbudowy.
 
+## 🚨 KRYTYCZNE INSTRUKCJE BEZPIECZEŃSTWA I PROCEDURY
+
+### Zasady działania agenta AI w projekcie conder-portfolio
+
+**PRZED KAŻDĄ ZMIANĄ:**
+1. **Wymuszenie czytania roadmapy** - Każdy nowy czat MUSI zacząć od wnikliwej analizy tego pliku
+2. **Analiza struktury projektu** - Przeanalizuj wszystkie pliki, zależności i kodowanie przed wprowadzeniem zmian
+3. **Ustalenie z użytkownikiem** - Każda duża zmiana wymaga wcześniejszego zatwierdzenia
+4. **Planowanie zmian** - Przed wprowadzeniem zmiany ustal dokładny plan działania
+
+**PODCZAS WPROWADZANIA ZMIAN:**
+1. **Niezwykła staranność** - Każdą zmianę wprowadzać z maksymalną uwagą na inne elementy kodu
+2. **Sprawdzanie zależności** - Zmiany mogą występować w nietypowych miejscach - sprawdzać wszystkie pliki
+3. **Bardzo uważne przeglądanie kodu** - Nie pomijać żadnych szczegółów
+4. **Testowanie po zmianach** - Sprawdzić czy poprawki działają i czy inne elementy nie uległy zmianie
+
+**PO WPROWADZENIU ZMIAN:**
+1. **Ponowna analiza kodu** - Sprawdzić czy zmiany zostały wprowadzone poprawnie
+2. **Testowanie funkcjonalności** - Przetestować działanie wprowadzonych poprawek
+3. **Sprawdzenie wpływu na inne elementy** - Upewnić się, że inne części nie uległy nieoczekiwanej zmianie
+4. **Wypchnięcie na GitHub** - Po każdej wprowadzonej zmianie wypychać poprawki na GitHub
+
+**DODATKOWE ZABEZPIECZENIA:**
+- Sprawdzać zależności między plikami - zmiany mogą występować w nietypowych miejscach
+- Bardzo uważnie przeglądać kodowanie przed i po zmianach
+- Nie wprowadzać zmian "na ślepo" - zawsze mieć plan i zrozumienie konsekwencji
+- Przy każdej wątpliwości pytać użytkownika przed działaniem
+
+### 💡 Hasło przewodnie:
+**„Nie koduj po swojemu – koduj po *Conderowemu* 😉"**
+
 ## Najważniejsze działania i decyzje
 
 ### 1. Blokada desktopów
