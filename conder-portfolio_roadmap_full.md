@@ -47,6 +47,9 @@
 - Nie wprowadzać zmian "na ślepo" - zawsze mieć plan i zrozumienie konsekwencji
 - Przy każdej wątpliwości pytać użytkownika przed działaniem
 
+**NOWA ZASADA [2025-07-07]:**
+- Po każdej zmianie zawsze wypychamy zmiany na GitHub, aby umożliwić testy na telefonie (GitHub Pages/Netlify).
+
 ### 💡 Hasło przewodnie:
 **„Nie koduj po swojemu – koduj po *Conderowemu* 😉"**
 
