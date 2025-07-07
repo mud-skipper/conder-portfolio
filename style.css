@@ -185,7 +185,7 @@ section {
 /* Usunięte wszystkie style dla elementów w about-content */
 
 .about-section-block {
-    /* Usunięte wszystkie style */
+    margin-bottom: 1.5em; /* Jedna linia odstępu między sekcjami */
 }
 
 .about-text {
@@ -218,10 +218,17 @@ section {
     font-size: 1.2em;
     font-weight: 600;
     color: var(--color-black);
+    position: relative; /* Dla pozycjonowania linii ::after */
 }
 
 .about-subtitle::after {
-    /* Usunięte wszystkie style */
+    content: '';
+    position: absolute;
+    bottom: -0.75em; /* Połowa odstępu między sekcjami */
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--color-gray);
 }
 
 .about-text-block {
