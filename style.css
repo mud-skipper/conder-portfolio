@@ -37,19 +37,6 @@
     box-sizing: border-box;
 }
 
-/* RESET DLA ELEMENTÓW HTML W SEKCJI "O MNIE" */
-.about-content h3,
-.about-content p,
-.about-content div,
-.about-content section,
-.about-content article,
-.about-content ul,
-.about-content li {
-    margin: 0;
-    padding: 0;
-    line-height: 1.4;
-}
-
 /* ===== ZMIENNE CSS ===== */
 :root {
     /* Kolory retro */
@@ -102,22 +89,20 @@ body {
     background: var(--color-white);
     color: var(--color-black);
     font-size: 16px;
-    line-height: 1.5;
     min-width: 320px;
     max-width: 767px; /* Blokada szerokich ekranów */
     margin: 0 auto;
-    padding: 0; /* Usuwam padding z body */
-    border: 20px solid var(--color-white); /* Biała ramka dookoła ekranu */
+    padding: 0;
+    border: 20px solid var(--color-white); /* GŁÓWNA RAMKA 20px - NIE RUSZAĆ! */
     box-sizing: border-box;
     min-height: 100vh;
-    position: relative; /* Dla pozycjonowania względnego */
+    position: relative;
     overflow-x: hidden;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 var(--spacing-sm);
 }
 
 .main-content {
@@ -127,30 +112,18 @@ body {
 
 /* ===== SEKCJE OGÓLNE ===== */
 section {
-    padding: var(--spacing-sm) 0;
+    /* Usunięte wszystkie style */
 }
 
 .section-title {
-    font-size: var(--font-size-2xl);
-    font-weight: 600;
-    text-align: center;
-    margin-bottom: var(--spacing-xl);
-    color: var(--color-black);
-    position: relative;
+    /* Usunięte wszystkie style */
 }
 
 .section-title::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: var(--color-orange);
+    /* Usunięte wszystkie style */
 }
 
-/* Dodaję brakujące style dla nagłówków sekcji */
+/* Nagłówki sekcji - tylko podstawowe kolory */
 .section-header-yellow {
     background: var(--color-yellow);
     color: #fff;
@@ -159,8 +132,6 @@ section {
     border-radius: 0;
     text-align: center;
     font-size: 1.1em;
-    margin-bottom: 16px;
-    letter-spacing: 0.01em;
     height: 34px;
     width: 100%;
     display: flex;
@@ -177,8 +148,6 @@ section {
     border-radius: 0;
     text-align: center;
     font-size: 1.1em;
-    margin-bottom: 16px;
-    letter-spacing: 0.01em;
     height: 34px;
     width: 100%;
     display: flex;
@@ -195,8 +164,6 @@ section {
     border-radius: 0;
     text-align: center;
     font-size: 1.1em;
-    margin-bottom: 16px;
-    letter-spacing: 0.01em;
     height: 34px;
     width: 100%;
     display: flex;
@@ -209,97 +176,70 @@ section {
 .about-section {
     width: 100%;
     background: var(--color-white);
-    padding: 0;
-    margin: 0;
 }
+
 .about-content {
     width: 100%;
-    padding: 0;
-    margin: 0;
 }
 
-/* RESET TYLKO DLA PODSTAWOWYCH ELEMENTÓW */
-.about-content h3,
-.about-content p,
-.about-content div {
-    line-height: 1.4;
-}
+/* Usunięte wszystkie style dla elementów w about-content */
 
 .about-section-block {
-    padding: 24px 20px 12px 20px;
-    margin-bottom: 16px;
+    /* Usunięte wszystkie style */
 }
 
 .about-text {
-    margin-bottom: 12px;
+    /* Usunięte wszystkie style */
 }
 
 .about-subtitle {
-    margin-bottom: 8px;
+    /* Usunięte wszystkie style */
 }
 
 .about-bio {
-    margin-bottom: 18px;
+    /* Usunięte wszystkie style */
 }
 
 .about-list {
-    margin: 0 0 18px 0;
+    /* Usunięte wszystkie style */
 }
 
 .about-signature {
-    margin-top: 12px;
+    /* Usunięte wszystkie style */
 }
 
-/* Style dla elementów w sekcji "O mnie" */
+/* Style dla elementów w sekcji "O mnie" - tylko podstawowe */
 .about-text {
     font-size: 1em;
     color: var(--color-black);
-    line-height: 1.6;
-    margin-bottom: 6px;
 }
 
 .about-subtitle {
     font-size: 1.2em;
     font-weight: 600;
     color: var(--color-black);
-    margin-bottom: 16px;
-    position: relative;
 }
 
 .about-subtitle::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: var(--color-gray);
+    /* Usunięte wszystkie style */
 }
 
 .about-text-block {
-    padding: 24px 20px 12px 20px;
-    background: var(--color-white);
-    width: 100%;
-    box-sizing: border-box;
+    /* Usunięte wszystkie style */
 }
 
 .about-bio {
     font-size: 1em;
     color: var(--color-black);
-    margin-bottom: 9px;
-    line-height: 1.6;
 }
 
 .about-list {
     list-style-type: none;
-    margin: 0 0 9px 0;
-    padding: 0;
 }
 
 .about-list li {
     position: relative;
     padding-left: 18px;
-    margin-bottom: 8px;
     font-size: 1em;
     color: var(--color-black);
 }
@@ -315,25 +255,18 @@ section {
 .about-signature {
     font-size: 0.95em;
     color: var(--color-black);
-    margin-top: 6px;
     font-weight: 400;
     letter-spacing: 0.01em;
-}
-@media (min-width: 600px) {
-    .about-text-block { padding: 32px 32px 16px 32px; }
 }
 
 /* ===== SEKCJA PROJEKTY ===== */
 .projects-section {
     width: 100%;
     background: var(--color-white);
-    padding: 0;
-    margin: 0;
 }
+
 .projects-content {
     width: 100%;
-    padding: 0;
-    margin: 0;
 }
 
 .project-gallery {
@@ -345,8 +278,8 @@ section {
     background: var(--color-white);
     overflow: hidden;
     min-height: 220px;
-    margin: 0;
 }
+
 .project-image {
     width: 100%;
     max-height: 260px;
@@ -355,6 +288,7 @@ section {
     margin: 0 auto;
     border: none;
 }
+
 .gallery-arrow {
     display: none;
     position: absolute;
@@ -370,14 +304,16 @@ section {
     border-radius: 50%;
     box-shadow: none;
 }
+
 .gallery-arrow.left { left: 8px; }
 .gallery-arrow.right { right: 8px; }
+
 .project-info-block {
     width: 100%;
-    padding: 18px 0 8px 0;
     background: var(--color-white);
     box-sizing: border-box;
 }
+
 .project-title-row {
     display: flex;
     align-items: baseline;
@@ -385,24 +321,25 @@ section {
     font-size: 1.1em;
     font-weight: 700;
     color: var(--color-black);
-    margin-bottom: 6px;
 }
+
 .project-title {
     font-weight: 700;
     font-size: 1.1em;
     color: var(--color-black);
 }
+
 .project-year {
     font-weight: 700;
     font-size: 1em;
     color: var(--color-black);
 }
+
 .project-description {
     font-size: 1em;
     color: var(--color-black);
-    margin-bottom: 8px;
-    line-height: 1.5;
 }
+
 .project-contact-btn {
     width: 80%;
     height: 40px;
@@ -421,28 +358,19 @@ section {
     border-radius: 0;
     margin: 0 auto;
 }
-@media (min-width: 600px) {
-    .project-image { max-height: 340px; }
-    .project-info-block { padding: 28px 32px 12px 32px; }
-}
 
 /* ===== SEKCJA KONTAKT ===== */
 .contact-section {
     width: 100%;
     background: var(--color-white);
-    padding: 0;
-    margin: 0;
-}
-.contact-content {
-    width: 100%;
-    padding: 0;
-    margin: 0;
 }
 
-/* Dodaję brakujące style dla .contact-info i .contact-item */
+.contact-content {
+    width: 100%;
+}
+
 .contact-info {
     background: var(--color-white);
-    padding: 18px 20px 8px 20px;
     width: 100%;
     box-sizing: border-box;
 }
@@ -450,8 +378,6 @@ section {
 .contact-item {
     font-size: 1em;
     color: var(--color-black);
-    margin-bottom: 6px;
-    line-height: 1.4;
 }
 
 .contact-item strong {
@@ -466,7 +392,6 @@ section {
 
 .contact-info-block {
     width: 100%;
-    padding: 18px 20px 8px 20px;
     background: var(--color-white);
     box-sizing: border-box;
 }
@@ -476,10 +401,10 @@ section {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    padding: 18px 20px 8px 20px;
     background: var(--color-white);
     box-sizing: border-box;
 }
+
 .contact-input, .contact-textarea {
     width: 100%;
     border: 1px solid var(--color-separator);
@@ -493,16 +418,18 @@ section {
     box-sizing: border-box;
     resize: none;
 }
+
 .contact-input:focus, .contact-textarea:focus {
     border-color: var(--color-yellow);
 }
+
 .contact-btn-row {
     display: flex;
     flex-direction: row;
     gap: 4%;
     width: 100%;
-    margin-top: 4px;
 }
+
 .contact-btn {
     flex: 1 1 48%;
     height: 40px;
@@ -517,15 +444,14 @@ section {
     letter-spacing: 0.01em;
     transition: background 0.2s;
 }
+
 .contact-btn-send {
     background: var(--color-red);
 }
+
 .contact-btn-cv {
     background: var(--color-yellow);
     color: var(--color-black);
-}
-@media (min-width: 600px) {
-    .contact-info-block, .contact-form-block { padding: 28px 32px 12px 32px; }
 }
 
 /* ===== RESPONSYWNOŚĆ ===== */
@@ -593,37 +519,24 @@ main {
     box-sizing: border-box;
 }
 
-@media (min-width: 600px) {
-    .about-text-block { padding: 32px 0 16px 0; }
-    .project-image { max-height: 340px; }
-    .project-info-block { padding: 28px 32px 12px 32px; }
-    .contact-info-block, .contact-form-block { padding: 28px 32px 12px 32px; }
-}
-
-/* ===== SEPARATOR ===== */
-/* Separator jest teraz zaimplementowany jako pseudo-element ::after w headerze */
-
 /* ===== SEKCJA GŁÓWNA (HERO) ===== */
 .home-section {
     position: relative;
-    padding: 0;
 }
 
 .hero-image-block {
     position: relative;
-    width: 100%; /* Pełna szerokość - body już ma ramkę 20px z każdej strony */
-    margin: 0 auto; /* Wyśrodkowuje blok */
+    width: 100%;
+    margin: 0 auto;
     background: #fff;
     overflow: hidden;
-    /* Usuwam sztywną wysokość - pozwalam na skalowanie proporcjonalne */
 }
 
 .hero-image {
     width: 100%;
-    height: auto; /* Automatyczna wysokość - proporcjonalne skalowanie */
+    height: auto;
     display: block;
-    margin: 0 auto; /* Wyśrodkowuje zdjęcie */
-    /* Usuwam object-fit - nie potrzebujemy go przy height: auto */
+    margin: 0 auto;
 }
 
  
