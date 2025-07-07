@@ -225,11 +225,11 @@ section {
 .about-subtitle::after {
     content: '';
     position: absolute;
-    bottom: -0.5em; /* Zmniejszony dystans - bliżej nazwy sekcji */
+    bottom: -0.3em; /* Jeszcze bliżej nazwy sekcji */
     left: 0;
     right: 0;
     height: 1px;
-    background: var(--color-gray);
+    background: var(--color-light-gray); /* Jaśniejszy kolor */
 }
 
 .about-text-block {
