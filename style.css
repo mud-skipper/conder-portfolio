@@ -222,34 +222,32 @@ section {
 .about-content h3,
 .about-content p,
 .about-content div {
-    margin: 0;
-    padding: 0;
     line-height: 1.4;
 }
 
 .about-section-block {
-    padding: 24px 0 12px 0;
+    padding: 24px 20px 12px 20px;
     margin-bottom: 16px;
 }
 
 .about-text {
-    margin-bottom: 6px;
+    margin-bottom: 12px;
 }
 
 .about-subtitle {
-    margin-bottom: 16px;
+    margin-bottom: 8px;
 }
 
 .about-bio {
-    margin-bottom: 9px;
+    margin-bottom: 18px;
 }
 
 .about-list {
-    margin: 0 0 9px 0;
+    margin: 0 0 18px 0;
 }
 
 .about-signature {
-    margin-top: 6px;
+    margin-top: 12px;
 }
 
 /* Style dla elementów w sekcji "O mnie" */
@@ -279,7 +277,7 @@ section {
 }
 
 .about-text-block {
-    padding: 24px 0 12px 0;
+    padding: 24px 20px 12px 20px;
     background: var(--color-white);
     width: 100%;
     box-sizing: border-box;
@@ -322,7 +320,7 @@ section {
     letter-spacing: 0.01em;
 }
 @media (min-width: 600px) {
-    .about-text-block { padding: 32px 0 16px 0; }
+    .about-text-block { padding: 32px 32px 16px 32px; }
 }
 
 /* ===== SEKCJA PROJEKTY ===== */
@@ -599,7 +597,7 @@ main {
     .about-text-block { padding: 32px 0 16px 0; }
     .project-image { max-height: 340px; }
     .project-info-block { padding: 28px 32px 12px 32px; }
-    .contact-info-block, .contact-form-block { padding: 28px 0 12px 0; }
+    .contact-info-block, .contact-form-block { padding: 28px 32px 12px 32px; }
 }
 
 /* ===== SEPARATOR ===== */
