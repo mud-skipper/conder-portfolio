@@ -40,14 +40,12 @@
 /* ===== ZMIENNE CSS ===== */
 :root {
     /* Kolory retro */
-    --color-cream: #f5f5dc;
     --color-yellow: #FFD600;
     --color-orange: #FFA000;
     --color-red: #FF2D2D;
     --color-black: #000000;
     --color-white: #FFFFFF;
     --color-gray: #666666;
-    --color-light-gray: #e0e0e0;
     --color-separator: #E0E0E0;
     
     /* Typografia */
@@ -112,15 +110,7 @@ body {
 
 /* ===== SEKCJE OGÓLNE ===== */
 section {
-    /* Usunięte wszystkie style */
-}
-
-.section-title {
-    /* Usunięte wszystkie style */
-}
-
-.section-title::after {
-    /* Usunięte wszystkie style */
+    /* Podstawowe style sekcji */
 }
 
 /* Nagłówki sekcji - tylko podstawowe kolory */
@@ -188,25 +178,7 @@ section {
     margin-bottom: 1.5em; /* Jedna linia odstępu między sekcjami */
 }
 
-.about-text {
-    /* Usunięte wszystkie style */
-}
-
-.about-subtitle {
-    /* Usunięte wszystkie style */
-}
-
-.about-bio {
-    /* Usunięte wszystkie style */
-}
-
-.about-list {
-    /* Usunięte wszystkie style */
-}
-
-.about-signature {
-    /* Usunięte wszystkie style */
-}
+/* Usunięte nieużywane style */
 
 /* Style dla elementów w sekcji "O mnie" - tylko podstawowe */
 .about-text {
@@ -232,9 +204,7 @@ section {
     background: #cccccc; /* Pośredni kolor - nie za jasny, nie za ciemny */
 }
 
-.about-text-block {
-    /* Usunięte wszystkie style */
-}
+/* Usunięte nieużywane style */
 
 .about-bio {
     font-size: 1em;
@@ -263,12 +233,7 @@ section {
     font-weight: 700;
 }
 
-.about-signature {
-    font-size: 0.95em;
-    color: var(--color-black);
-    font-weight: 400;
-    letter-spacing: 0.01em;
-}
+/* Usunięte nieużywane style */
 
 /* ===== SEKCJA PROJEKTY ===== */
 .projects-section {
@@ -300,24 +265,7 @@ section {
     border: none;
 }
 
-.gallery-arrow {
-    display: none;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255,255,255,0.85);
-    border: none;
-    font-size: 2em;
-    color: var(--color-black);
-    z-index: 2;
-    padding: 0 10px;
-    cursor: pointer;
-    border-radius: 50%;
-    box-shadow: none;
-}
-
-.gallery-arrow.left { left: 8px; }
-.gallery-arrow.right { right: 8px; }
+/* Usunięte nieużywane style nawigacji galerii */
 
 .project-info-block {
     width: 100%;
@@ -401,69 +349,7 @@ section {
     text-decoration: underline dotted;
 }
 
-.contact-info-block {
-    width: 100%;
-    background: var(--color-white);
-    box-sizing: border-box;
-}
-
-.contact-form-block {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    background: var(--color-white);
-    box-sizing: border-box;
-}
-
-.contact-input, .contact-textarea {
-    width: 100%;
-    border: 1px solid var(--color-separator);
-    border-radius: 8px;
-    padding: 12px;
-    font-size: 1em;
-    color: var(--color-black);
-    background: var(--color-white);
-    outline: none;
-    margin: 0;
-    box-sizing: border-box;
-    resize: none;
-}
-
-.contact-input:focus, .contact-textarea:focus {
-    border-color: var(--color-yellow);
-}
-
-.contact-btn-row {
-    display: flex;
-    flex-direction: row;
-    gap: 4%;
-    width: 100%;
-}
-
-.contact-btn {
-    flex: 1 1 48%;
-    height: 40px;
-    border: none;
-    outline: none;
-    font-size: 1.1em;
-    font-weight: 700;
-    text-transform: lowercase;
-    color: var(--color-white);
-    border-radius: 8px;
-    cursor: pointer;
-    letter-spacing: 0.01em;
-    transition: background 0.2s;
-}
-
-.contact-btn-send {
-    background: var(--color-red);
-}
-
-.contact-btn-cv {
-    background: var(--color-yellow);
-    color: var(--color-black);
-}
+/* Usunięte nieużywane style formularza kontaktowego */
 
 /* ===== RESPONSYWNOŚĆ ===== */
 @media (min-width: 768px) {
@@ -491,34 +377,9 @@ section {
     }
 }
 
-/* ===== ANIMACJE I EFEKTY ===== */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+/* Usunięte nieużywane animacje */
 
-.about-content,
-.project-card,
-.contact-form {
-    animation: fadeInUp 0.8s ease-out;
-}
-
-/* ===== PLACEHOLDERY ===== */
-.profile-placeholder,
-.image-placeholder {
-    background: linear-gradient(45deg, var(--color-light-gray) 25%, transparent 25%), 
-                linear-gradient(-45deg, var(--color-light-gray) 25%, transparent 25%), 
-                linear-gradient(45deg, transparent 75%, var(--color-light-gray) 75%), 
-                linear-gradient(-45deg, transparent 75%, var(--color-light-gray) 75%);
-    background-size: 20px 20px;
-    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-}
+/* Usunięte nieużywane placeholdery */
 
 /* ===== EDGE-TO-EDGE ===== */
 main {
