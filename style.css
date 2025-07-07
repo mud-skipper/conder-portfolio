@@ -251,7 +251,7 @@ section {
     font-size: 1em;
     color: var(--color-black);
     text-indent: -18px; /* Wcięcie dla zawijających się linii */
-    padding-left: 36px; /* Padding dla kropki i wcięcia */
+    padding-left: 18px; /* Padding tylko dla wcięcia */
     margin-top: 0.5em; /* Odsunięcie tekstu od linii */
 }
 
