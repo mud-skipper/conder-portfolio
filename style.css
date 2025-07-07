@@ -243,15 +243,16 @@ section {
 
 .about-list {
     list-style-type: none;
+    margin-top: 0.5em; /* Odsunięcie pierwszej linii od nagłówka */
 }
 
 .about-list li {
     position: relative;
-    padding-left: 18px;
     font-size: 1em;
     color: var(--color-black);
     text-indent: -18px; /* Wcięcie dla zawijających się linii */
-    padding-left: 36px; /* Zwiększone padding żeby zrobić miejsce na wcięcie */
+    padding-left: 36px; /* Padding dla kropki i wcięcia */
+    margin-top: 0.5em; /* Odsunięcie tekstu od linii */
 }
 
 .about-list li::before {
