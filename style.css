@@ -45,9 +45,9 @@
 .about-content article,
 .about-content ul,
 .about-content li {
-    margin: 0 !important;
-    padding: 0 !important;
-    line-height: 1.4 !important;
+    margin: 0;
+    padding: 0;
+    line-height: 1.4;
 }
 
 /* ===== ZMIENNE CSS ===== */
@@ -218,41 +218,36 @@ section {
     margin: 0;
 }
 
-/* WYMUSZENIE MAŁYCH MARGINESÓW DLA WSZYSTKICH ELEMENTÓW W SEKCJI "O MNIE" */
-.about-content *,
-.about-content h3,
-.about-content p,
-.about-content div,
-.about-content section,
-.about-content article {
-    margin: 0 !important;
-    padding: 0 !important;
-    line-height: 1.4 !important;
+/* NORMALNE MARGINESY DLA ELEMENTÓW W SEKCJI "O MNIE" */
+.about-content * {
+    margin: 0;
+    padding: 0;
+    line-height: 1.4;
 }
 
 .about-section-block {
-    padding: 24px 0 12px 0 !important;
-    margin-bottom: 4px !important;
+    padding: 24px 0 12px 0;
+    margin-bottom: 16px;
 }
 
 .about-text {
-    margin-bottom: 6px !important;
+    margin-bottom: 6px;
 }
 
 .about-subtitle {
-    margin-bottom: 8px !important;
+    margin-bottom: 16px;
 }
 
 .about-bio {
-    margin-bottom: 9px !important;
+    margin-bottom: 9px;
 }
 
 .about-list {
-    margin: 0 0 9px 0 !important;
+    margin: 0 0 9px 0;
 }
 
 .about-signature {
-    margin-top: 6px !important;
+    margin-top: 6px;
 }
 
 /* Dodaję brakujące style dla .about-section-block i .about-text */
