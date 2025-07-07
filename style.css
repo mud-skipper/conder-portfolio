@@ -37,6 +37,19 @@
     box-sizing: border-box;
 }
 
+/* RESET DLA ELEMENTÓW HTML W SEKCJI "O MNIE" */
+.about-content h3,
+.about-content p,
+.about-content div,
+.about-content section,
+.about-content article,
+.about-content ul,
+.about-content li {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1.4 !important;
+}
+
 /* ===== ZMIENNE CSS ===== */
 :root {
     /* Kolory retro */
@@ -206,9 +219,15 @@ section {
 }
 
 /* WYMUSZENIE MAŁYCH MARGINESÓW DLA WSZYSTKICH ELEMENTÓW W SEKCJI "O MNIE" */
-.about-content * {
+.about-content *,
+.about-content h3,
+.about-content p,
+.about-content div,
+.about-content section,
+.about-content article {
     margin: 0 !important;
     padding: 0 !important;
+    line-height: 1.4 !important;
 }
 
 .about-section-block {
