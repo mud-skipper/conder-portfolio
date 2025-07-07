@@ -229,7 +229,7 @@ section {
     left: 0;
     right: 0;
     height: 1px;
-    background: var(--color-light-gray); /* Jaśniejszy kolor */
+    background: #cccccc; /* Pośredni kolor - nie za jasny, nie za ciemny */
 }
 
 .about-text-block {
@@ -250,6 +250,8 @@ section {
     padding-left: 18px;
     font-size: 1em;
     color: var(--color-black);
+    text-indent: -18px; /* Wcięcie dla zawijających się linii */
+    padding-left: 36px; /* Zwiększone padding żeby zrobić miejsce na wcięcie */
 }
 
 .about-list li::before {
