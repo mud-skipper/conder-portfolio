@@ -134,11 +134,14 @@ section {
     content: '';
     position: absolute;
     left: 0;
-    top: 0;
+    top: 50%;
+    transform: translateY(-50%);
     width: 100%;
     height: 20px;
     background: var(--color-yellow);
     z-index: -1;
+    /* DEBUG - tymczasowo dodane obramowanie */
+    border: 1px solid red;
 }
 
 .section-header-orange {
@@ -161,11 +164,14 @@ section {
     content: '';
     position: absolute;
     left: 0;
-    top: 0;
+    top: 50%;
+    transform: translateY(-50%);
     width: 100%;
     height: 20px;
     background: var(--color-orange);
     z-index: -1;
+    /* DEBUG - tymczasowo dodane obramowanie */
+    border: 1px solid blue;
 }
 
 .section-header-red {
@@ -188,11 +194,14 @@ section {
     content: '';
     position: absolute;
     left: 0;
-    top: 0;
+    top: 50%;
+    transform: translateY(-50%);
     width: 100%;
     height: 20px;
     background: var(--color-red);
     z-index: -1;
+    /* DEBUG - tymczasowo dodane obramowanie */
+    border: 1px solid green;
 }
 
 /* ===== SEKCJA O MNIE ===== */
