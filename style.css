@@ -475,9 +475,9 @@ main {
 
 .diagonal-line {
     width: 4px;
-    height: 20px;
+    height: 30px;
     background: var(--color-white);
-    transform: rotate(45deg);
+    transform: rotate(-45deg);
 }
 
  
