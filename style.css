@@ -138,7 +138,7 @@ section {
     top: 50%;
     transform: translateY(-50%);
     height: 20px; /* Dokładnie 20px wysokości */
-    width: calc(100vw - 100% - 0.5em - 40px - 20px); /* Od tekstu do prawej krawędzi body */
+    width: 200px; /* Stała szerokość dla testu */
     background: repeating-linear-gradient(
         45deg,
         transparent,
@@ -173,7 +173,7 @@ section {
     top: 50%;
     transform: translateY(-50%);
     height: 20px; /* Dokładnie 20px wysokości */
-    width: calc(100vw - 100% - 0.5em - 40px - 20px); /* Od tekstu do prawej krawędzi body */
+    width: 200px; /* Stała szerokość dla testu */
     background: repeating-linear-gradient(
         45deg,
         transparent,
@@ -208,7 +208,7 @@ section {
     top: 50%;
     transform: translateY(-50%);
     height: 20px; /* Dokładnie 20px wysokości */
-    width: calc(100vw - 100% - 0.5em - 40px - 20px); /* Od tekstu do prawej krawędzi body */
+    width: 200px; /* Stała szerokość dla testu */
     background: repeating-linear-gradient(
         45deg,
         transparent,
