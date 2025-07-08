@@ -490,6 +490,8 @@ section {
 .contact-item {
     font-size: 1em;
     color: var(--color-black);
+    line-height: 1.6;
+    margin-bottom: 12px;
 }
 
 .contact-item strong {
