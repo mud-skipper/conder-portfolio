@@ -115,7 +115,7 @@ section {
 
 /* Nagłówki sekcji - z kolorowymi paskami */
 .section-header-yellow {
-    background: transparent;
+    background: red !important; /* TEST - usunąć po sprawdzeniu */
     color: var(--color-black);
     font-weight: 800;
     padding: 0;
@@ -129,22 +129,10 @@ section {
     text-transform: uppercase;
     position: relative;
     margin-bottom: 0.5em;
-}
-
-.section-header-yellow::after {
-    content: '';
-    position: absolute;
-    left: calc(100% + 0.5em); /* Spacja za nagłówkiem */
-    top: 50%;
-    transform: translateY(-50%);
-    height: 20px; /* Taka sama wysokość jak czcionka */
-    width: calc(100vw - 100% - 0.5em - 40px - 20px); /* Od tekstu do paddingu 20px z prawej */
-    background: var(--color-yellow); /* Kolor z roadmapy */
-    z-index: 1;
 }
 
 .section-header-orange {
-    background: transparent;
+    background: blue !important; /* TEST - usunąć po sprawdzeniu */
     color: var(--color-black);
     font-weight: 800;
     padding: 0;
@@ -158,22 +146,10 @@ section {
     text-transform: uppercase;
     position: relative;
     margin-bottom: 0.5em;
-}
-
-.section-header-orange::after {
-    content: '';
-    position: absolute;
-    left: calc(100% + 0.5em); /* Spacja za nagłówkiem */
-    top: 50%;
-    transform: translateY(-50%);
-    height: 20px; /* Taka sama wysokość jak czcionka */
-    width: calc(100vw - 100% - 0.5em - 40px - 20px); /* Od tekstu do paddingu 20px z prawej */
-    background: var(--color-orange); /* Kolor z roadmapy */
-    z-index: 1;
 }
 
 .section-header-red {
-    background: transparent;
+    background: green !important; /* TEST - usunąć po sprawdzeniu */
     color: var(--color-black);
     font-weight: 800;
     padding: 0;
@@ -187,18 +163,6 @@ section {
     text-transform: uppercase;
     position: relative;
     margin-bottom: 0.5em;
-}
-
-.section-header-red::after {
-    content: '';
-    position: absolute;
-    left: calc(100% + 0.5em); /* Spacja za nagłówkiem */
-    top: 50%;
-    transform: translateY(-50%);
-    height: 20px; /* Taka sama wysokość jak czcionka */
-    width: calc(100vw - 100% - 0.5em - 40px - 20px); /* Od tekstu do paddingu 20px z prawej */
-    background: var(--color-red); /* Kolor z roadmapy */
-    z-index: 1;
 }
 
 /* ===== SEKCJA O MNIE ===== */
