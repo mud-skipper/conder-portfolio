@@ -38,34 +38,44 @@ function displayProjects(projects) {
         return;
     }
 
-    const projectsHTML = projects.map(project => {
+    const projectsHTML = projects.map((project, projectIndex) => {
         // Sprawdź czy projekt ma zdjęcia
         const hasImages = project.images && project.images.length > 0;
         const mainImage = hasImages ? project.images[0] : (project.image || 'project-placeholder.jpg');
         
-        // Przygotuj HTML dla zdjęć z nawigacją
+        // Przygotuj HTML dla zdjęć z minimalistycznymi strzałkami
         const imagesHTML = hasImages ? `
             <div class="project-images" data-project-id="${project.id}">
-                ${project.images.map((image, index) => `
-                    <img src="uploads/${image}" 
-                         alt="${project.title} - zdjęcie ${index + 1}" 
-                         class="project-image ${index === 0 ? 'main-image active' : ''}"
-                         data-index="${index}"
-                         onerror="this.src='project-placeholder.jpg'; this.style.display='none';"
-                         loading="lazy">
-                `).join('')}
-                
-                ${project.images.length > 1 ? `
-                    <div class="image-counter">1/${project.images.length}</div>
-                ` : ''}
+                <div class="image-container">
+                    ${project.images.map((image, index) => `
+                        <img src="uploads/${image}" 
+                             alt="${project.title} - zdjęcie ${index + 1}" 
+                             class="project-image ${index === 0 ? 'active' : ''}"
+                             data-index="${index}"
+                             onerror="this.src='project-placeholder.jpg'; this.style.display='none';"
+                             loading="lazy">
+                    `).join('')}
+                    
+                    ${project.images.length > 1 ? `
+                        <button class="image-nav-btn image-nav-prev" onclick="changeImage(${project.id}, -1)">
+                            <span class="nav-arrow">‹</span>
+                        </button>
+                        <button class="image-nav-btn image-nav-next" onclick="changeImage(${project.id}, 1)">
+                            <span class="nav-arrow">›</span>
+                        </button>
+                        <div class="image-counter">1/${project.images.length}</div>
+                    ` : ''}
+                </div>
             </div>
         ` : `
             <div class="project-images">
-                <img src="${mainImage.startsWith('uploads/') ? mainImage : `uploads/${mainImage}`}" 
-                     alt="${project.title}" 
-                     class="project-image main-image active"
-                     onerror="this.src='project-placeholder.jpg';"
-                     loading="lazy">
+                <div class="image-container">
+                    <img src="${mainImage.startsWith('uploads/') ? mainImage : `uploads/${mainImage}`}" 
+                         alt="${project.title}" 
+                         class="project-image active"
+                         onerror="this.src='project-placeholder.jpg';"
+                         loading="lazy">
+                </div>
             </div>
         `;
 
@@ -86,60 +96,61 @@ function displayProjects(projects) {
 
         return `
             <div class="project-card" data-project-id="${project.id}">
-                <div class="project-header">
-                    <h3 class="project-title">${project.title}</h3>
-                    <div class="project-meta">
-                        <span class="project-year">${displayYear}</span>
-                        <span class="project-location">${displayLocation}</span>
-                    </div>
-                </div>
+                <!-- 1. Nazwa inwestycji -->
+                <h3 class="project-title">${project.title}</h3>
                 
+                <!-- 2. Lokalizacja -->
+                <div class="project-location">${displayLocation}</div>
+                
+                <!-- 3. Zdjęcie z nawigacją -->
                 ${imagesHTML}
                 
-                <div class="project-content">
-                    <div class="project-description">
-                        <p>${project.description}</p>
-                    </div>
-                    
-                    <div class="project-details">
-                        ${displayAuthor ? `
-                            <div class="project-detail">
-                                <strong>Autor:</strong> ${displayAuthor}
-                            </div>
-                        ` : ''}
-                        <div class="project-detail">
-                            <strong>Typ:</strong> ${displayProjectType || displayType || 'Brak'}
-                        </div>
-                        ${project.totalArea ? `
-                            <div class="project-detail">
-                                <strong>Powierzchnia całkowita:</strong> ${project.totalArea}
-                            </div>
-                        ` : ''}
-                        ${project.usableArea ? `
-                            <div class="project-detail">
-                                <strong>Powierzchnia użytkowa:</strong> ${project.usableArea}
-                            </div>
-                        ` : ''}
-                        ${!project.totalArea && !project.usableArea && project.area ? `
-                            <div class="project-detail">
-                                <strong>Powierzchnia:</strong> ${project.area}
-                            </div>
-                        ` : ''}
-                        <div class="project-detail">
-                            <strong>Status:</strong> ${project.stage || project.status || 'Brak'}
-                        </div>
-                        ${project.investor ? `
-                            <div class="project-detail">
-                                <strong>Inwestor:</strong> ${project.investor}
-                            </div>
-                        ` : ''}
-                        ${project.designer ? `
-                            <div class="project-detail">
-                                <strong>Projektant:</strong> ${project.designer}
-                            </div>
-                        ` : ''}
-                    </div>
+                <!-- 4. Opis -->
+                <div class="project-description">
+                    <p>${project.description}</p>
                 </div>
+                
+                <!-- 5. Dane szczegółowe -->
+                <div class="project-details">
+                    ${displayAuthor ? `
+                        <div class="project-detail">
+                            <strong>Autor:</strong> ${displayAuthor}
+                        </div>
+                    ` : ''}
+                    <div class="project-detail">
+                        <strong>Typ:</strong> ${displayProjectType || displayType || 'Brak'}
+                    </div>
+                    ${project.totalArea ? `
+                        <div class="project-detail">
+                            <strong>Powierzchnia całkowita:</strong> ${project.totalArea}
+                        </div>
+                    ` : ''}
+                    ${project.usableArea ? `
+                        <div class="project-detail">
+                            <strong>Powierzchnia użytkowa:</strong> ${project.usableArea}
+                        </div>
+                    ` : ''}
+                    ${!project.totalArea && !project.usableArea && project.area ? `
+                        <div class="project-detail">
+                            <strong>Powierzchnia:</strong> ${project.area}
+                        </div>
+                    ` : ''}
+                    <div class="project-detail">
+                        <strong>Status:</strong> ${project.stage || project.status || 'Brak'}
+                    </div>
+                    ${project.investor ? `
+                        <div class="project-detail">
+                            <strong>Inwestor:</strong> ${project.investor}
+                        </div>
+                    ` : ''}
+                    ${project.designer ? `
+                        <div class="project-detail">
+                            <strong>Projektant:</strong> ${project.designer}
+                        </div>
+                    ` : ''}
+                </div>
+                
+                ${projectIndex < projects.length - 1 ? '<div class="project-separator"></div>' : ''}
             </div>
         `;
     }).join('');
@@ -169,6 +180,37 @@ function initAutoRefresh() {
         loadProjectsFromJSON();
         loadAboutData();
     }, 30000); // 30 sekund
+}
+
+// ===== FUNKCJA NAWIGACJI ZDJĘĆ =====
+function changeImage(projectId, direction) {
+    const projectImages = document.querySelectorAll(`[data-project-id="${projectId}"] .project-image`);
+    const counter = document.querySelector(`[data-project-id="${projectId}"] .image-counter`);
+    
+    if (projectImages.length <= 1) return;
+    
+    let currentIndex = 0;
+    projectImages.forEach((img, index) => {
+        if (img.classList.contains('active')) {
+            currentIndex = index;
+        }
+    });
+    
+    // Ukryj aktualne zdjęcie
+    projectImages[currentIndex].classList.remove('active');
+    
+    // Oblicz nowy indeks
+    let newIndex = currentIndex + direction;
+    if (newIndex < 0) newIndex = projectImages.length - 1;
+    if (newIndex >= projectImages.length) newIndex = 0;
+    
+    // Pokaż nowe zdjęcie
+    projectImages[newIndex].classList.add('active');
+    
+    // Zaktualizuj licznik
+    if (counter) {
+        counter.textContent = `${newIndex + 1}/${projectImages.length}`;
+    }
 }
 
 // ===== ŁADOWANIE DANYCH "O MNIE" =====
