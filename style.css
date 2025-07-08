@@ -469,13 +469,13 @@ main {
     top: 50%;
     transform: translateY(-50%);
     display: flex;
-    gap: 4px;
+    gap: 8px;
     z-index: 2;
 }
 
 .diagonal-line {
     width: 4px;
-    height: 30px;
+    height: 32px;
     background: var(--color-white);
     transform: rotate(-45deg);
 }
