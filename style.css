@@ -113,7 +113,7 @@ section {
     /* Podstawowe style sekcji */
 }
 
-/* Nagłówki sekcji - podstawowy styl */
+/* Nagłówki sekcji - z kolorowymi paskami zebry */
 .section-header-yellow {
     background: transparent;
     color: var(--color-black);
@@ -129,6 +129,24 @@ section {
     text-transform: uppercase;
     position: relative;
     margin-bottom: 0.5em;
+}
+
+.section-header-yellow::after {
+    content: '';
+    position: absolute;
+    left: calc(100% + 0.5em); /* Spacja za nagłówkiem */
+    top: 50%;
+    transform: translateY(-50%);
+    height: 20px; /* Taka sama wysokość jak czcionka */
+    width: calc(100vw - 100% - 0.5em - 40px - 20px); /* Od tekstu do paddingu 20px z prawej */
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 4px,
+        var(--color-yellow) 4px,
+        var(--color-yellow) 8px
+    );
+    z-index: 1;
 }
 
 .section-header-orange {
@@ -148,6 +166,24 @@ section {
     margin-bottom: 0.5em;
 }
 
+.section-header-orange::after {
+    content: '';
+    position: absolute;
+    left: calc(100% + 0.5em); /* Spacja za nagłówkiem */
+    top: 50%;
+    transform: translateY(-50%);
+    height: 20px; /* Taka sama wysokość jak czcionka */
+    width: calc(100vw - 100% - 0.5em - 40px - 20px); /* Od tekstu do paddingu 20px z prawej */
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 4px,
+        var(--color-orange) 4px,
+        var(--color-orange) 8px
+    );
+    z-index: 1;
+}
+
 .section-header-red {
     background: transparent;
     color: var(--color-black);
@@ -163,6 +199,24 @@ section {
     text-transform: uppercase;
     position: relative;
     margin-bottom: 0.5em;
+}
+
+.section-header-red::after {
+    content: '';
+    position: absolute;
+    left: calc(100% + 0.5em); /* Spacja za nagłówkiem */
+    top: 50%;
+    transform: translateY(-50%);
+    height: 20px; /* Taka sama wysokość jak czcionka */
+    width: calc(100vw - 100% - 0.5em - 40px - 20px); /* Od tekstu do paddingu 20px z prawej */
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 4px,
+        var(--color-red) 4px,
+        var(--color-red) 8px
+    );
+    z-index: 1;
 }
 
 /* ===== SEKCJA O MNIE ===== */
