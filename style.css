@@ -132,21 +132,17 @@ section {
 }
 
 .section-header-yellow::after {
-    content: '';
-    position: absolute;
-    left: calc(100% + 0.5em); /* Spacja za nagłówkiem */
-    top: 50%;
-    transform: translateY(-50%);
-    height: 20px; /* Taka sama wysokość jak czcionka */
-    width: calc(100vw - 100% - 0.5em - 40px - 20px); /* Od tekstu do paddingu 20px z prawej */
-    background: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 4px,
-        var(--color-yellow) 4px,
-        var(--color-yellow) 8px
-    );
-    z-index: 1;
+    content: '' !important;
+    position: absolute !important;
+    left: calc(100% + 20px) !important; /* Poza ramką body */
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    height: 20px !important; /* Taka sama wysokość jak czcionka */
+    width: 200px !important; /* Stała szerokość na test */
+    background: var(--color-yellow) !important; /* Prosty kolor zamiast gradientu */
+    z-index: 9999 !important;
+    border: 2px solid red !important; /* DEBUG - usunąć po sprawdzeniu */
+    background-color: rgba(255, 0, 0, 0.3) !important; /* DEBUG - usunąć po sprawdzeniu */
 }
 
 .section-header-orange {
@@ -167,21 +163,17 @@ section {
 }
 
 .section-header-orange::after {
-    content: '';
-    position: absolute;
-    left: calc(100% + 0.5em); /* Spacja za nagłówkiem */
-    top: 50%;
-    transform: translateY(-50%);
-    height: 20px; /* Taka sama wysokość jak czcionka */
-    width: calc(100vw - 100% - 0.5em - 40px - 20px); /* Od tekstu do paddingu 20px z prawej */
-    background: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 4px,
-        var(--color-orange) 4px,
-        var(--color-orange) 8px
-    );
-    z-index: 1;
+    content: '' !important;
+    position: absolute !important;
+    left: calc(100% + 20px) !important; /* Poza ramką body */
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    height: 20px !important; /* Taka sama wysokość jak czcionka */
+    width: 200px !important; /* Stała szerokość na test */
+    background: var(--color-orange) !important; /* Prosty kolor zamiast gradientu */
+    z-index: 9999 !important;
+    border: 2px solid blue !important; /* DEBUG - usunąć po sprawdzeniu */
+    background-color: rgba(0, 0, 255, 0.3) !important; /* DEBUG - usunąć po sprawdzeniu */
 }
 
 .section-header-red {
@@ -202,21 +194,17 @@ section {
 }
 
 .section-header-red::after {
-    content: '';
-    position: absolute;
-    left: calc(100% + 0.5em); /* Spacja za nagłówkiem */
-    top: 50%;
-    transform: translateY(-50%);
-    height: 20px; /* Taka sama wysokość jak czcionka */
-    width: calc(100vw - 100% - 0.5em - 40px - 20px); /* Od tekstu do paddingu 20px z prawej */
-    background: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 4px,
-        var(--color-red) 4px,
-        var(--color-red) 8px
-    );
-    z-index: 1;
+    content: '' !important;
+    position: absolute !important;
+    left: calc(100% + 20px) !important; /* Poza ramką body */
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    height: 20px !important; /* Taka sama wysokość jak czcionka */
+    width: 200px !important; /* Stała szerokość na test */
+    background: var(--color-red) !important; /* Prosty kolor zamiast gradientu */
+    z-index: 9999 !important;
+    border: 2px solid green !important; /* DEBUG - usunąć po sprawdzeniu */
+    background-color: rgba(0, 255, 0, 0.3) !important; /* DEBUG - usunąć po sprawdzeniu */
 }
 
 /* ===== SEKCJA O MNIE ===== */
