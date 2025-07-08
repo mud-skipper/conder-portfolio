@@ -95,7 +95,7 @@ body {
     box-sizing: border-box;
     min-height: 100vh;
     position: relative;
-    overflow-x: hidden; /* Przywrócone hidden żeby nie było poziomego scrollu */
+    overflow-x: visible; /* Zmienione na visible żeby paski były widoczne */
 }
 
 .container {
@@ -147,8 +147,8 @@ section {
 
 .section-header-yellow::before {
     content: '';
-    position: fixed; /* Fixed względem viewport */
-    right: 20px; /* 20px od prawej krawędzi ekranu */
+    position: absolute; /* Absolute względem nagłówka */
+    right: calc(-20px - (100vw - 767px) / 2); /* Uwzględnia ramkę body + centrowanie body */
     top: 50%;
     transform: translateY(-50%);
     height: 1.2em;
@@ -196,8 +196,8 @@ section {
 
 .section-header-orange::before {
     content: '';
-    position: fixed; /* Fixed względem viewport */
-    right: 20px; /* 20px od prawej krawędzi ekranu */
+    position: absolute; /* Absolute względem nagłówka */
+    right: calc(-20px - (100vw - 767px) / 2); /* Uwzględnia ramkę body + centrowanie body */
     top: 50%;
     transform: translateY(-50%);
     height: 1.2em;
@@ -245,8 +245,8 @@ section {
 
 .section-header-red::before {
     content: '';
-    position: fixed; /* Fixed względem viewport */
-    right: 20px; /* 20px od prawej krawędzi ekranu */
+    position: absolute; /* Absolute względem nagłówka */
+    right: calc(-20px - (100vw - 767px) / 2); /* Uwzględnia ramkę body + centrowanie body */
     top: 50%;
     transform: translateY(-50%);
     height: 1.2em;
