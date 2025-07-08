@@ -121,7 +121,7 @@ section {
     padding: 0;
     border-radius: 0;
     text-align: left;
-    font-size: 1.3em; /* Powiększona czcionka */
+    font-size: 20px; /* Dokładnie 20px wysokości czcionki */
     height: 34px;
     width: 100%;
     display: flex;
@@ -137,7 +137,7 @@ section {
     left: calc(100% + 0.5em); /* Jedna litera odstępu od tekstu */
     top: 50%;
     transform: translateY(-50%);
-    height: 1.2em; /* Wysokość liter */
+    height: 20px; /* Dokładnie 20px wysokości */
     background: var(--color-yellow);
     width: calc(100vw - 100% - 0.5em - 120px - 40px - 20px); /* Responsywna szerokość - od tekstu do "zebry" z paddingiem */
     border-radius: 0;
@@ -151,7 +151,7 @@ section {
     right: 0px; /* 20px od prawej krawędzi body (ramka 20px + padding 20px) */
     top: 50%;
     transform: translateY(-50%);
-    height: 1.2em;
+    height: 20px; /* Dokładnie 20px wysokości */
     width: 120px; /* Stała szerokość "zebry" - nieresponsywna */
     background: repeating-linear-gradient(
         45deg,
@@ -170,7 +170,7 @@ section {
     padding: 0;
     border-radius: 0;
     text-align: left;
-    font-size: 1.3em; /* Powiększona czcionka */
+    font-size: 20px; /* Dokładnie 20px wysokości czcionki */
     height: 34px;
     width: 100%;
     display: flex;
@@ -186,7 +186,7 @@ section {
     left: calc(100% + 0.5em); /* Jedna litera odstępu od tekstu */
     top: 50%;
     transform: translateY(-50%);
-    height: 1.2em; /* Wysokość liter */
+    height: 20px; /* Dokładnie 20px wysokości */
     background: var(--color-orange);
     width: calc(100vw - 100% - 0.5em - 120px - 40px - 20px); /* Responsywna szerokość - od tekstu do "zebry" z paddingiem */
     border-radius: 0;
@@ -200,7 +200,7 @@ section {
     right: 0px; /* 20px od prawej krawędzi body (ramka 20px + padding 20px) */
     top: 50%;
     transform: translateY(-50%);
-    height: 1.2em;
+    height: 20px; /* Dokładnie 20px wysokości */
     width: 120px; /* Stała szerokość "zebry" - nieresponsywna */
     background: repeating-linear-gradient(
         45deg,
@@ -219,7 +219,7 @@ section {
     padding: 0;
     border-radius: 0;
     text-align: left;
-    font-size: 1.3em; /* Powiększona czcionka */
+    font-size: 20px; /* Dokładnie 20px wysokości czcionki */
     height: 34px;
     width: 100%;
     display: flex;
@@ -235,7 +235,7 @@ section {
     left: calc(100% + 0.5em); /* Jedna litera odstępu od tekstu */
     top: 50%;
     transform: translateY(-50%);
-    height: 1.2em; /* Wysokość liter */
+    height: 20px; /* Dokładnie 20px wysokości */
     background: var(--color-red);
     width: calc(100vw - 100% - 0.5em - 120px - 40px - 20px); /* Responsywna szerokość - od tekstu do "zebry" z paddingiem */
     border-radius: 0;
@@ -249,7 +249,7 @@ section {
     right: 0px; /* 20px od prawej krawędzi body (ramka 20px + padding 20px) */
     top: 50%;
     transform: translateY(-50%);
-    height: 1.2em;
+    height: 20px; /* Dokładnie 20px wysokości */
     width: 120px; /* Stała szerokość "zebry" - nieresponsywna */
     background: repeating-linear-gradient(
         45deg,
