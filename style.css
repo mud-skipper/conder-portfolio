@@ -113,9 +113,8 @@ section {
     /* Podstawowe style sekcji */
 }
 
-/* Nagłówki sekcji - z kolorowymi paskami */
+/* Nagłówki sekcji - czyste, bez kolorowych pasków */
 .section-header-yellow {
-    background: red !important; /* TEST - usunąć po sprawdzeniu */
     color: var(--color-black);
     font-weight: 800;
     padding: 0;
@@ -127,12 +126,10 @@ section {
     display: flex;
     align-items: center;
     text-transform: uppercase;
-    position: relative;
     margin-bottom: 0.5em;
 }
 
 .section-header-orange {
-    background: blue !important; /* TEST - usunąć po sprawdzeniu */
     color: var(--color-black);
     font-weight: 800;
     padding: 0;
@@ -144,12 +141,10 @@ section {
     display: flex;
     align-items: center;
     text-transform: uppercase;
-    position: relative;
     margin-bottom: 0.5em;
 }
 
 .section-header-red {
-    background: green !important; /* TEST - usunąć po sprawdzeniu */
     color: var(--color-black);
     font-weight: 800;
     padding: 0;
@@ -161,7 +156,6 @@ section {
     display: flex;
     align-items: center;
     text-transform: uppercase;
-    position: relative;
     margin-bottom: 0.5em;
 }
 
