@@ -95,7 +95,7 @@ body {
     box-sizing: border-box;
     min-height: 100vh;
     position: relative;
-    overflow-x: hidden;
+    overflow-x: visible; /* Zmienione na visible żeby paski były widoczne */
 }
 
 .container {
@@ -139,9 +139,8 @@ section {
     transform: translateY(-50%);
     height: 1.2em; /* Wysokość liter */
     background: var(--color-yellow);
-    width: calc(100vw - 100% - 0.5em - 120px - 40px); /* Responsywny, ale przyczepiony do tekstu, uwzględnia ramkę body */
+    width: 200px; /* Stała szerokość paska - prostsze rozwiązanie */
     border-radius: 0;
-    min-width: 50px; /* Minimalna szerokość paska */
 }
 
 .section-header-yellow::before {
@@ -187,9 +186,8 @@ section {
     transform: translateY(-50%);
     height: 1.2em; /* Wysokość liter */
     background: var(--color-orange);
-    width: calc(100vw - 100% - 0.5em - 120px - 40px); /* Responsywny, ale przyczepiony do tekstu, uwzględnia ramkę body */
+    width: 200px; /* Stała szerokość paska - prostsze rozwiązanie */
     border-radius: 0;
-    min-width: 50px; /* Minimalna szerokość paska */
 }
 
 .section-header-orange::before {
@@ -235,9 +233,8 @@ section {
     transform: translateY(-50%);
     height: 1.2em; /* Wysokość liter */
     background: var(--color-red);
-    width: calc(100vw - 100% - 0.5em - 120px - 40px); /* Responsywny, ale przyczepiony do tekstu, uwzględnia ramkę body */
+    width: 200px; /* Stała szerokość paska - prostsze rozwiązanie */
     border-radius: 0;
-    min-width: 50px; /* Minimalna szerokość paska */
 }
 
 .section-header-red::before {
