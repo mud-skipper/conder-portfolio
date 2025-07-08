@@ -122,13 +122,13 @@ section {
     text-align: left;
     font-size: 28px;
     height: 38px;
-    width: fit-content;
+    width: 100%;
     display: flex;
     align-items: center;
     text-transform: uppercase;
     margin-bottom: 0.5em;
     position: relative;
-    z-index: 2;
+    z-index: 3;
     background: var(--color-white);
 }
 
@@ -141,7 +141,7 @@ section {
     width: 100%;
     height: 20px;
     background: var(--color-yellow);
-    z-index: -1;
+    z-index: 1;
     /* DEBUG - tymczasowo dodane obramowanie */
     border: 1px solid red;
 }
@@ -154,13 +154,13 @@ section {
     text-align: left;
     font-size: 28px;
     height: 38px;
-    width: fit-content;
+    width: 100%;
     display: flex;
     align-items: center;
     text-transform: uppercase;
     margin-bottom: 0.5em;
     position: relative;
-    z-index: 2;
+    z-index: 3;
     background: var(--color-white);
 }
 
@@ -173,7 +173,7 @@ section {
     width: 100%;
     height: 20px;
     background: var(--color-orange);
-    z-index: -1;
+    z-index: 1;
     /* DEBUG - tymczasowo dodane obramowanie */
     border: 1px solid blue;
 }
@@ -186,13 +186,13 @@ section {
     text-align: left;
     font-size: 28px;
     height: 38px;
-    width: fit-content;
+    width: 100%;
     display: flex;
     align-items: center;
     text-transform: uppercase;
     margin-bottom: 0.5em;
     position: relative;
-    z-index: 2;
+    z-index: 3;
     background: var(--color-white);
 }
 
@@ -205,7 +205,7 @@ section {
     width: 100%;
     height: 20px;
     background: var(--color-red);
-    z-index: -1;
+    z-index: 1;
     /* DEBUG - tymczasowo dodane obramowanie */
     border: 1px solid green;
 }
