@@ -115,7 +115,7 @@ section {
 
 /* Nagłówki sekcji - z kolorowymi paskami zebry */
 .section-header-yellow {
-    background: transparent;
+    background: red !important; /* TEST - usunąć po sprawdzeniu */
     color: var(--color-black);
     font-weight: 800;
     padding: 0;
@@ -146,7 +146,7 @@ section {
 }
 
 .section-header-orange {
-    background: transparent;
+    background: blue !important; /* TEST - usunąć po sprawdzeniu */
     color: var(--color-black);
     font-weight: 800;
     padding: 0;
@@ -177,7 +177,7 @@ section {
 }
 
 .section-header-red {
-    background: transparent;
+    background: green !important; /* TEST - usunąć po sprawdzeniu */
     color: var(--color-black);
     font-weight: 800;
     padding: 0;
