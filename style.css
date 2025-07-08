@@ -134,10 +134,10 @@ section {
 .section-header-yellow::after {
     content: '';
     position: absolute;
-    left: 0;
+    left: 100%;
     top: 50%;
     transform: translateY(-50%);
-    width: 100%;
+    right: 0;
     height: 20px;
     background: var(--color-yellow);
     z-index: -1;
@@ -165,10 +165,10 @@ section {
 .section-header-orange::after {
     content: '';
     position: absolute;
-    left: 0;
+    left: 100%;
     top: 50%;
     transform: translateY(-50%);
-    width: 100%;
+    right: 0;
     height: 20px;
     background: var(--color-orange);
     z-index: -1;
@@ -196,10 +196,10 @@ section {
 .section-header-red::after {
     content: '';
     position: absolute;
-    left: 0;
+    left: 100%;
     top: 50%;
     transform: translateY(-50%);
-    width: 100%;
+    right: 0;
     height: 20px;
     background: var(--color-red);
     z-index: -1;
