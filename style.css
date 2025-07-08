@@ -120,7 +120,7 @@ section {
     padding: 0;
     border-radius: 0;
     text-align: left;
-    font-size: 20px;
+    font-size: 24px;
     height: 34px;
     width: 100%;
     display: flex;
@@ -134,10 +134,10 @@ section {
 .section-header-yellow::after {
     content: '';
     position: absolute;
-    left: 0;
+    left: calc(100% + 0.5em);
     top: 50%;
     transform: translateY(-50%);
-    width: 100%;
+    width: 200px;
     height: 20px;
     background: var(--color-yellow);
     z-index: -1;
@@ -151,7 +151,7 @@ section {
     padding: 0;
     border-radius: 0;
     text-align: left;
-    font-size: 20px;
+    font-size: 24px;
     height: 34px;
     width: 100%;
     display: flex;
@@ -165,10 +165,10 @@ section {
 .section-header-orange::after {
     content: '';
     position: absolute;
-    left: 0;
+    left: calc(100% + 0.5em);
     top: 50%;
     transform: translateY(-50%);
-    width: 100%;
+    width: 200px;
     height: 20px;
     background: var(--color-orange);
     z-index: -1;
@@ -182,7 +182,7 @@ section {
     padding: 0;
     border-radius: 0;
     text-align: left;
-    font-size: 20px;
+    font-size: 24px;
     height: 34px;
     width: 100%;
     display: flex;
@@ -196,10 +196,10 @@ section {
 .section-header-red::after {
     content: '';
     position: absolute;
-    left: 0;
+    left: calc(100% + 0.5em);
     top: 50%;
     transform: translateY(-50%);
-    width: 100%;
+    width: 200px;
     height: 20px;
     background: var(--color-red);
     z-index: -1;
