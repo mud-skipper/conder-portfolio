@@ -134,13 +134,14 @@ section {
 .section-header-yellow::after {
     content: '';
     position: absolute;
-    left: calc(100% + 20px); /* Start: tekst + 20px */
+    left: 100%;
     top: 50%;
     transform: translateY(-50%);
-    right: 20px; /* Koniec: 20px od prawej krawędzi */
+    width: 200px;
     height: 20px;
     background: var(--color-yellow);
     z-index: -1;
+    margin-left: 20px;
     /* DEBUG - tymczasowo dodane obramowanie */
     border: 1px solid red;
 }
@@ -165,13 +166,14 @@ section {
 .section-header-orange::after {
     content: '';
     position: absolute;
-    left: calc(100% + 20px); /* Start: tekst + 20px */
+    left: 100%;
     top: 50%;
     transform: translateY(-50%);
-    right: 20px; /* Koniec: 20px od prawej krawędzi */
+    width: 200px;
     height: 20px;
     background: var(--color-orange);
     z-index: -1;
+    margin-left: 20px;
     /* DEBUG - tymczasowo dodane obramowanie */
     border: 1px solid blue;
 }
@@ -196,13 +198,14 @@ section {
 .section-header-red::after {
     content: '';
     position: absolute;
-    left: calc(100% + 20px); /* Start: tekst + 20px */
+    left: 100%;
     top: 50%;
     transform: translateY(-50%);
-    right: 20px; /* Koniec: 20px od prawej krawędzi */
+    width: 200px;
     height: 20px;
     background: var(--color-red);
     z-index: -1;
+    margin-left: 20px;
     /* DEBUG - tymczasowo dodane obramowanie */
     border: 1px solid green;
 }
