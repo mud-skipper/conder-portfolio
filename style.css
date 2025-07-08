@@ -79,7 +79,7 @@
 /* ===== PODSTAWOWE STYLE ===== */
 html {
     scroll-behavior: smooth;
-    overflow-x: visible; /* Zmienione na visible żeby paski były widoczne */
+    overflow-x: visible;
 }
 
 body {
@@ -95,7 +95,7 @@ body {
     box-sizing: border-box;
     min-height: 100vh;
     position: relative;
-    overflow-x: visible; /* Zmienione na visible żeby paski były widoczne */
+    overflow-x: visible;
 }
 
 .container {
