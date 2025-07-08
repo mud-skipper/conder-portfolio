@@ -121,7 +121,7 @@ section {
     padding: 0;
     border-radius: 0;
     text-align: left;
-    font-size: 1.1em;
+    font-size: 1.3em; /* Powiększona czcionka */
     height: 34px;
     width: 100%;
     display: flex;
@@ -141,7 +141,7 @@ section {
     background: var(--color-yellow);
     width: calc(100vw - 100% - 0.5em - 120px - 40px); /* Responsywny, ale przyczepiony do tekstu, uwzględnia ramkę body */
     border-radius: 0;
-    max-width: calc(100vw - 100% - 0.5em - 120px - 40px); /* Dodatkowe zabezpieczenie */
+    min-width: 50px; /* Minimalna szerokość paska */
 }
 
 .section-header-yellow::before {
@@ -151,7 +151,7 @@ section {
     top: 50%;
     transform: translateY(-50%);
     height: 1.2em;
-    width: 120px;
+    width: 120px; /* Stała szerokość "zebry" - nieresponsywna */
     background: repeating-linear-gradient(
         45deg,
         transparent,
@@ -169,7 +169,7 @@ section {
     padding: 0;
     border-radius: 0;
     text-align: left;
-    font-size: 1.1em;
+    font-size: 1.3em; /* Powiększona czcionka */
     height: 34px;
     width: 100%;
     display: flex;
@@ -189,7 +189,7 @@ section {
     background: var(--color-orange);
     width: calc(100vw - 100% - 0.5em - 120px - 40px); /* Responsywny, ale przyczepiony do tekstu, uwzględnia ramkę body */
     border-radius: 0;
-    max-width: calc(100vw - 100% - 0.5em - 120px - 40px); /* Dodatkowe zabezpieczenie */
+    min-width: 50px; /* Minimalna szerokość paska */
 }
 
 .section-header-orange::before {
@@ -199,7 +199,7 @@ section {
     top: 50%;
     transform: translateY(-50%);
     height: 1.2em;
-    width: 120px;
+    width: 120px; /* Stała szerokość "zebry" - nieresponsywna */
     background: repeating-linear-gradient(
         45deg,
         transparent,
@@ -217,7 +217,7 @@ section {
     padding: 0;
     border-radius: 0;
     text-align: left;
-    font-size: 1.1em;
+    font-size: 1.3em; /* Powiększona czcionka */
     height: 34px;
     width: 100%;
     display: flex;
@@ -237,7 +237,7 @@ section {
     background: var(--color-red);
     width: calc(100vw - 100% - 0.5em - 120px - 40px); /* Responsywny, ale przyczepiony do tekstu, uwzględnia ramkę body */
     border-radius: 0;
-    max-width: calc(100vw - 100% - 0.5em - 120px - 40px); /* Dodatkowe zabezpieczenie */
+    min-width: 50px; /* Minimalna szerokość paska */
 }
 
 .section-header-red::before {
@@ -247,7 +247,7 @@ section {
     top: 50%;
     transform: translateY(-50%);
     height: 1.2em;
-    width: 120px;
+    width: 120px; /* Stała szerokość "zebry" - nieresponsywna */
     background: repeating-linear-gradient(
         45deg,
         transparent,
