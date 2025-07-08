@@ -127,6 +127,7 @@ section {
     padding-left: 0;
     margin-left: 0;
     padding-left: 0; /* Dosunięcie do ramki 20px body */
+    margin-left: 0; /* Dodatkowe dosunięcie */
 }
 
 /* Kolorowy pasek na całą szerokość */
@@ -169,7 +170,6 @@ section {
     position: relative;
     z-index: 3;
     background: var(--color-white);
-    padding: 4px 8px;
     width: fit-content;
     display: inline-block;
     margin-left: 0;
@@ -186,7 +186,6 @@ section {
     position: relative;
     z-index: 3;
     background: var(--color-white);
-    padding: 4px 8px;
     width: fit-content;
     display: inline-block;
     margin-left: 0;
@@ -203,7 +202,6 @@ section {
     position: relative;
     z-index: 3;
     background: var(--color-white);
-    padding: 4px 8px;
     width: fit-content;
     display: inline-block;
     margin-left: 0;
@@ -441,7 +439,7 @@ main {
 /* ===== SEKCJA GŁÓWNA (HERO) ===== */
 .home-section {
     position: relative;
-    padding-top: 20px; /* Odległość od górnej krawędzi ekranu (40px - 20px ramka body) */
+    padding-top: 0; /* Usunięto padding-top - może wpływał na pozycjonowanie paska */
 }
 
 .home-section .section-header-yellow {
