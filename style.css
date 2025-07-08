@@ -113,98 +113,87 @@ section {
     /* Podstawowe style sekcji */
 }
 
-/* Nagłówki sekcji - z kolorowymi paskami wysokości 20px */
+/* ===== NOWE NAGŁÓWKI Z KOLOROWYMI PASKAMI ===== */
+
+/* Kontener dla nagłówka z paskiem */
+.header-container {
+    position: relative;
+    margin-bottom: 1em;
+}
+
+/* Kolorowy pasek na całą szerokość */
+.header-stripe {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.header-stripe-yellow {
+    background: var(--color-yellow);
+    border: 1px solid red; /* DEBUG */
+}
+
+.header-stripe-orange {
+    background: var(--color-orange);
+    border: 1px solid blue; /* DEBUG */
+}
+
+.header-stripe-red {
+    background: var(--color-red);
+    border: 1px solid green; /* DEBUG */
+}
+
+/* Nagłówek z białym tłem pod tekstem */
 .section-header-yellow {
     color: var(--color-black);
     font-weight: 800;
-    padding: 8px 12px;
-    border-radius: 0;
-    text-align: left;
     font-size: 28px;
-    height: 38px;
-    width: fit-content;
-    display: flex;
-    align-items: center;
     text-transform: uppercase;
-    margin-bottom: 0.5em;
+    text-align: left;
+    padding: 0;
+    margin: 0;
     position: relative;
+    z-index: 3;
     background: var(--color-white);
-}
-
-.section-header-yellow::after {
-    content: '';
-    position: absolute;
-    left: 100%;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 0;
-    height: 20px;
-    background: var(--color-yellow);
-    z-index: -1;
-    /* DEBUG - tymczasowo dodane obramowanie */
-    border: 1px solid red;
+    padding: 4px 8px;
+    width: fit-content;
+    display: inline-block;
 }
 
 .section-header-orange {
     color: var(--color-black);
     font-weight: 800;
-    padding: 8px 12px;
-    border-radius: 0;
-    text-align: left;
     font-size: 28px;
-    height: 38px;
-    width: fit-content;
-    display: flex;
-    align-items: center;
     text-transform: uppercase;
-    margin-bottom: 0.5em;
+    text-align: left;
+    padding: 0;
+    margin: 0;
     position: relative;
+    z-index: 3;
     background: var(--color-white);
-}
-
-.section-header-orange::after {
-    content: '';
-    position: absolute;
-    left: 100%;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 0;
-    height: 20px;
-    background: var(--color-orange);
-    z-index: -1;
-    /* DEBUG - tymczasowo dodane obramowanie */
-    border: 1px solid blue;
+    padding: 4px 8px;
+    width: fit-content;
+    display: inline-block;
 }
 
 .section-header-red {
     color: var(--color-black);
     font-weight: 800;
-    padding: 8px 12px;
-    border-radius: 0;
-    text-align: left;
     font-size: 28px;
-    height: 38px;
-    width: fit-content;
-    display: flex;
-    align-items: center;
     text-transform: uppercase;
-    margin-bottom: 0.5em;
+    text-align: left;
+    padding: 0;
+    margin: 0;
     position: relative;
+    z-index: 3;
     background: var(--color-white);
-}
-
-.section-header-red::after {
-    content: '';
-    position: absolute;
-    left: 100%;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 0;
-    height: 20px;
-    background: var(--color-red);
-    z-index: -1;
-    /* DEBUG - tymczasowo dodane obramowanie */
-    border: 1px solid green;
+    padding: 4px 8px;
+    width: fit-content;
+    display: inline-block;
 }
 
 /* ===== SEKCJA O MNIE ===== */
