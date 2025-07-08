@@ -139,16 +139,16 @@ section {
     transform: translateY(-50%);
     height: 1.2em; /* Wysokość liter */
     background: var(--color-yellow);
-    width: calc(100vw - 100% - 0.5em - 120px - 40px); /* Responsywna szerokość - od tekstu do "zebry" */
+    width: calc(100vw - 100% - 0.5em - 120px - 40px - 20px); /* Responsywna szerokość - od tekstu do "zebry" z paddingiem */
     border-radius: 0;
     z-index: 2; /* Wyższy z-index niż "zebra" */
-    max-width: 200px; /* Maksymalna szerokość */
+    max-width: 150px; /* Maksymalna szerokość */
 }
 
 .section-header-yellow::before {
     content: '';
     position: absolute; /* Absolute względem nagłówka */
-    right: -20px; /* Przy prawej krawędzi body (ramka 20px) */
+    right: 0px; /* 20px od prawej krawędzi body (ramka 20px + padding 20px) */
     top: 50%;
     transform: translateY(-50%);
     height: 1.2em;
@@ -188,16 +188,16 @@ section {
     transform: translateY(-50%);
     height: 1.2em; /* Wysokość liter */
     background: var(--color-orange);
-    width: calc(100vw - 100% - 0.5em - 120px - 40px); /* Responsywna szerokość - od tekstu do "zebry" */
+    width: calc(100vw - 100% - 0.5em - 120px - 40px - 20px); /* Responsywna szerokość - od tekstu do "zebry" z paddingiem */
     border-radius: 0;
     z-index: 2; /* Wyższy z-index niż "zebra" */
-    max-width: 200px; /* Maksymalna szerokość */
+    max-width: 150px; /* Maksymalna szerokość */
 }
 
 .section-header-orange::before {
     content: '';
     position: absolute; /* Absolute względem nagłówka */
-    right: -20px; /* Przy prawej krawędzi body (ramka 20px) */
+    right: 0px; /* 20px od prawej krawędzi body (ramka 20px + padding 20px) */
     top: 50%;
     transform: translateY(-50%);
     height: 1.2em;
@@ -237,16 +237,16 @@ section {
     transform: translateY(-50%);
     height: 1.2em; /* Wysokość liter */
     background: var(--color-red);
-    width: calc(100vw - 100% - 0.5em - 120px - 40px); /* Responsywna szerokość - od tekstu do "zebry" */
+    width: calc(100vw - 100% - 0.5em - 120px - 40px - 20px); /* Responsywna szerokość - od tekstu do "zebry" z paddingiem */
     border-radius: 0;
     z-index: 2; /* Wyższy z-index niż "zebra" */
-    max-width: 200px; /* Maksymalna szerokość */
+    max-width: 150px; /* Maksymalna szerokość */
 }
 
 .section-header-red::before {
     content: '';
     position: absolute; /* Absolute względem nagłówka */
-    right: -20px; /* Przy prawej krawędzi body (ramka 20px) */
+    right: 0px; /* 20px od prawej krawędzi body (ramka 20px + padding 20px) */
     top: 50%;
     transform: translateY(-50%);
     height: 1.2em;
