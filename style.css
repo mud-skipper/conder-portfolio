@@ -95,7 +95,7 @@ body {
     box-sizing: border-box;
     min-height: 100vh;
     position: relative;
-    overflow-x: visible; /* Zmienione na visible żeby paski były widoczne */
+    overflow-x: hidden; /* Przywrócone hidden żeby nie było poziomego scrollu */
 }
 
 .container {
@@ -139,15 +139,16 @@ section {
     transform: translateY(-50%);
     height: 1.2em; /* Wysokość liter */
     background: var(--color-yellow);
-    width: 200px; /* Stała szerokość paska - prostsze rozwiązanie */
+    width: calc(100vw - 100% - 0.5em - 120px - 40px); /* Responsywna szerokość - od tekstu do "zebry" */
     border-radius: 0;
     z-index: 2; /* Wyższy z-index niż "zebra" */
+    max-width: 200px; /* Maksymalna szerokość */
 }
 
 .section-header-yellow::before {
     content: '';
-    position: absolute;
-    right: calc(-20px - (100vw - 767px) / 2); /* Uwzględnia ramkę body + centrowanie body */
+    position: fixed; /* Fixed względem viewport */
+    right: 20px; /* 20px od prawej krawędzi ekranu */
     top: 50%;
     transform: translateY(-50%);
     height: 1.2em;
@@ -187,15 +188,16 @@ section {
     transform: translateY(-50%);
     height: 1.2em; /* Wysokość liter */
     background: var(--color-orange);
-    width: 200px; /* Stała szerokość paska - prostsze rozwiązanie */
+    width: calc(100vw - 100% - 0.5em - 120px - 40px); /* Responsywna szerokość - od tekstu do "zebry" */
     border-radius: 0;
     z-index: 2; /* Wyższy z-index niż "zebra" */
+    max-width: 200px; /* Maksymalna szerokość */
 }
 
 .section-header-orange::before {
     content: '';
-    position: absolute;
-    right: calc(-20px - (100vw - 767px) / 2); /* Uwzględnia ramkę body + centrowanie body */
+    position: fixed; /* Fixed względem viewport */
+    right: 20px; /* 20px od prawej krawędzi ekranu */
     top: 50%;
     transform: translateY(-50%);
     height: 1.2em;
@@ -235,15 +237,16 @@ section {
     transform: translateY(-50%);
     height: 1.2em; /* Wysokość liter */
     background: var(--color-red);
-    width: 200px; /* Stała szerokość paska - prostsze rozwiązanie */
+    width: calc(100vw - 100% - 0.5em - 120px - 40px); /* Responsywna szerokość - od tekstu do "zebry" */
     border-radius: 0;
     z-index: 2; /* Wyższy z-index niż "zebra" */
+    max-width: 200px; /* Maksymalna szerokość */
 }
 
 .section-header-red::before {
     content: '';
-    position: absolute;
-    right: calc(-20px - (100vw - 767px) / 2); /* Uwzględnia ramkę body + centrowanie body */
+    position: fixed; /* Fixed względem viewport */
+    right: 20px; /* 20px od prawej krawędzi ekranu */
     top: 50%;
     transform: translateY(-50%);
     height: 1.2em;
