@@ -113,7 +113,7 @@ section {
     /* Podstawowe style sekcji */
 }
 
-/* Nagłówki sekcji - nowy styl z tekstem wyjustowanym do lewej i kolorowym paskiem */
+/* Nagłówki sekcji - podstawowy styl */
 .section-header-yellow {
     background: transparent;
     color: var(--color-black);
@@ -121,7 +121,7 @@ section {
     padding: 0;
     border-radius: 0;
     text-align: left;
-    font-size: 20px; /* Dokładnie 20px wysokości czcionki */
+    font-size: 20px;
     height: 34px;
     width: 100%;
     display: flex;
@@ -129,24 +129,6 @@ section {
     text-transform: uppercase;
     position: relative;
     margin-bottom: 0.5em;
-}
-
-.section-header-yellow::before {
-    content: '';
-    position: absolute; /* Absolute względem nagłówka */
-    left: calc(100% + 0.5em); /* Jedna litera odstępu od tekstu */
-    top: 50%;
-    transform: translateY(-50%);
-    height: 20px; /* Dokładnie 20px wysokości */
-    width: 200px; /* Stała szerokość dla testu */
-    background: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 4px,
-        var(--color-yellow) 4px,
-        var(--color-yellow) 8px
-    );
-    z-index: 1;
 }
 
 .section-header-orange {
@@ -156,7 +138,7 @@ section {
     padding: 0;
     border-radius: 0;
     text-align: left;
-    font-size: 20px; /* Dokładnie 20px wysokości czcionki */
+    font-size: 20px;
     height: 34px;
     width: 100%;
     display: flex;
@@ -164,24 +146,6 @@ section {
     text-transform: uppercase;
     position: relative;
     margin-bottom: 0.5em;
-}
-
-.section-header-orange::before {
-    content: '';
-    position: absolute; /* Absolute względem nagłówka */
-    left: calc(100% + 0.5em); /* Jedna litera odstępu od tekstu */
-    top: 50%;
-    transform: translateY(-50%);
-    height: 20px; /* Dokładnie 20px wysokości */
-    width: 200px; /* Stała szerokość dla testu */
-    background: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 4px,
-        var(--color-orange) 4px,
-        var(--color-orange) 8px
-    );
-    z-index: 1;
 }
 
 .section-header-red {
@@ -191,7 +155,7 @@ section {
     padding: 0;
     border-radius: 0;
     text-align: left;
-    font-size: 20px; /* Dokładnie 20px wysokości czcionki */
+    font-size: 20px;
     height: 34px;
     width: 100%;
     display: flex;
@@ -199,24 +163,6 @@ section {
     text-transform: uppercase;
     position: relative;
     margin-bottom: 0.5em;
-}
-
-.section-header-red::before {
-    content: '';
-    position: absolute; /* Absolute względem nagłówka */
-    left: calc(100% + 0.5em); /* Jedna litera odstępu od tekstu */
-    top: 50%;
-    transform: translateY(-50%);
-    height: 20px; /* Dokładnie 20px wysokości */
-    width: 200px; /* Stała szerokość dla testu */
-    background: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 4px,
-        var(--color-red) 4px,
-        var(--color-red) 8px
-    );
-    z-index: 1;
 }
 
 /* ===== SEKCJA O MNIE ===== */
