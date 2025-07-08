@@ -131,28 +131,14 @@ section {
     margin-bottom: 0.5em;
 }
 
-.section-header-yellow::after {
+.section-header-yellow::before {
     content: '';
-    position: absolute;
+    position: absolute; /* Absolute względem nagłówka */
     left: calc(100% + 0.5em); /* Jedna litera odstępu od tekstu */
     top: 50%;
     transform: translateY(-50%);
     height: 20px; /* Dokładnie 20px wysokości */
-    background: var(--color-yellow);
-    width: calc(100vw - 100% - 0.5em - 120px - 40px - 20px); /* Responsywna szerokość - od tekstu do "zebry" z paddingiem */
-    border-radius: 0;
-    z-index: 2; /* Wyższy z-index niż "zebra" */
-    max-width: 150px; /* Maksymalna szerokość */
-}
-
-.section-header-yellow::before {
-    content: '';
-    position: absolute; /* Absolute względem nagłówka */
-    right: 0px; /* 20px od prawej krawędzi body (ramka 20px + padding 20px) */
-    top: 50%;
-    transform: translateY(-50%);
-    height: 20px; /* Dokładnie 20px wysokości */
-    width: 120px; /* Stała szerokość "zebry" - nieresponsywna */
+    width: calc(100vw - 100% - 0.5em - 40px - 20px); /* Od tekstu do prawej krawędzi body */
     background: repeating-linear-gradient(
         45deg,
         transparent,
@@ -160,7 +146,7 @@ section {
         var(--color-yellow) 4px,
         var(--color-yellow) 8px
     );
-    z-index: 1; /* Niższy z-index niż pasek */
+    z-index: 1;
 }
 
 .section-header-orange {
@@ -180,28 +166,14 @@ section {
     margin-bottom: 0.5em;
 }
 
-.section-header-orange::after {
+.section-header-orange::before {
     content: '';
-    position: absolute;
+    position: absolute; /* Absolute względem nagłówka */
     left: calc(100% + 0.5em); /* Jedna litera odstępu od tekstu */
     top: 50%;
     transform: translateY(-50%);
     height: 20px; /* Dokładnie 20px wysokości */
-    background: var(--color-orange);
-    width: calc(100vw - 100% - 0.5em - 120px - 40px - 20px); /* Responsywna szerokość - od tekstu do "zebry" z paddingiem */
-    border-radius: 0;
-    z-index: 2; /* Wyższy z-index niż "zebra" */
-    max-width: 150px; /* Maksymalna szerokość */
-}
-
-.section-header-orange::before {
-    content: '';
-    position: absolute; /* Absolute względem nagłówka */
-    right: 0px; /* 20px od prawej krawędzi body (ramka 20px + padding 20px) */
-    top: 50%;
-    transform: translateY(-50%);
-    height: 20px; /* Dokładnie 20px wysokości */
-    width: 120px; /* Stała szerokość "zebry" - nieresponsywna */
+    width: calc(100vw - 100% - 0.5em - 40px - 20px); /* Od tekstu do prawej krawędzi body */
     background: repeating-linear-gradient(
         45deg,
         transparent,
@@ -209,7 +181,7 @@ section {
         var(--color-orange) 4px,
         var(--color-orange) 8px
     );
-    z-index: 1; /* Niższy z-index niż pasek */
+    z-index: 1;
 }
 
 .section-header-red {
@@ -229,28 +201,14 @@ section {
     margin-bottom: 0.5em;
 }
 
-.section-header-red::after {
+.section-header-red::before {
     content: '';
-    position: absolute;
+    position: absolute; /* Absolute względem nagłówka */
     left: calc(100% + 0.5em); /* Jedna litera odstępu od tekstu */
     top: 50%;
     transform: translateY(-50%);
     height: 20px; /* Dokładnie 20px wysokości */
-    background: var(--color-red);
-    width: calc(100vw - 100% - 0.5em - 120px - 40px - 20px); /* Responsywna szerokość - od tekstu do "zebry" z paddingiem */
-    border-radius: 0;
-    z-index: 2; /* Wyższy z-index niż "zebra" */
-    max-width: 150px; /* Maksymalna szerokość */
-}
-
-.section-header-red::before {
-    content: '';
-    position: absolute; /* Absolute względem nagłówka */
-    right: 0px; /* 20px od prawej krawędzi body (ramka 20px + padding 20px) */
-    top: 50%;
-    transform: translateY(-50%);
-    height: 20px; /* Dokładnie 20px wysokości */
-    width: 120px; /* Stała szerokość "zebry" - nieresponsywna */
+    width: calc(100vw - 100% - 0.5em - 40px - 20px); /* Od tekstu do prawej krawędzi body */
     background: repeating-linear-gradient(
         45deg,
         transparent,
@@ -258,7 +216,7 @@ section {
         var(--color-red) 4px,
         var(--color-red) 8px
     );
-    z-index: 1; /* Niższy z-index niż pasek */
+    z-index: 1;
 }
 
 /* ===== SEKCJA O MNIE ===== */
