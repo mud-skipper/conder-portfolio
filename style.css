@@ -113,53 +113,143 @@ section {
     /* Podstawowe style sekcji */
 }
 
-/* Nagłówki sekcji - tylko podstawowe kolory */
+/* Nagłówki sekcji - nowy styl z tekstem wyjustowanym do lewej i kolorowym paskiem */
 .section-header-yellow {
-    background: var(--color-yellow);
-    color: #fff;
+    background: transparent;
+    color: var(--color-black);
     font-weight: 800;
     padding: 0;
     border-radius: 0;
-    text-align: center;
+    text-align: left;
     font-size: 1.1em;
     height: 34px;
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
     text-transform: uppercase;
+    position: relative;
+    margin-bottom: 0.5em;
+}
+
+.section-header-yellow::after {
+    content: '';
+    position: absolute;
+    left: calc(100% + 0.5em); /* Jedna litera odstępu od tekstu */
+    top: 50%;
+    transform: translateY(-50%);
+    height: 1.2em; /* Wysokość liter */
+    background: var(--color-yellow);
+    width: calc(100vw - 100% - 0.5em - 120px); /* Responsywny, ale przyczepiony do tekstu */
+    border-radius: 0;
+}
+
+.section-header-yellow::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 1.2em;
+    width: 120px;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 4px,
+        var(--color-yellow) 4px,
+        var(--color-yellow) 8px
+    );
 }
 
 .section-header-orange {
-    background: var(--color-orange);
-    color: #fff;
+    background: transparent;
+    color: var(--color-black);
     font-weight: 800;
     padding: 0;
     border-radius: 0;
-    text-align: center;
+    text-align: left;
     font-size: 1.1em;
     height: 34px;
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
     text-transform: uppercase;
+    position: relative;
+    margin-bottom: 0.5em;
+}
+
+.section-header-orange::after {
+    content: '';
+    position: absolute;
+    left: calc(100% + 0.5em); /* Jedna litera odstępu od tekstu */
+    top: 50%;
+    transform: translateY(-50%);
+    height: 1.2em; /* Wysokość liter */
+    background: var(--color-orange);
+    width: calc(100vw - 100% - 0.5em - 120px); /* Responsywny, ale przyczepiony do tekstu */
+    border-radius: 0;
+}
+
+.section-header-orange::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 1.2em;
+    width: 120px;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 4px,
+        var(--color-orange) 4px,
+        var(--color-orange) 8px
+    );
 }
 
 .section-header-red {
-    background: var(--color-red);
-    color: #fff;
+    background: transparent;
+    color: var(--color-black);
     font-weight: 800;
     padding: 0;
     border-radius: 0;
-    text-align: center;
+    text-align: left;
     font-size: 1.1em;
     height: 34px;
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
     text-transform: uppercase;
+    position: relative;
+    margin-bottom: 0.5em;
+}
+
+.section-header-red::after {
+    content: '';
+    position: absolute;
+    left: calc(100% + 0.5em); /* Jedna litera odstępu od tekstu */
+    top: 50%;
+    transform: translateY(-50%);
+    height: 1.2em; /* Wysokość liter */
+    background: var(--color-red);
+    width: calc(100vw - 100% - 0.5em - 120px); /* Responsywny, ale przyczepiony do tekstu */
+    border-radius: 0;
+}
+
+.section-header-red::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 1.2em;
+    width: 120px;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 4px,
+        var(--color-red) 4px,
+        var(--color-red) 8px
+    );
 }
 
 /* ===== SEKCJA O MNIE ===== */
@@ -394,6 +484,12 @@ main {
 /* ===== SEKCJA GŁÓWNA (HERO) ===== */
 .home-section {
     position: relative;
+    padding-top: 40px; /* Odległość od górnej krawędzi ekranu */
+}
+
+.home-section .section-header-yellow {
+    margin-bottom: 20px; /* Odległość od zdjęcia */
+    margin-top: 0;
 }
 
 .hero-image-block {
