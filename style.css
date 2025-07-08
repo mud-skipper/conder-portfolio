@@ -443,7 +443,7 @@ main {
 }
 
 .home-section .section-header-yellow {
-    margin-bottom: 20px; /* Odległość od zdjęcia */
+    margin-bottom: 0; /* Usunięto margin-bottom - może wpływał na pozycjonowanie paska */
     margin-top: 0;
 }
 
