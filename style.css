@@ -113,9 +113,9 @@ section {
     /* Podstawowe style sekcji */
 }
 
-/* Nagłówki sekcji - z kolorowymi paskami zebry */
+/* Nagłówki sekcji - z kolorowymi paskami */
 .section-header-yellow {
-    background: red !important; /* TEST - usunąć po sprawdzeniu */
+    background: transparent;
     color: var(--color-black);
     font-weight: 800;
     padding: 0;
@@ -132,21 +132,19 @@ section {
 }
 
 .section-header-yellow::after {
-    content: '' !important;
-    position: absolute !important;
-    left: calc(100% + 20px) !important; /* Poza ramką body */
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    height: 20px !important; /* Taka sama wysokość jak czcionka */
-    width: 200px !important; /* Stała szerokość na test */
-    background: var(--color-yellow) !important; /* Prosty kolor zamiast gradientu */
-    z-index: 9999 !important;
-    border: 2px solid red !important; /* DEBUG - usunąć po sprawdzeniu */
-    background-color: rgba(255, 0, 0, 0.3) !important; /* DEBUG - usunąć po sprawdzeniu */
+    content: '';
+    position: absolute;
+    left: calc(100% + 0.5em); /* Spacja za nagłówkiem */
+    top: 50%;
+    transform: translateY(-50%);
+    height: 20px; /* Taka sama wysokość jak czcionka */
+    width: calc(100vw - 100% - 0.5em - 40px - 20px); /* Od tekstu do paddingu 20px z prawej */
+    background: var(--color-yellow); /* Kolor z roadmapy */
+    z-index: 1;
 }
 
 .section-header-orange {
-    background: blue !important; /* TEST - usunąć po sprawdzeniu */
+    background: transparent;
     color: var(--color-black);
     font-weight: 800;
     padding: 0;
@@ -163,21 +161,19 @@ section {
 }
 
 .section-header-orange::after {
-    content: '' !important;
-    position: absolute !important;
-    left: calc(100% + 20px) !important; /* Poza ramką body */
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    height: 20px !important; /* Taka sama wysokość jak czcionka */
-    width: 200px !important; /* Stała szerokość na test */
-    background: var(--color-orange) !important; /* Prosty kolor zamiast gradientu */
-    z-index: 9999 !important;
-    border: 2px solid blue !important; /* DEBUG - usunąć po sprawdzeniu */
-    background-color: rgba(0, 0, 255, 0.3) !important; /* DEBUG - usunąć po sprawdzeniu */
+    content: '';
+    position: absolute;
+    left: calc(100% + 0.5em); /* Spacja za nagłówkiem */
+    top: 50%;
+    transform: translateY(-50%);
+    height: 20px; /* Taka sama wysokość jak czcionka */
+    width: calc(100vw - 100% - 0.5em - 40px - 20px); /* Od tekstu do paddingu 20px z prawej */
+    background: var(--color-orange); /* Kolor z roadmapy */
+    z-index: 1;
 }
 
 .section-header-red {
-    background: green !important; /* TEST - usunąć po sprawdzeniu */
+    background: transparent;
     color: var(--color-black);
     font-weight: 800;
     padding: 0;
@@ -194,17 +190,15 @@ section {
 }
 
 .section-header-red::after {
-    content: '' !important;
-    position: absolute !important;
-    left: calc(100% + 20px) !important; /* Poza ramką body */
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    height: 20px !important; /* Taka sama wysokość jak czcionka */
-    width: 200px !important; /* Stała szerokość na test */
-    background: var(--color-red) !important; /* Prosty kolor zamiast gradientu */
-    z-index: 9999 !important;
-    border: 2px solid green !important; /* DEBUG - usunąć po sprawdzeniu */
-    background-color: rgba(0, 255, 0, 0.3) !important; /* DEBUG - usunąć po sprawdzeniu */
+    content: '';
+    position: absolute;
+    left: calc(100% + 0.5em); /* Spacja za nagłówkiem */
+    top: 50%;
+    transform: translateY(-50%);
+    height: 20px; /* Taka sama wysokość jak czcionka */
+    width: calc(100vw - 100% - 0.5em - 40px - 20px); /* Od tekstu do paddingu 20px z prawej */
+    background: var(--color-red); /* Kolor z roadmapy */
+    z-index: 1;
 }
 
 /* ===== SEKCJA O MNIE ===== */
