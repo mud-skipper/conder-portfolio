@@ -142,8 +142,7 @@ section {
 
 /* Specjalne pozycjonowanie dla żółtego paska w sekcji "O mnie" */
 .home-section .header-stripe-yellow {
-    top: 50%;
-    transform: translateY(-50%);
+    /* Usunięto specjalne pozycjonowanie - używa standardowego */
 }
 
 .header-stripe-yellow {
