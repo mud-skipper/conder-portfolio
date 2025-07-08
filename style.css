@@ -311,7 +311,7 @@ section {
     font-size: 1.4em;
     font-weight: 700;
     color: var(--color-black);
-    margin: 0 0 20px 0;
+    margin: 0 0 0 0;
     padding: 0;
     line-height: 1.2;
 }
@@ -445,6 +445,12 @@ section {
     height: 1px;
     background: var(--color-separator);
     margin: 20px 0;
+    width: 100%;
+}
+
+/* Odstęp po ostatnim projekcie */
+.projects-section-end {
+    height: 20px;
     width: 100%;
 }
 

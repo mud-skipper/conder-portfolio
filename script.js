@@ -153,7 +153,7 @@ function displayProjects(projects) {
                 ${projectIndex < projects.length - 1 ? '<div class="project-separator"></div>' : ''}
             </div>
         `;
-    }).join('');
+    }).join('') + '<div class="projects-section-end"></div>';
 
     projectsGrid.innerHTML = projectsHTML;
 }
