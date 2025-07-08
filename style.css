@@ -148,7 +148,7 @@ section {
 .section-header-yellow::before {
     content: '';
     position: absolute; /* Absolute względem nagłówka */
-    right: calc(-20px - (100vw - 767px) / 2); /* Uwzględnia ramkę body + centrowanie body */
+    right: -20px; /* Przy prawej krawędzi body (ramka 20px) */
     top: 50%;
     transform: translateY(-50%);
     height: 1.2em;
@@ -197,7 +197,7 @@ section {
 .section-header-orange::before {
     content: '';
     position: absolute; /* Absolute względem nagłówka */
-    right: calc(-20px - (100vw - 767px) / 2); /* Uwzględnia ramkę body + centrowanie body */
+    right: -20px; /* Przy prawej krawędzi body (ramka 20px) */
     top: 50%;
     transform: translateY(-50%);
     height: 1.2em;
@@ -246,7 +246,7 @@ section {
 .section-header-red::before {
     content: '';
     position: absolute; /* Absolute względem nagłówka */
-    right: calc(-20px - (100vw - 767px) / 2); /* Uwzględnia ramkę body + centrowanie body */
+    right: -20px; /* Przy prawej krawędzi body (ramka 20px) */
     top: 50%;
     transform: translateY(-50%);
     height: 1.2em;
