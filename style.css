@@ -139,14 +139,15 @@ section {
     transform: translateY(-50%);
     height: 1.2em; /* Wysokość liter */
     background: var(--color-yellow);
-    width: calc(100vw - 100% - 0.5em - 120px); /* Responsywny, ale przyczepiony do tekstu */
+    width: calc(100vw - 100% - 0.5em - 120px - 40px); /* Responsywny, ale przyczepiony do tekstu, uwzględnia ramkę body */
     border-radius: 0;
+    max-width: calc(100vw - 100% - 0.5em - 120px - 40px); /* Dodatkowe zabezpieczenie */
 }
 
 .section-header-yellow::before {
     content: '';
     position: absolute;
-    right: 0;
+    right: -20px; /* Uwzględnia ramkę body */
     top: 50%;
     transform: translateY(-50%);
     height: 1.2em;
@@ -158,6 +159,7 @@ section {
         var(--color-yellow) 4px,
         var(--color-yellow) 8px
     );
+    z-index: 1; /* Dodatkowe zabezpieczenie */
 }
 
 .section-header-orange {
@@ -185,14 +187,15 @@ section {
     transform: translateY(-50%);
     height: 1.2em; /* Wysokość liter */
     background: var(--color-orange);
-    width: calc(100vw - 100% - 0.5em - 120px); /* Responsywny, ale przyczepiony do tekstu */
+    width: calc(100vw - 100% - 0.5em - 120px - 40px); /* Responsywny, ale przyczepiony do tekstu, uwzględnia ramkę body */
     border-radius: 0;
+    max-width: calc(100vw - 100% - 0.5em - 120px - 40px); /* Dodatkowe zabezpieczenie */
 }
 
 .section-header-orange::before {
     content: '';
     position: absolute;
-    right: 0;
+    right: -20px; /* Uwzględnia ramkę body */
     top: 50%;
     transform: translateY(-50%);
     height: 1.2em;
@@ -204,6 +207,7 @@ section {
         var(--color-orange) 4px,
         var(--color-orange) 8px
     );
+    z-index: 1; /* Dodatkowe zabezpieczenie */
 }
 
 .section-header-red {
@@ -231,14 +235,15 @@ section {
     transform: translateY(-50%);
     height: 1.2em; /* Wysokość liter */
     background: var(--color-red);
-    width: calc(100vw - 100% - 0.5em - 120px); /* Responsywny, ale przyczepiony do tekstu */
+    width: calc(100vw - 100% - 0.5em - 120px - 40px); /* Responsywny, ale przyczepiony do tekstu, uwzględnia ramkę body */
     border-radius: 0;
+    max-width: calc(100vw - 100% - 0.5em - 120px - 40px); /* Dodatkowe zabezpieczenie */
 }
 
 .section-header-red::before {
     content: '';
     position: absolute;
-    right: 0;
+    right: -20px; /* Uwzględnia ramkę body */
     top: 50%;
     transform: translateY(-50%);
     height: 1.2em;
@@ -250,6 +255,7 @@ section {
         var(--color-red) 4px,
         var(--color-red) 8px
     );
+    z-index: 1; /* Dodatkowe zabezpieczenie */
 }
 
 /* ===== SEKCJA O MNIE ===== */
@@ -484,7 +490,7 @@ main {
 /* ===== SEKCJA GŁÓWNA (HERO) ===== */
 .home-section {
     position: relative;
-    padding-top: 40px; /* Odległość od górnej krawędzi ekranu */
+    padding-top: 20px; /* Odległość od górnej krawędzi ekranu (40px - 20px ramka body) */
 }
 
 .home-section .section-header-yellow {
