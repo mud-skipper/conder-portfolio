@@ -142,13 +142,12 @@ section {
     width: 200px; /* Stała szerokość paska - prostsze rozwiązanie */
     border-radius: 0;
     z-index: 2; /* Wyższy z-index niż "zebra" */
-    max-width: calc(100vw - 100% - 0.5em - 120px - 40px); /* Ograniczenie szerokości żeby nie nachodzić na "zebrę" */
 }
 
 .section-header-yellow::before {
     content: '';
     position: absolute;
-    right: -20px; /* Uwzględnia ramkę body */
+    right: calc(-20px - (100vw - 767px) / 2); /* Uwzględnia ramkę body + centrowanie body */
     top: 50%;
     transform: translateY(-50%);
     height: 1.2em;
@@ -191,13 +190,12 @@ section {
     width: 200px; /* Stała szerokość paska - prostsze rozwiązanie */
     border-radius: 0;
     z-index: 2; /* Wyższy z-index niż "zebra" */
-    max-width: calc(100vw - 100% - 0.5em - 120px - 40px); /* Ograniczenie szerokości żeby nie nachodzić na "zebrę" */
 }
 
 .section-header-orange::before {
     content: '';
     position: absolute;
-    right: -20px; /* Uwzględnia ramkę body */
+    right: calc(-20px - (100vw - 767px) / 2); /* Uwzględnia ramkę body + centrowanie body */
     top: 50%;
     transform: translateY(-50%);
     height: 1.2em;
@@ -240,13 +238,12 @@ section {
     width: 200px; /* Stała szerokość paska - prostsze rozwiązanie */
     border-radius: 0;
     z-index: 2; /* Wyższy z-index niż "zebra" */
-    max-width: calc(100vw - 100% - 0.5em - 120px - 40px); /* Ograniczenie szerokości żeby nie nachodzić na "zebrę" */
 }
 
 .section-header-red::before {
     content: '';
     position: absolute;
-    right: -20px; /* Uwzględnia ramkę body */
+    right: calc(-20px - (100vw - 767px) / 2); /* Uwzględnia ramkę body + centrowanie body */
     top: 50%;
     transform: translateY(-50%);
     height: 1.2em;
