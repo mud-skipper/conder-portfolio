@@ -297,6 +297,50 @@
 - **Backup**: Utworzono kompletny backup `session_07_01_2025_17_30` z stabilną wersją
 - **Lekcja**: Struktura HTML powinna być semantyczna (listy `<ul>` zamiast `<div>`), a wcięcia należy projektować z uwzględnieniem wszystkich marginesów i paddingów
 
+### [2025-01-07] 🎨 NOWY STYL NAGŁÓWKÓW SEKCJI - TEKST WYJUSTOWANY DO LEWEJ I KOLOROWE PASKI
+- **Problem**: Użytkownik chciał zmienić styl nagłówków sekcji ("O mnie", "Projekty", "Kontakt")
+  - Stare nagłówki były pełnymi paskami z wycentrowanym tekstem
+  - Potrzebne: tekst wyjustowany do lewej, kolorowy pasek za tekstem, wzór "zebra" na końcu
+  - Nagłówek "O mnie" miał być przeniesiony nad zdjęcie z odpowiednimi odstępami
+- **Rozwiązanie - Nowy styl nagłówków**:
+  - Zmieniono `text-align: center` na `text-align: left` dla wszystkich nagłówków
+  - Zmieniono `background` z kolorowego na `transparent`
+  - Zmieniono `color` z białego na `var(--color-black)`
+  - Dodano `position: relative` dla pozycjonowania pseudo-elementów
+  - Powiększono `font-size` z `1.1em` na `1.3em`
+- **Rozwiązanie - Kolorowe paski za tekstem**:
+  - Dodano `::after` pseudo-element z kolorowym tłem
+  - Pozycjonowanie: `left: calc(100% + 0.5em)` (jedna litera odstępu)
+  - Wysokość: `1.2em` (wysokość liter)
+  - Szerokość: `200px` (stała szerokość - prostsze rozwiązanie)
+  - Kolory: `var(--color-yellow)`, `var(--color-orange)`, `var(--color-red)`
+- **Rozwiązanie - Wzór "zebra" na końcu**:
+  - Dodano `::before` pseudo-element z `repeating-linear-gradient`
+  - Pozycjonowanie: `right: -20px` (uwzględnia ramkę body)
+  - Szerokość: `120px` (stała szerokość - nieresponsywna)
+  - Wzór: `45deg`, `transparent 4px`, kolor paska `4px`
+  - Dodano `z-index: 1` dla zabezpieczenia
+- **Rozwiązanie - Przeniesienie nagłówka "O mnie" nad zdjęcie**:
+  - Przeniesiono `<h2 class="section-header-yellow">O mnie</h2>` z sekcji "about" do sekcji "home"
+  - Dodano `padding-top: 20px` do `.home-section` (40px - 20px ramka body)
+  - Dodano `margin-bottom: 20px` do `.home-section .section-header-yellow`
+- **Rozwiązanie - Problemy z paskami**:
+  - **Problem 1**: `calc(100vw - 100% - 0.5em - 120px - 40px)` dawał ujemne wartości
+  - **Rozwiązanie**: Zmieniono na stałą szerokość `200px`
+  - **Problem 2**: `overflow-x: hidden` na body przycinał paski
+  - **Rozwiązanie**: Zmieniono na `overflow-x: visible`
+  - **Problem 3**: Cache przeglądarki blokował zmiany
+  - **Rozwiązanie**: Agresywny cache busting (`v=5.4&v3=1&final=1`)
+- **Rezultat**:
+  - ✅ Tekst nagłówków wyjustowany do lewej (jak reszta tekstu)
+  - ✅ Kolorowe paski za tekstem w odległości jednej litery
+  - ✅ Wysokość pasków = wysokość liter (1.2em)
+  - ✅ Wzór "pasy dla pieszych" na końcu (120px szerokości)
+  - ✅ Nagłówek "O mnie" nad zdjęciem z odpowiednimi odstępami
+  - ✅ Wszystkie zmiany wypchnięte na GitHub
+- **Status**: **W TRAKCIE TESTOWANIA** - sprawdzanie czy paski działają i się pojawiają
+- **Lekcja**: Skomplikowane `calc()` mogą dawać nieoczekiwane wyniki, lepiej używać stałych wartości. `overflow-x: hidden` może przycinać elementy pozycjonowane absolutnie.
+
 ## Najważniejsze porażki i lekcje
 - SVG z preserveAspectRatio="none" rozciąga kształt na różnych szerokościach – lepiej używać "meet" lub "slice".
 - SVG nie obsługuje procentów w points – trzeba przeliczać na wartości względem viewBox.
@@ -304,10 +348,14 @@
 - Lepiej rysować kształty "od zera" niż kopiować i odbijać, bo łatwiej o błąd.
 - Zawsze testować na różnych szerokościach ekranu!
 - Dolny pasek wymaga nowego podejścia - implementacja na wzór paska górnego.
+- **NOWA LEKCJA**: Skomplikowane `calc()` mogą dawać ujemne wartości - lepiej używać stałych szerokości.
+- **NOWA LEKCJA**: `overflow-x: hidden` może przycinać elementy pozycjonowane absolutnie.
 
 ## Co działa dobrze
 - Header, logo, boczne menu, retro-minimalistyczny styl, responsywność, blokada desktopów.
 - Kod jest czytelny, łatwy do rozbudowy, dobrze skomentowany.
+- **NOWE**: Sekcja "O mnie" z poprawnymi odstępami i wcięciami w listach.
+- **NOWE**: Nowy styl nagłówków sekcji z tekstem wyjustowanym do lewej.
 
 ## Co wymaga uwagi/przyszłych poprawek
 - **Dolny pasek** – całkowicie usunięty, wymaga nowego podejścia bez konfliktów skalowania
@@ -315,6 +363,7 @@
 - Testy na różnych urządzeniach i przeglądarkach.
 - Dalsza rozbudowa bocznego menu, przyciski w dolnym pasku.
 - **Priorytet**: Nowa implementacja footera bez problemów ze skalowaniem
+- **AKTUALNY PRIORYTET**: Sprawdzenie czy paski nagłówków działają poprawnie
 
 ---
 
