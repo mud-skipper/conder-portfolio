@@ -113,6 +113,11 @@ section {
     /* Podstawowe style sekcji */
 }
 
+.section-content {
+    padding-left: 0; /* Dosunięcie do ramki 20px body */
+    padding-right: 0;
+}
+
 /* ===== NOWE NAGŁÓWKI Z KOLOROWYMI PASKAMI ===== */
 
 /* Kontener dla nagłówka z paskiem */
@@ -121,6 +126,7 @@ section {
     margin-bottom: 1em;
     padding-left: 0;
     margin-left: 0;
+    padding-left: 0; /* Dosunięcie do ramki 20px body */
 }
 
 /* Kolorowy pasek na całą szerokość */
