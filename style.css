@@ -119,6 +119,7 @@ section {
 .header-container {
     position: relative;
     margin-bottom: 1em;
+    padding-left: 0;
 }
 
 /* Kolorowy pasek na całą szerokość */
@@ -132,19 +133,22 @@ section {
     z-index: 1;
 }
 
+/* Specjalne pozycjonowanie dla żółtego paska w sekcji "O mnie" */
+.home-section .header-stripe-yellow {
+    top: 40%;
+    transform: translateY(-50%);
+}
+
 .header-stripe-yellow {
     background: var(--color-yellow);
-    border: 1px solid red; /* DEBUG */
 }
 
 .header-stripe-orange {
     background: var(--color-orange);
-    border: 1px solid blue; /* DEBUG */
 }
 
 .header-stripe-red {
     background: var(--color-red);
-    border: 1px solid green; /* DEBUG */
 }
 
 /* Nagłówek z białym tłem pod tekstem */
