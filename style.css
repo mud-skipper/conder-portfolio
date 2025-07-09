@@ -632,15 +632,15 @@ main {
 
 /* ================= LOGO HAMBURGER ================= */
 .logo-hamburger {
-    position: fixed;
-    top: -20px; /* Prawy górny narożnik logo w pozycji (-20, -20) */
-    right: -20px; /* Prawy górny narożnik logo w pozycji (-20, -20) */
+    position: absolute;
+    top: 20px;
+    right: 20px;
     width: 60px;
     height: 60px;
     background: transparent;
     border: none;
     cursor: pointer;
-    z-index: 10002; /* Wyższy niż kolba */
+    z-index: 10001; /* Wyższy niż kolba */
     pointer-events: auto; /* Przycisk klikalny */
     display: flex;
     justify-content: center;
