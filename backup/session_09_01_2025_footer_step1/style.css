@@ -594,18 +594,4 @@ main {
 }
 /* ================= KONIEC HEADERA: LUFA (FINAL) ================= */
 
-/* ================= FOOTER: LUFA (FINAL) ================= */
-.lufa-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100vw;
-    height: 20px;
-    background: #fff !important;
-    border-top: 1px solid #bbb;
-    box-shadow: 0 -4px 16px rgba(0,0,0,0.12);
-    z-index: 9999 !important;
-}
-/* ================= KONIEC FOOTERA: LUFA (FINAL) ================= */
-
  

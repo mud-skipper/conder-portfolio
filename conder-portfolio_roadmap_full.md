@@ -660,3 +660,10 @@
 - Logo jako menu hamburger w headerze
 - Przyciski akcji w footerze
 - Zgodnie z roadmapą projektu
+
+## [2025-07-09] Nowy header – lufa
+- Usunięto wszystkie stare implementacje headera.
+- Dodano prostokątną lufę (40px, fixed, z-index 9999, cień, szara linia).
+- Przesunięto sekcję „O mnie” paddingiem, by żółty pasek i tytuł były zawsze pod lufą.
+- Kod w pełni zsynchronizowany z GitHub, gotowy do dalszej rozbudowy.
+- Backup: backup/session_09_07_2025_header_lufa/
