@@ -1377,16 +1377,20 @@
             e.preventDefault();
             isDragging = true;
             const rect = e.target.getBoundingClientRect();
-            dragStart.x = e.clientX - rect.left;
-            dragStart.y = e.clientY - rect.top;
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            dragStart.x = clientX - rect.left;
+            dragStart.y = clientY - rect.top;
         }
 
         function startDragOverlay(e) {
             e.preventDefault();
             isDragging = true;
             const rect = e.target.getBoundingClientRect();
-            dragStart.x = e.clientX - rect.left;
-            dragStart.y = e.clientY - rect.top;
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            dragStart.x = clientX - rect.left;
+            dragStart.y = clientY - rect.top;
         }
 
         function startResize(e) {
@@ -1395,13 +1399,19 @@
             isResizing = true;
             resizeHandle = e.target;
             const rect = e.target.getBoundingClientRect();
-            dragStart.x = e.clientX - rect.left;
-            dragStart.y = e.clientY - rect.top;
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            dragStart.x = clientX - rect.left;
+            dragStart.y = clientY - rect.top;
         }
 
         function drag(e) {
             if (!isDragging && !isResizing) return;
             e.preventDefault();
+            
+            // Obsługa touch events
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
             
             const cropperImage = document.getElementById('cropperImage');
             const cropOverlay = document.querySelector('.crop-overlay');
@@ -1411,8 +1421,8 @@
                 
                 if (isDragging) {
                     // Przesuwanie kadru
-                    const x = e.clientX - rect.left - dragStart.x;
-                    const y = e.clientY - rect.top - dragStart.y;
+                    const x = clientX - rect.left - dragStart.x;
+                    const y = clientY - rect.top - dragStart.y;
                     
                     // Ogranicz ruch do granic obrazu
                     const maxX = rect.width - cropOverlay.offsetWidth;
@@ -1432,8 +1442,8 @@
                     const currentTop = parseFloat(cropOverlay.style.top) || 0;
                     
                     // Oblicz deltę ruchu
-                    const deltaX = e.clientX - (rect.left + dragStart.x);
-                    const deltaY = e.clientY - (rect.top + dragStart.y);
+                    const deltaX = clientX - (rect.left + dragStart.x);
+                    const deltaY = clientY - (rect.top + dragStart.y);
                     
                     // Określ kierunek skalowania na podstawie rękojeści
                     const handleClass = resizeHandle.className;
@@ -1448,7 +1458,7 @@
                     if (handleClass.includes('se')) {
                         // Prawy dolny róg - skaluj w prawo i w dół
                         newWidth = Math.max(minSize, currentWidth + deltaX);
-                        newHeight = newWidth / 0.8; // Zachowaj proporcję 4:5 pion
+                        newHeight = newWidth / 0.8; // Zachowaj proporcję 4:5 pion (szerokość = 80% wysokości)
                     } else if (handleClass.includes('sw')) {
                         // Lewy dolny róg - skaluj w lewo i w dół
                         newWidth = Math.max(minSize, currentWidth - deltaX);
@@ -1473,7 +1483,16 @@
                     newWidth = Math.min(newWidth, maxWidth);
                     newHeight = Math.min(newHeight, maxHeight);
                     
-                    // Zastosuj nowe wymiary z animacją
+                    // Sprawdź czy nowe wymiary zachowują proporcję
+                    const aspectRatio = 0.8; // 4:5 pion (szerokość = 80% wysokości)
+                    const expectedHeight = newWidth / aspectRatio;
+                    
+                    if (Math.abs(newHeight - expectedHeight) > 1) {
+                        // Dostosuj wysokość do proporcji
+                        newHeight = expectedHeight;
+                    }
+                    
+                    // Zastosuj nowe wymiary
                     cropOverlay.style.transition = 'none'; // Wyłącz animację podczas przeciągania
                     cropOverlay.style.width = newWidth + 'px';
                     cropOverlay.style.height = newHeight + 'px';
@@ -1654,8 +1673,10 @@
                     
                     console.log('Dodano przycięte zdjęcie do projektu:', projectId, 'plik:', croppedFile.name);
                     console.log('Lista plików projektu:', window.projectFiles[projectId]);
+                    console.log('Liczba plików w projekcie:', window.projectFiles[projectId].length);
                     
                     // Odśwież podgląd projektu
+                    console.log('Wywołuję updateProjectPreview dla projektu:', projectId);
                     updateProjectPreview(projectId);
                     
                 }, 'image/jpeg', 0.9);
@@ -1665,14 +1686,29 @@
         }
 
         function updateProjectPreview(projectId) {
+            console.log('updateProjectPreview wywołane dla projektu:', projectId);
+            
             const preview = document.getElementById(`project-images-preview-${projectId}`);
-            if (!preview || !window.projectFiles || !window.projectFiles[projectId]) {
+            console.log('Element preview:', preview);
+            
+            if (!preview) {
+                console.error('Nie znaleziono elementu preview dla projektu:', projectId);
                 return;
             }
+            
+            if (!window.projectFiles || !window.projectFiles[projectId]) {
+                console.log('Brak plików dla projektu:', projectId);
+                preview.style.display = 'none';
+                return;
+            }
+            
+            console.log('Liczba plików do wyświetlenia:', window.projectFiles[projectId].length);
             
             preview.innerHTML = '';
             
             window.projectFiles[projectId].forEach((file, index) => {
+                console.log('Tworzenie podglądu dla pliku:', file.name, 'indeks:', index);
+                
                 const fileItem = document.createElement('div');
                 fileItem.className = 'file-item';
                 fileItem.innerHTML = `
@@ -1694,6 +1730,7 @@
             });
             
             preview.style.display = 'block';
+            console.log('Podgląd zaktualizowany dla projektu:', projectId);
         }
 
         function removeProjectFile(projectId, index) {
@@ -2270,8 +2307,13 @@
 
         // ===== KADROWANIE ZDJĘĆ DLA PROJEKTU =====
         function startCropForProject(projectId, fileName, buttonElement) {
+            console.log('startCropForProject wywołane:', projectId, fileName);
+            
             const input = document.getElementById(`project-images-${projectId}`);
             const files = input.files;
+            
+            console.log('Input element:', input);
+            console.log('Liczba plików:', files ? files.length : 0);
             
             if (!files || files.length === 0) {
                 alert('Nie wybrano plików');
@@ -2280,6 +2322,8 @@
             
             // Znajdź plik o danej nazwie
             const file = Array.from(files).find(f => f.name === fileName);
+            console.log('Znaleziony plik:', file ? file.name : 'nie znaleziono');
+            
             if (!file) {
                 alert('Nie znaleziono pliku');
                 return;
@@ -2293,6 +2337,8 @@
                 isProjectImage: true
             };
             
+            console.log('Ustawiono currentCropData:', currentCropData);
+            
             // Uruchom kadrowanie
             startCrop(file, -1); // -1 oznacza, że to nowe zdjęcie projektu
         }
@@ -2305,6 +2351,10 @@
                 console.error('Nie znaleziono elementu statusu');
                 return;
             }
+            
+            console.log('Sprawdzanie plików dla projektu:', projectId);
+            console.log('window.projectFiles:', window.projectFiles);
+            console.log('window.projectFiles[projectId]:', window.projectFiles ? window.projectFiles[projectId] : 'undefined');
             
             // Sprawdź czy są kadrowane pliki
             if (!window.projectFiles || !window.projectFiles[projectId] || window.projectFiles[projectId].length === 0) {
