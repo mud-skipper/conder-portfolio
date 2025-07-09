@@ -664,7 +664,7 @@
 ## [2025-07-09] Nowy header – lufa
 - Usunięto wszystkie stare implementacje headera.
 - Dodano prostokątną lufę (40px, fixed, z-index 9999, cień, szara linia).
-- Przesunięto sekcję „O mnie” paddingiem, by żółty pasek i tytuł były zawsze pod lufą.
+- Przesunięto sekcję „O mnie" paddingiem, by żółty pasek i tytuł były zawsze pod lufą.
 - Kod w pełni zsynchronizowany z GitHub, gotowy do dalszej rozbudowy.
 - Backup: backup/session_09_07_2025_header_lufa/
 
@@ -755,3 +755,16 @@
 - **Footer "Lufa"**: Prosty prostokąt 20px wysokości, cień skierowany w górę
 - **Status**: Kompletny "pistolet" header z menu bocznym gotowy do użycia
 - **Lekcja**: Systematyczne podejście do implementacji z backupami i testami
+
+### [2025-01-09] 🎨 WYŚRODKOWANIE NAGŁÓWKÓW WZGLĘDEM LINII SKOŚNEJ KOLBY
+- **Cel**: Wszystkie nagłówki sekcji wycentrowane względem linii skośnej kolby (45°)
+- **Implementacja**: 
+  - Dodano `padding-top: 36px` do sekcji "Projekty" (`.projects-section`)
+  - Dodano `padding-top: 36px` do sekcji "Kontakt" (`.contact-section`)
+  - Dodano `padding-bottom: 60px` do sekcji "Kontakt" dla lepszego UX
+- **Efekt**: 
+  - Wszystkie nagłówki z kolorowymi paskami są teraz wycentrowane względem linii skośnej kolby
+  - Spójne pozycjonowanie w całej aplikacji
+  - Dodatkowa przestrzeń pod sekcją "Kontakt" dla lepszego UX
+- **Status**: Nagłówki wszystkich sekcji są teraz spójnie wycentrowane względem kolby
+- **Backup**: Utworzono backup session_09_01_2025_header_alignment

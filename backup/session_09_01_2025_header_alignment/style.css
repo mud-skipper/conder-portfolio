@@ -284,7 +284,6 @@ section {
 .projects-section {
     width: 100%;
     background: var(--color-white);
-    padding-top: 36px; /* Wyśrodkowanie nagłówka względem linii skośnej kolby */
 }
 
 .projects-content {
@@ -476,8 +475,6 @@ section {
 .contact-section {
     width: 100%;
     background: var(--color-white);
-    padding-top: 36px; /* Wyśrodkowanie nagłówka względem linii skośnej kolby */
-    padding-bottom: 60px; /* Dodatkowa przestrzeń na dole dla lepszego UX */
 }
 
 .contact-content {
