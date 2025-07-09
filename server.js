@@ -680,10 +680,6 @@ app.post('/api/addImagesToProject', upload.array('images', 5), async (req, res) 
                 const fileExists = await fs.access(file.path).then(() => true).catch(() => false);
                 if (!fileExists) {
                     console.error(`Plik nie istnieje: ${file.path}`);
-                    // Dodaj oryginalny plik jako fallback
-                    const originalPath = `${projectName}/${file.filename}`;
-                    newImages.push(originalPath);
-                    console.log(`Dodano oryginalny plik (plik nie istnieje): ${originalPath}`);
                     continue;
                 }
                 
@@ -696,7 +692,14 @@ app.post('/api/addImagesToProject', upload.array('images', 5), async (req, res) 
                     continue;
                 }
                 
-                const optimizedFileName = await processAndOptimizeImage(file.path, projectName);
+                // Przenieś plik do katalogu projektu przed optymalizacją
+                const projectFilePath = path.join(projectDir, file.filename);
+                await fs.copyFile(file.path, projectFilePath);
+                await fs.unlink(file.path); // Usuń oryginalny plik z głównego katalogu
+                
+                console.log(`Przeniesiono plik do katalogu projektu: ${projectFilePath}`);
+                
+                const optimizedFileName = await processAndOptimizeImage(projectFilePath, projectName);
                 const imagePath = `${projectName}/${optimizedFileName}`;
                 
                 // Sprawdź czy zoptymalizowany plik istnieje
