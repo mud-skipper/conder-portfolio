@@ -1409,9 +1409,21 @@
                 if (!currentCropData) {
                     currentCropData = {};
                 }
+                // Zachowaj istniejące dane o projekcie
+                const existingProjectData = {
+                    projectId: currentCropData.projectId,
+                    imageName: currentCropData.imageName,
+                    imageIndex: currentCropData.imageIndex,
+                    isExistingImage: currentCropData.isExistingImage,
+                    isProjectImage: currentCropData.isProjectImage
+                };
+                
                 currentCropData.file = file;
                 currentCropData.index = index;
                 currentCropData.originalSrc = e.target.result;
+                
+                // Przywróć dane o projekcie
+                Object.assign(currentCropData, existingProjectData);
                 
                 // Ustaw rozmiar kadru po załadowaniu obrazu
                 cropperImage.onload = function() {
@@ -1425,12 +1437,12 @@
                         const imageHeight = cropperImage.naturalHeight;
                         
                         // Format 4:5 pion - szerokość = 80% wysokości
-                        // Kadr dopasowany do wysokości obrazu (100%)
-                        const cropHeight = Math.min(imageHeight, 400); // Maksymalna wysokość 400px
+                        // Kadr dopasowany do wysokości wyświetlanego obrazu (80% wysokości)
+                        const rect = cropperImage.getBoundingClientRect();
+                        const cropHeight = rect.height * 0.8; // 80% wysokości wyświetlanego obrazu
                         const cropWidth = cropHeight * 0.8; // Proporcja 4:5 pion (szerokość = 80% wysokości)
                         
                         // Ustaw kadr na środku obrazu
-                        const rect = cropperImage.getBoundingClientRect();
                         const centerX = (rect.width - cropWidth) / 2;
                         const centerY = (rect.height - cropHeight) / 2;
                         
@@ -1596,8 +1608,8 @@
             
             const rect = cropperImage.getBoundingClientRect();
             
-            // Oblicz maksymalny rozmiar kadru (100% wysokości obrazu)
-            const maxHeight = Math.min(rect.height, 400); // Maksymalna wysokość 400px
+            // Oblicz maksymalny rozmiar kadru (100% wysokości wyświetlanego obrazu)
+            const maxHeight = rect.height; // 100% wysokości wyświetlanego obrazu
             const maxWidth = maxHeight * 0.8; // Proporcja 4:5 pion
             
             // Oblicz nowe wymiary z zachowaniem proporcji 4:5 pion
@@ -2266,17 +2278,18 @@
                 // Utwórz plik z blob
                 const file = new File([blob], imageName, { type: 'image/jpeg' });
                 
-                // Uruchom kadrowanie
-                startCrop(file, imageIndex);
-                
-                // Zapisz informacje o projekcie dla późniejszego zapisu
+                // Ustaw dane do kadrowania PRZED wywołaniem startCrop
                 currentCropData = {
-                    ...currentCropData,
+                    file: file,
+                    index: imageIndex,
                     projectId: projectId,
                     imageName: imageName,
                     imageIndex: imageIndex,
                     isExistingImage: true
                 };
+                
+                // Uruchom kadrowanie
+                startCrop(file, imageIndex);
                 
             } catch (error) {
                 console.error('Błąd ładowania zdjęcia do kadrowania:', error);
