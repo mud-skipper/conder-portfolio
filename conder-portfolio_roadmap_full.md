@@ -620,3 +620,43 @@
 
 - **Commit i push na GitHub:** `6d9eab5`
 - **Status:** Wszystkie problemy naprawione, gotowe do testów 
+
+### [2025-01-09] 🎯 FINALIZACJA KADROWANIA ZDJĘĆ I PRZYGOTOWANIE DO HEADER/FOOTER
+- **Data**: 09.01.2025, 15:30
+- **Status**: ✅ UKOŃCZONE - KADROWANIE DZIAŁA PERFEKCYJNIE
+
+#### 🔧 POPRAWKI KADROWANIA ZDJĘĆ
+- **Problem**: Wymuszone kadrowanie do formatu 4:5 dla wszystkich zdjęć
+- **Rozwiązanie**: Kadrowanie jest teraz opcjonalne
+  - Pliki kadrowane → format 4:5 (800x1000px)
+  - Pliki niekadrowane → optymalizacja rozmiaru (max 1200px szerokości, zachowanie proporcji)
+
+#### 🔧 SYNCHRONIZACJA FLAG ISCROPPED
+- **Problem**: Pliki i flagi kadrowania nie były synchronizowane
+- **Rozwiązanie**: Pliki i flagi zawsze w tej samej kolejności w FormData
+
+#### 🔧 POPRAWKI BACKEND
+- Usunięto podwójne usuwanie plików w endpoincie `addImagesToProject`
+- Dodano szczegółowe logi do debugowania
+- Poprawiono logikę odczytywania flag `isCropped`
+
+#### 🔧 POPRAWKI FRONTEND
+- Zmieniono sposób dodawania plików do FormData
+- Dodano flagi `isCropped` dla każdego pliku
+- Poprawiono tekst limitu zdjęć z 5 na 20
+
+#### 📋 BACKUP I STATUS
+- **Backup**: `backup/session_09_01_2025_15_30/`
+- **Status**: ✅ Kadrowanie opcjonalne
+- **Status**: ✅ Limit 20 zdjęć na projekt
+- **Status**: ✅ Synchronizacja flag i plików
+- **Status**: ✅ Backup wykonany
+- **🎯 Następny etap**: Implementacja header i footer
+
+#### 📋 PLAN NASTĘPNEGO CZATU
+**Implementacja "pistoletów" - górny header i dolny footer:**
+- Górny header z kształtem "pistolet" (SVG)
+- Dolny footer z kształtem "pistolet" (odwrócony)
+- Logo jako menu hamburger w headerze
+- Przyciski akcji w footerze
+- Zgodnie z roadmapą projektu
