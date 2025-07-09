@@ -629,44 +629,6 @@ main {
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
 }
-
-/* ================= LOGO HAMBURGER ================= */
-.logo-hamburger {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 60px;
-    height: 60px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    z-index: 10001; /* Wyższy niż kolba */
-    pointer-events: auto; /* Przycisk klikalny */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
-    padding: 0;
-}
-
-.hamburger-line {
-    width: 30px;
-    height: 3px;
-    background: var(--color-black);
-    border-radius: 2px;
-    transition: all 0.3s ease;
-}
-
-.logo-hamburger:hover .hamburger-line {
-    background: var(--color-gray);
-}
-
-.logo-hamburger:active .hamburger-line {
-    background: var(--color-red);
-}
-/* ================= KONIEC LOGO HAMBURGER ================= */
-
 /* ================= KONIEC KOLBY: HEADER ================= */
 
  

@@ -7,20 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
-// ================= LOGO HAMBURGER MENU =================
-document.addEventListener('DOMContentLoaded', function() {
-    const logoHamburger = document.getElementById('logoHamburger');
-    
-    if (logoHamburger) {
-        logoHamburger.addEventListener('click', function() {
-            console.log('Logo hamburger clicked!');
-            // TODO: Implementacja boczne menu
-            // Na razie tylko log do konsoli
-        });
-    }
-});
-// ================= KONIEC LOGO HAMBURGER MENU =================
-
 // ===== WCZYTYWANIE PROJEKTÓW Z JSON =====
 async function loadProjectsFromJSON() {
     try {
