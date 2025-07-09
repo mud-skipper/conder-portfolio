@@ -70,20 +70,15 @@ document.addEventListener('DOMContentLoaded', function() {
     sideMenuLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             const targetSection = this.getAttribute('data-section');
-            const targetElement = document.getElementById(targetSection);
             
-            if (targetElement) {
-                // Płynne przewijanie do sekcji
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
+            // Zamykanie menu najpierw
+            closeSideMenu();
             
-            // Zamykanie menu po kliknięciu w link
+            // Opóźnienie dla lepszego pozycjonowania
             setTimeout(() => {
-                closeSideMenu();
-            }, 300); // Krótkie opóźnienie dla lepszego UX
+                // Bezpieczne przewijanie z uwzględnieniem dynamicznych elementów
+                safeScrollToSection(targetSection);
+            }, 100); // Opóźnienie po zamknięciu menu
         });
     });
     
@@ -261,6 +256,35 @@ function displayEmptyProjects() {
             <p>Dodaj pierwszy projekt przez panel administratora</p>
         </div>
     `;
+}
+
+// Funkcja sprawdzająca czy projekty są załadowane
+function areProjectsLoaded() {
+    const projectsGrid = document.getElementById('projects-grid');
+    if (!projectsGrid) return false;
+    
+    // Sprawdź czy są projekty lub komunikat o braku projektów
+    return projectsGrid.children.length > 0 && 
+           !projectsGrid.querySelector('.loading-projects');
+}
+
+// Funkcja do bezpiecznego przewijania z uwzględnieniem dynamicznych elementów
+function safeScrollToSection(sectionId) {
+    const targetElement = document.getElementById(sectionId);
+    if (!targetElement) return;
+    
+    // Jeśli to sekcja projektów, poczekaj na załadowanie
+    if (sectionId === 'projects' && !areProjectsLoaded()) {
+        setTimeout(() => safeScrollToSection(sectionId), 200);
+        return;
+    }
+    
+    // Przewijanie z lepszymi opcjami
+    targetElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest'
+    });
 }
 
 // Automatyczne odświeżanie projektów co 30 sekund
