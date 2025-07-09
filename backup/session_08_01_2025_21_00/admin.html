@@ -578,79 +578,6 @@
             font-size: 12px;
             border-radius: 3px;
         }
-
-        /* Style dla zarządzania zdjęciami w projektach */
-        .image-item {
-            position: relative;
-            border: 2px solid var(--color-gray-light);
-            border-radius: var(--radius-sm);
-            padding: 10px;
-            margin-bottom: 10px;
-            background: var(--color-white);
-        }
-
-        .image-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .image-number {
-            background: var(--color-black);
-            color: var(--color-white);
-            padding: 2px 6px;
-            border-radius: 3px;
-        }
-
-        .main-image-badge {
-            background: var(--color-orange);
-            color: var(--color-white);
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-size: 10px;
-            font-weight: 700;
-        }
-
-        .image-actions {
-            display: flex;
-            gap: 5px;
-            margin-top: 8px;
-            justify-content: center;
-        }
-
-        .image-move-up, .image-move-down {
-            padding: 4px 8px;
-            border: 1px solid var(--color-gray);
-            border-radius: 3px;
-            background: var(--color-light-gray);
-            color: var(--color-black);
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .image-move-up:hover, .image-move-down:hover {
-            background: var(--color-yellow);
-            border-color: var(--color-orange);
-        }
-
-        .image-remove {
-            padding: 4px 8px;
-            border: 1px solid var(--color-red);
-            border-radius: 3px;
-            background: var(--color-red);
-            color: var(--color-white);
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .image-remove:hover {
-            background: #cc0000;
-        }
     </style>
 </head>
 <body>
@@ -1589,20 +1516,12 @@
             const imagesHtml = project.images && project.images.length > 0 
                 ? `
                     <div class="project-images">
-                        <h4>Zdjęcia (${project.images.length}/5):</h4>
+                        <h4>Zdjęcia (${project.images.length}):</h4>
                         <div class="images-grid">
-                            ${project.images.map((image, index) => `
-                                <div class="image-item" data-image-index="${index}">
-                                    <div class="image-header">
-                                        <span class="image-number">${index + 1}</span>
-                                        ${index === 0 ? '<span class="main-image-badge">GŁÓWNE</span>' : ''}
-                                    </div>
+                            ${project.images.map(image => `
+                                <div class="image-item">
                                     <img src="uploads/${image}" alt="${project.title}" onerror="this.style.display='none'">
-                                    <div class="image-actions">
-                                        ${index > 0 ? `<button class="image-move-up" onclick="moveImageUp(${project.id}, ${index})" title="Przesuń w górę">↑</button>` : ''}
-                                        ${index < project.images.length - 1 ? `<button class="image-move-down" onclick="moveImageDown(${project.id}, ${index})" title="Przesuń w dół">↓</button>` : ''}
-                                        <button class="image-remove" onclick="removeImage(${project.id}, '${image}')" title="Usuń zdjęcie">×</button>
-                                    </div>
+                                    <button class="image-remove" onclick="removeImage(${project.id}, '${image}')" title="Usuń zdjęcie">×</button>
                                 </div>
                             `).join('')}
                         </div>
@@ -1762,61 +1681,6 @@
             }
         }
 
-        // ===== ZMIANA KOLEJNOŚCI ZDJĘĆ =====
-        async function moveImageUp(projectId, imageIndex) {
-            try {
-                const response = await fetch(`/api/moveImage/${projectId}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ 
-                        imageIndex, 
-                        direction: 'up' 
-                    })
-                });
-
-                const result = await response.json();
-
-                if (result.success) {
-                    showStatus('Kolejność zdjęć została zmieniona', 'success');
-                    loadProjectsList(); // Odśwież listę
-                } else {
-                    showStatus('Błąd zmiany kolejności: ' + result.message, 'error');
-                }
-            } catch (error) {
-                console.error('Błąd zmiany kolejności zdjęcia:', error);
-                showStatus('Błąd połączenia z serwerem', 'error');
-            }
-        }
-
-        async function moveImageDown(projectId, imageIndex) {
-            try {
-                const response = await fetch(`/api/moveImage/${projectId}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ 
-                        imageIndex, 
-                        direction: 'down' 
-                    })
-                });
-
-                const result = await response.json();
-
-                if (result.success) {
-                    showStatus('Kolejność zdjęć została zmieniona', 'success');
-                    loadProjectsList(); // Odśwież listę
-                } else {
-                    showStatus('Błąd zmiany kolejności: ' + result.message, 'error');
-                }
-            } catch (error) {
-                console.error('Błąd zmiany kolejności zdjęcia:', error);
-                showStatus('Błąd połączenia z serwerem', 'error');
-            }
-        }
-
         // ===== EDYCJA PROJEKTU =====
         function editProject(projectId) {
             // TODO: Implementacja edycji projektu
@@ -1835,6 +1699,14 @@
             
             const files = input.files;
             if (!files || files.length === 0) {
+                preview.style.display = 'none';
+                return;
+            }
+            
+            // Sprawdź limit plików
+            if (files.length > 5) {
+                alert('Maksymalnie 5 zdjęć na raz!');
+                input.value = '';
                 preview.style.display = 'none';
                 return;
             }
@@ -1890,26 +1762,6 @@
                 status.style.display = 'inline';
                 setTimeout(() => { status.style.display = 'none'; }, 3000);
                 return;
-            }
-            
-            // Sprawdź limit zdjęć w projekcie
-            try {
-                const response = await fetch('content.json');
-                const data = await response.json();
-                const project = data.projects.find(p => p.id === projectId);
-                
-                if (project && project.images) {
-                    const currentImageCount = project.images.length;
-                    if (currentImageCount + files.length > 5) {
-                        status.textContent = `Za dużo zdjęć! Projekt ma już ${currentImageCount} zdjęć. Można dodać maksymalnie ${5 - currentImageCount} zdjęć.`;
-                        status.className = 'status-message status-error';
-                        status.style.display = 'inline';
-                        setTimeout(() => { status.style.display = 'none'; }, 5000);
-                        return;
-                    }
-                }
-            } catch (error) {
-                console.error('Błąd sprawdzania liczby zdjęć:', error);
             }
             
             // Pokaż status

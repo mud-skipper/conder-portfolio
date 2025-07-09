@@ -498,3 +498,13 @@
 - ✅ Wszystkie elementy są przetestowane i działają
 
 **UWAGA**: Ten projekt osiągnął stan FINALNY. Wszystkie elementy działają perfekcyjnie. Każda kolejna zmiana wymaga szczególnej ostrożności i zgody użytkownika. 
+
+### 2025-08-01 21:00 — Backup przed zmianami w panelu admina (projekty/zdjęcia)
+
+- Wykonano backup do `backup/session_08_01_2025_21_00/` (index.html, style.css, script.js, content.json, server.js, admin.html)
+- Planowane zmiany:
+    - Obsługa do 5 zdjęć na projekt (dodawanie, preview, backend)
+    - Możliwość zmiany kolejności zdjęć (góra/dół) i wyboru zdjęcia głównego
+    - Dodawanie zdjęć nie nadpisuje istniejących, tylko dokłada do limitu
+    - Kadrowanie zdjęć w proporcji 4:5 (pion, jak zdjęcie główne w portfolio)
+    - Po wdrożeniu testy i kolejny backup 
