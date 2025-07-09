@@ -580,48 +580,6 @@ main {
     transform: rotate(-45deg);
 }
 
-/* ================= HEADER: PISTOLET (NOWA WERSJA) ================= */
-.header-pistol {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 120px;
-    z-index: 1000;
-    pointer-events: none;
-}
-.header-lufa-svg {
-    pointer-events: none;
-}
-.header-kolba-svg {
-    pointer-events: none;
-}
-.header-hamburger {
-    position: fixed;
-    top: 24px;
-    right: 40px;
-    width: 48px;
-    height: 48px;
-    background: none;
-    border: none;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 1100;
-    cursor: pointer;
-    pointer-events: auto;
-}
-.hamburger-line {
-    width: 36px;
-    height: 4px;
-    background: #222;
-    margin: 4px 0;
-    border-radius: 2px;
-    transition: all 0.3s;
-}
-/* ================= KONIEC HEADERA ================= */
-
 /* ===== HEADER ===== */
 .header {
     position: fixed;
@@ -718,11 +676,6 @@ main {
     position: relative;
     z-index: 1;
     margin-top: 120px; /* Miejsce na header */
-}
-
-/* Dostosowanie main-content dla headera-pistoletu */
-.main-content {
-    margin-top: 120px;
 }
 
  
