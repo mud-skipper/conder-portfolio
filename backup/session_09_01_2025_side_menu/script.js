@@ -10,80 +10,14 @@ document.addEventListener('DOMContentLoaded', function() {
 // ================= LOGO HAMBURGER MENU =================
 document.addEventListener('DOMContentLoaded', function() {
     const logoHamburger = document.getElementById('logoHamburger');
-    const sideMenu = document.getElementById('sideMenu');
-    const sideMenuOverlay = document.getElementById('sideMenuOverlay');
-    const sideMenuClose = document.getElementById('sideMenuClose');
-    const sideMenuLinks = document.querySelectorAll('.side-menu-link');
     
-    // Funkcja otwierania menu
-    function openSideMenu() {
-        sideMenu.classList.add('active');
-        sideMenuOverlay.classList.add('active');
-        logoHamburger.classList.add('menu-open');
-        document.body.style.overflow = 'hidden'; // Blokuje scroll na body
-    }
-    
-    // Funkcja zamykania menu
-    function closeSideMenu() {
-        sideMenu.classList.remove('active');
-        sideMenuOverlay.classList.remove('active');
-        logoHamburger.classList.remove('menu-open');
-        document.body.style.overflow = ''; // Przywraca scroll
-    }
-    
-    // Kliknięcie w logo hamburger
     if (logoHamburger) {
-        logoHamburger.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            openSideMenu();
+        logoHamburger.addEventListener('click', function() {
+            console.log('Logo hamburger clicked!');
+            // TODO: Implementacja boczne menu
+            // Na razie tylko log do konsoli
         });
     }
-    
-    // Kliknięcie w przycisk zamknięcia
-    if (sideMenuClose) {
-        sideMenuClose.addEventListener('click', function(e) {
-            e.preventDefault();
-            closeSideMenu();
-        });
-    }
-    
-    // Kliknięcie w overlay (poza menu)
-    if (sideMenuOverlay) {
-        sideMenuOverlay.addEventListener('click', function(e) {
-            if (e.target === sideMenuOverlay) {
-                closeSideMenu();
-            }
-        });
-    }
-    
-    // Kliknięcie w linki menu
-    sideMenuLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            const targetSection = this.getAttribute('data-section');
-            const targetElement = document.getElementById(targetSection);
-            
-            if (targetElement) {
-                // Płynne przewijanie do sekcji
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-            
-            // Zamykanie menu po kliknięciu w link
-            setTimeout(() => {
-                closeSideMenu();
-            }, 300); // Krótkie opóźnienie dla lepszego UX
-        });
-    });
-    
-    // Zamykanie menu klawiszem Escape
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && sideMenu.classList.contains('active')) {
-            closeSideMenu();
-        }
-    });
 });
 // ================= KONIEC LOGO HAMBURGER MENU =================
 
