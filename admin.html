@@ -1405,25 +1405,28 @@
                 cropperImage.src = e.target.result;
                 imageCropper.style.display = 'block';
                 
-                // Zapisz dane pliku do przycięcia
-                currentCropData = {
-                    file: file,
-                    index: index,
-                    originalSrc: e.target.result
-                };
+                // Zapisz dane pliku do przycięcia (zachowaj istniejące dane jeśli są)
+                if (!currentCropData) {
+                    currentCropData = {};
+                }
+                currentCropData.file = file;
+                currentCropData.index = index;
+                currentCropData.originalSrc = e.target.result;
                 
                 // Ustaw rozmiar kadru po załadowaniu obrazu
                 cropperImage.onload = function() {
                     const cropOverlay = document.querySelector('.crop-overlay');
+                    const cropScaleSlider = document.getElementById('cropScaleSlider');
+                    const cropScaleValue = document.getElementById('cropScaleValue');
+                    
                     if (cropOverlay) {
                         // Oblicz rozmiar kadru względem obrazu (proporcja 4:5 pion)
                         const imageWidth = cropperImage.naturalWidth;
                         const imageHeight = cropperImage.naturalHeight;
                         
                         // Format 4:5 pion - szerokość = 80% wysokości
-                        // Mniejszy początkowy kadr - 60% wysokości obrazu
-                        const maxCropHeight = Math.min(imageHeight * 0.6, 300); // 60% wysokości obrazu, max 300px
-                        const cropHeight = maxCropHeight;
+                        // Kadr dopasowany do wysokości obrazu (100%)
+                        const cropHeight = Math.min(imageHeight, 400); // Maksymalna wysokość 400px
                         const cropWidth = cropHeight * 0.8; // Proporcja 4:5 pion (szerokość = 80% wysokości)
                         
                         // Ustaw kadr na środku obrazu
@@ -1436,6 +1439,13 @@
                         cropOverlay.style.left = centerX + 'px';
                         cropOverlay.style.top = centerY + 'px';
                         cropOverlay.style.transform = 'none';
+                        
+                        // Ustaw pasek skalowania na 100% (maksymalny rozmiar)
+                        if (cropScaleSlider) {
+                            cropScaleSlider.value = 100;
+                            cropScaleSlider.max = 100; // Maksymalnie 100%
+                            cropScaleValue.textContent = '100%';
+                        }
                     }
                 };
             };
@@ -1585,26 +1595,20 @@
             if (!cropOverlay || !cropperImage) return;
             
             const rect = cropperImage.getBoundingClientRect();
-            const currentWidth = cropOverlay.offsetWidth;
-            const currentHeight = cropOverlay.offsetHeight;
-            const currentLeft = parseFloat(cropOverlay.style.left) || 0;
-            const currentTop = parseFloat(cropOverlay.style.top) || 0;
+            
+            // Oblicz maksymalny rozmiar kadru (100% wysokości obrazu)
+            const maxHeight = Math.min(rect.height, 400); // Maksymalna wysokość 400px
+            const maxWidth = maxHeight * 0.8; // Proporcja 4:5 pion
             
             // Oblicz nowe wymiary z zachowaniem proporcji 4:5 pion
-            const baseWidth = 200; // Podstawowa szerokość
-            const baseHeight = baseWidth / 0.8; // Proporcja 4:5 pion
-            
-            const newWidth = baseWidth * scale;
-            const newHeight = newWidth / 0.8; // Zachowaj proporcję
+            const newHeight = maxHeight * scale; // Skaluj od 0 do maxHeight
+            const newWidth = newHeight * 0.8; // Zachowaj proporcję 4:5 pion
             
             // Sprawdź czy nowe wymiary mieszczą się w obrazie
-            const maxWidth = rect.width;
-            const maxHeight = rect.height;
+            const finalWidth = Math.min(newWidth, rect.width);
+            const finalHeight = Math.min(newHeight, rect.height);
             
-            const finalWidth = Math.min(newWidth, maxWidth);
-            const finalHeight = Math.min(newHeight, maxHeight);
-            
-            // Wycentruj kadr jeśli jest mniejszy niż obraz
+            // Wycentruj kadr
             const centerX = (rect.width - finalWidth) / 2;
             const centerY = (rect.height - finalHeight) / 2;
             
