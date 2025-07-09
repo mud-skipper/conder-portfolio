@@ -608,22 +608,4 @@ main {
 }
 /* ================= KONIEC FOOTERA: LUFA (FINAL) ================= */
 
-/* ================= KOLBA: HEADER (SVG poligon) ================= */
-.kolba-header {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 320px;
-    height: 120px;
-    z-index: 10000;
-    pointer-events: none; /* Kolba nie blokuje kliknięć pod spodem */
-}
-.kolba-header svg {
-    display: block;
-    width: 320px;
-    height: 120px;
-    pointer-events: none;
-}
-/* ================= KONIEC KOLBY: HEADER ================= */
-
  
