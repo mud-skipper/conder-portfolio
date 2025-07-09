@@ -136,7 +136,7 @@ function displayProjects(projects) {
                         </div>
                     ` : ''}
                     <div class="project-detail">
-                        <strong>Status:</strong> ${project.stage || project.status || 'Brak'}
+                        <strong>Status:</strong> ${project.stage || project.status || 'Brak'}${project.year ? ` (${project.year})` : ''}
                     </div>
                     ${project.investor ? `
                         <div class="project-detail">
