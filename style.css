@@ -580,18 +580,18 @@ main {
     transform: rotate(-45deg);
 }
 
-/* ================= HEADER: LUFA (DEBUG) ================= */
+/* ================= HEADER: LUFA (FINAL) ================= */
 .lufa-header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 40px;
-    background: #ff0033 !important; /* DEBUG: jaskrawy czerwony */
-    border-bottom: 1px solid #bbb;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    z-index: 9999 !important; /* DEBUG: bardzo wysoki priorytet */
+    background: #fff !important;
+    border-bottom: 2px solid #888;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    z-index: 9999 !important;
 }
-/* ================= KONIEC HEADERA: LUFA (DEBUG) ================= */
+/* ================= KONIEC HEADERA: LUFA (FINAL) ================= */
 
  
