@@ -588,7 +588,7 @@ main {
     width: 100vw;
     height: 40px;
     background: #fff !important;
-    border-bottom: 2px solid #888;
+    border-bottom: 1px solid #bbb;
     box-shadow: 0 4px 16px rgba(0,0,0,0.12);
     z-index: 9999 !important;
 }
