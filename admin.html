@@ -441,11 +441,19 @@
 
         /* ===== SYSTEM KADROWANIA ZDJĘĆ ===== */
         .image-cropper {
-            margin-top: 20px;
-            border: 2px solid var(--color-black);
-            border-radius: var(--radius-md);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10000;
             background: var(--color-white);
+            border: 3px solid var(--color-black);
+            border-radius: var(--radius-md);
             padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow: auto;
         }
 
         .cropper-container {
@@ -459,6 +467,8 @@
             border: 2px dashed var(--color-orange);
             background: var(--color-light-gray);
             overflow: hidden;
+            max-width: 100%;
+            max-height: 60vh;
         }
 
         .cropper-mask::before {
@@ -474,7 +484,7 @@
 
         #cropperImage {
             max-width: 100%;
-            max-height: 400px;
+            max-height: 60vh;
             display: block;
             cursor: move;
         }
@@ -484,19 +494,37 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 240px; /* 60% szerokości obrazu */
-            height: 300px; /* 75% wysokości obrazu - proporcja 4:5 */
+            width: 200px; /* Początkowa szerokość */
+            height: 250px; /* Proporcja 4:5 pion (szerokość = 80% wysokości) */
             border: 2px solid var(--color-yellow);
             background: transparent;
             z-index: 2;
             cursor: move;
             box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+            resize: both;
+            overflow: hidden;
         }
+
+        /* Rękojeści do skalowania */
+        .crop-handle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--color-yellow);
+            border: 1px solid var(--color-black);
+            cursor: pointer;
+        }
+
+        .crop-handle.nw { top: -5px; left: -5px; cursor: nw-resize; }
+        .crop-handle.ne { top: -5px; right: -5px; cursor: ne-resize; }
+        .crop-handle.sw { bottom: -5px; left: -5px; cursor: sw-resize; }
+        .crop-handle.se { bottom: -5px; right: -5px; cursor: se-resize; }
 
         .cropper-controls {
             display: flex;
             gap: 10px;
             justify-content: center;
+            margin-top: 15px;
         }
 
         .crop-btn {
@@ -533,6 +561,15 @@
 
         #cropCancel:hover {
             background: #cc0000;
+        }
+
+        /* Informacja o formacie */
+        .crop-info {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 12px;
+            color: var(--color-gray);
+            font-style: italic;
         }
 
         /* Style dla pól edytowalnych w projektach */
@@ -783,9 +820,15 @@
                 <div id="fileList" class="file-list" style="display: none;"></div>
                 <div id="imageCropper" class="image-cropper" style="display: none;">
                     <div class="cropper-container">
+                        <div class="crop-info">📐 Format 4:5 pion - przeciągnij aby przesunąć, użyj rogów aby skalować</div>
                         <div class="cropper-mask">
                             <img id="cropperImage" src="" alt="Podgląd do kadrowania">
-                            <div class="crop-overlay"></div>
+                            <div class="crop-overlay">
+                                <div class="crop-handle nw"></div>
+                                <div class="crop-handle ne"></div>
+                                <div class="crop-handle sw"></div>
+                                <div class="crop-handle se"></div>
+                            </div>
                         </div>
                         <div class="cropper-controls">
                             <button type="button" id="cropConfirm" class="crop-btn">✓ Zatwierdź kadr</button>
@@ -1230,7 +1273,9 @@
         // ===== SYSTEM KADROWANIA ZDJĘĆ =====
         let currentCropData = null;
         let isDragging = false;
+        let isResizing = false;
         let dragStart = { x: 0, y: 0 };
+        let resizeHandle = null;
 
         function initImageCropper() {
             const cropConfirm = document.getElementById('cropConfirm');
@@ -1252,6 +1297,13 @@
                 cropOverlay.addEventListener('mousedown', startDragOverlay);
                 cropOverlay.addEventListener('touchstart', startDragOverlay);
             }
+
+            // Dodaj obsługę rękojeści do skalowania
+            const handles = document.querySelectorAll('.crop-handle');
+            handles.forEach(handle => {
+                handle.addEventListener('mousedown', startResize);
+                handle.addEventListener('touchstart', startResize);
+            });
 
             document.addEventListener('mousemove', drag);
             document.addEventListener('touchmove', drag);
@@ -1294,13 +1346,14 @@
                 cropperImage.onload = function() {
                     const cropOverlay = document.querySelector('.crop-overlay');
                     if (cropOverlay) {
-                        // Oblicz rozmiar kadru względem obrazu (proporcja 4:5)
+                        // Oblicz rozmiar kadru względem obrazu (proporcja 4:5 pion)
                         const imageWidth = cropperImage.naturalWidth;
                         const imageHeight = cropperImage.naturalHeight;
                         
-                        // Użyj wysokości obrazu jako bazowej i oblicz szerokość dla proporcji 4:5
-                        const cropHeight = Math.min(imageHeight * 0.8, 300); // 80% wysokości, max 300px
-                        const cropWidth = cropHeight * 0.8; // Proporcja 4:5 (szerokość = 80% wysokości)
+                        // Format 4:5 pion - szerokość = 80% wysokości
+                        const maxCropHeight = Math.min(imageHeight * 0.8, 400); // 80% wysokości obrazu, max 400px
+                        const cropHeight = maxCropHeight;
+                        const cropWidth = cropHeight * 0.8; // Proporcja 4:5 pion (szerokość = 80% wysokości)
                         
                         cropOverlay.style.width = cropWidth + 'px';
                         cropOverlay.style.height = cropHeight + 'px';
@@ -1329,8 +1382,18 @@
             dragStart.y = e.clientY - rect.top;
         }
 
+        function startResize(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            isResizing = true;
+            resizeHandle = e.target;
+            const rect = e.target.getBoundingClientRect();
+            dragStart.x = e.clientX - rect.left;
+            dragStart.y = e.clientY - rect.top;
+        }
+
         function drag(e) {
-            if (!isDragging) return;
+            if (!isDragging && !isResizing) return;
             e.preventDefault();
             
             const cropperImage = document.getElementById('cropperImage');
@@ -1338,24 +1401,82 @@
             
             if (cropperImage && cropOverlay) {
                 const rect = cropperImage.getBoundingClientRect();
-                const x = e.clientX - rect.left - dragStart.x;
-                const y = e.clientY - rect.top - dragStart.y;
                 
-                // Ogranicz ruch do granic obrazu
-                const maxX = rect.width - cropOverlay.offsetWidth;
-                const maxY = rect.height - cropOverlay.offsetHeight;
-                
-                const clampedX = Math.max(0, Math.min(x, maxX));
-                const clampedY = Math.max(0, Math.min(y, maxY));
-                
-                cropOverlay.style.left = clampedX + 'px';
-                cropOverlay.style.top = clampedY + 'px';
-                cropOverlay.style.transform = 'none';
+                if (isDragging) {
+                    // Przesuwanie kadru
+                    const x = e.clientX - rect.left - dragStart.x;
+                    const y = e.clientY - rect.top - dragStart.y;
+                    
+                    // Ogranicz ruch do granic obrazu
+                    const maxX = rect.width - cropOverlay.offsetWidth;
+                    const maxY = rect.height - cropOverlay.offsetHeight;
+                    
+                    const clampedX = Math.max(0, Math.min(x, maxX));
+                    const clampedY = Math.max(0, Math.min(y, maxY));
+                    
+                    cropOverlay.style.left = clampedX + 'px';
+                    cropOverlay.style.top = clampedY + 'px';
+                    cropOverlay.style.transform = 'none';
+                } else if (isResizing && resizeHandle) {
+                    // Skalowanie kadru z zachowaniem proporcji 4:5 pion
+                    const currentWidth = cropOverlay.offsetWidth;
+                    const currentHeight = cropOverlay.offsetHeight;
+                    const currentLeft = parseFloat(cropOverlay.style.left) || 0;
+                    const currentTop = parseFloat(cropOverlay.style.top) || 0;
+                    
+                    let newWidth = currentWidth;
+                    let newHeight = currentHeight;
+                    let newLeft = currentLeft;
+                    let newTop = currentTop;
+                    
+                    const deltaX = e.clientX - (rect.left + dragStart.x);
+                    const deltaY = e.clientY - (rect.top + dragStart.y);
+                    
+                    // Określ kierunek skalowania na podstawie rękojeści
+                    const handleClass = resizeHandle.className;
+                    
+                    if (handleClass.includes('se')) {
+                        // Prawy dolny róg - skaluj w prawo i w dół
+                        newWidth = Math.max(100, currentWidth + deltaX);
+                        newHeight = newWidth / 0.8; // Zachowaj proporcję 4:5 pion
+                    } else if (handleClass.includes('sw')) {
+                        // Lewy dolny róg - skaluj w lewo i w dół
+                        newWidth = Math.max(100, currentWidth - deltaX);
+                        newHeight = newWidth / 0.8;
+                        newLeft = currentLeft + (currentWidth - newWidth);
+                    } else if (handleClass.includes('ne')) {
+                        // Prawy górny róg - skaluj w prawo i w górę
+                        newWidth = Math.max(100, currentWidth + deltaX);
+                        newHeight = newWidth / 0.8;
+                        newTop = currentTop + (currentHeight - newHeight);
+                    } else if (handleClass.includes('nw')) {
+                        // Lewy górny róg - skaluj w lewo i w górę
+                        newWidth = Math.max(100, currentWidth - deltaX);
+                        newHeight = newWidth / 0.8;
+                        newLeft = currentLeft + (currentWidth - newWidth);
+                        newTop = currentTop + (currentHeight - newHeight);
+                    }
+                    
+                    // Ogranicz rozmiar do granic obrazu
+                    const maxWidth = rect.width - newLeft;
+                    const maxHeight = rect.height - newTop;
+                    newWidth = Math.min(newWidth, maxWidth);
+                    newHeight = Math.min(newHeight, maxHeight);
+                    
+                    // Zastosuj nowe wymiary
+                    cropOverlay.style.width = newWidth + 'px';
+                    cropOverlay.style.height = newHeight + 'px';
+                    cropOverlay.style.left = newLeft + 'px';
+                    cropOverlay.style.top = newTop + 'px';
+                    cropOverlay.style.transform = 'none';
+                }
             }
         }
 
         function stopDrag() {
             isDragging = false;
+            isResizing = false;
+            resizeHandle = null;
         }
 
         function confirmCrop() {
