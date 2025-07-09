@@ -643,27 +643,25 @@ main {
     z-index: 10001; /* Wyższy niż kolba */
     pointer-events: auto; /* Przycisk klikalny */
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 6px;
     padding: 0;
-}
-
-.hamburger-line {
-    width: 30px;
-    height: 3px;
-    background: var(--color-black);
-    border-radius: 2px;
     transition: all 0.3s ease;
 }
 
-.logo-hamburger:hover .hamburger-line {
-    background: var(--color-gray);
+.logo-image {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    display: block;
 }
 
-.logo-hamburger:active .hamburger-line {
-    background: var(--color-red);
+.logo-hamburger:hover {
+    transform: scale(1.05);
+}
+
+.logo-hamburger:active {
+    transform: scale(0.95);
 }
 /* ================= KONIEC LOGO HAMBURGER ================= */
 
