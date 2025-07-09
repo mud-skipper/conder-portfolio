@@ -9,7 +9,7 @@
     <meta http-equiv="Last-Modified" content="Tue, 07 Jan 2025 17:00:00 GMT">
     <title>Wojciech Conder - Architekt</title>
     <meta name="description" content="Portfolio architekta Wojciecha Condera - projektuję przestrzeń do życia i pracy">
-    <link rel="stylesheet" href="style.css?v=6.6&t=20250107&v=projects_spacing_fix&cache=bust&force=1&timestamp=20250107&refresh=1&nocache=1&v3=1&final=1&fix=1&responsive=1&absolute=1&projects=1&spacing=1">
+    <link rel="stylesheet" href="style.css?v=7.0&t=20250109&v=header_implementation&cache=bust&force=1&timestamp=20250109&refresh=1&nocache=1&v3=1&final=1&fix=1&responsive=1&absolute=1&projects=1&spacing=1&header=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -22,6 +22,32 @@
 </head>
 <body>
 
+    <!-- GÓRNY HEADER - KSZTAŁT "PISTOLET" -->
+    <header class="top-header">
+        <!-- Kolba (stała część) -->
+        <svg class="header-kolba" viewBox="0 0 400 120" preserveAspectRatio="xMidYMid meet">
+            <defs>
+                <filter id="headerShadow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#000000" flood-opacity="0.3"/>
+                </filter>
+            </defs>
+            <path d="M 0,0 L 400,0 L 400,120 L 0,120 Z" fill="white" stroke="#999999" stroke-width="1"/>
+        </svg>
+        <!-- Lufa (skalowana część) -->
+        <svg class="header-lufa" viewBox="0 0 600 120" preserveAspectRatio="none">
+            <path d="M 0,40 L 600,40 L 600,80 L 0,80 Z" fill="white" stroke="#999999" stroke-width="1"/>
+            <!-- Skośna linia 45° -->
+            <path d="M 0,40 L 80,120" stroke="#999999" stroke-width="1" fill="none"/>
+        </svg>
+        <!-- Logo jako menu hamburger -->
+        <div class="header-logo">
+            <button class="hamburger-menu" id="hamburgerMenu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </header>
 
     <!-- Główna zawartość -->
     <main class="main-content">
