@@ -572,6 +572,59 @@
             font-style: italic;
         }
 
+        /* Kontrolki skalowania */
+        .crop-scale-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+            padding: 10px;
+            background: var(--color-light-gray);
+            border-radius: var(--radius-sm);
+        }
+
+        .crop-scale-controls label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-black);
+        }
+
+        .crop-scale-controls input[type="range"] {
+            width: 150px;
+            height: 6px;
+            background: var(--color-gray);
+            border-radius: 3px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .crop-scale-controls input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--color-orange);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .crop-scale-controls input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            background: var(--color-orange);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+
+        .crop-scale-controls span {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-black);
+            min-width: 40px;
+            text-align: center;
+        }
+
         /* Style dla pól edytowalnych w projektach */
         .editable-field {
             margin-bottom: 15px;
@@ -820,7 +873,7 @@
                 <div id="fileList" class="file-list" style="display: none;"></div>
                 <div id="imageCropper" class="image-cropper" style="display: none;">
                     <div class="cropper-container">
-                        <div class="crop-info">📐 Format 4:5 pion - przeciągnij aby przesunąć, użyj rogów aby skalować</div>
+                        <div class="crop-info">📐 Format 4:5 pion - przeciągnij aby przesunąć, użyj paska aby skalować</div>
                         <div class="cropper-mask">
                             <img id="cropperImage" src="" alt="Podgląd do kadrowania">
                             <div class="crop-overlay">
@@ -829,6 +882,11 @@
                                 <div class="crop-handle sw"></div>
                                 <div class="crop-handle se"></div>
                             </div>
+                        </div>
+                        <div class="crop-scale-controls">
+                            <label for="cropScaleSlider">Rozmiar kadru:</label>
+                            <input type="range" id="cropScaleSlider" min="50" max="200" value="100" step="5">
+                            <span id="cropScaleValue">100%</span>
                         </div>
                         <div class="cropper-controls">
                             <button type="button" id="cropConfirm" class="crop-btn">✓ Zatwierdź kadr</button>
@@ -1283,6 +1341,8 @@
             const cropCancel = document.getElementById('cropCancel');
             const cropperImage = document.getElementById('cropperImage');
             const cropOverlay = document.querySelector('.crop-overlay');
+            const cropScaleSlider = document.getElementById('cropScaleSlider');
+            const cropScaleValue = document.getElementById('cropScaleValue');
 
             if (cropConfirm) {
                 cropConfirm.addEventListener('click', confirmCrop);
@@ -1299,7 +1359,16 @@
                 cropOverlay.addEventListener('touchstart', startDragOverlay);
             }
 
-            // Dodaj obsługę rękojeści do skalowania
+            // Dodaj obsługę paska skalowania
+            if (cropScaleSlider) {
+                cropScaleSlider.addEventListener('input', function() {
+                    const scale = this.value / 100;
+                    cropScaleValue.textContent = this.value + '%';
+                    updateCropScale(scale);
+                });
+            }
+
+            // Dodaj obsługę rękojeści do skalowania (opcjonalne)
             const handles = document.querySelectorAll('.crop-handle');
             handles.forEach(handle => {
                 handle.addEventListener('mousedown', startResize);
@@ -1509,6 +1578,43 @@
             resizeHandle = null;
         }
 
+        function updateCropScale(scale) {
+            const cropOverlay = document.querySelector('.crop-overlay');
+            const cropperImage = document.getElementById('cropperImage');
+            
+            if (!cropOverlay || !cropperImage) return;
+            
+            const rect = cropperImage.getBoundingClientRect();
+            const currentWidth = cropOverlay.offsetWidth;
+            const currentHeight = cropOverlay.offsetHeight;
+            const currentLeft = parseFloat(cropOverlay.style.left) || 0;
+            const currentTop = parseFloat(cropOverlay.style.top) || 0;
+            
+            // Oblicz nowe wymiary z zachowaniem proporcji 4:5 pion
+            const baseWidth = 200; // Podstawowa szerokość
+            const baseHeight = baseWidth / 0.8; // Proporcja 4:5 pion
+            
+            const newWidth = baseWidth * scale;
+            const newHeight = newWidth / 0.8; // Zachowaj proporcję
+            
+            // Sprawdź czy nowe wymiary mieszczą się w obrazie
+            const maxWidth = rect.width;
+            const maxHeight = rect.height;
+            
+            const finalWidth = Math.min(newWidth, maxWidth);
+            const finalHeight = Math.min(newHeight, maxHeight);
+            
+            // Wycentruj kadr jeśli jest mniejszy niż obraz
+            const centerX = (rect.width - finalWidth) / 2;
+            const centerY = (rect.height - finalHeight) / 2;
+            
+            cropOverlay.style.width = finalWidth + 'px';
+            cropOverlay.style.height = finalHeight + 'px';
+            cropOverlay.style.left = centerX + 'px';
+            cropOverlay.style.top = centerY + 'px';
+            cropOverlay.style.transform = 'none';
+        }
+
         function confirmCrop() {
             if (!currentCropData) return;
             
@@ -1592,7 +1698,7 @@
                         lastModified: Date.now()
                     });
                     
-                    // Dodaj do listy plików
+                    // Dodaj do listy plików dla nowego projektu
                     if (!window.selectedFiles) {
                         window.selectedFiles = [];
                     }
@@ -1604,7 +1710,7 @@
                         window.selectedFiles.push(croppedFile);
                     }
                     
-                    // Odśwież wyświetlanie
+                    // Odśwież wyświetlanie dla nowego projektu
                     displayFileListWithCropping(window.selectedFiles);
                     
                 }, 'image/jpeg', 0.9);
