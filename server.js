@@ -166,9 +166,16 @@ async function processAndOptimizeImage(filePath, projectName) {
         const sharp = require('sharp');
         const fs = require('fs').promises;
         
+        console.log(`Rozpoczynam optymalizację: ${filePath}`);
+        
+        // Sprawdź czy plik istnieje
+        await fs.access(filePath);
+        
         // Wczytaj obraz
         const image = sharp(filePath);
         const metadata = await image.metadata();
+        
+        console.log(`Metadane obrazu: ${metadata.width}x${metadata.height}, format: ${metadata.format}`);
         
         // Optymalizuj obraz do formatu 4:5 (pion)
         const optimizedImage = image
@@ -186,6 +193,11 @@ async function processAndOptimizeImage(filePath, projectName) {
         const optimizedPath = filePath.replace(/\.[^/.]+$/, '_optimized.jpg');
         await optimizedImage.toFile(optimizedPath);
         
+        console.log(`Zapisałem zoptymalizowany obraz: ${optimizedPath}`);
+        
+        // Sprawdź czy zoptymalizowany plik istnieje
+        await fs.access(optimizedPath);
+        
         // Usuń oryginalny plik i zmień nazwę zoptymalizowanego
         await fs.unlink(filePath);
         await fs.rename(optimizedPath, filePath);
@@ -194,7 +206,8 @@ async function processAndOptimizeImage(filePath, projectName) {
         return path.basename(filePath);
         
     } catch (error) {
-        console.log(`Błąd optymalizacji obrazu ${filePath}:`, error.message);
+        console.error(`Błąd optymalizacji obrazu ${filePath}:`, error.message);
+        console.error(`Stack trace:`, error.stack);
         return path.basename(filePath); // Zwróć oryginalną nazwę jeśli optymalizacja się nie udała
     }
 }
@@ -643,10 +656,32 @@ app.post('/api/addImagesToProject', upload.array('images', 5), async (req, res) 
         const newImages = [];
         for (const file of req.files) {
             try {
+                console.log(`Przetwarzanie pliku: ${file.filename}, ścieżka: ${file.path}`);
+                
+                // Sprawdź czy plik istnieje
+                const fileExists = await fs.access(file.path).then(() => true).catch(() => false);
+                if (!fileExists) {
+                    console.error(`Plik nie istnieje: ${file.path}`);
+                    continue;
+                }
+                
                 const optimizedFileName = await processAndOptimizeImage(file.path, projectName);
                 const imagePath = `${projectName}/${optimizedFileName}`;
-                newImages.push(imagePath);
-                console.log(`Dodano zdjęcie: ${imagePath}`);
+                
+                // Sprawdź czy zoptymalizowany plik istnieje
+                const optimizedPath = path.join(__dirname, 'uploads', imagePath);
+                const optimizedExists = await fs.access(optimizedPath).then(() => true).catch(() => false);
+                
+                if (optimizedExists) {
+                    newImages.push(imagePath);
+                    console.log(`Dodano zdjęcie: ${imagePath}`);
+                } else {
+                    console.error(`Zoptymalizowany plik nie istnieje: ${optimizedPath}`);
+                    // Dodaj oryginalny plik jako fallback
+                    const originalPath = `${projectName}/${file.filename}`;
+                    newImages.push(originalPath);
+                    console.log(`Dodano oryginalny plik: ${originalPath}`);
+                }
             } catch (error) {
                 console.error(`Błąd przetwarzania pliku ${file.filename}:`, error);
                 newImages.push(`${projectName}/${file.filename}`);

@@ -484,8 +484,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 300px;
-            height: 400px; /* Format telefonu - wyższy niż szerszy */
+            width: 240px; /* 60% szerokości obrazu */
+            height: 300px; /* 75% wysokości obrazu - proporcja 4:5 */
             border: 2px solid var(--color-yellow);
             background: transparent;
             z-index: 2;
@@ -1290,13 +1290,25 @@
                     originalSrc: e.target.result
                 };
                 
-                // Resetuj pozycję overlay
-                const cropOverlay = document.querySelector('.crop-overlay');
-                if (cropOverlay) {
-                    cropOverlay.style.left = '50%';
-                    cropOverlay.style.top = '50%';
-                    cropOverlay.style.transform = 'translate(-50%, -50%)';
-                }
+                // Ustaw rozmiar kadru po załadowaniu obrazu
+                cropperImage.onload = function() {
+                    const cropOverlay = document.querySelector('.crop-overlay');
+                    if (cropOverlay) {
+                        // Oblicz rozmiar kadru względem obrazu (proporcja 4:5)
+                        const imageWidth = cropperImage.naturalWidth;
+                        const imageHeight = cropperImage.naturalHeight;
+                        
+                        // Użyj wysokości obrazu jako bazowej i oblicz szerokość dla proporcji 4:5
+                        const cropHeight = Math.min(imageHeight * 0.8, 300); // 80% wysokości, max 300px
+                        const cropWidth = cropHeight * 0.8; // Proporcja 4:5 (szerokość = 80% wysokości)
+                        
+                        cropOverlay.style.width = cropWidth + 'px';
+                        cropOverlay.style.height = cropHeight + 'px';
+                        cropOverlay.style.left = '50%';
+                        cropOverlay.style.top = '50%';
+                        cropOverlay.style.transform = 'translate(-50%, -50%)';
+                    }
+                };
             };
             reader.readAsDataURL(file);
         }
