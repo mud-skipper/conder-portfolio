@@ -613,21 +613,16 @@ main {
     position: fixed;
     top: 0;
     right: 0;
-    width: 120px;
-    height: 100px;
+    width: 320px;
+    height: 120px;
     z-index: 10000;
     pointer-events: none; /* Kolba nie blokuje kliknięć pod spodem */
-    transform: translateZ(0); /* Hardware acceleration dla lepszego pozycjonowania */
-    -webkit-transform: translateZ(0); /* Safari support */
-    will-change: transform; /* Optymalizacja dla przeglądarek */
 }
 .kolba-header svg {
     display: block;
-    width: 120px;
-    height: 100px;
+    width: 320px;
+    height: 120px;
     pointer-events: none;
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
 }
 /* ================= KONIEC KOLBY: HEADER ================= */
 
