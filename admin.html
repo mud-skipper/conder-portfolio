@@ -1309,6 +1309,9 @@
                         <button type="button" class="crop-btn" onclick="startCropFromIndex(${index})" style="margin-left: 10px; padding: 4px 8px; font-size: 12px;">
                             ✂️ Kadruj
                         </button>
+                        <button type="button" class="add-btn" onclick="addFileWithoutCroppingNew(${index})" style="margin-left: 5px; padding: 4px 8px; font-size: 12px; background: var(--color-green); color: white;">
+                            ➕ Dodaj bez kadrowania
+                        </button>
                         <button type="button" class="remove-btn" onclick="removeFile(${index})" style="margin-left: 5px; padding: 4px 8px; font-size: 12px; background: var(--color-red); color: white;">
                             ✗ Usuń
                         </button>
@@ -1379,6 +1382,37 @@
             document.addEventListener('touchmove', drag);
             document.addEventListener('mouseup', stopDrag);
             document.addEventListener('touchend', stopDrag);
+        }
+
+        function addFileWithoutCroppingNew(index) {
+            if (!window.selectedFiles || !window.selectedFiles[index]) {
+                console.error('Plik nie znaleziony');
+                return;
+            }
+            
+            const file = window.selectedFiles[index];
+            
+            // Inicjalizuj globalną tablicę niekadrowanych plików dla nowych projektów
+            if (!window.nonCroppedFilesNew) {
+                window.nonCroppedFilesNew = [];
+            }
+            
+            // Dodaj plik do listy niekadrowanych
+            window.nonCroppedFilesNew.push(file);
+            
+            // Znajdź przycisk i zmień jego tekst
+            const fileItem = document.querySelector(`[data-file-index="${index}"]`);
+            if (fileItem) {
+                const addBtn = fileItem.querySelector('.add-btn');
+                if (addBtn) {
+                    addBtn.textContent = '✅ Dodano';
+                    addBtn.disabled = true;
+                    addBtn.style.background = 'var(--color-green)';
+                }
+            }
+            
+            console.log('Dodano plik bez kadrowania (nowy projekt):', file.name);
+            console.log('window.nonCroppedFilesNew:', window.nonCroppedFilesNew);
         }
 
         function startCropFromIndex(index) {
@@ -1915,9 +1949,16 @@
                     formData.append('location', document.getElementById('location').value);
                     formData.append('year', document.getElementById('year').value);
                     
-                    // Dodaj pliki do FormData (użyj kadrowanych plików jeśli są dostępne)
+                    // Dodaj pliki do FormData (kadrowane i niekadrowane)
                     if (window.selectedFiles && window.selectedFiles.length > 0) {
                         window.selectedFiles.forEach((file, index) => {
+                            formData.append('images', file);
+                        });
+                    }
+                    
+                    // Dodaj niekadrowane pliki
+                    if (window.nonCroppedFilesNew && window.nonCroppedFilesNew.length > 0) {
+                        window.nonCroppedFilesNew.forEach(file => {
                             formData.append('images', file);
                         });
                     }
@@ -1945,6 +1986,7 @@
                         const year = document.getElementById('year');
                         if (year) year.value = '2025'; // Przywróć domyślną wartość roku
                         window.selectedFiles = []; // Wyczyść globalną tablicę plików
+                        window.nonCroppedFilesNew = []; // Wyczyść globalną tablicę niekadrowanych plików
                         
                         console.log('Projekt dodany:', result.project);
                         
@@ -2415,6 +2457,9 @@
                             <button type="button" class="crop-btn" onclick="startCropForProject(${projectId}, '${file.name}', this)" style="margin-left: 10px; padding: 4px 8px; font-size: 12px;">
                                 ✂️ Kadruj
                             </button>
+                            <button type="button" class="add-btn" onclick="addFileWithoutCropping(${projectId}, '${file.name}', this)" style="margin-left: 5px; padding: 4px 8px; font-size: 12px; background: var(--color-green); color: white;">
+                                ➕ Dodaj bez kadrowania
+                            </button>
                         </div>
                     `;
                     preview.appendChild(fileItem);
@@ -2426,6 +2471,48 @@
                 };
                 reader.readAsDataURL(file);
             }
+        }
+
+        // ===== DODAWANIE ZDJĘCIA BEZ KADROWANIA =====
+        function addFileWithoutCropping(projectId, fileName, buttonElement) {
+            console.log('addFileWithoutCropping wywołane:', projectId, fileName);
+            
+            const input = document.getElementById(`project-images-${projectId}`);
+            const files = input.files;
+            
+            if (!files || files.length === 0) {
+                alert('Nie wybrano plików');
+                return;
+            }
+            
+            // Znajdź plik o danej nazwie
+            const file = Array.from(files).find(f => f.name === fileName);
+            
+            if (!file) {
+                alert('Nie znaleziono pliku');
+                return;
+            }
+            
+            // Inicjalizuj globalną tablicę niekadrowanych plików
+            if (!window.nonCroppedFiles) {
+                window.nonCroppedFiles = {};
+            }
+            if (!window.nonCroppedFiles[projectId]) {
+                window.nonCroppedFiles[projectId] = [];
+            }
+            
+            // Dodaj plik do listy niekadrowanych
+            window.nonCroppedFiles[projectId].push(file);
+            
+            // Zmień przycisk na "Dodano"
+            if (buttonElement) {
+                buttonElement.textContent = '✅ Dodano';
+                buttonElement.disabled = true;
+                buttonElement.style.background = 'var(--color-green)';
+            }
+            
+            console.log('Dodano plik bez kadrowania:', fileName);
+            console.log('window.nonCroppedFiles[projectId]:', window.nonCroppedFiles[projectId]);
         }
 
         // ===== KADROWANIE ZDJĘĆ DLA PROJEKTU =====
@@ -2479,9 +2566,12 @@
             console.log('window.projectFiles:', window.projectFiles);
             console.log('window.projectFiles[projectId]:', window.projectFiles ? window.projectFiles[projectId] : 'undefined');
             
-            // Sprawdź czy są kadrowane pliki
-            if (!window.projectFiles || !window.projectFiles[projectId] || window.projectFiles[projectId].length === 0) {
-                status.textContent = 'Najpierw wybierz i kadruj zdjęcia!';
+            // Sprawdź czy są pliki do dodania (kadrowane lub niekadrowane)
+            const hasCroppedFiles = window.projectFiles && window.projectFiles[projectId] && window.projectFiles[projectId].length > 0;
+            const hasNonCroppedFiles = window.nonCroppedFiles && window.nonCroppedFiles[projectId] && window.nonCroppedFiles[projectId].length > 0;
+            
+            if (!hasCroppedFiles && !hasNonCroppedFiles) {
+                status.textContent = 'Najpierw wybierz zdjęcia!';
                 status.className = 'status-message status-error';
                 status.style.display = 'inline';
                 setTimeout(() => { status.style.display = 'none'; }, 3000);
@@ -2518,9 +2608,18 @@
                 const formData = new FormData();
                 
                 // Dodaj kadrowane pliki
-                window.projectFiles[projectId].forEach(file => {
-                    formData.append('images', file);
-                });
+                if (window.projectFiles && window.projectFiles[projectId]) {
+                    window.projectFiles[projectId].forEach(file => {
+                        formData.append('images', file);
+                    });
+                }
+                
+                // Dodaj niekadrowane pliki
+                if (window.nonCroppedFiles && window.nonCroppedFiles[projectId]) {
+                    window.nonCroppedFiles[projectId].forEach(file => {
+                        formData.append('images', file);
+                    });
+                }
                 
                 formData.append('projectId', projectId);
                 
@@ -2551,6 +2650,9 @@
                     // Wyczyść listę plików projektu
                     if (window.projectFiles && window.projectFiles[projectId]) {
                         window.projectFiles[projectId] = [];
+                    }
+                    if (window.nonCroppedFiles && window.nonCroppedFiles[projectId]) {
+                        window.nonCroppedFiles[projectId] = [];
                     }
                     
                     // Odśwież listę projektów
