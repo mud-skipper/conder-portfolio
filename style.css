@@ -543,7 +543,7 @@ main {
 /* ===== SEKCJA GŁÓWNA (HERO) ===== */
 .home-section {
     position: relative;
-    padding-top: 36px; /* Zmniejszone z 56px do 36px */
+    padding-top: 56px; /* Przywrócone z 36px do 56px */
 }
 
 .home-section .section-header-yellow {

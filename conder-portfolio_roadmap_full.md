@@ -789,8 +789,8 @@
   - Automatyczne przewijanie do sekcji "O mnie" mogło wpływać na pozycjonowanie
 - **Rozwiązanie**: 
   - Zmniejszono `padding-bottom` w sekcji "Kontakt" do 400px
-  - Zmniejszono `padding-top` w sekcji "O mnie" do 36px
-  - Tymczasowo wyłączono automatyczne przewijanie do sekcji "O mnie"
+  - Przywrócono `padding-top` w sekcji "O mnie" do 56px
+  - Przywrócono automatyczne przewijanie do sekcji "O mnie" przy ładowaniu strony
   - Dodano `overflow-y: auto` do body dla lepszego scrollowania
   - Dodano dodatkową przestrzeń (100px) na końcu strony
-- **Status**: Testowanie nowych ustawień pozycjonowania z większą przestrzenią pod kontaktem
+- **Status**: Finalne ustawienia z auto-scroll i optymalnym padding
