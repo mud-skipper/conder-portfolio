@@ -613,7 +613,7 @@ main {
     position: fixed;
     top: 0;
     right: 0;
-    width: 180px;
+    width: 120px;
     height: 100px;
     z-index: 10000;
     pointer-events: none; /* Kolba nie blokuje kliknięć pod spodem */
@@ -623,7 +623,7 @@ main {
 }
 .kolba-header svg {
     display: block;
-    width: 180px;
+    width: 120px;
     height: 100px;
     pointer-events: none;
     transform: translateZ(0);
