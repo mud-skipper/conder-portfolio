@@ -249,7 +249,7 @@ async function processAndOptimizeImage(filePath, projectName) {
 }
 
 // Endpoint do dodawania projektu
-app.post('/api/addProject', upload.array('images', 5), async (req, res) => {
+app.post('/api/addProject', upload.array('images', 20), async (req, res) => {
     try {
         console.log('Otrzymano żądanie dodania projektu');
         console.log('Dane formularza:', req.body);
@@ -337,7 +337,7 @@ app.use((error, req, res, next) => {
         if (error.code === 'LIMIT_FILE_COUNT') {
             return res.status(400).json({
                 success: false,
-                message: 'Za dużo plików. Maksymalnie 5 zdjęć.'
+                message: 'Za dużo plików. Maksymalnie 20 zdjęć.'
             });
         }
         
@@ -646,7 +646,7 @@ app.post('/api/updateAbout', upload.single('profileImage'), async (req, res) => 
 });
 
 // Endpoint do dodawania zdjęć do istniejącego projektu
-app.post('/api/addImagesToProject', upload.array('images', 5), async (req, res) => {
+app.post('/api/addImagesToProject', upload.array('images', 20), async (req, res) => {
     try {
         const projectId = parseInt(req.body.projectId);
         
@@ -674,12 +674,12 @@ app.post('/api/addImagesToProject', upload.array('images', 5), async (req, res) 
             });
         }
         
-        // Sprawdź limit zdjęć (maksymalnie 5 na projekt)
+        // Sprawdź limit zdjęć (maksymalnie 20 na projekt)
         const currentImageCount = project.images ? project.images.length : 0;
-        if (currentImageCount + req.files.length > 5) {
+        if (currentImageCount + req.files.length > 20) {
             return res.status(400).json({
                 success: false,
-                message: `Za dużo zdjęć. Projekt może mieć maksymalnie 5 zdjęć (obecnie: ${currentImageCount})`
+                message: `Za dużo zdjęć. Projekt może mieć maksymalnie 20 zdjęć (obecnie: ${currentImageCount})`
             });
         }
         
