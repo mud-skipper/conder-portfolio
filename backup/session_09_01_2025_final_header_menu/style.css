@@ -1,0 +1,838 @@
+/* ===== BLOKADA PRZEGLĄDAREK - TYLKO MOBILE ===== */
+@media (min-width: 768px) {
+    html, body {
+        overflow: hidden;
+    }
+    
+    body::before {
+        content: "📱 Ta strona jest dostępna tylko na urządzeniach mobilnych";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: var(--color-white);
+        color: var(--color-black);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5em;
+        font-weight: 500;
+        text-align: center;
+        z-index: 99999;
+        padding: 20px;
+        font-family: var(--font-primary);
+    }
+    
+    /* Ukryj wszystkie elementy na dużych ekranach */
+    main, .nav-menu {
+        display: none !important;
+    }
+}
+
+/* ===== RESET I PODSTAWY ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== ZMIENNE CSS ===== */
+:root {
+    /* Kolory retro */
+    --color-yellow: #FFD600;
+    --color-orange: #FFA000;
+    --color-red: #FF2D2D;
+    --color-black: #000000;
+    --color-white: #FFFFFF;
+    --color-gray: #666666;
+    --color-separator: #E0E0E0;
+    
+    /* Typografia */
+    --font-primary: 'Figtree', sans-serif;
+    --font-size-base: 16px;
+    --font-size-small: 14px;
+    --font-size-large: 18px;
+    --font-size-xl: 24px;
+    --font-size-2xl: 32px;
+    --font-size-3xl: 48px;
+    
+    /* Spacing */
+    --spacing-xs: 8px;
+    --spacing-sm: 16px;
+    --spacing-md: 24px;
+    --spacing-lg: 32px;
+    --spacing-xl: 48px;
+    --spacing-2xl: 64px;
+    
+    /* Border radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== PODSTAWOWE STYLE ===== */
+html {
+    scroll-behavior: smooth;
+    overflow-x: visible;
+}
+
+body {
+    font-family: var(--font-primary);
+    background: var(--color-white);
+    color: var(--color-black);
+    font-size: 16px;
+    min-width: 320px;
+    max-width: 767px; /* Blokada szerokich ekranów */
+    margin: 0 auto;
+    padding: 0;
+    border: 20px solid var(--color-white); /* GŁÓWNA RAMKA 20px - NIE RUSZAĆ! */
+    box-sizing: border-box;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: visible;
+    overflow-y: auto; /* Dodane dla lepszego scrollowania z dużym padding-bottom */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.main-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== SEKCJE OGÓLNE ===== */
+section {
+    /* Podstawowe style sekcji */
+}
+
+.section-content {
+    padding-left: 0; /* Dosunięcie do ramki 20px body */
+    padding-right: 0;
+}
+
+/* ===== NOWE NAGŁÓWKI Z KOLOROWYMI PASKAMI ===== */
+
+/* Kontener dla nagłówka z paskiem */
+.header-container {
+    position: relative;
+    margin-bottom: 1em;
+    padding-left: 0;
+    margin-left: 0;
+    padding-left: 0; /* Dosunięcie do ramki 20px body */
+    margin-left: 0; /* Dodatkowe dosunięcie */
+}
+
+/* Kolorowy pasek na całą szerokość */
+.header-stripe {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+/* Specjalne pozycjonowanie dla żółtego paska w sekcji "O mnie" */
+.home-section .header-stripe-yellow {
+    /* Usunięto specjalne pozycjonowanie - używa standardowego */
+}
+
+.header-stripe-yellow {
+    background: var(--color-yellow);
+}
+
+.header-stripe-orange {
+    background: var(--color-orange);
+}
+
+.header-stripe-red {
+    background: var(--color-red);
+}
+
+/* Nagłówek z białym tłem pod tekstem */
+.section-header-yellow {
+    color: var(--color-black);
+    font-weight: 800;
+    font-size: 24px;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 0 8px 0 0;
+    margin: 0;
+    position: relative;
+    z-index: 3;
+    background: var(--color-white);
+    width: fit-content;
+    display: inline-block;
+    margin-left: 0;
+}
+
+.section-header-orange {
+    color: var(--color-black);
+    font-weight: 800;
+    font-size: 24px;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 0 8px 0 0;
+    margin: 0;
+    position: relative;
+    z-index: 3;
+    background: var(--color-white);
+    width: fit-content;
+    display: inline-block;
+    margin-left: 0;
+}
+
+.section-header-red {
+    color: var(--color-black);
+    font-weight: 800;
+    font-size: 24px;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 0 8px 0 0;
+    margin: 0;
+    position: relative;
+    z-index: 3;
+    background: var(--color-white);
+    width: fit-content;
+    display: inline-block;
+    margin-left: 0;
+}
+
+/* ===== SEKCJA O MNIE ===== */
+.about-section {
+    width: 100%;
+    background: var(--color-white);
+}
+
+.about-content {
+    width: 100%;
+}
+
+/* Usunięte wszystkie style dla elementów w about-content */
+
+.about-section-block {
+    margin-bottom: 1.5em; /* Jedna linia odstępu między sekcjami */
+}
+
+/* Usunięte nieużywane style */
+
+/* Style dla elementów w sekcji "O mnie" - tylko podstawowe */
+.about-text {
+    font-size: 1em;
+    color: var(--color-black);
+    margin-top: 20px; /* Odsunięcie tekstu od zdjęcia */
+}
+
+.about-subtitle {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: var(--color-black);
+    position: relative; /* Dla pozycjonowania linii ::after */
+}
+
+.about-subtitle::after {
+    content: '';
+    position: absolute;
+    bottom: -0.3em; /* Jeszcze bliżej nazwy sekcji */
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #cccccc; /* Pośredni kolor - nie za jasny, nie za ciemny */
+}
+
+/* Usunięte nieużywane style */
+
+.about-bio {
+    font-size: 1em;
+    color: var(--color-black);
+}
+
+.about-list {
+    list-style-type: none;
+    margin-top: 0.5em; /* Odsunięcie pierwszej linii od nagłówka */
+}
+
+.about-list li {
+    position: relative;
+    font-size: 1em;
+    color: var(--color-black);
+    text-indent: -18px; /* Wcięcie dla zawijających się linii */
+    padding-left: 18px; /* Padding tylko dla wcięcia */
+    margin-top: 0.5em; /* Odsunięcie tekstu od linii */
+}
+
+.about-list li::before {
+    content: ""; /* Usunięto myślnik - dane JSON już mają bullet points */
+    position: absolute;
+    left: 0;
+    color: var(--color-black);
+    font-weight: 700;
+}
+
+/* Usunięte nieużywane style */
+
+/* ===== SEKCJA PROJEKTY ===== */
+.projects-section {
+    width: 100%;
+    background: var(--color-white);
+    padding-top: 56px; /* Zwiększone z 36px o 20px */
+}
+
+.projects-content {
+    width: 100%;
+}
+
+/* Grid dla projektów */
+.projects-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* Karta projektu */
+.project-card {
+    background: var(--color-white);
+    padding: 0;
+    margin: 0;
+    border: none;
+    box-shadow: none;
+}
+
+/* 1. Nazwa inwestycji */
+.project-title {
+    font-size: 1.4em;
+    font-weight: 700;
+    color: var(--color-black);
+    margin: 0 0 0 0;
+    padding: 0;
+    line-height: 1.2;
+}
+
+/* 2. Lokalizacja */
+.project-location {
+    font-size: 1em;
+    color: var(--color-gray);
+    margin: 0 0 20px 0;
+    padding: 0;
+    font-weight: 500;
+}
+
+/* 3. Kontener zdjęć */
+.project-images {
+    margin: 0 0 20px 0;
+    padding: 0;
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+    background: var(--color-white);
+    overflow: hidden;
+}
+
+/* Zdjęcia - czyste, bez ramek */
+.project-image {
+    width: 100%;
+    height: auto;
+    display: none;
+    object-fit: cover;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.project-image.active {
+    display: block;
+}
+
+/* Minimalistyczne strzałki nawigacji */
+.image-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: background 0.2s ease;
+}
+
+.image-nav-btn:hover {
+    background: rgba(255, 255, 255, 1);
+}
+
+.image-nav-prev {
+    left: 10px;
+}
+
+.image-nav-next {
+    right: 10px;
+}
+
+.nav-arrow {
+    font-size: 24px;
+    color: var(--color-black);
+    font-weight: 300;
+    line-height: 1;
+}
+
+/* Licznik zdjęć */
+.image-counter {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: var(--color-white);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* 4. Opis */
+.project-description {
+    margin: 0 0 20px 0;
+    padding: 0;
+}
+
+.project-description p {
+    color: var(--color-black);
+    line-height: 1.6;
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
+}
+
+/* 5. Dane szczegółowe */
+.project-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+}
+
+.project-detail {
+    background: var(--color-white);
+    padding: 0;
+    margin: 0;
+    border: none;
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+.project-detail strong {
+    color: var(--color-black);
+    font-weight: 600;
+}
+
+/* Separator między projektami */
+.project-separator {
+    height: 1px;
+    background: var(--color-separator);
+    margin: 20px 0;
+    width: 100%;
+}
+
+/* Odstęp po ostatnim projekcie */
+.projects-section-end {
+    height: 20px;
+    width: 100%;
+}
+
+/* Loading i empty states */
+.loading-projects {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--color-gray);
+    font-style: italic;
+    font-size: 1em;
+}
+
+.empty-projects {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--color-gray);
+    font-style: italic;
+    font-size: 1em;
+}
+
+/* ===== SEKCJA KONTAKT ===== */
+.contact-section {
+    width: 100%;
+    background: var(--color-white);
+    padding-top: 56px; /* Zwiększone z 36px o 20px */
+    padding-bottom: 400px; /* Zwiększone z 200px do 400px - więcej przestrzeni pod kontaktem */
+}
+
+.contact-content {
+    width: 100%;
+}
+
+.contact-info {
+    background: var(--color-white);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.contact-item {
+    font-size: 1em;
+    color: var(--color-black);
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.contact-item strong {
+    color: var(--color-black);
+    font-weight: 600;
+}
+
+.contact-item a {
+    color: var(--color-black);
+    text-decoration: underline dotted;
+}
+
+/* Usunięte nieużywane style formularza kontaktowego */
+
+/* ===== RESPONSYWNOŚĆ ===== */
+@media (min-width: 768px) {
+    .container {
+        padding: 0 var(--spacing-lg);
+    }
+    
+    .about-content {
+        grid-template-columns: 1fr 2fr;
+        gap: var(--spacing-2xl);
+    }
+    
+    .contact-content {
+        grid-template-columns: 2fr 1fr;
+    }
+}
+
+/* Usunięte nieużywane animacje */
+
+/* Usunięte nieużywane placeholdery */
+
+/* ===== EDGE-TO-EDGE ===== */
+main {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+}
+
+/* ===== SEKCJA GŁÓWNA (HERO) ===== */
+.home-section {
+    position: relative;
+    padding-top: 56px; /* Przywrócone z 36px do 56px */
+}
+
+.home-section .section-header-yellow {
+    margin-bottom: 0; /* Usunięto margin-bottom - może wpływał na pozycjonowanie paska */
+    margin-top: 0;
+}
+
+.hero-image-block {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    background: #fff;
+    overflow: hidden;
+}
+
+.hero-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* ===== BIAŁE LINIE DIAGONALNE ===== */
+.diagonal-lines {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 2;
+}
+
+.diagonal-line {
+    width: 4px;
+    height: 32px;
+    background: var(--color-white);
+    transform: rotate(-45deg);
+}
+
+/* ================= HEADER: LUFA (FINAL) ================= */
+.lufa-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 40px;
+    background: #fff !important;
+    border-bottom: 1px solid #bbb;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    z-index: 9999 !important;
+}
+/* ================= KONIEC HEADERA: LUFA (FINAL) ================= */
+
+/* ================= FOOTER: LUFA (FINAL) ================= */
+.lufa-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 20px;
+    background: #fff !important;
+    border-top: 1px solid #bbb;
+    box-shadow: 0 -4px 16px rgba(0,0,0,0.12);
+    z-index: 9999 !important;
+}
+/* ================= KONIEC FOOTERA: LUFA (FINAL) ================= */
+
+/* ================= KOLBA: HEADER (SVG poligon) ================= */
+.kolba-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 180px;
+    height: 100px;
+    z-index: 10000;
+    pointer-events: none; /* Kolba nie blokuje kliknięć pod spodem */
+    transform: translateZ(0); /* Hardware acceleration dla lepszego pozycjonowania */
+    -webkit-transform: translateZ(0); /* Safari support */
+    will-change: transform; /* Optymalizacja dla przeglądarek */
+}
+.kolba-header svg {
+    display: block;
+    width: 180px;
+    height: 100px;
+    pointer-events: none;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+/* ================= LOGO HAMBURGER ================= */
+.logo-hamburger {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 10001; /* Wyższy niż kolba */
+    pointer-events: auto; /* Przycisk klikalny */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    transition: all 0.3s ease;
+}
+
+.logo-image {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    display: block;
+}
+
+.logo-hamburger:hover {
+    transform: scale(1.05);
+}
+
+.logo-hamburger:active {
+    transform: scale(0.95);
+}
+/* ================= KONIEC LOGO HAMBURGER ================= */
+
+/* ================= KONIEC KOLBY: HEADER ================= */
+
+/* ================= MENU BOCZNE ================= */
+.side-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 20000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.side-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.side-menu {
+    position: fixed;
+    top: 0;
+    right: -300px; /* Początkowo ukryte poza ekranem */
+    width: 300px;
+    height: 100vh;
+    background: var(--color-white);
+    box-shadow: -4px 0 16px rgba(0, 0, 0, 0.2);
+    z-index: 20001;
+    transition: right 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid #bbb;
+}
+
+.side-menu.active {
+    right: 0;
+}
+
+.side-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    background: #f8f8f8;
+}
+
+.side-menu-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-black);
+    margin: 0;
+}
+
+.side-menu-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--color-gray);
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+}
+
+.side-menu-close:hover {
+    color: var(--color-black);
+}
+
+.close-icon {
+    line-height: 1;
+}
+
+.side-menu-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+.side-menu-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+}
+
+.side-menu-item {
+    border-bottom: 1px solid #eee;
+}
+
+.side-menu-link {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    text-decoration: none;
+    color: var(--color-black);
+    transition: background-color 0.2s ease;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.side-menu-link:hover {
+    background: #f0f0f0;
+}
+
+.side-menu-link:active {
+    background: #e8e8e8;
+}
+
+.menu-icon {
+    font-size: 20px;
+    margin-right: 12px;
+    width: 24px;
+    text-align: center;
+}
+
+.menu-text {
+    flex: 1;
+}
+
+.side-menu-footer {
+    padding: 20px;
+    border-top: 1px solid #eee;
+    background: #f8f8f8;
+}
+
+.side-menu-info {
+    text-align: center;
+}
+
+.menu-version {
+    font-size: 12px;
+    color: var(--color-gray);
+    margin: 0 0 4px 0;
+}
+
+.menu-copyright {
+    font-size: 12px;
+    color: var(--color-gray);
+    margin: 0;
+}
+
+/* Animacja dla logo podczas otwierania menu */
+.logo-hamburger.menu-open {
+    transform: rotate(90deg);
+}
+
+/* Responsywność menu */
+@media (max-width: 320px) {
+    .side-menu {
+        width: 280px;
+        right: -280px;
+    }
+}
+
+/* ================= KONIEC MENU BOCZNEGO ================= */
+
+ 
