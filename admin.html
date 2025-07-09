@@ -1352,15 +1352,21 @@
                         const imageHeight = cropperImage.naturalHeight;
                         
                         // Format 4:5 pion - szerokość = 80% wysokości
-                        const maxCropHeight = Math.min(imageHeight * 0.8, 400); // 80% wysokości obrazu, max 400px
+                        // Mniejszy początkowy kadr - 60% wysokości obrazu
+                        const maxCropHeight = Math.min(imageHeight * 0.6, 300); // 60% wysokości obrazu, max 300px
                         const cropHeight = maxCropHeight;
                         const cropWidth = cropHeight * 0.8; // Proporcja 4:5 pion (szerokość = 80% wysokości)
                         
+                        // Ustaw kadr na środku obrazu
+                        const rect = cropperImage.getBoundingClientRect();
+                        const centerX = (rect.width - cropWidth) / 2;
+                        const centerY = (rect.height - cropHeight) / 2;
+                        
                         cropOverlay.style.width = cropWidth + 'px';
                         cropOverlay.style.height = cropHeight + 'px';
-                        cropOverlay.style.left = '50%';
-                        cropOverlay.style.top = '50%';
-                        cropOverlay.style.transform = 'translate(-50%, -50%)';
+                        cropOverlay.style.left = centerX + 'px';
+                        cropOverlay.style.top = centerY + 'px';
+                        cropOverlay.style.transform = 'none';
                     }
                 };
             };
@@ -1419,40 +1425,43 @@
                     cropOverlay.style.top = clampedY + 'px';
                     cropOverlay.style.transform = 'none';
                 } else if (isResizing && resizeHandle) {
-                    // Skalowanie kadru z zachowaniem proporcji 4:5 pion
+                    // Płynne skalowanie kadru z zachowaniem proporcji 4:5 pion
                     const currentWidth = cropOverlay.offsetWidth;
                     const currentHeight = cropOverlay.offsetHeight;
                     const currentLeft = parseFloat(cropOverlay.style.left) || 0;
                     const currentTop = parseFloat(cropOverlay.style.top) || 0;
                     
-                    let newWidth = currentWidth;
-                    let newHeight = currentHeight;
-                    let newLeft = currentLeft;
-                    let newTop = currentTop;
-                    
+                    // Oblicz deltę ruchu
                     const deltaX = e.clientX - (rect.left + dragStart.x);
                     const deltaY = e.clientY - (rect.top + dragStart.y);
                     
                     // Określ kierunek skalowania na podstawie rękojeści
                     const handleClass = resizeHandle.className;
+                    let newWidth = currentWidth;
+                    let newHeight = currentHeight;
+                    let newLeft = currentLeft;
+                    let newTop = currentTop;
+                    
+                    // Minimalny rozmiar kadru
+                    const minSize = 80;
                     
                     if (handleClass.includes('se')) {
                         // Prawy dolny róg - skaluj w prawo i w dół
-                        newWidth = Math.max(100, currentWidth + deltaX);
+                        newWidth = Math.max(minSize, currentWidth + deltaX);
                         newHeight = newWidth / 0.8; // Zachowaj proporcję 4:5 pion
                     } else if (handleClass.includes('sw')) {
                         // Lewy dolny róg - skaluj w lewo i w dół
-                        newWidth = Math.max(100, currentWidth - deltaX);
+                        newWidth = Math.max(minSize, currentWidth - deltaX);
                         newHeight = newWidth / 0.8;
                         newLeft = currentLeft + (currentWidth - newWidth);
                     } else if (handleClass.includes('ne')) {
                         // Prawy górny róg - skaluj w prawo i w górę
-                        newWidth = Math.max(100, currentWidth + deltaX);
+                        newWidth = Math.max(minSize, currentWidth + deltaX);
                         newHeight = newWidth / 0.8;
                         newTop = currentTop + (currentHeight - newHeight);
                     } else if (handleClass.includes('nw')) {
                         // Lewy górny róg - skaluj w lewo i w górę
-                        newWidth = Math.max(100, currentWidth - deltaX);
+                        newWidth = Math.max(minSize, currentWidth - deltaX);
                         newHeight = newWidth / 0.8;
                         newLeft = currentLeft + (currentWidth - newWidth);
                         newTop = currentTop + (currentHeight - newHeight);
@@ -1464,7 +1473,8 @@
                     newWidth = Math.min(newWidth, maxWidth);
                     newHeight = Math.min(newHeight, maxHeight);
                     
-                    // Zastosuj nowe wymiary
+                    // Zastosuj nowe wymiary z animacją
+                    cropOverlay.style.transition = 'none'; // Wyłącz animację podczas przeciągania
                     cropOverlay.style.width = newWidth + 'px';
                     cropOverlay.style.height = newHeight + 'px';
                     cropOverlay.style.left = newLeft + 'px';
@@ -1499,6 +1509,15 @@
                 };
                 
                 console.log('Dane przycięcia:', cropData);
+                console.log('Typ kadrowania:', currentCropData.isProjectImage ? 'Nowe zdjęcie projektu' : 'Nowe zdjęcie');
+                console.log('Plik:', currentCropData.file.name);
+                
+                // Sprawdź czy dane kadrowania są poprawne
+                if (cropData.x < 0 || cropData.y < 0 || cropData.width <= 0 || cropData.height <= 0) {
+                    console.error('Nieprawidłowe dane kadrowania:', cropData);
+                    alert('Błąd kadrowania - spróbuj ponownie');
+                    return;
+                }
                 
                 // Ukryj kadrowanie
                 const imageCropper = document.getElementById('imageCropper');
@@ -1576,6 +1595,9 @@
         }
 
         function addCroppedProjectImageToList(file, cropData, projectId) {
+            console.log('Rozpoczynam kadrowanie dla projektu:', projectId);
+            console.log('Dane kadrowania:', cropData);
+            
             // Przycinaj obraz na podstawie danych kadrowania
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
@@ -1588,6 +1610,16 @@
                 const cropX = img.width * cropData.x;
                 const cropY = img.height * cropData.y;
                 
+                console.log('Oryginalne wymiary obrazu:', img.width, 'x', img.height);
+                console.log('Wymiary kadrowania:', cropWidth, 'x', cropHeight);
+                console.log('Pozycja kadrowania:', cropX, cropY);
+                
+                // Sprawdź czy wymiary są poprawne
+                if (cropWidth <= 0 || cropHeight <= 0 || cropX < 0 || cropY < 0) {
+                    console.error('Nieprawidłowe wymiary kadrowania');
+                    return;
+                }
+                
                 // Ustaw wymiary canvas
                 canvas.width = cropWidth;
                 canvas.height = cropHeight;
@@ -1597,11 +1629,18 @@
                 
                 // Konwertuj canvas do Blob
                 canvas.toBlob(function(blob) {
+                    if (!blob) {
+                        console.error('Błąd tworzenia Blob');
+                        return;
+                    }
+                    
                     // Utwórz nowy plik z przyciętym obrazem
                     const croppedFile = new File([blob], file.name.replace(/\.[^/.]+$/, '_cropped.jpg'), {
                         type: 'image/jpeg',
                         lastModified: Date.now()
                     });
+                    
+                    console.log('Utworzono kadrowany plik:', croppedFile.name, 'rozmiar:', croppedFile.size);
                     
                     // Dodaj do listy plików projektu
                     if (!window.projectFiles) {
@@ -1638,11 +1677,12 @@
                 fileItem.className = 'file-item';
                 fileItem.innerHTML = `
                     <div class="file-preview">
-                        <img src="${URL.createObjectURL(file)}" alt="Podgląd" class="file-thumbnail" style="display: block;">
+                        <img src="${URL.createObjectURL(file)}" alt="Podgląd kadrowanego zdjęcia" class="file-thumbnail" style="display: block; max-width: 150px; max-height: 200px; object-fit: cover;">
                     </div>
                     <div class="file-info">
                         <div class="file-name">${file.name}</div>
                         <div class="file-size">${(file.size / 1024).toFixed(0)}KB</div>
+                        <div class="file-status" style="color: #4CAF50; font-size: 11px;">✓ Kadrowane</div>
                     </div>
                     <div class="file-actions">
                         <button type="button" class="remove-btn" onclick="removeProjectFile(${projectId}, ${index})" style="margin-left: 10px; padding: 4px 8px; font-size: 12px; background: #ff4444; color: white; border: none; border-radius: 3px;">
