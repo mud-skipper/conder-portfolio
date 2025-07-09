@@ -1949,21 +1949,28 @@
                     formData.append('location', document.getElementById('location').value);
                     formData.append('year', document.getElementById('year').value);
                     
-                    // Dodaj pliki do FormData (kadrowane i niekadrowane)
+                    // Przygotuj wszystkie pliki w odpowiedniej kolejności z flagami
+                    const allFiles = [];
+                    
+                    // Dodaj kadrowane pliki
                     if (window.selectedFiles && window.selectedFiles.length > 0) {
                         window.selectedFiles.forEach((file, index) => {
-                            formData.append('images', file);
-                            formData.append('isCropped', 'true'); // Flaga informująca o kadrowaniu
+                            allFiles.push({ file, isCropped: true });
                         });
                     }
                     
                     // Dodaj niekadrowane pliki
                     if (window.nonCroppedFilesNew && window.nonCroppedFilesNew.length > 0) {
                         window.nonCroppedFilesNew.forEach(file => {
-                            formData.append('images', file);
-                            formData.append('isCropped', 'false'); // Flaga informująca o braku kadrowania
+                            allFiles.push({ file, isCropped: false });
                         });
                     }
+                    
+                    // Dodaj pliki do FormData w kolejności
+                    allFiles.forEach(({ file, isCropped }) => {
+                        formData.append('images', file);
+                        formData.append('isCropped', isCropped.toString());
+                    });
                     
                     // Sprawdź czy serwer jest dostępny
                     const serverUrl = window.location.port === '3000' ? '' : 'http://localhost:3000';
@@ -2609,21 +2616,28 @@
             try {
                 const formData = new FormData();
                 
-                                // Dodaj kadrowane pliki
+                                // Przygotuj wszystkie pliki w odpowiedniej kolejności z flagami
+                const allFiles = [];
+                
+                // Dodaj kadrowane pliki
                 if (window.projectFiles && window.projectFiles[projectId]) {
                     window.projectFiles[projectId].forEach(file => {
-                        formData.append('images', file);
-                        formData.append('isCropped', 'true'); // Flaga informująca o kadrowaniu
+                        allFiles.push({ file, isCropped: true });
                     });
                 }
                 
                 // Dodaj niekadrowane pliki
                 if (window.nonCroppedFiles && window.nonCroppedFiles[projectId]) {
                     window.nonCroppedFiles[projectId].forEach(file => {
-                        formData.append('images', file);
-                        formData.append('isCropped', 'false'); // Flaga informująca o braku kadrowania
+                        allFiles.push({ file, isCropped: false });
                     });
                 }
+                
+                // Dodaj pliki do FormData w kolejności
+                allFiles.forEach(({ file, isCropped }) => {
+                    formData.append('images', file);
+                    formData.append('isCropped', isCropped.toString());
+                });
                 
                 formData.append('projectId', projectId);
                 

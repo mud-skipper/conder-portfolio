@@ -298,12 +298,20 @@ app.post('/api/addProject', upload.array('images', 20), async (req, res) => {
             // Sprawdź flagi kadrowania z FormData
             const isCroppedFlags = req.body.isCropped;
             console.log('Flagi kadrowania:', isCroppedFlags);
+            console.log('Typ flag kadrowania:', typeof isCroppedFlags);
+            console.log('Czy to tablica:', Array.isArray(isCroppedFlags));
             
             for (let i = 0; i < req.files.length; i++) {
                 const file = req.files[i];
-                const isCropped = Array.isArray(isCroppedFlags) ? 
-                    (isCroppedFlags[i] === 'true') : 
-                    (isCroppedFlags === 'true');
+                let isCropped = true; // Domyślnie kadrowane
+                
+                if (Array.isArray(isCroppedFlags)) {
+                    isCropped = isCroppedFlags[i] === 'true';
+                } else if (typeof isCroppedFlags === 'string') {
+                    isCropped = isCroppedFlags === 'true';
+                }
+                
+                console.log(`Plik ${i}: ${file.filename}, flaga kadrowania: ${isCropped}`);
                 
                 try {
                     console.log(`Przetwarzanie pliku ${file.filename}, kadrowanie: ${isCropped}`);
@@ -717,14 +725,22 @@ app.post('/api/addImagesToProject', upload.array('images', 20), async (req, res)
         // Sprawdź flagi kadrowania z FormData
         const isCroppedFlags = req.body.isCropped;
         console.log('Flagi kadrowania dla addImagesToProject:', isCroppedFlags);
+        console.log('Typ flag kadrowania:', typeof isCroppedFlags);
+        console.log('Czy to tablica:', Array.isArray(isCroppedFlags));
         
         // Przetwórz i zoptymalizuj obrazy
         const newImages = [];
         for (let i = 0; i < req.files.length; i++) {
             const file = req.files[i];
-            const isCropped = Array.isArray(isCroppedFlags) ? 
-                (isCroppedFlags[i] === 'true') : 
-                (isCroppedFlags === 'true');
+            let isCropped = true; // Domyślnie kadrowane
+            
+            if (Array.isArray(isCroppedFlags)) {
+                isCropped = isCroppedFlags[i] === 'true';
+            } else if (typeof isCroppedFlags === 'string') {
+                isCropped = isCroppedFlags === 'true';
+            }
+            
+            console.log(`Plik ${i}: ${file.filename}, flaga kadrowania: ${isCropped}`);
             
             try {
                 console.log(`Przetwarzanie pliku: ${file.filename}, ścieżka: ${file.path}, kadrowanie: ${isCropped}`);
@@ -748,7 +764,6 @@ app.post('/api/addImagesToProject', upload.array('images', 20), async (req, res)
                 // Przenieś plik do katalogu projektu przed optymalizacją
                 const projectFilePath = path.join(projectDir, file.filename);
                 await fs.copyFile(file.path, projectFilePath);
-                await fs.unlink(file.path); // Usuń oryginalny plik z głównego katalogu
                 
                 console.log(`Przeniesiono plik do katalogu projektu: ${projectFilePath}`);
                 
@@ -768,6 +783,14 @@ app.post('/api/addImagesToProject', upload.array('images', 20), async (req, res)
                     const originalPath = `${projectName}/${file.filename}`;
                     newImages.push(originalPath);
                     console.log(`Dodano oryginalny plik (brak zoptymalizowanego): ${originalPath}`);
+                }
+                
+                // Usuń oryginalny plik z głównego katalogu po przetworzeniu
+                try {
+                    await fs.unlink(file.path);
+                    console.log(`Usunięto oryginalny plik z głównego katalogu: ${file.path}`);
+                } catch (error) {
+                    console.log(`Nie można usunąć oryginalnego pliku ${file.path}:`, error.message);
                 }
             } catch (error) {
                 console.error(`Błąd przetwarzania pliku ${file.filename}:`, error);
