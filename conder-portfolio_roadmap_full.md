@@ -534,3 +534,44 @@
 
 - **Commit i push na GitHub:** `14100f7`
 - **Status:** Gotowe do testów na urządzeniach mobilnych 
+
+### 2025-08-01 22:00 — Naprawki funkcji kadrowania zdjęć
+
+- ✅ **Naprawiono wszystkie zgłoszone problemy:**
+    - **Problem 1:** Zdjęcia nie pokazywały się w podglądzie i portfolio
+        - Naprawiono limit zdjęć z 10 na 5 w backendzie
+        - Poprawiono optymalizację zdjęć do formatu 4:5 (800x1000px)
+        - Zdjęcia teraz poprawnie się wyświetlają w portfolio
+    
+    - **Problem 2:** Strzałki przesuwania zdjęć nie działały
+        - Endpoint `/api/moveImage/:projectId` działa poprawnie
+        - Przyciski ↑/↓ teraz zmieniają kolejność zdjęć
+        - Pierwsze zdjęcie automatycznie staje się głównym
+    
+    - **Problem 3:** Kadrowanie nie działało
+        - Kadrowanie działa poprawnie dla nowych zdjęć
+        - Proporcje 4:5 (300px x 400px) są zablokowane
+    
+    - **Problem 4:** Brak kadrowania dla istniejących zdjęć
+        - Dodano przycisk ✂️ do kadrowania istniejących zdjęć
+        - Nowy endpoint `/api/updateImageWithCrop` do aktualizacji
+        - Funkcja `cropExistingImage()` i `updateExistingImageWithCrop()`
+    
+    - **Problem 5:** Stary format zdjęć w portfolio
+        - Optymalizacja zdjęć do formatu 4:5 (pion)
+        - Wszystkie nowe zdjęcia będą w proporcji 4:5
+
+- **Nowe funkcje:**
+    - Kadrowanie istniejących zdjęć w panelu admina
+    - Przycisk ✂️ przy każdym zdjęciu w edycji projektu
+    - Automatyczna optymalizacja do formatu 4:5
+    - Poprawione komunikaty o limitach zdjęć
+
+- **Zmiany techniczne:**
+    - Poprawiono limit z 10 na 5 zdjęć w `server.js`
+    - Dodano endpoint `/api/updateImageWithCrop`
+    - Poprawiono funkcję `processAndOptimizeImage()` do formatu 4:5
+    - Dodano style CSS dla przycisku kadrowania
+
+- **Commit i push na GitHub:** `6d9eab5`
+- **Status:** Wszystkie problemy naprawione, gotowe do testów 
