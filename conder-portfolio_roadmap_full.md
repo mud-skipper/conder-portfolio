@@ -855,20 +855,20 @@
 - **Status**: Unifikacja zakończona, gotowe do testów na różnych przeglądarkach
 
 ### [2025-01-09] 🔧 NAPRAWA STRUKTURY SEKCJI "O MNIE" I USUNIĘCIE AUTOMATYCZNEGO PRZEWIJANIA
-- **Problem 1**: Portfolio wymuszało pozycjonowanie do sekcji "O mnie" przy starcie
-- **Problem 2**: Większy odstęp niż 20px między głównym zdjęciem a tekstem "O mnie"
+- **Problem 1**: Większy odstęp niż 20px między głównym zdjęciem a tekstem "O mnie"
+- **Problem 2**: Automatyczne przewijanie do "O mnie" przy starcie zostało przypadkowo usunięte
 - **Diagnoza**: 
-  - Automatyczne przewijanie było włączone w `script.js`
   - Główne zdjęcie było w sekcji "home", a tekst "O mnie" w sekcji "about" - dwie różne sekcje
   - To powodowało większy odstęp niż oczekiwane 20px
+  - Automatyczne przewijanie zostało usunięte przez pomyłkę
 - **Rozwiązanie**: 
-  - Usunięto automatyczne przewijanie do "O mnie" przy starcie strony
   - Przeniesiono tekst "O mnie" z sekcji "about" do sekcji "home" pod głównym zdjęciem
   - Usunięto sekcję "about" - teraz wszystko jest w sekcji "home"
+  - **Przywrócono automatyczne przewijanie do "O mnie" przy starcie** - zgodnie z oczekiwaniami użytkownika
   - Zaktualizowano menu hamburger - zmieniono ikonę z 🏠 na 👤 dla "O mnie"
 - **Efekt**: 
-  - Portfolio ładuje się w pozycji naturalnej (bez wymuszonego przewijania)
+  - Portfolio automatycznie przewija do sekcji "O mnie" przy starcie (jak było wcześniej)
   - Odstęp między zdjęciem a tekstem "O mnie" to dokładnie 20px (zgodnie z `margin-top: 20px`)
   - Uproszczona struktura - jedna sekcja zamiast dwóch
-  - Lepsze UX - naturalne ładowanie strony
-- **Status**: Struktura naprawiona, odstęp poprawiony, automatyczne przewijanie usunięte
+  - Lepsze UX - automatyczne pozycjonowanie + poprawiony odstęp
+- **Status**: Struktura naprawiona, odstęp poprawiony, automatyczne przewijanie przywrócone

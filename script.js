@@ -4,8 +4,16 @@ document.addEventListener('DOMContentLoaded', function() {
     loadAboutData();
     initAutoRefresh();
     
-    // Usunięto automatyczne przewijanie do sekcji "O mnie" przy ładowaniu strony
-    // Portfolio teraz ładuje się w pozycji naturalnej
+    // Automatyczne przewijanie do sekcji "O mnie" przy ładowaniu strony
+    setTimeout(() => {
+        const homeSection = document.getElementById('home');
+        if (homeSection) {
+            homeSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    }, 100); // Krótkie opóźnienie dla lepszego UX
 });
 
 // ================= LOGO HAMBURGER MENU =================
