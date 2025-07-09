@@ -199,6 +199,31 @@
 - **Rezultat**: Zdjęcie główne wróciło do poprzedniego stanu z pozycjonowaniem względnym
 - **Lekcja**: Pozycjonowanie absolutne może zaburzyć naturalny flow dokumentu i powodować problemy z layoutem
 
+### [2025-01-08] 🚀 UTWORZENIE PLIKÓW DO URUCHOMIENIA PANELU ADMINISTRATORA
+- **Utworzono plik `start_admin_panel.bat`** - automatyczny skrypt do uruchomienia panelu administratora
+  - Sprawdza czy Node.js jest zainstalowany
+  - Automatycznie instaluje zależności jeśli potrzeba (`npm install`)
+  - Uruchamia serwer na porcie 3000 (`node server.js`)
+  - Otwiera przeglądarkę z panelem administratora (`http://localhost:3000/admin.html`)
+  - Wyświetla instrukcje i status uruchomienia
+- **Utworzono plik `INSTRUKCJA_URUCHOMIENIA.md`** - szczegółowa instrukcja uruchomienia
+  - Metoda 1: Kliknięcie na plik .bat (najłatwiejsza)
+  - Metoda 2: Ręczne uruchomienie przez terminal
+  - Rozwiązywanie problemów (Node.js, zależności, porty)
+  - Dostępne adresy (panel admina, portfolio, API)
+  - Instrukcje zatrzymania serwera
+- **Funkcjonalności pliku .bat:**
+  - Automatyczna weryfikacja środowiska (Node.js, package.json)
+  - Instalacja zależności jeśli brakuje
+  - Uruchomienie serwera w tle
+  - Automatyczne otwarcie przeglądarki
+  - Czekanie na zamknięcie przez użytkownika
+- **Dostępne adresy po uruchomieniu:**
+  - Panel administratora: `http://localhost:3000/admin.html`
+  - Portfolio (strona główna): `http://localhost:3000`
+  - API serwera: `http://localhost:3000/api/...`
+- **Status**: Panel administratora gotowy do łatwego uruchomienia przez plik .bat
+
 ### [2025-01-07] 🔧 NAPRAWKI KADROWANIA I OPTYMALIZACJI ZDJĘĆ
 - **Problem 1**: Kadr do kadrowania istniejących zdjęć pokazywał cały obszar zdjęcia zamiast proporcji 4:5
 - **Rozwiązanie 1**: 
