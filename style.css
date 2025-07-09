@@ -96,6 +96,7 @@ body {
     min-height: 100vh;
     position: relative;
     overflow-x: visible;
+    overflow-y: auto; /* Dodane dla lepszego scrollowania z dużym padding-bottom */
 }
 
 .container {
@@ -477,7 +478,7 @@ section {
     width: 100%;
     background: var(--color-white);
     padding-top: 56px; /* Zwiększone z 36px o 20px */
-    padding-bottom: 800px; /* Zwiększone z 120px do 800px - więcej przestrzeni pod kontaktem */
+    padding-bottom: 200px; /* Zmniejszone z 800px do 200px - sprawdzenie pozycjonowania */
 }
 
 .contact-content {
