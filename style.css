@@ -580,4 +580,18 @@ main {
     transform: rotate(-45deg);
 }
 
+/* ================= HEADER: LUFA ================= */
+.lufa-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 40px;
+    background: #fff;
+    border-bottom: 1px solid #bbb;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    z-index: 1000;
+}
+/* ================= KONIEC HEADERA: LUFA ================= */
+
  
