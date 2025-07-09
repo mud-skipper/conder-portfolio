@@ -171,6 +171,15 @@ async function processAndOptimizeImage(filePath, projectName) {
         // Sprawdź czy plik istnieje
         await fs.access(filePath);
         
+        // Sprawdź rozmiar pliku
+        const stats = await fs.stat(filePath);
+        console.log(`Rozmiar pliku przed optymalizacją: ${stats.size} bajtów`);
+        
+        if (stats.size === 0) {
+            console.error(`Plik jest pusty: ${filePath}`);
+            return path.basename(filePath);
+        }
+        
         // Wczytaj obraz
         const image = sharp(filePath);
         const metadata = await image.metadata();
@@ -197,6 +206,15 @@ async function processAndOptimizeImage(filePath, projectName) {
         
         // Sprawdź czy zoptymalizowany plik istnieje
         await fs.access(optimizedPath);
+        
+        // Sprawdź rozmiar zoptymalizowanego pliku
+        const optimizedStats = await fs.stat(optimizedPath);
+        console.log(`Rozmiar zoptymalizowanego pliku: ${optimizedStats.size} bajtów`);
+        
+        if (optimizedStats.size === 0) {
+            console.error(`Zoptymalizowany plik jest pusty: ${optimizedPath}`);
+            return path.basename(filePath);
+        }
         
         // Usuń oryginalny plik i zmień nazwę zoptymalizowanego
         await fs.unlink(filePath);
@@ -662,6 +680,19 @@ app.post('/api/addImagesToProject', upload.array('images', 5), async (req, res) 
                 const fileExists = await fs.access(file.path).then(() => true).catch(() => false);
                 if (!fileExists) {
                     console.error(`Plik nie istnieje: ${file.path}`);
+                    // Dodaj oryginalny plik jako fallback
+                    const originalPath = `${projectName}/${file.filename}`;
+                    newImages.push(originalPath);
+                    console.log(`Dodano oryginalny plik (plik nie istnieje): ${originalPath}`);
+                    continue;
+                }
+                
+                // Sprawdź rozmiar pliku
+                const stats = await fs.stat(file.path);
+                console.log(`Rozmiar pliku: ${stats.size} bajtów`);
+                
+                if (stats.size === 0) {
+                    console.error(`Plik jest pusty: ${file.path}`);
                     continue;
                 }
                 
@@ -674,17 +705,20 @@ app.post('/api/addImagesToProject', upload.array('images', 5), async (req, res) 
                 
                 if (optimizedExists) {
                     newImages.push(imagePath);
-                    console.log(`Dodano zdjęcie: ${imagePath}`);
+                    console.log(`Dodano zoptymalizowane zdjęcie: ${imagePath}`);
                 } else {
                     console.error(`Zoptymalizowany plik nie istnieje: ${optimizedPath}`);
                     // Dodaj oryginalny plik jako fallback
                     const originalPath = `${projectName}/${file.filename}`;
                     newImages.push(originalPath);
-                    console.log(`Dodano oryginalny plik: ${originalPath}`);
+                    console.log(`Dodano oryginalny plik (brak zoptymalizowanego): ${originalPath}`);
                 }
             } catch (error) {
                 console.error(`Błąd przetwarzania pliku ${file.filename}:`, error);
-                newImages.push(`${projectName}/${file.filename}`);
+                // Dodaj oryginalny plik jako fallback
+                const originalPath = `${projectName}/${file.filename}`;
+                newImages.push(originalPath);
+                console.log(`Dodano oryginalny plik (błąd przetwarzania): ${originalPath}`);
             }
         }
         

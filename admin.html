@@ -2098,23 +2098,30 @@
             }
             
             // Pokaż podgląd
-            let previewHTML = '';
+            preview.innerHTML = '';
+            let loadedCount = 0;
+            const totalFiles = files.length;
+            
             for (let file of files) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    previewHTML += `
-                        <div class="file-item">
-                            <div class="file-preview">
-                                <img src="${e.target.result}" alt="Podgląd" class="file-thumbnail" style="display: block;">
-                            </div>
-                            <div class="file-info">
-                                <div class="file-name">${file.name}</div>
-                                <div class="file-size">${(file.size / 1024).toFixed(0)}KB</div>
-                            </div>
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'file-item';
+                    fileItem.innerHTML = `
+                        <div class="file-preview">
+                            <img src="${e.target.result}" alt="Podgląd" class="file-thumbnail" style="display: block;">
+                        </div>
+                        <div class="file-info">
+                            <div class="file-name">${file.name}</div>
+                            <div class="file-size">${(file.size / 1024).toFixed(0)}KB</div>
                         </div>
                     `;
-                    preview.innerHTML = previewHTML;
-                    preview.style.display = 'block';
+                    preview.appendChild(fileItem);
+                    
+                    loadedCount++;
+                    if (loadedCount === totalFiles) {
+                        preview.style.display = 'block';
+                    }
                 };
                 reader.readAsDataURL(file);
             }
@@ -2171,7 +2178,10 @@
                 }
                 formData.append('projectId', projectId);
                 
-                const response = await fetch('/api/addImagesToProject', {
+                // Sprawdź czy serwer jest dostępny
+                const serverUrl = window.location.port === '3000' ? '' : 'http://localhost:3000';
+                
+                const response = await fetch(`${serverUrl}/api/addImagesToProject`, {
                     method: 'POST',
                     body: formData
                 });
@@ -2198,7 +2208,7 @@
                 }
             } catch (error) {
                 console.error('Błąd dodawania zdjęć:', error);
-                status.textContent = 'Błąd połączenia z serwerem';
+                status.textContent = 'Błąd połączenia z serwerem: ' + error.message;
                 status.className = 'status-message status-error';
             }
             
