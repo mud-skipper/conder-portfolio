@@ -788,8 +788,9 @@
   - 800px padding-bottom mogło być za dużo i powodować problemy ze scrollowaniem
   - Automatyczne przewijanie do sekcji "O mnie" mogło wpływać na pozycjonowanie
 - **Rozwiązanie**: 
-  - Zmniejszono `padding-bottom` w sekcji "Kontakt" do 200px
+  - Zmniejszono `padding-bottom` w sekcji "Kontakt" do 400px
+  - Zmniejszono `padding-top` w sekcji "O mnie" do 36px
   - Tymczasowo wyłączono automatyczne przewijanie do sekcji "O mnie"
   - Dodano `overflow-y: auto` do body dla lepszego scrollowania
   - Dodano dodatkową przestrzeń (100px) na końcu strony
-- **Status**: Testowanie nowych ustawień pozycjonowania
+- **Status**: Testowanie nowych ustawień pozycjonowania z większą przestrzenią pod kontaktem

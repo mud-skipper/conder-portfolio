@@ -478,7 +478,7 @@ section {
     width: 100%;
     background: var(--color-white);
     padding-top: 56px; /* Zwiększone z 36px o 20px */
-    padding-bottom: 200px; /* Zmniejszone z 800px do 200px - sprawdzenie pozycjonowania */
+    padding-bottom: 400px; /* Zwiększone z 200px do 400px - więcej przestrzeni pod kontaktem */
 }
 
 .contact-content {
@@ -543,7 +543,7 @@ main {
 /* ===== SEKCJA GŁÓWNA (HERO) ===== */
 .home-section {
     position: relative;
-    padding-top: 56px; /* Zwiększone z 36px o 20px */
+    padding-top: 36px; /* Zmniejszone z 56px do 36px */
 }
 
 .home-section .section-header-yellow {
