@@ -508,3 +508,29 @@
     - Dodawanie zdjęć nie nadpisuje istniejących, tylko dokłada do limitu
     - Kadrowanie zdjęć w proporcji 4:5 (pion, jak zdjęcie główne w portfolio)
     - Po wdrożeniu testy i kolejny backup 
+
+### 2025-08-01 21:30 — Zakończenie wdrożenia funkcji kadrowania zdjęć w panelu admina
+
+- ✅ **Wdrożono wszystkie planowane funkcje:**
+    - Obsługa do 5 zdjęć na projekt (UI, backend, preview)
+    - Przyciski "góra/dół" do zmiany kolejności zdjęć
+    - Oznaczenie zdjęcia głównego (pierwsze na liście = główne)
+    - Dodawanie zdjęć nie nadpisuje istniejących, sprawdza limit przed dodaniem
+    - Kadrowanie zdjęć w proporcji 4:5 (pion, 300px x 400px)
+    - Nowy endpoint `/api/moveImage/:projectId` do zmiany kolejności
+    - Poprawione style CSS dla zarządzania zdjęciami w projektach
+
+- **Nowe funkcje w panelu admina:**
+    - Licznik zdjęć (X/5) w nagłówku sekcji zdjęć
+    - Numeracja zdjęć (1, 2, 3, 4, 5)
+    - Badge "GŁÓWNE" przy pierwszym zdjęciu
+    - Przyciski ↑/↓ do przesuwania zdjęć
+    - Komunikat o limicie przy próbie dodania za dużo zdjęć
+
+- **Zmiany w backendzie:**
+    - Endpoint do zmiany kolejności zdjęć
+    - Automatyczne ustawianie pierwszego zdjęcia jako głównego
+    - Walidacja limitów przed dodaniem zdjęć
+
+- **Commit i push na GitHub:** `14100f7`
+- **Status:** Gotowe do testów na urządzeniach mobilnych 
