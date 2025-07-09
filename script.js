@@ -3,8 +3,17 @@ document.addEventListener('DOMContentLoaded', function() {
     loadProjectsFromJSON();
     loadAboutData();
     initAutoRefresh();
-
-
+    
+    // Automatyczne przewijanie do sekcji "O mnie" przy ładowaniu strony
+    setTimeout(() => {
+        const homeSection = document.getElementById('home');
+        if (homeSection) {
+            homeSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    }, 100); // Krótkie opóźnienie dla lepszego UX
 });
 
 // ================= LOGO HAMBURGER MENU =================

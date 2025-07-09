@@ -477,7 +477,7 @@ section {
     width: 100%;
     background: var(--color-white);
     padding-top: 56px; /* Zwiększone z 36px o 20px */
-    padding-bottom: 120px; /* Zwiększone z 60px o 60px - więcej przestrzeni pod kontaktem */
+    padding-bottom: 800px; /* Zwiększone z 120px do 800px - więcej przestrzeni pod kontaktem */
 }
 
 .contact-content {

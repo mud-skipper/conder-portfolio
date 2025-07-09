@@ -762,11 +762,22 @@
   - Dodano `padding-top: 56px` do sekcji "O mnie" (`.home-section`)
   - Dodano `padding-top: 56px` do sekcji "Projekty" (`.projects-section`)
   - Dodano `padding-top: 56px` do sekcji "Kontakt" (`.contact-section`)
-  - Dodano `padding-bottom: 120px` do sekcji "Kontakt" dla lepszego UX
+  - Dodano `padding-bottom: 800px` do sekcji "Kontakt" dla lepszego UX
 - **Efekt**: 
   - Wszystkie nagłówki z kolorowymi paskami są teraz wycentrowane względem linii skośnej kolby
   - Spójne pozycjonowanie w całej aplikacji
   - Więcej przestrzeni nad nagłówkami (56px zamiast 36px)
-  - Dużo więcej przestrzeni pod sekcją "Kontakt" (120px) - zapobiega podjechaniu do góry
+  - Dużo więcej przestrzeni pod sekcją "Kontakt" (800px) - zapobiega podjechaniu do góry
 - **Status**: Nagłówki wszystkich sekcji są teraz spójnie wycentrowane względem kolby z większą przestrzenią
 - **Backup**: Utworzono backup session_09_01_2025_header_alignment
+
+### [2025-01-09] 🚀 AUTOMATYCZNE OTWIERANIE W SEKCJI "O MNIE" I WIĘCEJ PRZESTRZENI W KONTAKCIE
+- **Cel**: Portfolio zawsze otwiera się w pozycji "O mnie" oraz więcej przestrzeni w sekcji kontakt
+- **Implementacja**: 
+  - Dodano automatyczne przewijanie do sekcji "O mnie" przy ładowaniu strony (100ms delay)
+  - Zwiększono `padding-bottom` w sekcji "Kontakt" do 800px
+- **Efekt**: 
+  - Portfolio zawsze otwiera się w sekcji "O mnie" (jak menu hamburger)
+  - Nagłówek "Kontakt" może się teraz poprawnie pozycjonować względem linii skośnej kolby
+  - Więcej przestrzeni do scrollowania w sekcji kontakt
+- **Status**: Lepsze UX z automatycznym pozycjonowaniem i większą przestrzenią
