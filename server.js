@@ -161,12 +161,12 @@ async function saveProjectToJSON(projectData) {
 }
 
 // Funkcja do przetwarzania i optymalizacji obrazów
-async function processAndOptimizeImage(filePath, projectName) {
+async function processAndOptimizeImage(filePath, projectName, isCropped = true) {
     try {
         const sharp = require('sharp');
         const fs = require('fs').promises;
         
-        console.log(`Rozpoczynam optymalizację: ${filePath} dla projektu: ${projectName}`);
+        console.log(`Rozpoczynam optymalizację: ${filePath} dla projektu: ${projectName}, kadrowanie: ${isCropped}`);
         
         // Sprawdź czy plik istnieje
         await fs.access(filePath);
@@ -186,17 +186,33 @@ async function processAndOptimizeImage(filePath, projectName) {
         
         console.log(`Metadane obrazu: ${metadata.width}x${metadata.height}, format: ${metadata.format}`);
         
-        // Optymalizuj obraz do formatu 4:5 (pion)
-        const optimizedImage = image
-            .resize(800, 1000, { // Format 4:5 (800x1000px)
-                fit: 'cover',
-                position: 'center',
-                withoutEnlargement: true
-            })
-            .jpeg({ 
-                quality: 85,
-                progressive: true
-            });
+        let optimizedImage;
+        
+        if (isCropped) {
+            // Kadrowanie: Optymalizuj obraz do formatu 4:5 (pion)
+            console.log('Wykonuję kadrowanie do formatu 4:5 (pion)');
+            optimizedImage = image
+                .resize(800, 1000, { // Format 4:5 (800x1000px)
+                    fit: 'cover',
+                    position: 'center',
+                    withoutEnlargement: true
+                })
+                .jpeg({ 
+                    quality: 85,
+                    progressive: true
+                });
+        } else {
+            // Bez kadrowania: Tylko optymalizacja rozmiaru (zachowaj proporcje)
+            console.log('Wykonuję optymalizację bez kadrowania (zachowuję proporcje)');
+            optimizedImage = image
+                .resize(1200, null, { // Maksymalna szerokość 1200px, wysokość automatyczna
+                    withoutEnlargement: true
+                })
+                .jpeg({ 
+                    quality: 85,
+                    progressive: true
+                });
+        }
         
         // Utwórz katalog projektu jeśli nie istnieje
         const projectDir = path.join(__dirname, 'uploads', projectName);
@@ -232,7 +248,7 @@ async function processAndOptimizeImage(filePath, projectName) {
         
         // Usuń oryginalny plik
         try {
-            await fs.unlink(filePath);
+        await fs.unlink(filePath);
             console.log(`Usunięto oryginalny plik: ${filePath}`);
         } catch (error) {
             console.log(`Nie można usunąć oryginalnego pliku ${filePath}:`, error.message);
@@ -279,9 +295,19 @@ app.post('/api/addProject', upload.array('images', 20), async (req, res) => {
         if (req.files && req.files.length > 0) {
             const projectName = req.body.title.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
             
-            for (const file of req.files) {
+            // Sprawdź flagi kadrowania z FormData
+            const isCroppedFlags = req.body.isCropped;
+            console.log('Flagi kadrowania:', isCroppedFlags);
+            
+            for (let i = 0; i < req.files.length; i++) {
+                const file = req.files[i];
+                const isCropped = Array.isArray(isCroppedFlags) ? 
+                    (isCroppedFlags[i] === 'true') : 
+                    (isCroppedFlags === 'true');
+                
                 try {
-                    const optimizedFileName = await processAndOptimizeImage(file.path, projectName);
+                    console.log(`Przetwarzanie pliku ${file.filename}, kadrowanie: ${isCropped}`);
+                    const optimizedFileName = await processAndOptimizeImage(file.path, projectName, isCropped);
                     projectData.images.push(`${projectName}/${optimizedFileName}`);
                 } catch (error) {
                     console.error(`Błąd przetwarzania pliku ${file.filename}:`, error);
@@ -688,11 +714,20 @@ app.post('/api/addImagesToProject', upload.array('images', 20), async (req, res)
         const projectDir = path.join(__dirname, 'uploads', projectName);
         await fs.mkdir(projectDir, { recursive: true });
         
+        // Sprawdź flagi kadrowania z FormData
+        const isCroppedFlags = req.body.isCropped;
+        console.log('Flagi kadrowania dla addImagesToProject:', isCroppedFlags);
+        
         // Przetwórz i zoptymalizuj obrazy
         const newImages = [];
-        for (const file of req.files) {
+        for (let i = 0; i < req.files.length; i++) {
+            const file = req.files[i];
+            const isCropped = Array.isArray(isCroppedFlags) ? 
+                (isCroppedFlags[i] === 'true') : 
+                (isCroppedFlags === 'true');
+            
             try {
-                console.log(`Przetwarzanie pliku: ${file.filename}, ścieżka: ${file.path}`);
+                console.log(`Przetwarzanie pliku: ${file.filename}, ścieżka: ${file.path}, kadrowanie: ${isCropped}`);
                 
                 // Sprawdź czy plik istnieje
                 const fileExists = await fs.access(file.path).then(() => true).catch(() => false);
@@ -717,7 +752,7 @@ app.post('/api/addImagesToProject', upload.array('images', 20), async (req, res)
                 
                 console.log(`Przeniesiono plik do katalogu projektu: ${projectFilePath}`);
                 
-                const optimizedFileName = await processAndOptimizeImage(projectFilePath, projectName);
+                const optimizedFileName = await processAndOptimizeImage(projectFilePath, projectName, isCropped);
                 const imagePath = `${projectName}/${optimizedFileName}`;
                 
                 // Sprawdź czy zoptymalizowany plik istnieje

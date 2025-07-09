@@ -1548,17 +1548,17 @@
                     // Przesuwanie kadru
                     const x = clientX - rect.left - dragStart.x;
                     const y = clientY - rect.top - dragStart.y;
-                    
-                    // Ogranicz ruch do granic obrazu
-                    const maxX = rect.width - cropOverlay.offsetWidth;
-                    const maxY = rect.height - cropOverlay.offsetHeight;
-                    
-                    const clampedX = Math.max(0, Math.min(x, maxX));
-                    const clampedY = Math.max(0, Math.min(y, maxY));
-                    
-                    cropOverlay.style.left = clampedX + 'px';
-                    cropOverlay.style.top = clampedY + 'px';
-                    cropOverlay.style.transform = 'none';
+                
+                // Ogranicz ruch do granic obrazu
+                const maxX = rect.width - cropOverlay.offsetWidth;
+                const maxY = rect.height - cropOverlay.offsetHeight;
+                
+                const clampedX = Math.max(0, Math.min(x, maxX));
+                const clampedY = Math.max(0, Math.min(y, maxY));
+                
+                cropOverlay.style.left = clampedX + 'px';
+                cropOverlay.style.top = clampedY + 'px';
+                cropOverlay.style.transform = 'none';
                 } else if (isResizing && resizeHandle) {
                     // Płynne skalowanie kadru z zachowaniem proporcji 4:5 pion
                     const currentWidth = cropOverlay.offsetWidth;
@@ -1953,6 +1953,7 @@
                     if (window.selectedFiles && window.selectedFiles.length > 0) {
                         window.selectedFiles.forEach((file, index) => {
                             formData.append('images', file);
+                            formData.append('isCropped', 'true'); // Flaga informująca o kadrowaniu
                         });
                     }
                     
@@ -1960,6 +1961,7 @@
                     if (window.nonCroppedFilesNew && window.nonCroppedFilesNew.length > 0) {
                         window.nonCroppedFilesNew.forEach(file => {
                             formData.append('images', file);
+                            formData.append('isCropped', 'false'); // Flaga informująca o braku kadrowania
                         });
                     }
                     
@@ -2446,13 +2448,13 @@
                     const fileItem = document.createElement('div');
                     fileItem.className = 'file-item';
                     fileItem.innerHTML = `
-                        <div class="file-preview">
-                            <img src="${e.target.result}" alt="Podgląd" class="file-thumbnail" style="display: block;">
-                        </div>
-                        <div class="file-info">
-                            <div class="file-name">${file.name}</div>
-                            <div class="file-size">${(file.size / 1024).toFixed(0)}KB</div>
-                        </div>
+                            <div class="file-preview">
+                                <img src="${e.target.result}" alt="Podgląd" class="file-thumbnail" style="display: block;">
+                            </div>
+                            <div class="file-info">
+                                <div class="file-name">${file.name}</div>
+                                <div class="file-size">${(file.size / 1024).toFixed(0)}KB</div>
+                            </div>
                         <div class="file-actions">
                             <button type="button" class="crop-btn" onclick="startCropForProject(${projectId}, '${file.name}', this)" style="margin-left: 10px; padding: 4px 8px; font-size: 12px;">
                                 ✂️ Kadruj
@@ -2466,7 +2468,7 @@
                     
                     loadedCount++;
                     if (loadedCount === totalFiles) {
-                        preview.style.display = 'block';
+                    preview.style.display = 'block';
                     }
                 };
                 reader.readAsDataURL(file);
@@ -2607,10 +2609,11 @@
             try {
                 const formData = new FormData();
                 
-                // Dodaj kadrowane pliki
+                                // Dodaj kadrowane pliki
                 if (window.projectFiles && window.projectFiles[projectId]) {
                     window.projectFiles[projectId].forEach(file => {
                         formData.append('images', file);
+                        formData.append('isCropped', 'true'); // Flaga informująca o kadrowaniu
                     });
                 }
                 
@@ -2618,6 +2621,7 @@
                 if (window.nonCroppedFiles && window.nonCroppedFiles[projectId]) {
                     window.nonCroppedFiles[projectId].forEach(file => {
                         formData.append('images', file);
+                        formData.append('isCropped', 'false'); // Flaga informująca o braku kadrowania
                     });
                 }
                 
