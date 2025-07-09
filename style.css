@@ -632,7 +632,7 @@ main {
 
 /* ================= LOGO HAMBURGER ================= */
 .logo-hamburger {
-    position: absolute;
+    position: fixed;
     top: 20px;
     right: 20px;
     width: 60px;
@@ -640,7 +640,7 @@ main {
     background: transparent;
     border: none;
     cursor: pointer;
-    z-index: 10001; /* Wyższy niż kolba */
+    z-index: 10002; /* Wyższy niż kolba */
     pointer-events: auto; /* Przycisk klikalny */
     display: flex;
     justify-content: center;
