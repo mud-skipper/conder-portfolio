@@ -284,7 +284,7 @@ section {
 .projects-section {
     width: 100%;
     background: var(--color-white);
-    padding-top: 36px; /* Wyśrodkowanie nagłówka względem linii skośnej kolby */
+    padding-top: 56px; /* Zwiększone z 36px o 20px */
 }
 
 .projects-content {
@@ -476,8 +476,8 @@ section {
 .contact-section {
     width: 100%;
     background: var(--color-white);
-    padding-top: 36px; /* Wyśrodkowanie nagłówka względem linii skośnej kolby */
-    padding-bottom: 60px; /* Dodatkowa przestrzeń na dole dla lepszego UX */
+    padding-top: 56px; /* Zwiększone z 36px o 20px */
+    padding-bottom: 120px; /* Zwiększone z 60px o 60px - więcej przestrzeni pod kontaktem */
 }
 
 .contact-content {
@@ -542,7 +542,7 @@ main {
 /* ===== SEKCJA GŁÓWNA (HERO) ===== */
 .home-section {
     position: relative;
-    padding-top: 36px; /* Zmniejszone z 40px o 4px */
+    padding-top: 56px; /* Zwiększone z 36px o 20px */
 }
 
 .home-section .section-header-yellow {

@@ -759,12 +759,14 @@
 ### [2025-01-09] 🎨 WYŚRODKOWANIE NAGŁÓWKÓW WZGLĘDEM LINII SKOŚNEJ KOLBY
 - **Cel**: Wszystkie nagłówki sekcji wycentrowane względem linii skośnej kolby (45°)
 - **Implementacja**: 
-  - Dodano `padding-top: 36px` do sekcji "Projekty" (`.projects-section`)
-  - Dodano `padding-top: 36px` do sekcji "Kontakt" (`.contact-section`)
-  - Dodano `padding-bottom: 60px` do sekcji "Kontakt" dla lepszego UX
+  - Dodano `padding-top: 56px` do sekcji "O mnie" (`.home-section`)
+  - Dodano `padding-top: 56px` do sekcji "Projekty" (`.projects-section`)
+  - Dodano `padding-top: 56px` do sekcji "Kontakt" (`.contact-section`)
+  - Dodano `padding-bottom: 120px` do sekcji "Kontakt" dla lepszego UX
 - **Efekt**: 
   - Wszystkie nagłówki z kolorowymi paskami są teraz wycentrowane względem linii skośnej kolby
   - Spójne pozycjonowanie w całej aplikacji
-  - Dodatkowa przestrzeń pod sekcją "Kontakt" dla lepszego UX
-- **Status**: Nagłówki wszystkich sekcji są teraz spójnie wycentrowane względem kolby
+  - Więcej przestrzeni nad nagłówkami (56px zamiast 36px)
+  - Dużo więcej przestrzeni pod sekcją "Kontakt" (120px) - zapobiega podjechaniu do góry
+- **Status**: Nagłówki wszystkich sekcji są teraz spójnie wycentrowane względem kolby z większą przestrzenią
 - **Backup**: Utworzono backup session_09_01_2025_header_alignment
