@@ -1263,7 +1263,7 @@
             // Dodaj informację o optymalizacji
             const infoDiv = document.createElement('div');
             infoDiv.style.cssText = 'margin-top: 10px; padding: 10px; background: var(--color-yellow); color: var(--color-black); border-radius: 4px; font-size: 14px;';
-            infoDiv.innerHTML = 'ℹ️ Obrazy zostaną automatycznie zoptymalizowane do formatu telefonu (1200x1600px)';
+            infoDiv.innerHTML = 'ℹ️ Obrazy zostaną automatycznie zoptymalizowane do formatu telefonu (1200x1604px)';
             fileList.appendChild(infoDiv);
             
             // Zapisz pliki globalnie
@@ -1276,6 +1276,7 @@
         let isResizing = false;
         let dragStart = { x: 0, y: 0 };
         let resizeHandle = null;
+        let croppedProjectImagesList = []; // Lista kadrowanych zdjęć projektów
 
         function initImageCropper() {
             const cropConfirm = document.getElementById('cropConfirm');
@@ -1503,10 +1504,13 @@
                 const imageCropper = document.getElementById('imageCropper');
                 if (imageCropper) imageCropper.style.display = 'none';
                 
-                // Sprawdź czy to istniejące zdjęcie
+                // Sprawdź typ kadrowania
                 if (currentCropData.isExistingImage) {
                     // Zaktualizuj istniejące zdjęcie w projekcie
                     updateExistingImageWithCrop(currentCropData.projectId, currentCropData.imageName, currentCropData.imageIndex, cropData);
+                } else if (currentCropData.isProjectImage) {
+                    // Nowe zdjęcie projektu - dodaj do listy kadrowanych
+                    addCroppedProjectImageToList(currentCropData.file, cropData, currentCropData.projectId);
                 } else {
                     // Dodaj do listy nowych zdjęć
                     addCroppedImageToList(currentCropData.file, cropData);
@@ -1571,6 +1575,98 @@
             img.src = URL.createObjectURL(file);
         }
 
+        function addCroppedProjectImageToList(file, cropData, projectId) {
+            // Przycinaj obraz na podstawie danych kadrowania
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            
+            img.onload = function() {
+                // Oblicz wymiary przyciętego obrazu
+                const cropWidth = img.width * cropData.width;
+                const cropHeight = img.height * cropData.height;
+                const cropX = img.width * cropData.x;
+                const cropY = img.height * cropData.y;
+                
+                // Ustaw wymiary canvas
+                canvas.width = cropWidth;
+                canvas.height = cropHeight;
+                
+                // Przycinaj obraz
+                ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
+                
+                // Konwertuj canvas do Blob
+                canvas.toBlob(function(blob) {
+                    // Utwórz nowy plik z przyciętym obrazem
+                    const croppedFile = new File([blob], file.name.replace(/\.[^/.]+$/, '_cropped.jpg'), {
+                        type: 'image/jpeg',
+                        lastModified: Date.now()
+                    });
+                    
+                    // Dodaj do listy plików projektu
+                    if (!window.projectFiles) {
+                        window.projectFiles = {};
+                    }
+                    if (!window.projectFiles[projectId]) {
+                        window.projectFiles[projectId] = [];
+                    }
+                    
+                    window.projectFiles[projectId].push(croppedFile);
+                    
+                    console.log('Dodano przycięte zdjęcie do projektu:', projectId, 'plik:', croppedFile.name);
+                    console.log('Lista plików projektu:', window.projectFiles[projectId]);
+                    
+                    // Odśwież podgląd projektu
+                    updateProjectPreview(projectId);
+                    
+                }, 'image/jpeg', 0.9);
+            };
+            
+            img.src = URL.createObjectURL(file);
+        }
+
+        function updateProjectPreview(projectId) {
+            const preview = document.getElementById(`project-images-preview-${projectId}`);
+            if (!preview || !window.projectFiles || !window.projectFiles[projectId]) {
+                return;
+            }
+            
+            preview.innerHTML = '';
+            
+            window.projectFiles[projectId].forEach((file, index) => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                fileItem.innerHTML = `
+                    <div class="file-preview">
+                        <img src="${URL.createObjectURL(file)}" alt="Podgląd" class="file-thumbnail" style="display: block;">
+                    </div>
+                    <div class="file-info">
+                        <div class="file-name">${file.name}</div>
+                        <div class="file-size">${(file.size / 1024).toFixed(0)}KB</div>
+                    </div>
+                    <div class="file-actions">
+                        <button type="button" class="remove-btn" onclick="removeProjectFile(${projectId}, ${index})" style="margin-left: 10px; padding: 4px 8px; font-size: 12px; background: #ff4444; color: white; border: none; border-radius: 3px;">
+                            ❌ Usuń
+                        </button>
+                    </div>
+                `;
+                preview.appendChild(fileItem);
+            });
+            
+            preview.style.display = 'block';
+        }
+
+        function removeProjectFile(projectId, index) {
+            if (!window.projectFiles || !window.projectFiles[projectId]) {
+                return;
+            }
+            
+            window.projectFiles[projectId].splice(index, 1);
+            updateProjectPreview(projectId);
+            
+            console.log('Usunięto plik z projektu:', projectId, 'indeks:', index);
+        }
+
         function removeFile(index) {
             if (!window.selectedFiles || !window.selectedFiles[index]) {
                 return;
@@ -1620,7 +1716,7 @@
                     formData.append('location', document.getElementById('location').value);
                     formData.append('year', document.getElementById('year').value);
                     
-                    // Dodaj pliki do FormData
+                    // Dodaj pliki do FormData (użyj kadrowanych plików jeśli są dostępne)
                     if (window.selectedFiles && window.selectedFiles.length > 0) {
                         window.selectedFiles.forEach((file, index) => {
                             formData.append('images', file);
@@ -2097,7 +2193,7 @@
                 }
             }
             
-            // Pokaż podgląd
+            // Pokaż podgląd z przyciskami kadrowania
             preview.innerHTML = '';
             let loadedCount = 0;
             const totalFiles = files.length;
@@ -2115,6 +2211,11 @@
                             <div class="file-name">${file.name}</div>
                             <div class="file-size">${(file.size / 1024).toFixed(0)}KB</div>
                         </div>
+                        <div class="file-actions">
+                            <button type="button" class="crop-btn" onclick="startCropForProject(${projectId}, '${file.name}', this)" style="margin-left: 10px; padding: 4px 8px; font-size: 12px;">
+                                ✂️ Kadruj
+                            </button>
+                        </div>
                     `;
                     preview.appendChild(fileItem);
                     
@@ -2127,19 +2228,47 @@
             }
         }
 
-        // ===== DODAWANIE ZDJĘĆ DO PROJEKTU =====
-        async function addImagesToProject(projectId) {
+        // ===== KADROWANIE ZDJĘĆ DLA PROJEKTU =====
+        function startCropForProject(projectId, fileName, buttonElement) {
             const input = document.getElementById(`project-images-${projectId}`);
-            const status = document.getElementById(`status-project-images-${projectId}`);
+            const files = input.files;
             
-            if (!input || !status) {
-                console.error('Nie znaleziono elementów do dodawania zdjęć');
+            if (!files || files.length === 0) {
+                alert('Nie wybrano plików');
                 return;
             }
             
-            const files = input.files;
-            if (!files || files.length === 0) {
-                status.textContent = 'Wybierz pliki!';
+            // Znajdź plik o danej nazwie
+            const file = Array.from(files).find(f => f.name === fileName);
+            if (!file) {
+                alert('Nie znaleziono pliku');
+                return;
+            }
+            
+            // Ustaw dane do kadrowania
+            currentCropData = {
+                file: file,
+                projectId: projectId,
+                fileName: fileName,
+                isProjectImage: true
+            };
+            
+            // Uruchom kadrowanie
+            startCrop(file, -1); // -1 oznacza, że to nowe zdjęcie projektu
+        }
+
+        // ===== DODAWANIE ZDJĘĆ DO PROJEKTU =====
+        async function addImagesToProject(projectId) {
+            const status = document.getElementById(`status-project-images-${projectId}`);
+            
+            if (!status) {
+                console.error('Nie znaleziono elementu statusu');
+                return;
+            }
+            
+            // Sprawdź czy są kadrowane pliki
+            if (!window.projectFiles || !window.projectFiles[projectId] || window.projectFiles[projectId].length === 0) {
+                status.textContent = 'Najpierw wybierz i kadruj zdjęcia!';
                 status.className = 'status-message status-error';
                 status.style.display = 'inline';
                 setTimeout(() => { status.style.display = 'none'; }, 3000);
@@ -2154,7 +2283,8 @@
                 
                 if (project && project.images) {
                     const currentImageCount = project.images.length;
-                    if (currentImageCount + files.length > 5) {
+                    const newImageCount = window.projectFiles[projectId].length;
+                    if (currentImageCount + newImageCount > 5) {
                         status.textContent = `Za dużo zdjęć! Projekt ma już ${currentImageCount} zdjęć. Można dodać maksymalnie ${5 - currentImageCount} zdjęć.`;
                         status.className = 'status-message status-error';
                         status.style.display = 'inline';
@@ -2173,9 +2303,12 @@
             
             try {
                 const formData = new FormData();
-                for (let file of files) {
+                
+                // Dodaj kadrowane pliki
+                window.projectFiles[projectId].forEach(file => {
                     formData.append('images', file);
-                }
+                });
+                
                 formData.append('projectId', projectId);
                 
                 // Sprawdź czy serwer jest dostępny
@@ -2193,11 +2326,18 @@
                     status.className = 'status-message status-success';
                     
                     // Wyczyść input i podgląd
-                    input.value = '';
+                    const input = document.getElementById(`project-images-${projectId}`);
+                    if (input) input.value = '';
+                    
                     const preview = document.getElementById(`project-images-preview-${projectId}`);
                     if (preview) {
                         preview.style.display = 'none';
                         preview.innerHTML = '';
+                    }
+                    
+                    // Wyczyść listę plików projektu
+                    if (window.projectFiles && window.projectFiles[projectId]) {
+                        window.projectFiles[projectId] = [];
                     }
                     
                     // Odśwież listę projektów
