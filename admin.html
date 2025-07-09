@@ -651,6 +651,21 @@
         .image-remove:hover {
             background: #cc0000;
         }
+
+        .image-crop {
+            padding: 4px 8px;
+            border: 1px solid var(--color-orange);
+            border-radius: 3px;
+            background: var(--color-orange);
+            color: var(--color-white);
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .image-crop:hover {
+            background: #ff6600;
+        }
     </style>
 </head>
 <body>
@@ -1349,13 +1364,20 @@
                     height: cropOverlay.offsetHeight / rect.height
                 };
                 
-                // Tutaj można dodać logikę przycinania obrazu
                 console.log('Dane przycięcia:', cropData);
                 
-                // Ukryj kropowanie i dodaj do listy
+                // Ukryj kadrowanie
                 const imageCropper = document.getElementById('imageCropper');
                 if (imageCropper) imageCropper.style.display = 'none';
-                addCroppedImageToList(currentCropData.file, cropData);
+                
+                // Sprawdź czy to istniejące zdjęcie
+                if (currentCropData.isExistingImage) {
+                    // Zaktualizuj istniejące zdjęcie w projekcie
+                    updateExistingImageWithCrop(currentCropData.projectId, currentCropData.imageName, currentCropData.imageIndex, cropData);
+                } else {
+                    // Dodaj do listy nowych zdjęć
+                    addCroppedImageToList(currentCropData.file, cropData);
+                }
                 
                 currentCropData = null;
             }
@@ -1601,6 +1623,7 @@
                                     <div class="image-actions">
                                         ${index > 0 ? `<button class="image-move-up" onclick="moveImageUp(${project.id}, ${index})" title="Przesuń w górę">↑</button>` : ''}
                                         ${index < project.images.length - 1 ? `<button class="image-move-down" onclick="moveImageDown(${project.id}, ${index})" title="Przesuń w dół">↓</button>` : ''}
+                                        <button class="image-crop" onclick="cropExistingImage(${project.id}, '${image}', ${index})" title="Kadruj zdjęcie">✂️</button>
                                         <button class="image-remove" onclick="removeImage(${project.id}, '${image}')" title="Usuń zdjęcie">×</button>
                                     </div>
                                 </div>
@@ -1814,6 +1837,97 @@
             } catch (error) {
                 console.error('Błąd zmiany kolejności zdjęcia:', error);
                 showStatus('Błąd połączenia z serwerem', 'error');
+            }
+        }
+
+        // ===== KADROWANIE ISTNIEJĄCYCH ZDJĘĆ =====
+        async function cropExistingImage(projectId, imageName, imageIndex) {
+            try {
+                // Pobierz zdjęcie z serwera
+                const response = await fetch(`uploads/${imageName}`);
+                const blob = await response.blob();
+                
+                // Utwórz plik z blob
+                const file = new File([blob], imageName, { type: 'image/jpeg' });
+                
+                // Uruchom kadrowanie
+                startCrop(file, imageIndex);
+                
+                // Zapisz informacje o projekcie dla późniejszego zapisu
+                currentCropData = {
+                    ...currentCropData,
+                    projectId: projectId,
+                    imageName: imageName,
+                    imageIndex: imageIndex,
+                    isExistingImage: true
+                };
+                
+            } catch (error) {
+                console.error('Błąd ładowania zdjęcia do kadrowania:', error);
+                showStatus('Błąd ładowania zdjęcia do kadrowania', 'error');
+            }
+        }
+
+        // ===== AKTUALIZACJA ISTNIEJĄCEGO ZDJĘCIA Z KADROWANIEM =====
+        async function updateExistingImageWithCrop(projectId, imageName, imageIndex, cropData) {
+            try {
+                // Przycinaj obraz na podstawie danych kadrowania
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                const img = new Image();
+                
+                img.onload = function() {
+                    // Oblicz wymiary przyciętego obrazu
+                    const cropWidth = img.width * cropData.width;
+                    const cropHeight = img.height * cropData.height;
+                    const cropX = img.width * cropData.x;
+                    const cropY = img.height * cropData.y;
+                    
+                    // Ustaw wymiary canvas
+                    canvas.width = cropWidth;
+                    canvas.height = cropHeight;
+                    
+                    // Przycinaj obraz
+                    ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
+                    
+                    // Konwertuj canvas do Blob
+                    canvas.toBlob(async function(blob) {
+                        try {
+                            // Utwórz FormData z przyciętym obrazem
+                            const formData = new FormData();
+                            formData.append('croppedImage', blob, imageName);
+                            formData.append('projectId', projectId);
+                            formData.append('imageIndex', imageIndex);
+                            
+                            // Wyślij do serwera
+                            const response = await fetch('/api/updateImageWithCrop', {
+                                method: 'POST',
+                                body: formData
+                            });
+                            
+                            const result = await response.json();
+                            
+                            if (result.success) {
+                                showStatus('Zdjęcie zostało przycięte i zaktualizowane', 'success');
+                                loadProjectsList(); // Odśwież listę
+                            } else {
+                                showStatus('Błąd aktualizacji zdjęcia: ' + result.message, 'error');
+                            }
+                        } catch (error) {
+                            console.error('Błąd wysyłania przyciętego zdjęcia:', error);
+                            showStatus('Błąd wysyłania przyciętego zdjęcia', 'error');
+                        }
+                    }, 'image/jpeg', 0.9);
+                };
+                
+                // Załaduj obraz z serwera
+                const response = await fetch(`uploads/${imageName}`);
+                const blob = await response.blob();
+                img.src = URL.createObjectURL(blob);
+                
+            } catch (error) {
+                console.error('Błąd aktualizacji zdjęcia z kadrowaniem:', error);
+                showStatus('Błąd aktualizacji zdjęcia z kadrowaniem', 'error');
             }
         }
 

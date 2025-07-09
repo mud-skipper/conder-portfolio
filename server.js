@@ -170,9 +170,9 @@ async function processAndOptimizeImage(filePath, projectName) {
         const image = sharp(filePath);
         const metadata = await image.metadata();
         
-        // Optymalizuj obraz - skalowanie do szerokości ekranu minus 40px
+        // Optymalizuj obraz do formatu 4:5 (pion)
         const optimizedImage = image
-            .resize(727, null, { // 767px (max-width) - 40px = 727px szerokości
+            .resize(800, 1000, { // Format 4:5 (800x1000px)
                 fit: 'cover',
                 position: 'center',
                 withoutEnlargement: true
@@ -625,12 +625,12 @@ app.post('/api/addImagesToProject', upload.array('images', 5), async (req, res) 
             });
         }
         
-        // Sprawdź limit zdjęć (maksymalnie 10 na projekt)
+        // Sprawdź limit zdjęć (maksymalnie 5 na projekt)
         const currentImageCount = project.images ? project.images.length : 0;
-        if (currentImageCount + req.files.length > 10) {
+        if (currentImageCount + req.files.length > 5) {
             return res.status(400).json({
                 success: false,
-                message: `Za dużo zdjęć. Projekt może mieć maksymalnie 10 zdjęć (obecnie: ${currentImageCount})`
+                message: `Za dużo zdjęć. Projekt może mieć maksymalnie 5 zdjęć (obecnie: ${currentImageCount})`
             });
         }
         
@@ -835,6 +835,86 @@ app.post('/api/moveImage/:projectId', async (req, res) => {
         res.status(500).json({
             success: false,
             message: 'Błąd podczas zmiany kolejności zdjęcia: ' + error.message
+        });
+    }
+});
+
+// Endpoint do aktualizacji zdjęcia z kadrowaniem
+app.post('/api/updateImageWithCrop', upload.single('croppedImage'), async (req, res) => {
+    try {
+        const projectId = parseInt(req.body.projectId);
+        const imageIndex = parseInt(req.body.imageIndex);
+        
+        if (!req.file) {
+            return res.status(400).json({
+                success: false,
+                message: 'Nie otrzymano przyciętego zdjęcia'
+            });
+        }
+        
+        // Wczytaj istniejące projekty
+        const contentPath = path.join(__dirname, 'content.json');
+        const content = JSON.parse(await fs.readFile(contentPath, 'utf8'));
+        
+        // Znajdź projekt
+        const project = content.projects.find(p => p.id === projectId);
+        
+        if (!project) {
+            return res.status(404).json({
+                success: false,
+                message: 'Projekt nie został znaleziony'
+            });
+        }
+        
+        if (!project.images || imageIndex >= project.images.length) {
+            return res.status(400).json({
+                success: false,
+                message: 'Nieprawidłowy indeks zdjęcia'
+            });
+        }
+        
+        // Przetwórz i zoptymalizuj przycięte zdjęcie
+        const projectName = project.title.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
+        const optimizedFileName = await processAndOptimizeImage(req.file.path, projectName);
+        const newImagePath = `${projectName}/${optimizedFileName}`;
+        
+        // Usuń stare zdjęcie
+        const oldImagePath = project.images[imageIndex];
+        try {
+            const oldImageFullPath = path.join(__dirname, 'uploads', oldImagePath);
+            await fs.unlink(oldImageFullPath);
+            console.log(`Usunięto stare zdjęcie: ${oldImagePath}`);
+        } catch (error) {
+            console.log(`Nie można usunąć starego zdjęcia ${oldImagePath}:`, error.message);
+        }
+        
+        // Zaktualizuj ścieżkę zdjęcia w projekcie
+        project.images[imageIndex] = newImagePath;
+        
+        // Zapisz z powrotem do pliku
+        await fs.writeFile(contentPath, JSON.stringify(content, null, 2));
+        
+        // Wykonaj Git push
+        try {
+            await executeGitCommand('git add .');
+            await executeGitCommand(`git commit -m "Zaktualizowano zdjęcie z kadrowaniem w projekcie: ${project.title}"`);
+            await executeGitCommand('git push');
+            console.log('Git push wykonany pomyślnie');
+        } catch (gitError) {
+            console.error('Błąd Git push:', gitError);
+        }
+        
+        res.json({
+            success: true,
+            message: 'Zdjęcie zostało zaktualizowane pomyślnie',
+            newImagePath: newImagePath
+        });
+        
+    } catch (error) {
+        console.error('Błąd aktualizacji zdjęcia z kadrowaniem:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Błąd podczas aktualizacji zdjęcia: ' + error.message
         });
     }
 });
