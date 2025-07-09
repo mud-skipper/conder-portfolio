@@ -634,7 +634,7 @@ main {
 .logo-hamburger {
     position: fixed;
     top: 20px;
-    right: 20px;
+    right: 0px; /* Zmienione z 20px na 0px - względem body z ramką 20px */
     width: 60px;
     height: 60px;
     background: transparent;
