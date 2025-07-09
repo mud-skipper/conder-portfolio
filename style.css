@@ -212,6 +212,14 @@ section {
 .about-section {
     width: 100%;
     background: var(--color-white);
+    padding-top: 56px;
+    /* Dodatkowe właściwości dla lepszej kompatybilności */
+    position: relative;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .about-content {
@@ -281,11 +289,18 @@ section {
 
 /* Usunięte nieużywane style */
 
-/* ===== SEKCJA PROJEKTY ===== */
+/* ===== SEKCJA PROJEKTÓW ===== */
 .projects-section {
     width: 100%;
     background: var(--color-white);
-    padding-top: 56px; /* Zwiększone z 36px o 20px */
+    padding-top: 56px;
+    /* Dodatkowe właściwości dla lepszej kompatybilności */
+    position: relative;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .projects-content {
@@ -479,6 +494,13 @@ section {
     background: var(--color-white);
     padding-top: 56px; /* Zwiększone z 36px o 20px */
     padding-bottom: 400px; /* Zwiększone z 200px do 400px - więcej przestrzeni pod kontaktem */
+    /* Dodatkowe właściwości dla lepszej kompatybilności */
+    position: relative;
+    transform: translateZ(0); /* Hardware acceleration */
+    -webkit-transform: translateZ(0); /* Safari support */
+    will-change: transform; /* Optymalizacja */
+    backface-visibility: hidden; /* Zapobiega artefaktom renderowania */
+    -webkit-backface-visibility: hidden; /* Safari support */
 }
 
 .contact-content {

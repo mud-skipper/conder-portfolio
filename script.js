@@ -279,12 +279,39 @@ function safeScrollToSection(sectionId) {
         return;
     }
     
-    // Przewijanie z lepszymi opcjami
-    targetElement.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-        inline: 'nearest'
-    });
+    // Uniwersalne rozwiązanie dla wszystkich przeglądarek
+    const scrollToElement = () => {
+        // Sprawdź czy element jest widoczny i w pełni załadowany
+        const rect = targetElement.getBoundingClientRect();
+        const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
+        
+        // Jeśli element jest już w viewport, przewiń do góry
+        if (isVisible && rect.top > 0) {
+            window.scrollTo({
+                top: window.pageYOffset + rect.top - 56, // 56px to padding-top sekcji
+                behavior: 'smooth'
+            });
+        } else {
+            // Standardowe scrollIntoView z fallback
+            try {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                    inline: 'nearest'
+                });
+            } catch (error) {
+                // Fallback dla starszych przeglądarek
+                const targetPosition = targetElement.offsetTop - 56;
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    };
+    
+    // Dodatkowe opóźnienie dla lepszej kompatybilności
+    setTimeout(scrollToElement, 50);
 }
 
 // Automatyczne odświeżanie projektów co 30 sekund

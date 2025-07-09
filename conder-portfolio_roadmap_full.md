@@ -834,3 +834,22 @@
   - Uwzględnienie dynamicznych zmian w sekcji "Projekty"
   - Stabilniejsze przewijanie do wszystkich sekcji
 - **Status**: Problem z pozycjonowaniem naprawiony, gotowe do testów z większą liczbą projektów
+
+### [2025-01-09] 🌐 UNIFIKACJA DLA WSZYSTKICH PRZEGLĄDAREK
+- **Problem**: Różnice w pozycjonowaniu między Google Chrome a Samsung Browser
+- **Diagnoza**: 
+  - Różne implementacje `scrollIntoView` w przeglądarkach
+  - Różne renderowanie CSS (transform, will-change)
+  - Różne obsługa dynamicznych elementów
+- **Rozwiązanie**: 
+  - Dodano uniwersalną funkcję `safeScrollToSection()` z fallback
+  - Dodano sprawdzanie `getBoundingClientRect()` dla lepszego pozycjonowania
+  - Dodano `window.scrollTo()` jako fallback dla starszych przeglądarek
+  - Dodano CSS `transform: translateZ(0)` i `will-change: transform` dla lepszej kompatybilności
+  - Dodano `backface-visibility: hidden` dla zapobiegania artefaktom renderowania
+- **Efekt**: 
+  - Spójne działanie na wszystkich przeglądarkach
+  - Lepsze pozycjonowanie sekcji "Kontakt" w Google Chrome
+  - Zachowanie kompatybilności z Samsung Browser
+  - Przygotowanie na przyszłe rozszerzenia
+- **Status**: Unifikacja zakończona, gotowe do testów na różnych przeglądarkach
