@@ -199,6 +199,26 @@
 - **Rezultat**: Zdjęcie główne wróciło do poprzedniego stanu z pozycjonowaniem względnym
 - **Lekcja**: Pozycjonowanie absolutne może zaburzyć naturalny flow dokumentu i powodować problemy z layoutem
 
+### [2025-01-07] 🔧 NAPRAWKI KADROWANIA I OPTYMALIZACJI ZDJĘĆ
+- **Problem 1**: Kadr do kadrowania istniejących zdjęć pokazywał cały obszar zdjęcia zamiast proporcji 4:5
+- **Rozwiązanie 1**: 
+  - Zmieniono stałe wymiary kadru z 300x400px na dynamiczne względem obrazu
+  - Dodano funkcję JavaScript, która oblicza rozmiar kadru po załadowaniu obrazu
+  - Kadr używa 80% wysokości obrazu jako bazowej i oblicza szerokość dla proporcji 4:5
+  - Maksymalna wysokość kadru: 300px, szerokość: 80% wysokości (proporcja 4:5)
+- **Problem 2**: Nowe zdjęcia dodawane do projektów pojawiały się jako puste w portfolio
+- **Rozwiązanie 2**:
+  - Dodano szczegółowe logowanie w funkcji `processAndOptimizeImage`
+  - Dodano sprawdzanie istnienia plików przed i po optymalizacji
+  - Dodano fallback do oryginalnego pliku jeśli optymalizacja się nie udała
+  - Dodano sprawdzanie metadanych obrazu (szerokość, wysokość, format)
+  - Dodano obsługę błędów z pełnym stack trace
+- **Rezultat**: 
+  - Kadr do kadrowania jest teraz dynamiczny i używa proporcji 4:5 względem wysokości obrazu
+  - Optymalizacja zdjęć jest bardziej niezawodna z lepszym logowaniem błędów
+  - Dodano zabezpieczenia przed utratą plików podczas optymalizacji
+- **Lekcja**: Dynamiczne obliczanie rozmiarów UI względem zawartości jest lepsze niż stałe wymiary
+
 ### [2025-07-06] NAPRAWA BRAKUJĄCYCH STYLÓW CSS - PROBLEMY Z LAYOUTEM
 - **Problem**: Po czyszczeniu projektu brakowało wielu stylów CSS, co powodowało problemy z layoutem:
   - Brak stylów dla `.about-section-block` i `.about-text` (używane w HTML)
