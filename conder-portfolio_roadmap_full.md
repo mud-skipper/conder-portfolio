@@ -853,3 +853,22 @@
   - Zachowanie kompatybilności z Samsung Browser
   - Przygotowanie na przyszłe rozszerzenia
 - **Status**: Unifikacja zakończona, gotowe do testów na różnych przeglądarkach
+
+### [2025-01-09] 🔧 NAPRAWA STRUKTURY SEKCJI "O MNIE" I USUNIĘCIE AUTOMATYCZNEGO PRZEWIJANIA
+- **Problem 1**: Portfolio wymuszało pozycjonowanie do sekcji "O mnie" przy starcie
+- **Problem 2**: Większy odstęp niż 20px między głównym zdjęciem a tekstem "O mnie"
+- **Diagnoza**: 
+  - Automatyczne przewijanie było włączone w `script.js`
+  - Główne zdjęcie było w sekcji "home", a tekst "O mnie" w sekcji "about" - dwie różne sekcje
+  - To powodowało większy odstęp niż oczekiwane 20px
+- **Rozwiązanie**: 
+  - Usunięto automatyczne przewijanie do "O mnie" przy starcie strony
+  - Przeniesiono tekst "O mnie" z sekcji "about" do sekcji "home" pod głównym zdjęciem
+  - Usunięto sekcję "about" - teraz wszystko jest w sekcji "home"
+  - Zaktualizowano menu hamburger - zmieniono ikonę z 🏠 na 👤 dla "O mnie"
+- **Efekt**: 
+  - Portfolio ładuje się w pozycji naturalnej (bez wymuszonego przewijania)
+  - Odstęp między zdjęciem a tekstem "O mnie" to dokładnie 20px (zgodnie z `margin-top: 20px`)
+  - Uproszczona struktura - jedna sekcja zamiast dwóch
+  - Lepsze UX - naturalne ładowanie strony
+- **Status**: Struktura naprawiona, odstęp poprawiony, automatyczne przewijanie usunięte
