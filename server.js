@@ -166,7 +166,7 @@ async function processAndOptimizeImage(filePath, projectName) {
         const sharp = require('sharp');
         const fs = require('fs').promises;
         
-        console.log(`Rozpoczynam optymalizację: ${filePath}`);
+        console.log(`Rozpoczynam optymalizację: ${filePath} dla projektu: ${projectName}`);
         
         // Sprawdź czy plik istnieje
         await fs.access(filePath);
@@ -198,8 +198,22 @@ async function processAndOptimizeImage(filePath, projectName) {
                 progressive: true
             });
         
-        // Zapisz zoptymalizowany obraz
-        const optimizedPath = filePath.replace(/\.[^/.]+$/, '_optimized.jpg');
+        // Utwórz katalog projektu jeśli nie istnieje
+        const projectDir = path.join(__dirname, 'uploads', projectName);
+        try {
+            await fs.mkdir(projectDir, { recursive: true });
+            console.log(`Utworzono/znaleziono katalog projektu: ${projectDir}`);
+        } catch (error) {
+            console.log(`Katalog projektu już istnieje: ${projectDir}`);
+        }
+        
+        // Generuj unikalną nazwę pliku
+        const timestamp = Date.now();
+        const randomId = Math.floor(Math.random() * 1000000);
+        const optimizedFileName = `images-${timestamp}-${randomId}.jpg`;
+        const optimizedPath = path.join(projectDir, optimizedFileName);
+        
+        // Zapisz zoptymalizowany obraz do katalogu projektu
         await optimizedImage.toFile(optimizedPath);
         
         console.log(`Zapisałem zoptymalizowany obraz: ${optimizedPath}`);
@@ -213,15 +227,19 @@ async function processAndOptimizeImage(filePath, projectName) {
         
         if (optimizedStats.size === 0) {
             console.error(`Zoptymalizowany plik jest pusty: ${optimizedPath}`);
-            return path.basename(filePath);
+            return optimizedFileName;
         }
         
-        // Usuń oryginalny plik i zmień nazwę zoptymalizowanego
-        await fs.unlink(filePath);
-        await fs.rename(optimizedPath, filePath);
+        // Usuń oryginalny plik
+        try {
+            await fs.unlink(filePath);
+            console.log(`Usunięto oryginalny plik: ${filePath}`);
+        } catch (error) {
+            console.log(`Nie można usunąć oryginalnego pliku ${filePath}:`, error.message);
+        }
         
-        console.log(`Zoptymalizowano obraz: ${filePath}`);
-        return path.basename(filePath);
+        console.log(`Zoptymalizowano obraz: ${optimizedPath}`);
+        return optimizedFileName;
         
     } catch (error) {
         console.error(`Błąd optymalizacji obrazu ${filePath}:`, error.message);
