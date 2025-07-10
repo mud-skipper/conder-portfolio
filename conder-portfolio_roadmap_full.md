@@ -204,7 +204,7 @@
   - Zmieniono z twardego HEX `#FFD700` na `var(--color-yellow)` dla spójności z paskiem "O mnie"
   - Kolor żółty teraz identyczny w całym projekcie (`#FFD600`)
 - **Przyciski footerowe - skosy zgodnie z roadmapą:**
-  - Żółty przycisk: `clip-path: polygon(0 0, 100% 0, 100% 100%, 15% 100%)` - skośna prawa krawędź (kierunek /)
+  - Żółty przycisk: `clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%)` - skośna prawa krawędź (kierunek /)
   - Czerwony przycisk: `clip-path: polygon(15% 0, 100% 0, 85% 100%, 0 100%)` - obie skośne krawędzie (kąt 45°)
   - Kąty 45° zachowane, kształty zgodne z designem retro-minimalistycznym
 - **Menu boczne - odwrócenie kolejności projektów:**

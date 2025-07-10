@@ -312,10 +312,12 @@ function safeScrollToSection(sectionId) {
         // Dla projektów - pozycjonuj do tytułu projektu wyśrodkowanego w pionie do środka linii skośnej
         const projectTitle = targetElement.querySelector('.project-title');
         if (projectTitle) {
-            // Użyj pozycji tytułu zamiast góry karty
+            // Oblicz pozycję tytułu względem środka linii skośnej (40px od góry lufy)
             const titleRect = projectTitle.getBoundingClientRect();
-            const titleOffset = titleRect.top - targetElement.getBoundingClientRect().top;
-            scrollOffset = 56 + titleOffset; // Offset sekcji + offset tytułu
+            const cardRect = targetElement.getBoundingClientRect();
+            const titleCenter = titleRect.top + titleRect.height / 2 - cardRect.top;
+            const lufaCenter = 40; // Środek linii skośnej lufy headera
+            scrollOffset = 56 + (titleCenter - lufaCenter); // Offset sekcji + różnica pozycji
         } else {
             scrollOffset = 80; // Fallback - tytuł nie zachodzi pod lufę headera
         }
