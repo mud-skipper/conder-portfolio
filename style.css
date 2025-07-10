@@ -212,7 +212,7 @@ section {
 .about-section {
     width: 100%;
     background: var(--color-white);
-    padding-top: 56px;
+    padding-top: 70px; /* Zwiększone z 56px do 70px - pozycjonowanie na środku linii skośnej kolby */
     /* Dodatkowe właściwości dla lepszej kompatybilności */
     position: relative;
     transform: translateZ(0);
@@ -293,7 +293,7 @@ section {
 .projects-section {
     width: 100%;
     background: var(--color-white);
-    padding-top: 56px;
+    padding-top: 70px; /* Zwiększone z 56px do 70px - pozycjonowanie na środku linii skośnej kolby */
     /* Dodatkowe właściwości dla lepszej kompatybilności */
     position: relative;
     transform: translateZ(0);
@@ -492,7 +492,7 @@ section {
 .contact-section {
     width: 100%;
     background: var(--color-white);
-    padding-top: 56px; /* Zwiększone z 36px o 20px */
+    padding-top: 70px; /* Zwiększone z 56px do 70px - pozycjonowanie na środku linii skośnej kolby */
     padding-bottom: 480px; /* Zwiększone z 400px do 480px - dodatkowe 80px dla lepszego pozycjonowania */
     /* Dodatkowe właściwości dla lepszej kompatybilności */
     position: relative;
@@ -565,7 +565,7 @@ main {
 /* ===== SEKCJA GŁÓWNA (HERO) ===== */
 .home-section {
     position: relative;
-    padding-top: 56px; /* Przywrócone z 36px do 56px */
+    padding-top: 70px; /* Zwiększone z 56px do 70px - pozycjonowanie na środku linii skośnej kolby */
 }
 
 .home-section .section-header-yellow {
