@@ -80,6 +80,8 @@
 html {
     scroll-behavior: smooth;
     overflow-x: visible;
+    /* Wymuszenie trybu jasnego */
+    color-scheme: light;
 }
 
 body {
@@ -97,6 +99,8 @@ body {
     position: relative;
     overflow-x: visible;
     overflow-y: auto; /* Dodane dla lepszego scrollowania z dużym padding-bottom */
+    /* Wymuszenie trybu jasnego */
+    color-scheme: light;
 }
 
 .container {
@@ -617,6 +621,9 @@ main {
     border-bottom: 1px solid #bbb;
     box-shadow: 0 4px 16px rgba(0,0,0,0.12);
     z-index: 9999 !important;
+    /* Wymuszenie białego tła w trybie ciemnym */
+    color-scheme: light;
+    forced-color-adjust: none;
 }
 /* ================= KONIEC HEADERA: LUFA (FINAL) ================= */
 
@@ -631,6 +638,9 @@ main {
     border-top: 1px solid #bbb;
     box-shadow: 0 -4px 16px rgba(0,0,0,0.12);
     z-index: 9999 !important;
+    /* Wymuszenie białego tła w trybie ciemnym */
+    color-scheme: light;
+    forced-color-adjust: none;
 }
 /* ================= KONIEC FOOTERA: LUFA (FINAL) ================= */
 
@@ -651,6 +661,9 @@ main {
     backface-visibility: hidden;
     -webkit-perspective: 1000;
     perspective: 1000;
+    /* Wymuszenie białego tła w trybie ciemnym */
+    color-scheme: light;
+    forced-color-adjust: none;
 }
 .kolba-footer svg {
     display: block;
@@ -663,6 +676,11 @@ main {
     /* Dodatkowe zabezpieczenia */
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+    /* Wymuszenie stałego rozmiaru - nieskalowalna */
+    preserveAspectRatio: xMinYMin meet;
+    /* Wymuszenie białego tła w trybie ciemnym */
+    color-scheme: light;
+    forced-color-adjust: none;
 }
 /* ================= KONIEC KOLBY: FOOTER ================= */
 
@@ -903,6 +921,12 @@ main {
     z-index: 10002;
     pointer-events: auto;
     width: auto;
+    /* Wymuszenie stałego rozmiaru - nieskalowalne */
+    transform: none;
+    -webkit-transform: none;
+    /* Wymuszenie białego tła w trybie ciemnym */
+    color-scheme: light;
+    forced-color-adjust: none;
 }
 .footer-btn {
     display: flex;
@@ -910,8 +934,10 @@ main {
     justify-content: center;
     width: 110px;
     height: 20px;
-    min-width: 0;
-    min-height: 0;
+    min-width: 110px; /* Wymuszenie stałej szerokości */
+    min-height: 20px; /* Wymuszenie stałej wysokości */
+    max-width: 110px; /* Blokada skalowania */
+    max-height: 20px; /* Blokada skalowania */
     padding: 0;
     font-size: 15px;
     font-weight: bold;
@@ -924,6 +950,12 @@ main {
     user-select: none;
     position: relative;
     border-radius: 0;
+    /* Wymuszenie stałego rozmiaru - nieskalowalne */
+    transform: none;
+    -webkit-transform: none;
+    /* Wymuszenie białego tła w trybie ciemnym */
+    color-scheme: light;
+    forced-color-adjust: none;
 }
 .footer-btn-yellow {
     background: var(--color-yellow);
