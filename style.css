@@ -707,8 +707,7 @@ main {
     transform: none; /* Blokada skalowania */
     -webkit-transform: none; /* Safari support */
     will-change: transform; /* Optymalizacja dla przeglądarek */
-    /* Wymuszenie białego tła w trybie ciemnym */
-    background: #fff !important;
+    /* Usunięto background - SVG ma już białe wypełnienie */
     color-scheme: light !important;
     forced-color-adjust: none !important;
 }
