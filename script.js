@@ -120,7 +120,14 @@ async function loadProjectsFromJSON() {
         const data = await response.json();
         
         if (data.projects && data.projects.length > 0) {
-            displayProjects(data.projects);
+            // Sortuj projekty po dacie realizacji (od najnowszego do najstarszego)
+            const sortedProjects = data.projects.sort((a, b) => {
+                const yearA = parseInt(a.year) || 0;
+                const yearB = parseInt(b.year) || 0;
+                return yearB - yearA; // Malejąco (najnowsze pierwsze)
+            });
+            
+            displayProjects(sortedProjects);
         } else {
             displayEmptyProjects();
         }
@@ -396,8 +403,8 @@ function updateSideMenuProjectLinks(projects) {
     const projectsLi = projectsMenuItem.closest('li');
     if (!projectsLi) return;
 
-    // Dodaj linki do projektów pod "Projekty" (odwrócona kolejność)
-    projects.slice().reverse().forEach(project => {
+    // Dodaj linki do projektów pod "Projekty" (posortowane po dacie realizacji)
+    projects.forEach(project => {
         const li = document.createElement('li');
         li.className = 'side-menu-item';
         const a = document.createElement('a');

@@ -204,8 +204,8 @@
   - Zmieniono z twardego HEX `#FFD700` na `var(--color-yellow)` dla spójności z paskiem "O mnie"
   - Kolor żółty teraz identyczny w całym projekcie (`#FFD600`)
 - **Przyciski footerowe - skosy zgodnie z roadmapą:**
-  - Żółty przycisk: `clip-path: polygon(0 0, 100% 0, 100% 100%, 15% 100%)` - skośna lewa krawędź (kierunek \)
-  - Czerwony przycisk: `clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%)` - obie skośne krawędzie (kierunek \)
+  - Żółty przycisk: `clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%)` - skośna prawa krawędź (kierunek /)
+  - Czerwony przycisk: `clip-path: polygon(15% 0, 100% 0, 85% 100%, 0 100%)` - obie skośne krawędzie (kąt 45°)
   - Kąty 45° zachowane, kształty zgodne z designem retro-minimalistycznym
 - **Menu boczne - odwrócenie kolejności projektów:**
   - Zmieniono `projects.forEach()` na `projects.slice().reverse().forEach()` w funkcji `updateSideMenuProjectLinks()`
@@ -215,6 +215,11 @@
     - Dla projektów (`sectionId.startsWith('project-')`): offset 80px (40px + 40px dodatkowe)
     - Dla sekcji: offset 56px (domyślny)
   - Tytuł projektu nie zachodzi pod lufę headera, zachowana czytelność
+- **Sortowanie projektów po dacie realizacji:**
+  - Dodano sortowanie projektów po polu `year` w funkcji `loadProjectsFromJSON()`
+  - Projekty wyświetlane od najnowszego do najstarszego (malejąco)
+  - Menu boczne automatycznie aktualizuje się zgodnie z nową kolejnością
+  - Obsługa projektów bez daty (wartość 0, wyświetlane na końcu)
 - **Backup**: Utworzono backup `session_10_01_2025_final_polish` przed zmianami
 - **Status**: Wszystkie poprawki wdrożone, projekt gotowy do finalnych testów
 
