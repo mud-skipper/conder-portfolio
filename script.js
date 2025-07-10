@@ -310,48 +310,17 @@ function safeScrollToSection(sectionId) {
     let scrollOffset = 56; // Domyślny offset dla sekcji
     if (sectionId.startsWith('project-')) {
         // Dla projektów - pozycjonuj do tytułu projektu wyśrodkowanego w pionie do środka linii skośnej
-        const projectTitle = targetElement.querySelector('.project-title');
-        if (projectTitle) {
-            // Oblicz pozycję tytułu względem środka linii skośnej kolby (60px od góry)
-            const titleRect = projectTitle.getBoundingClientRect();
-            const cardRect = targetElement.getBoundingClientRect();
-            const titleCenter = titleRect.top + titleRect.height / 2 - cardRect.top;
-            const kolbaCenter = 60; // Środek linii skośnej kolby headera (100px wysokość / 2 + 10px offset)
-            scrollOffset = 56 + (titleCenter - kolbaCenter); // Offset sekcji + różnica pozycji
-        } else {
-            scrollOffset = 80; // Fallback - tytuł nie zachodzi pod lufę headera
-        }
+        scrollOffset = 120; // Stały offset dla projektów - tytuł wyśrodkowany względem linii skośnej kolby
     }
     
     // Uniwersalne rozwiązanie dla wszystkich przeglądarek
     const scrollToElement = () => {
-        // Sprawdź czy element jest widoczny i w pełni załadowany
-        const rect = targetElement.getBoundingClientRect();
-        const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
-        
-        // Jeśli element jest już w viewport, przewiń do góry
-        if (isVisible && rect.top > 0) {
-            window.scrollTo({
-                top: window.pageYOffset + rect.top - scrollOffset,
-                behavior: 'smooth'
-            });
-        } else {
-            // Standardowe scrollIntoView z fallback
-            try {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start',
-                    inline: 'nearest'
-                });
-            } catch (error) {
-                // Fallback dla starszych przeglądarek
-                const targetPosition = targetElement.offsetTop - scrollOffset;
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        }
+        // Proste rozwiązanie z offsetem - działa dla wszystkich sekcji
+        const targetPosition = targetElement.offsetTop - scrollOffset;
+        window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+        });
     };
     
     // Dodatkowe opóźnienie dla lepszej kompatybilności

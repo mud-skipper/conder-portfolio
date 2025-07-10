@@ -936,6 +936,7 @@ main {
 .footer-btn-red {
     background: var(--color-red);
     color: #fff;
+    clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
 }
 .footer-btn-red:hover {
     background: #ff3333;
