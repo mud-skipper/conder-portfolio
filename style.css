@@ -641,11 +641,16 @@ main {
     left: 0;
     width: 260px;
     height: 60px;
-    z-index: 10000;
+    z-index: 10001; /* Wyższy niż lufa (9999) */
     pointer-events: none; /* Kolba nie blokuje kliknięć pod spodem */
     transform: translateZ(0); /* Hardware acceleration dla lepszego pozycjonowania */
     -webkit-transform: translateZ(0); /* Safari support */
     will-change: transform; /* Optymalizacja dla przeglądarek */
+    /* Dodatkowe zabezpieczenia dla różnych przeglądarek */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
 }
 .kolba-footer svg {
     display: block;
@@ -655,6 +660,9 @@ main {
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
     filter: drop-shadow(0 -4px 16px rgba(0,0,0,0.12)); /* Cień w górę */
+    /* Dodatkowe zabezpieczenia */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 /* ================= KONIEC KOLBY: FOOTER ================= */
 
