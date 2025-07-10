@@ -1,3 +1,24 @@
+/* ===== GLOBALNE WYMUSZENIE TRYBU JASNEGO ===== */
+html, body {
+    background: #fff !important;
+    color: #000 !important;
+    color-scheme: light !important;
+    forced-color-adjust: none !important;
+}
+* {
+    color-scheme: light !important;
+    forced-color-adjust: none !important;
+}
+@media (prefers-color-scheme: dark) {
+    html, body, * {
+        background: #fff !important;
+        color: #000 !important;
+        color-scheme: light !important;
+        forced-color-adjust: none !important;
+    }
+}
+/* ===== KONIEC GLOBALNEGO WYMUSZENIA ===== */
+
 /* ===== BLOKADA PRZEGLĄDAREK - TYLKO MOBILE ===== */
 @media (min-width: 768px) {
     html, body {
@@ -143,7 +164,7 @@ section {
     position: absolute;
     left: 0;
     right: 0;
-    height: 20px;
+    height: 20px; /* Przywrócone na 20px - dopasowane do wysokości czcionki */
     top: 50%;
     transform: translateY(-50%);
     z-index: 1;
