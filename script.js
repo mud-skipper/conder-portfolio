@@ -298,11 +298,11 @@ function areProjectsLoaded() {
 // Funkcja do bezpiecznego przewijania z uwzględnieniem dynamicznych elementów
 function safeScrollToSection(sectionId) {
     /*
-     * Blokowa logika offsetu przewijania:
-     * - home: 36px (zgodnie z padding-top sekcji)
-     * - projects: 56px (większy offset, by wyśrodkować pasek względem linii skośnej)
-     * - contact: 56px (jak wyżej)
-     * - project-* (pojedynczy projekt): 120px (bez zmian)
+     * Blokowa logika offsetu przewijania (aktualizacja 2025-01-10):
+     * - home: 32px
+     * - projects: 32px
+     * - contact: 32px
+     * - project-* (pojedynczy projekt): 120px
      */
     const targetElement = document.getElementById(sectionId);
     if (!targetElement) return;
@@ -313,10 +313,7 @@ function safeScrollToSection(sectionId) {
         return;
     }
 
-    let scrollOffset = 36; // domyślny offset (home)
-    if (sectionId === 'projects' || sectionId === 'contact') {
-        scrollOffset = 56; // większy offset dla "Projekty" i "Kontakt"
-    }
+    let scrollOffset = 32; // offset dla wszystkich sekcji
     if (sectionId.startsWith('project-')) {
         scrollOffset = 120; // offset dla pojedynczego projektu
     }
