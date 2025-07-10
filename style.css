@@ -82,6 +82,8 @@ html {
     overflow-x: visible;
     /* Wymuszenie trybu jasnego */
     color-scheme: light;
+    background: #fff !important;
+    color: #000 !important;
 }
 
 body {
@@ -101,6 +103,8 @@ body {
     overflow-y: auto; /* Dodane dla lepszego scrollowania z dużym padding-bottom */
     /* Wymuszenie trybu jasnego */
     color-scheme: light;
+    background: #fff !important;
+    color: #000 !important;
 }
 
 .container {
