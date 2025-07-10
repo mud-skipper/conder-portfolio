@@ -1051,4 +1051,36 @@ main {
 }
 /* ===== KONIEC WYMUSZENIA ===== */
 
+/* ===== STAŁE POZYCJONOWANIE PRZYCISKÓW W KOLBIE FOOTER ===== */
+.kolba-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 300px;
+    height: 60px;
+    z-index: 10001;
+    pointer-events: none;
+    background: #fff !important;
+    color-scheme: light !important;
+    forced-color-adjust: none !important;
+}
+.kolba-footer .footer-buttons {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    width: 100%;
+    pointer-events: auto;
+    z-index: 2;
+}
+.kolba-footer .footer-btn {
+    min-width: 80px;
+    max-width: 120px;
+    margin: 0 8px;
+}
+/* ===== KONIEC STAŁEGO POZYCJONOWANIA ===== */
+
  
