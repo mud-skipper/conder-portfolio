@@ -299,9 +299,9 @@ function areProjectsLoaded() {
 function safeScrollToSection(sectionId) {
     /*
      * Blokowa logika offsetu przewijania (aktualizacja 2025-01-10):
-     * - home: 32px
-     * - projects: 32px
-     * - contact: 32px
+     * - home: 0px (bez offsetu)
+     * - projects: 0px (bez offsetu)
+     * - contact: 0px (bez offsetu)
      * - project-* (pojedynczy projekt): 120px
      */
     const targetElement = document.getElementById(sectionId);
@@ -313,7 +313,7 @@ function safeScrollToSection(sectionId) {
         return;
     }
 
-    let scrollOffset = 32; // offset dla wszystkich sekcji
+    let scrollOffset = 0; // bez offsetu dla wszystkich sekcji
     if (sectionId.startsWith('project-')) {
         scrollOffset = 120; // offset dla pojedynczego projektu
     }
