@@ -698,19 +698,34 @@ main {
     right: 0;
     width: 180px;
     height: 100px;
+    min-width: 180px; /* Zabezpieczenie przed skalowaniem */
+    max-width: 180px; /* Zabezpieczenie przed skalowaniem */
+    min-height: 100px; /* Zabezpieczenie przed skalowaniem */
+    max-height: 100px; /* Zabezpieczenie przed skalowaniem */
     z-index: 10000;
     pointer-events: none; /* Kolba nie blokuje kliknięć pod spodem */
-    transform: translateZ(0); /* Hardware acceleration dla lepszego pozycjonowania */
-    -webkit-transform: translateZ(0); /* Safari support */
+    transform: none; /* Blokada skalowania */
+    -webkit-transform: none; /* Safari support */
     will-change: transform; /* Optymalizacja dla przeglądarek */
+    /* Wymuszenie białego tła w trybie ciemnym */
+    background: #fff !important;
+    color-scheme: light !important;
+    forced-color-adjust: none !important;
 }
 .kolba-header svg {
     display: block;
     width: 180px;
     height: 100px;
+    min-width: 180px; /* Zabezpieczenie przed skalowaniem */
+    max-width: 180px; /* Zabezpieczenie przed skalowaniem */
+    min-height: 100px; /* Zabezpieczenie przed skalowaniem */
+    max-height: 100px; /* Zabezpieczenie przed skalowaniem */
     pointer-events: none;
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
+    transform: none; /* Blokada skalowania */
+    -webkit-transform: none; /* Safari support */
+    /* Wymuszenie białego tła w trybie ciemnym */
+    color-scheme: light !important;
+    forced-color-adjust: none !important;
 }
 
 /* ================= LOGO HAMBURGER ================= */
