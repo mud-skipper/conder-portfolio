@@ -12,7 +12,7 @@
     <meta name="supported-color-schemes" content="light">
     <title>Wojciech Conder - Architekt</title>
     <meta name="description" content="Portfolio architekta Wojciecha Condera - projektuję przestrzeń do życia i pracy">
-    <link rel="stylesheet" href="style.css?v=10.3&t=20250110&v=header_container_height&cache=bust&force=1&timestamp=20250110&refresh=1&nocache=1&v3=1&final=1&fix=1&responsive=1&absolute=1&projects=1&spacing=1&header=1&footer=1&kolba=1&polygon=1&section=1&logo=1&position=1&right=1&anchor=1&back=1&restored=1&fixed=1&buttons=1&sort=1&position=1&clean=1&skos=1&contact=1&36px=1&padding=1&height=1&center=1&stripe=1">
+    <link rel="stylesheet" href="style.css?v=10.5&t=20250110&v=stripe_height_restore&cache=bust&force=1&timestamp=20250110&refresh=1&nocache=1&v3=1&final=1&fix=1&responsive=1&absolute=1&projects=1&spacing=1&header=1&footer=1&kolba=1&polygon=1&section=1&logo=1&position=1&right=1&anchor=1&back=1&restored=1&fixed=1&buttons=1&sort=1&position=1&clean=1&skos=1&contact=1&36px=1&padding=1&height=1&center=1&stripe=1&20px=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -26,10 +26,13 @@
 <body>
 
     <!-- ================= HEADER: Lufa (prosty prostokąt 40px wysokości, cała szerokość) ================= -->
-    <div class="lufa-header"></div>
+    <div class="lufa-header">
+      <!-- SVG lufy (jeśli jest) powinien mieć preserveAspectRatio="none" i fill="#fff" -->
+      <!-- (obecnie lufa to div, więc nie dotyczy) -->
+    </div>
     <!-- ================= KOLBA: SVG poligon w prawym górnym rogu ================= -->
     <div class="kolba-header">
-      <svg width="180" height="100" viewBox="0 0 180 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="180" height="100" viewBox="0 0 180 100" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet">
         <polygon points="180,0 180,100 60,100 0,40 0,0 180,0" fill="#fff" />
         <polyline points="60,100 0,40" fill="none" stroke="#bbb" stroke-width="1" />
         <line x1="60" y1="100" x2="180" y2="100" stroke="#bbb" stroke-width="1" />
@@ -47,7 +50,7 @@
         <div class="lufa-footer"></div>
         <!-- ================= KOLBA: SVG poligon w lewym dolnym rogu (nad lufą) ================= -->
         <div class="kolba-footer">
-          <svg width="300" height="60" viewBox="0 0 300 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="300" height="60" viewBox="0 0 300 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet">
             <polygon points="0,60 0,0 260,0 300,40 300,60 0,60" fill="#fff" />
             <polyline points="260,0 300,40" fill="none" stroke="#bbb" stroke-width="1" />
             <line x1="0" y1="0" x2="260" y2="0" stroke="#bbb" stroke-width="1" />
