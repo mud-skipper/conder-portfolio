@@ -639,7 +639,7 @@ main {
     position: fixed;
     bottom: 0;
     left: 0;
-    width: 300px;
+    width: 260px;
     height: 60px;
     z-index: 10001; /* Wyższy niż lufa (9999) */
     pointer-events: none; /* Kolba nie blokuje kliknięć pod spodem */
@@ -654,12 +654,12 @@ main {
 }
 .kolba-footer svg {
     display: block;
-    width: 300px;
+    width: 260px;
     height: 60px;
     pointer-events: none;
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
-    /* Usunięto cień - kolba nie rzuca cienia na lufę */
+    filter: drop-shadow(0 -4px 16px rgba(0,0,0,0.12)); /* Cień w górę */
     /* Dodatkowe zabezpieczenia */
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
