@@ -493,7 +493,7 @@ section {
     width: 100%;
     background: var(--color-white);
     padding-top: 56px; /* Zwiększone z 36px o 20px */
-    padding-bottom: 400px; /* Zwiększone z 200px do 400px - więcej przestrzeni pod kontaktem */
+    padding-bottom: 300px; /* Zmniejszone z 400px do 300px po usunięciu daty urodzenia */
     /* Dodatkowe właściwości dla lepszej kompatybilności */
     position: relative;
     transform: translateZ(0); /* Hardware acceleration */
@@ -936,7 +936,7 @@ main {
 .footer-btn-red {
     background: var(--color-red);
     color: #fff;
-    clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
+    clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
 }
 .footer-btn-red:hover {
     background: #ff3333;
