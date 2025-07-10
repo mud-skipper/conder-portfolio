@@ -95,7 +95,10 @@ body {
     max-width: 767px; /* Blokada szerokich ekranów */
     margin: 0 auto;
     padding: 0;
-    border: 16px solid var(--color-white); /* GŁÓWNA RAMKA 16px - ZMNIEJSZONA Z 20px */
+    border-left: 16px solid var(--color-white);
+    border-right: 16px solid var(--color-white);
+    border-bottom: 16px solid var(--color-white);
+    /* USUNIĘTO RAMKĘ Z GÓRY */
     box-sizing: border-box;
     min-height: 100vh;
     position: relative;
