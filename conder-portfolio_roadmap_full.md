@@ -199,6 +199,26 @@
 - **Rezultat**: Zdjęcie główne wróciło do poprzedniego stanu z pozycjonowaniem względnym
 - **Lekcja**: Pozycjonowanie absolutne może zaburzyć naturalny flow dokumentu i powodować problemy z layoutem
 
+### [2025-01-10] 🔧 ZABEZPIECZENIE PRZYCISKÓW FOOTER PRZED SKALOWANIEM I ZMIANĄ POZYCJI
+- **Problem**: Przyciski footer (żółty "Wyślij" i czerwony "CV") mogły zmieniać pozycję i rozmiar przy skalowaniu ekranu, nie "przynależąc" do kolby footer
+- **Analiza**: Przyciski miały `position: fixed` z `left: 20px, bottom: 20px`, co pozycjonowało je względem viewport, nie względem kolby
+- **Rozwiązanie**: 
+  - Zmieniono `position: fixed` na `position: absolute` w `.footer-buttons`
+  - Przyciski są teraz pozycjonowane względem kolby footer (która ma `position: fixed`)
+  - Zachowano wszystkie zabezpieczenia przed skalowaniem: `min-width/max-width`, `min-height/max-height`, `transform: none`
+  - Zachowano stałą pozycję `left: 20px, bottom: 20px` względem kolby
+- **Rezultat**: Przyciski footer są teraz "przynależne do kolby" - zawsze w tej samej pozycji i rozmiarze względem kolby, niezależnie od skalowania ekranu
+- **Lekcja**: Elementy "przynależne" do innych elementów powinny używać `position: absolute` względem rodzica z `position: fixed/relative`, nie `position: fixed` względem viewport
+
+### [2025-01-10] 🔧 UPROSZCZENIE ZABEZPIECZEŃ KOLBY - SPÓJNOŚĆ HEADER I FOOTER
+- **Problem**: Kolby header i footer miały różne podejścia do zabezpieczeń przed skalowaniem - header bez min/max, footer z min/max
+- **Rozwiązanie**: 
+  - Usunięto `min-width`, `max-width`, `min-height`, `max-height` z kontenerów `.kolba-header` i `.kolba-footer`
+  - Zachowano podstawowe wymiary (`width`, `height`) i `position: fixed`
+  - Zachowano `transform: none` i inne zabezpieczenia przed skalowaniem
+- **Rezultat**: Spójne zabezpieczenia kolby header i footer - oba mają identyczne, uproszczone podejście
+- **Lekcja**: Elementy o podobnej funkcji powinny mieć spójne style dla łatwiejszej konserwacji
+
 ### [2025-01-10] 🎨 FINALNE POPRAWKI - PRZYCISKI FOOTEROWE I MENU BOCZNE
 - **Przyciski footerowe - kolor żółtego:**
   - Zmieniono z twardego HEX `#FFD700` na `var(--color-yellow)` dla spójności z paskiem "O mnie"
