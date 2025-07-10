@@ -302,7 +302,7 @@ function safeScrollToSection(sectionId) {
     // Określ offset na podstawie typu elementu
     let scrollOffset = 56; // Domyślny offset dla sekcji
     if (sectionId.startsWith('project-')) {
-        scrollOffset = 40; // Offset dla projektów - separator pokrywa się z dolną krawędzią lufy headera
+        scrollOffset = 80; // Offset dla projektów - tytuł nie zachodzi pod lufę headera (40px + 40px)
     }
     
     // Uniwersalne rozwiązanie dla wszystkich przeglądarek

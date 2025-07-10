@@ -204,17 +204,17 @@
   - Zmieniono z twardego HEX `#FFD700` na `var(--color-yellow)` dla spójności z paskiem "O mnie"
   - Kolor żółty teraz identyczny w całym projekcie (`#FFD600`)
 - **Przyciski footerowe - skosy zgodnie z roadmapą:**
-  - Żółty przycisk: `clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%)` - skośna prawa krawędź
-  - Czerwony przycisk: `clip-path: polygon(15% 0, 100% 0, 85% 100%, 0 100%)` - obie skośne krawędzie
+  - Żółty przycisk: `clip-path: polygon(0 0, 100% 0, 100% 100%, 15% 100%)` - skośna lewa krawędź (kierunek \)
+  - Czerwony przycisk: `clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%)` - obie skośne krawędzie (kierunek \)
   - Kąty 45° zachowane, kształty zgodne z designem retro-minimalistycznym
 - **Menu boczne - odwrócenie kolejności projektów:**
   - Zmieniono `projects.forEach()` na `projects.slice().reverse().forEach()` w funkcji `updateSideMenuProjectLinks()`
   - Projekty w menu bocznym teraz odpowiadają kolejności w portfolio (od najnowszego do najstarszego)
 - **Menu boczne - precyzyjne przewijanie do projektu:**
   - Dodano logikę offsetu w funkcji `safeScrollToSection(sectionId)`:
-    - Dla projektów (`sectionId.startsWith('project-')`): offset 40px
+    - Dla projektów (`sectionId.startsWith('project-')`): offset 80px (40px + 40px dodatkowe)
     - Dla sekcji: offset 56px (domyślny)
-  - Separator projektu pokrywa się z dolną krawędzią lufy headera
+  - Tytuł projektu nie zachodzi pod lufę headera, zachowana czytelność
 - **Backup**: Utworzono backup `session_10_01_2025_final_polish` przed zmianami
 - **Status**: Wszystkie poprawki wdrożone, projekt gotowy do finalnych testów
 
