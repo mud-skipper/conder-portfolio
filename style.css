@@ -965,8 +965,11 @@ main {
     forced-color-adjust: none;
 }
 .footer-btn-yellow {
-    background: var(--color-yellow);
-    color: #fff;
+    background: #FFD600 !important;
+    color: #000 !important;
+    border-color: #FFD600 !important;
+    color-scheme: light !important;
+    forced-color-adjust: none !important;
 }
 .footer-btn-yellow:hover {
     background: #ffe066;
