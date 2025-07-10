@@ -715,10 +715,6 @@ main {
     display: block;
     width: 180px;
     height: 100px;
-    min-width: 180px; /* Zabezpieczenie przed skalowaniem */
-    max-width: 180px; /* Zabezpieczenie przed skalowaniem */
-    min-height: 100px; /* Zabezpieczenie przed skalowaniem */
-    max-height: 100px; /* Zabezpieczenie przed skalowaniem */
     pointer-events: none;
     transform: none; /* Blokada skalowania */
     -webkit-transform: none; /* Safari support */
