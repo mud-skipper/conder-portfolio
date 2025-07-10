@@ -91,51 +91,25 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 // ================= KONIEC LOGO HAMBURGER MENU =================
 
-// ================= PRZYCISKI FOOTER =================
+// ================= OBSŁUGA PRZYCISKÓW FOOTER =================
 document.addEventListener('DOMContentLoaded', function() {
     const footerSendButton = document.getElementById('footerSendButton');
     const footerCvButton = document.getElementById('footerCvButton');
-    
-    // Funkcja dla przycisku "Wyślij"
+
     if (footerSendButton) {
         footerSendButton.addEventListener('click', function(e) {
             e.preventDefault();
-            e.stopPropagation();
-            
-            // Przewijanie do sekcji kontakt
-            const contactSection = document.getElementById('contact');
-            if (contactSection) {
-                contactSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-            
-            // Opcjonalnie: Otwórz mailto link
-            setTimeout(() => {
-                window.location.href = 'mailto:wojtek.conder@gmail.com?subject=Kontakt z portfolio';
-            }, 500);
+            window.location.href = 'mailto:wojtek.conder@gmail.com';
         });
     }
-    
-    // Funkcja dla przycisku "CV"
     if (footerCvButton) {
         footerCvButton.addEventListener('click', function(e) {
             e.preventDefault();
-            e.stopPropagation();
-            
-            // Tutaj można dodać link do CV lub pobranie pliku
-            // Na razie pokazujemy alert z informacją
-            alert('CV - funkcjonalność w przygotowaniu. Skontaktuj się bezpośrednio: wojtek.conder@gmail.com');
-            
-            // Opcjonalnie: Otwórz mailto link z tematem CV
-            setTimeout(() => {
-                window.location.href = 'mailto:wojtek.conder@gmail.com?subject=Prośba o CV';
-            }, 1000);
+            window.open('uploads/Wojciech Conder - CV 2025.pdf', '_blank');
         });
     }
 });
-// ================= KONIEC PRZYCISKÓW FOOTER =================
+// ================= KONIEC OBSŁUGI PRZYCISKÓW FOOTER =================
 
 // ===== WCZYTYWANIE PROJEKTÓW Z JSON =====
 async function loadProjectsFromJSON() {
@@ -225,7 +199,7 @@ function displayProjects(projects) {
         const displayProjectType = normalizeField(project.projectType);
 
         return `
-            <div class="project-card" data-project-id="${project.id}">
+            <div class="project-card" data-project-id="${project.id}" id="project-${project.id}">
                 <!-- 1. Nazwa inwestycji -->
                 <h3 class="project-title">${project.title}</h3>
                 
@@ -398,6 +372,44 @@ function changeImage(projectId, direction) {
         counter.textContent = `${newIndex + 1}/${projectImages.length}`;
     }
 }
+
+// ================= DYNAMICZNE LINKI DO PROJEKTÓW W MENU BOCZNYM =================
+function updateSideMenuProjectLinks(projects) {
+    const sideMenu = document.getElementById('sideMenu');
+    if (!sideMenu) return;
+    const navList = sideMenu.querySelector('.side-menu-nav');
+    if (!navList) return;
+
+    // Usuń stare linki projektów (jeśli istnieją)
+    const oldProjectLinks = navList.querySelectorAll('.side-menu-project-link');
+    oldProjectLinks.forEach(link => link.parentElement.remove());
+
+    // Znajdź pozycję "Projekty"
+    const projectsMenuItem = navList.querySelector('a[data-section="projects"]');
+    if (!projectsMenuItem) return;
+    const projectsLi = projectsMenuItem.closest('li');
+    if (!projectsLi) return;
+
+    // Dodaj linki do projektów pod "Projekty"
+    projects.forEach(project => {
+        const li = document.createElement('li');
+        li.className = 'side-menu-item';
+        const a = document.createElement('a');
+        a.className = 'side-menu-link side-menu-project-link';
+        a.href = `#project-${project.id}`;
+        a.textContent = project.title;
+        li.appendChild(a);
+        projectsLi.after(li);
+    });
+}
+
+// Modyfikacja displayProjects, by wywołać updateSideMenuProjectLinks
+const originalDisplayProjects = displayProjects;
+displayProjects = function(projects) {
+    originalDisplayProjects(projects);
+    updateSideMenuProjectLinks(projects);
+}
+// ================= KONIEC DYNAMICZNYCH LINKÓW =================
 
 // ===== ŁADOWANIE DANYCH "O MNIE" =====
 async function loadAboutData() {

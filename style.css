@@ -889,4 +889,87 @@ main {
 
 /* ================= KONIEC MENU BOCZNEGO ================= */
 
+/* ================= PRZYCISKI FOOTER ================= */
+.footer-buttons {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: 12px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px; /* Odstęp między przyciskami */
+    z-index: 10002;
+    pointer-events: auto;
+}
+.footer-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: 0;
+    height: 40px;
+    padding: 0 28px;
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    cursor: pointer;
+    transition: background 0.18s, filter 0.18s;
+    user-select: none;
+    position: relative;
+}
+.footer-btn-yellow {
+    background: #FFD700;
+    color: #fff;
+    border-radius: 0 18px 8px 8px;
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 80% 100%, 0 100%);
+}
+.footer-btn-yellow:hover {
+    background: #ffe066;
+    filter: brightness(1.08);
+}
+.footer-btn-red {
+    background: #FF0000;
+    color: #fff;
+    border-radius: 18px 0 8px 8px;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 20% 100%, 0 80%);
+}
+.footer-btn-red:hover {
+    background: #ff3333;
+    filter: brightness(1.08);
+}
+.footer-btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+}
+.footer-btn svg {
+    display: block;
+    width: 22px;
+    height: 22px;
+}
+@media (max-width: 400px) {
+    .footer-buttons {
+        left: 8px;
+        right: 8px;
+        gap: 12px;
+    }
+    .footer-btn {
+        padding: 0 12px;
+        font-size: 13px;
+        height: 36px;
+    }
+    .footer-btn-icon, .footer-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+/* ================= KONIEC PRZYCISKÓW FOOTER ================= */
+
  
