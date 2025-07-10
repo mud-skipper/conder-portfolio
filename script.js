@@ -297,6 +297,13 @@ function areProjectsLoaded() {
 
 // Funkcja do bezpiecznego przewijania z uwzględnieniem dynamicznych elementów
 function safeScrollToSection(sectionId) {
+    /*
+     * Blokowa logika offsetu przewijania:
+     * - home: 36px (zgodnie z padding-top sekcji)
+     * - projects: 56px (większy offset, by wyśrodkować pasek względem linii skośnej)
+     * - contact: 56px (jak wyżej)
+     * - project-* (pojedynczy projekt): 120px (bez zmian)
+     */
     const targetElement = document.getElementById(sectionId);
     if (!targetElement) return;
     
@@ -305,25 +312,23 @@ function safeScrollToSection(sectionId) {
         setTimeout(() => safeScrollToSection(sectionId), 200);
         return;
     }
-    
-    // Określ offset na podstawie typu elementu
-    let scrollOffset = 36; // Zmieniony offset dla sekcji - uwzględnia padding-top: 36px
-    if (sectionId.startsWith('project-')) {
-        // Dla projektów - pozycjonuj do tytułu projektu wyśrodkowanego w pionie do środka linii skośnej
-        scrollOffset = 120; // Stały offset dla projektów - tytuł wyśrodkowany względem linii skośnej kolby
+
+    let scrollOffset = 36; // domyślny offset (home)
+    if (sectionId === 'projects' || sectionId === 'contact') {
+        scrollOffset = 56; // większy offset dla "Projekty" i "Kontakt"
     }
-    
+    if (sectionId.startsWith('project-')) {
+        scrollOffset = 120; // offset dla pojedynczego projektu
+    }
+
     // Uniwersalne rozwiązanie dla wszystkich przeglądarek
     const scrollToElement = () => {
-        // Proste rozwiązanie z offsetem - działa dla wszystkich sekcji
         const targetPosition = targetElement.offsetTop - scrollOffset;
         window.scrollTo({
             top: targetPosition,
             behavior: 'smooth'
         });
     };
-    
-    // Dodatkowe opóźnienie dla lepszej kompatybilności
     setTimeout(scrollToElement, 50);
 }
 
