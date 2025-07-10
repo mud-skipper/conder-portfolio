@@ -309,7 +309,16 @@ function safeScrollToSection(sectionId) {
     // Określ offset na podstawie typu elementu
     let scrollOffset = 56; // Domyślny offset dla sekcji
     if (sectionId.startsWith('project-')) {
-        scrollOffset = 80; // Offset dla projektów - tytuł nie zachodzi pod lufę headera (40px + 40px)
+        // Dla projektów - pozycjonuj do tytułu projektu wyśrodkowanego w pionie do środka linii skośnej
+        const projectTitle = targetElement.querySelector('.project-title');
+        if (projectTitle) {
+            // Użyj pozycji tytułu zamiast góry karty
+            const titleRect = projectTitle.getBoundingClientRect();
+            const titleOffset = titleRect.top - targetElement.getBoundingClientRect().top;
+            scrollOffset = 56 + titleOffset; // Offset sekcji + offset tytułu
+        } else {
+            scrollOffset = 80; // Fallback - tytuł nie zachodzi pod lufę headera
+        }
     }
     
     // Uniwersalne rozwiązanie dla wszystkich przeglądarek
