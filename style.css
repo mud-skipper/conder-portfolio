@@ -658,10 +658,14 @@ main {
     left: 0;
     width: 300px;
     height: 60px;
+    min-width: 300px; /* Zabezpieczenie przed skalowaniem */
+    max-width: 300px; /* Zabezpieczenie przed skalowaniem */
+    min-height: 60px; /* Zabezpieczenie przed skalowaniem */
+    max-height: 60px; /* Zabezpieczenie przed skalowaniem */
     z-index: 10001; /* Wyższy niż lufa (9999) */
     pointer-events: none; /* Kolba nie blokuje kliknięć pod spodem */
-    transform: translateZ(0); /* Hardware acceleration dla lepszego pozycjonowania */
-    -webkit-transform: translateZ(0); /* Safari support */
+    transform: none; /* Blokada skalowania */
+    -webkit-transform: none; /* Safari support */
     will-change: transform; /* Optymalizacja dla przeglądarek */
     /* Dodatkowe zabezpieczenia dla różnych przeglądarek */
     -webkit-backface-visibility: hidden;
@@ -677,8 +681,8 @@ main {
     width: 300px;
     height: 60px;
     pointer-events: none;
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
+    transform: none; /* Blokada skalowania */
+    -webkit-transform: none; /* Safari support */
     /* Usunięto cień - kolba nie rzuca cienia na lufę */
     /* Dodatkowe zabezpieczenia */
     -webkit-backface-visibility: hidden;
