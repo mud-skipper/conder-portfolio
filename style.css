@@ -634,13 +634,13 @@ main {
 }
 /* ================= KONIEC FOOTERA: LUFA (FINAL) ================= */
 
-/* ================= KOLBA: FOOTER (SVG poligon odwrócony) ================= */
+/* ================= KOLBA: FOOTER (SVG poligon w lewym dolnym rogu) ================= */
 .kolba-footer {
     position: fixed;
     bottom: 0;
     left: 0;
-    width: 180px;
-    height: 100px;
+    width: 260px;
+    height: 60px;
     z-index: 10000;
     pointer-events: none; /* Kolba nie blokuje kliknięć pod spodem */
     transform: translateZ(0); /* Hardware acceleration dla lepszego pozycjonowania */
@@ -649,64 +649,13 @@ main {
 }
 .kolba-footer svg {
     display: block;
-    width: 180px;
-    height: 100px;
+    width: 260px;
+    height: 60px;
     pointer-events: none;
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
+    filter: drop-shadow(0 -4px 16px rgba(0,0,0,0.12)); /* Cień w górę */
 }
-
-/* ================= PRZYCISKI FOOTER ================= */
-.footer-button {
-    position: absolute;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    z-index: 10001; /* Wyższy niż kolba */
-    pointer-events: auto; /* Przyciski klikalne */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 8px 12px;
-    border-radius: 4px;
-    font-family: var(--font-primary);
-    font-size: 14px;
-    font-weight: 600;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.footer-button-send {
-    top: 25px;
-    left: 25px;
-    background: var(--color-red);
-    color: var(--color-white);
-}
-
-.footer-button-cv {
-    top: 25px;
-    left: 85px;
-    background: var(--color-yellow);
-    color: var(--color-black);
-}
-
-.footer-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
-
-.footer-button:active {
-    transform: scale(0.95);
-}
-
-.button-text {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-}
-/* ================= KONIEC PRZYCISKÓW FOOTER ================= */
-
 /* ================= KONIEC KOLBY: FOOTER ================= */
 
 /* ================= KOLBA: HEADER (SVG poligon) ================= */
