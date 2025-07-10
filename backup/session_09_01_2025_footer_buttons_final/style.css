@@ -926,9 +926,9 @@ main {
     border-radius: 0;
 }
 .footer-btn-yellow {
-    background: var(--color-yellow);
+    background: #FFD700;
     color: #fff;
-    clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 80% 100%, 0 100%);
 }
 .footer-btn-yellow:hover {
     background: #ffe066;
@@ -937,7 +937,7 @@ main {
 .footer-btn-red {
     background: #FF0000;
     color: #fff;
-    clip-path: polygon(15% 0, 100% 0, 85% 100%, 0 100%);
+    clip-path: polygon(20% 0, 100% 0, 100% 100%, 0 100%, 0 0);
 }
 .footer-btn-red:hover {
     background: #ff3333;

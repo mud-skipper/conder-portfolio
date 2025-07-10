@@ -299,12 +299,6 @@ function safeScrollToSection(sectionId) {
         return;
     }
     
-    // Określ offset na podstawie typu elementu
-    let scrollOffset = 56; // Domyślny offset dla sekcji
-    if (sectionId.startsWith('project-')) {
-        scrollOffset = 40; // Offset dla projektów - separator pokrywa się z dolną krawędzią lufy headera
-    }
-    
     // Uniwersalne rozwiązanie dla wszystkich przeglądarek
     const scrollToElement = () => {
         // Sprawdź czy element jest widoczny i w pełni załadowany
@@ -314,7 +308,7 @@ function safeScrollToSection(sectionId) {
         // Jeśli element jest już w viewport, przewiń do góry
         if (isVisible && rect.top > 0) {
             window.scrollTo({
-                top: window.pageYOffset + rect.top - scrollOffset,
+                top: window.pageYOffset + rect.top - 56, // 56px to padding-top sekcji
                 behavior: 'smooth'
             });
         } else {
@@ -327,7 +321,7 @@ function safeScrollToSection(sectionId) {
                 });
             } catch (error) {
                 // Fallback dla starszych przeglądarek
-                const targetPosition = targetElement.offsetTop - scrollOffset;
+                const targetPosition = targetElement.offsetTop - 56;
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
@@ -396,8 +390,8 @@ function updateSideMenuProjectLinks(projects) {
     const projectsLi = projectsMenuItem.closest('li');
     if (!projectsLi) return;
 
-    // Dodaj linki do projektów pod "Projekty" (odwrócona kolejność)
-    projects.slice().reverse().forEach(project => {
+    // Dodaj linki do projektów pod "Projekty"
+    projects.forEach(project => {
         const li = document.createElement('li');
         li.className = 'side-menu-item';
         const a = document.createElement('a');
