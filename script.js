@@ -312,12 +312,12 @@ function safeScrollToSection(sectionId) {
         setTimeout(() => safeScrollToSection(sectionId), 200);
         return;
     }
-
+    
     let scrollOffset = 0; // bez offsetu dla wszystkich sekcji
     if (sectionId.startsWith('project-')) {
         scrollOffset = 120; // offset dla pojedynczego projektu
     }
-
+    
     // Uniwersalne rozwiązanie dla wszystkich przeglądarek
     const scrollToElement = () => {
         const targetPosition = targetElement.offsetTop - scrollOffset;
