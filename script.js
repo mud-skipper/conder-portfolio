@@ -91,6 +91,52 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 // ================= KONIEC LOGO HAMBURGER MENU =================
 
+// ================= PRZYCISKI FOOTER =================
+document.addEventListener('DOMContentLoaded', function() {
+    const footerSendButton = document.getElementById('footerSendButton');
+    const footerCvButton = document.getElementById('footerCvButton');
+    
+    // Funkcja dla przycisku "Wyślij"
+    if (footerSendButton) {
+        footerSendButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Przewijanie do sekcji kontakt
+            const contactSection = document.getElementById('contact');
+            if (contactSection) {
+                contactSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+            
+            // Opcjonalnie: Otwórz mailto link
+            setTimeout(() => {
+                window.location.href = 'mailto:wojtek.conder@gmail.com?subject=Kontakt z portfolio';
+            }, 500);
+        });
+    }
+    
+    // Funkcja dla przycisku "CV"
+    if (footerCvButton) {
+        footerCvButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Tutaj można dodać link do CV lub pobranie pliku
+            // Na razie pokazujemy alert z informacją
+            alert('CV - funkcjonalność w przygotowaniu. Skontaktuj się bezpośrednio: wojtek.conder@gmail.com');
+            
+            // Opcjonalnie: Otwórz mailto link z tematem CV
+            setTimeout(() => {
+                window.location.href = 'mailto:wojtek.conder@gmail.com?subject=Prośba o CV';
+            }, 1000);
+        });
+    }
+});
+// ================= KONIEC PRZYCISKÓW FOOTER =================
+
 // ===== WCZYTYWANIE PROJEKTÓW Z JSON =====
 async function loadProjectsFromJSON() {
     try {
