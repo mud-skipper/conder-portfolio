@@ -982,8 +982,11 @@ main {
     forced-color-adjust: none;
 }
 .footer-btn-yellow {
-    background: var(--color-yellow);
-    color: #fff;
+    background: #FFD600 !important;
+    color: #000 !important;
+    border-color: #FFD600 !important;
+    color-scheme: light !important;
+    forced-color-adjust: none !important;
 }
 .footer-btn-yellow:hover {
     background: #ffe066;
@@ -1027,5 +1030,25 @@ main {
     }
 }
 /* ================= KONIEC PRZYCISKÓW FOOTER ================= */
+
+/* ===== WYMUSZENIE BIAŁEGO TŁA I KOLORÓW NA LUFACH, KOLBACH, PRZYCISKU ===== */
+.lufa-header, .lufa-footer {
+    background: #fff !important;
+    color-scheme: light !important;
+    forced-color-adjust: none !important;
+}
+.kolba-header, .kolba-footer {
+    background: #fff !important;
+    color-scheme: light !important;
+    forced-color-adjust: none !important;
+}
+.footer-btn-yellow {
+    background: #FFD600 !important;
+    color: #000 !important;
+    border-color: #FFD600 !important;
+    color-scheme: light !important;
+    forced-color-adjust: none !important;
+}
+/* ===== KONIEC WYMUSZENIA ===== */
 
  
