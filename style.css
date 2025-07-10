@@ -133,6 +133,9 @@ section {
     margin-left: 0;
     padding-left: 0; /* Dosunięcie do ramki 20px body */
     margin-left: 0; /* Dodatkowe dosunięcie */
+    height: 36px; /* Określona wysokość dla prawidłowego pozycjonowania paska kolorowego */
+    display: flex;
+    align-items: center; /* Wyśrodkowanie zawartości w pionie */
 }
 
 /* Kolorowy pasek na całą szerokość */

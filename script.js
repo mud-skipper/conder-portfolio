@@ -307,7 +307,7 @@ function safeScrollToSection(sectionId) {
     }
     
     // Określ offset na podstawie typu elementu
-    let scrollOffset = 56; // Domyślny offset dla sekcji
+    let scrollOffset = 36; // Zmieniony offset dla sekcji - uwzględnia padding-top: 36px
     if (sectionId.startsWith('project-')) {
         // Dla projektów - pozycjonuj do tytułu projektu wyśrodkowanego w pionie do środka linii skośnej
         scrollOffset = 120; // Stały offset dla projektów - tytuł wyśrodkowany względem linii skośnej kolby
