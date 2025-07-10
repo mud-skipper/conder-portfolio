@@ -928,16 +928,14 @@ main {
 .footer-btn-yellow {
     background: var(--color-yellow);
     color: #fff;
-    clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
 }
 .footer-btn-yellow:hover {
     background: #ffe066;
     filter: brightness(1.08);
 }
 .footer-btn-red {
-    background: #FF0000;
+    background: var(--color-red);
     color: #fff;
-    clip-path: polygon(15% 0, 100% 0, 85% 100%, 0 100%);
 }
 .footer-btn-red:hover {
     background: #ff3333;

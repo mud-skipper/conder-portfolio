@@ -312,12 +312,12 @@ function safeScrollToSection(sectionId) {
         // Dla projektów - pozycjonuj do tytułu projektu wyśrodkowanego w pionie do środka linii skośnej
         const projectTitle = targetElement.querySelector('.project-title');
         if (projectTitle) {
-            // Oblicz pozycję tytułu względem środka linii skośnej (40px od góry lufy)
+            // Oblicz pozycję tytułu względem środka linii skośnej kolby (60px od góry)
             const titleRect = projectTitle.getBoundingClientRect();
             const cardRect = targetElement.getBoundingClientRect();
             const titleCenter = titleRect.top + titleRect.height / 2 - cardRect.top;
-            const lufaCenter = 40; // Środek linii skośnej lufy headera
-            scrollOffset = 56 + (titleCenter - lufaCenter); // Offset sekcji + różnica pozycji
+            const kolbaCenter = 60; // Środek linii skośnej kolby headera (100px wysokość / 2 + 10px offset)
+            scrollOffset = 56 + (titleCenter - kolbaCenter); // Offset sekcji + różnica pozycji
         } else {
             scrollOffset = 80; // Fallback - tytuł nie zachodzi pod lufę headera
         }
@@ -414,8 +414,8 @@ function updateSideMenuProjectLinks(projects) {
     const projectsLi = projectsMenuItem.closest('li');
     if (!projectsLi) return;
 
-    // Dodaj linki do projektów pod "Projekty" (posortowane po dacie realizacji)
-    projects.forEach(project => {
+    // Dodaj linki do projektów pod "Projekty" (odwrócone względem sekcji - od najnowszego do najstarszego)
+    projects.slice().reverse().forEach(project => {
         const li = document.createElement('li');
         li.className = 'side-menu-item';
         const a = document.createElement('a');
