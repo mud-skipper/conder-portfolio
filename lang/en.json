@@ -1,1 +1,16 @@
-"{\n  \"menu\": {\n    \"about\": \"About\",\n    \"projects\": \"Projects\",\n    \"contact\": \"Contact\"\n  },\n  \"footer\": {\n    \"send\": \"Send\",\n    \"cv\": \"CV\"\n  },\n  \"sections\": {\n    \"about\": \"About\",\n    \"projects\": \"Projects\",\n    \"contact\": \"Contact\"\n  }\n}" 
+{
+  "menu": {
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "footer": {
+    "send": "Send",
+    "cv": "CV"
+  },
+  "sections": {
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact"
+  }
+} 
