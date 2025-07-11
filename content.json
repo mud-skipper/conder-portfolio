@@ -122,6 +122,26 @@
         "punto_mila/images-1752244614029-17214.jpg",
         "punto_mila/images-1752244614160-350958.jpg"
       ]
+    },
+    {
+      "id": 6,
+      "title": "Osiedle \"Fi\"",
+      "author": "22ARCHITEKCI",
+      "projectType": "mieszkaniowy",
+      "location": "Kraków",
+      "year": "2015",
+      "description": "Krakowskie osiedle „Fi” to zespół budynków mieszkalnych zaprojektowanych wokół wewnętrznej przestrzeni wspólnej całkowicie wolnej od ruchu samochodowego. Głównym założeniem projektu było stworzenie przyjaznego mieszkańcom, zrównoważonego środowiska życia – wewnątrz osiedla urządzono zielone dziedzińce i strefy rekreacji dostępne wyłącznie dla pieszych, co sprzyja integracji mieszkańców i poczuciu bezpieczeństwa. Architektura utrzymana jest w nowoczesnym, minimalistycznym stylu: proste bryły budynków rozmieszczono tak, by formować półprywatne wnętrza urbanistyczne o kameralnej skali, zapewniające jednocześnie dobre nasłonecznienie mieszkań. Projekt został uhonorowany tytułem Inwestycji Roku 2015 za „kompletny i przemyślany projekt, będący miejscem przyjaznym zarówno mieszkańcom, jak i środowisku” – doceniono w ten sposób jego pozytywny wpływ na jakość życia i otoczenie.",
+      "image": "project-placeholder.jpg",
+      "type": "mieszkaniowy",
+      "area": "13 400 m²",
+      "status": "realizacja",
+      "link": "#",
+      "investor": "Megapolis Development",
+      "designer": "AJ Biuro Architektoniczne",
+      "totalArea": "",
+      "usableArea": "13 400 m²",
+      "stage": "realizacja",
+      "images": []
     }
   ],
   "about": {
