@@ -344,7 +344,7 @@ section {
 .project-card {
     background: var(--color-white);
     padding: 0;
-    margin: 55px 0 0 0; /* Zmieniony margin-top: 55px dla lepszego spacing */
+    margin: 0;
     border: none;
     box-shadow: none;
 }
@@ -354,7 +354,7 @@ section {
     font-size: 1.4em;
     font-weight: 700;
     color: var(--color-black);
-    margin: 0 0 0 0;
+    margin: 55px 0 0 0; /* Dodany margin-top: 55px dla lepszego spacing tytułów projektów */
     padding: 0;
     line-height: 1.2;
 }
