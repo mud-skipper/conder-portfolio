@@ -413,24 +413,13 @@ async function loadAboutData() {
         if (data.about) {
             // Ustaw hero-image na zdjęcie profilowe
             const mainProfileImage = document.getElementById('mainProfileImage');
-            console.log('Element mainProfileImage:', mainProfileImage);
-            console.log('profileImage z danych:', data.about.profileImage);
-            
             if (mainProfileImage && data.about.profileImage && data.about.profileImage.trim() !== '') {
                 const imagePath = `uploads/${data.about.profileImage}`;
-                console.log('Ustawiam ścieżkę zdjęcia:', imagePath);
                 mainProfileImage.src = imagePath;
                 mainProfileImage.style.display = 'block';
-                
-                // Dodaj event listener żeby sprawdzić czy zdjęcie się załadowało
-                mainProfileImage.onload = function() {
-                    console.log('Zdjęcie profilowe załadowane pomyślnie');
-                };
-                mainProfileImage.onerror = function() {
-                    console.error('Błąd ładowania zdjęcia profilowego:', imagePath);
-                };
+                mainProfileImage.onload = function() { console.log('Zdjęcie profilowe załadowane pomyślnie'); };
+                mainProfileImage.onerror = function() { console.error('Błąd ładowania zdjęcia profilowego:', imagePath); };
             } else if (mainProfileImage) {
-                console.log('Używam fallback zdjęcia');
                 mainProfileImage.src = 'conder-portfolio_layout.01-photo.jpg';
                 mainProfileImage.style.display = 'block';
             }
@@ -438,77 +427,82 @@ async function loadAboutData() {
             // Funkcja pomocnicza do formatowania tekstu jako lista
             const formatTextAsList = (text) => {
                 if (!text) return '';
-                // Podziel tekst na linie i utwórz elementy <li>
                 const lines = text.split(/\r?\n/).filter(line => line.trim() !== '');
                 return lines.map(line => `<li>${line.trim()}</li>`).join('');
             };
-
             // Funkcja pomocnicza do formatowania zwykłego tekstu
             const formatText = (text) => {
                 if (!text) return '';
-                // Zamień zarówno \r\n jak i \n na <br>
                 return text.replace(/\r\n/g, '<br>').replace(/\n/g, '<br>');
             };
-
+            // Pobierz aktualny język
+            const lang = (typeof currentLang !== 'undefined' ? currentLang : (localStorage.getItem('portfolio_lang') || 'pl'));
+            // Helper do pobierania pola z fallbackiem
+            const getField = (obj, field) => {
+                if (lang === 'en' && obj[field + '_en'] && obj[field + '_en'].trim() !== '') {
+                    return obj[field + '_en'];
+                }
+                return obj[field] || '';
+            };
             // Opis "O mnie"
             const aboutBio = document.getElementById('aboutBio');
-            if (aboutBio && data.about.bio) {
-                aboutBio.innerHTML = formatText(data.about.bio);
+            if (aboutBio) {
+                aboutBio.innerHTML = formatText(getField(data.about, 'bio'));
             }
-
             // Edukacja
             const educationSection = document.getElementById('educationSection');
             const educationText = document.getElementById('educationText');
-            if (educationSection && educationText && data.about.education && data.about.education.trim() !== '') {
-                educationText.innerHTML = formatTextAsList(data.about.education);
+            const educationVal = getField(data.about, 'education');
+            if (educationSection && educationText && educationVal.trim() !== '') {
+                educationText.innerHTML = formatTextAsList(educationVal);
                 educationSection.style.display = 'block';
             }
-
             // Doświadczenie
             const experienceSection = document.getElementById('experienceSection');
             const experienceText = document.getElementById('experienceText');
-            if (experienceSection && experienceText && data.about.experience && data.about.experience.trim() !== '') {
-                experienceText.innerHTML = formatTextAsList(data.about.experience);
+            const experienceVal = getField(data.about, 'experience');
+            if (experienceSection && experienceText && experienceVal.trim() !== '') {
+                experienceText.innerHTML = formatTextAsList(experienceVal);
                 experienceSection.style.display = 'block';
             }
-
             // Kluczowe osiągnięcia
             const achievementsSection = document.getElementById('achievementsSection');
             const achievementsText = document.getElementById('achievementsText');
-            if (achievementsSection && achievementsText && data.about.achievements && data.about.achievements.trim() !== '') {
-                achievementsText.innerHTML = formatTextAsList(data.about.achievements);
+            const achievementsVal = getField(data.about, 'achievements');
+            if (achievementsSection && achievementsText && achievementsVal.trim() !== '') {
+                achievementsText.innerHTML = formatTextAsList(achievementsVal);
                 achievementsSection.style.display = 'block';
             }
-
             // Współpraca
             const collaborationSection = document.getElementById('collaborationSection');
             const collaborationText = document.getElementById('collaborationText');
-            if (collaborationSection && collaborationText && data.about.collaboration && data.about.collaboration.trim() !== '') {
-                collaborationText.innerHTML = formatTextAsList(data.about.collaboration);
+            const collaborationVal = getField(data.about, 'collaboration');
+            if (collaborationSection && collaborationText && collaborationVal.trim() !== '') {
+                collaborationText.innerHTML = formatTextAsList(collaborationVal);
                 collaborationSection.style.display = 'block';
             }
-
             // Umiejętności
             const skillsSection = document.getElementById('skillsSection');
             const skillsText = document.getElementById('skillsText');
-            if (skillsSection && skillsText && data.about.skills && data.about.skills.trim() !== '') {
-                skillsText.innerHTML = formatTextAsList(data.about.skills);
+            const skillsVal = getField(data.about, 'skills');
+            if (skillsSection && skillsText && skillsVal.trim() !== '') {
+                skillsText.innerHTML = formatTextAsList(skillsVal);
                 skillsSection.style.display = 'block';
             }
-
             // Programy komputerowe
             const softwareSection = document.getElementById('softwareSection');
             const softwareText = document.getElementById('softwareText');
-            if (softwareSection && softwareText && data.about.software && data.about.software.trim() !== '') {
-                softwareText.innerHTML = formatTextAsList(data.about.software);
+            const softwareVal = getField(data.about, 'software');
+            if (softwareSection && softwareText && softwareVal.trim() !== '') {
+                softwareText.innerHTML = formatTextAsList(softwareVal);
                 softwareSection.style.display = 'block';
             }
-
             // Zainteresowania
             const interestsSection = document.getElementById('interestsSection');
             const interestsText = document.getElementById('interestsText');
-            if (interestsSection && interestsText && data.about.interests && data.about.interests.trim() !== '') {
-                interestsText.innerHTML = formatTextAsList(data.about.interests);
+            const interestsVal = getField(data.about, 'interests');
+            if (interestsSection && interestsText && interestsVal.trim() !== '') {
+                interestsText.innerHTML = formatTextAsList(interestsVal);
                 interestsSection.style.display = 'block';
             }
         }
