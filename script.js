@@ -6,13 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Automatyczne przewijanie do sekcji "O mnie" przy ładowaniu strony
     setTimeout(() => {
-        const homeSection = document.getElementById('home');
-        if (homeSection) {
-            homeSection.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
+        // Użycie funkcji safeScrollToSection dla spójności z menu hamburger
+        safeScrollToSection('home');
     }, 100); // Krótkie opóźnienie dla lepszego UX
 });
 

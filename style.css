@@ -543,7 +543,7 @@ section {
     font-size: 1em;
     color: var(--color-black);
     line-height: 1.6;
-    margin-bottom: 12px;
+    margin-bottom: 27px; /* Zwiększone z 12px do 27px (dodane 15px) */
 }
 
 .contact-item strong {
