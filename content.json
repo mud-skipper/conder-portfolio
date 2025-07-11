@@ -95,6 +95,38 @@
         "budynek_biurowo_produkcyjny__gabec_/images-1752066338890-81131.jpg",
         "budynek_biurowo_produkcyjny__gabec_/images-1752066338479-634585.jpg"
       ]
+    },
+    {
+      "id": 5,
+      "title": "Punto Mila",
+      "author": "22ARCHITEKCI",
+      "projectType": "biurowy",
+      "location": "Warszawa",
+      "year": "2016",
+      "description": "„Punto Mila” to niewielki budynek biurowo-usługowy o trzech kondygnacjach nadziemnych, zaprojektowany jako elastyczna przestrzeń komercyjna. Wyróżnikiem obiektu jest wysoki, przeszklony parter we frontowej czesci budynku, który nadaje bryle lekkości oraz zapewnia doskonałe doświetlenie i wszechstronne możliwości aranżacyjne dla funkcji usługowych lub ekspozycyjnych. Wyższe kondygnacje mieszczą nowoczesne biura, a na poziomie dachu zaprojektowano taras (na stropie technicznym), oferując użytkownikom dodatkową przestrzeń zewnętrzną. Architektura biurowca jest prosta i klarowna w wyrazie – geometryczna bryła z rytmicznymi podziałami fasady harmonijnie wpisuje się w otoczenie ulicy Puławskiej, jednocześnie akcentując swój współczesny charakter i podnosząc standard zabudowy komercyjnej w okolicy.",
+      "image": "punto_mila/images-1752244447970-819053.jpg",
+      "type": "biurowy",
+      "area": "6000 m²",
+      "status": "realizacja",
+      "link": "#",
+      "investor": "SOS SC",
+      "designer": "",
+      "totalArea": "",
+      "usableArea": "6000 m²",
+      "stage": "realizacja",
+      "images": [
+        "punto_mila/images-1752244447970-819053.jpg",
+        "punto_mila/images-1752244448048-868442.jpg",
+        "punto_mila/images-1752244448148-631656.jpg",
+        "punto_mila/images-1752244448238-200855.jpg",
+        "punto_mila/images-1752244448322-727096.jpg",
+        "punto_mila/images-1752244448396-810249.jpg",
+        "punto_mila/images-1752244448488-862578.jpg",
+        "punto_mila/images-1752244448576-900310.jpg",
+        "punto_mila/images-1752244448675-736425.jpg",
+        "punto_mila/images-1752244448799-508737.jpg",
+        "punto_mila/images-1752244448921-58445.jpg"
+      ]
     }
   ],
   "about": {
