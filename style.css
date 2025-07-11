@@ -144,8 +144,16 @@ section {
     align-items: center; /* Wyśrodkowanie zawartości w pionie */
 }
 
-/* Specjalne opuszczenie dla nagłówka sekcji "O mnie" */
+/* Specjalne opuszczenie dla nagłówków sekcji */
 .home-section .header-container {
+    margin-top: 10px; /* Opuszczenie o 10px */
+}
+
+.projects-section .header-container {
+    margin-top: 10px; /* Opuszczenie o 10px */
+}
+
+.contact-section .header-container {
     margin-top: 10px; /* Opuszczenie o 10px */
 }
 
