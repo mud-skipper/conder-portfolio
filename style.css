@@ -986,14 +986,14 @@ main {
     forced-color-adjust: none;
 }
 .footer-btn-yellow {
-    background: #FFD600 !important;
-    color: #000 !important;
-    border-color: #FFD600 !important;
+    background: var(--color-red) !important;
+    color: #fff !important;
+    border-color: var(--color-red) !important;
     color-scheme: light !important;
     forced-color-adjust: none !important;
 }
 .footer-btn-yellow:hover {
-    background: #ffe066;
+    background: #ff3333;
     filter: brightness(1.08);
 }
 .footer-btn-red {
