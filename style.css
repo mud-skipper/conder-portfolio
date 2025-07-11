@@ -144,6 +144,11 @@ section {
     align-items: center; /* Wyśrodkowanie zawartości w pionie */
 }
 
+/* Specjalne opuszczenie dla nagłówka sekcji "O mnie" */
+.home-section .header-container {
+    margin-top: 10px; /* Opuszczenie o 10px */
+}
+
 /* Kolorowy pasek na całą szerokość */
 .header-stripe {
     position: absolute;
