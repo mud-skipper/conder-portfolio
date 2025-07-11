@@ -95,8 +95,10 @@ body {
     max-width: 767px; /* Blokada szerokich ekranów */
     margin: 0 auto;
     padding: 0;
-    border-left: 20px solid var(--color-white);
-    border-right: 20px solid var(--color-white);
+    margin-left: 20px;
+    margin-right: 20px;
+    border-left: none !important;
+    border-right: none !important;
     /* USUNIĘTO RAMKI Z GÓRY I DOŁU - ZOSTAŁY TYLKO BOCZNE 20px */
     box-sizing: border-box;
     min-height: 100vh;
@@ -1040,6 +1042,23 @@ main {
     forced-color-adjust: none !important;
     filter: none !important;
   }
+}
+
+/* ================= KOLOR LUFA JAK KOLBA ================= */
+.lufa-header,
+.lufa-footer {
+    color-scheme: light !important;
+    forced-color-adjust: none !important;
+    background: #fff !important;
+}
+
+/* ================= ZAMIANA BORDER NA MARGIN ================= */
+body {
+    margin-left: 20px;
+    margin-right: 20px;
+    border-left: none !important;
+    border-right: none !important;
+    /* pozostałe style bez zmian */
 }
 
  

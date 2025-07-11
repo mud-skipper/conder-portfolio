@@ -1138,4 +1138,38 @@
 
 ---
 
+### [2025-01-10] 🟡 STABILIZACJA PRZYCISKÓW FOOTER + ULEPSZENIE PANELU ADMINA
+- **Backup:** Utworzono backup `session_20250110_admin_text_field_and_footer_fix` (index.html, style.css, admin.html, script.js, content.json)
+- **Stabilizacja przycisków footer:**
+  - Kolba footer: `pointer-events: auto` (przyciski zawsze względem kolby, nie viewportu)
+  - Przyciski footer: wymuszenie stałych wymiarów i pozycji (`!important`), usunięcie media queries
+  - Efekt: przyciski są NIESKALOWALNE i ZAWSZE w tym samym miejscu na wszystkich urządzeniach
+- **Panel administratora:**
+  - Pole "Rodzaj inwestycji" zmienione z menu rozwijanego na pole tekstowe (pełna elastyczność)
+  - Placeholder z przykładami typów inwestycji
+  - Użytkownik może wpisać dowolny rodzaj inwestycji
+- **Wszystkie zmiany przetestowane i wypchnięte na GitHub**
+- **Status:** Projekt gotowy do głębokiej analizy trybu jasnego/ciemnego na wszystkich przeglądarkach i urządzeniach
+
+---
+
+## [ZAPLANOWANE NA KOLEJNĄ SESJĘ]
+
+**BARDZO GŁĘBOKA ANALIZA:**
+- Jak wymusić na wszystkich elementach, żeby nawet w ustawionym w telefonie trybie ciemnym/nocnym strona ZAWSZE wyświetlała się w trybie jasnym/dziennym
+- Obejście wymuszeń systemowych i przeglądarkowych (np. forced dark mode, dark theme, night mode, auto-invert)
+- Testy na różnych przeglądarkach i urządzeniach (Samsung, iPhone, Chrome, Firefox, Edge, Opera, WebView)
+- Cel: Strona ZAWSZE jasna, bez względu na ustawienia systemowe i przeglądarkowe
+
+---
+
+### 2024-07-10: PLANOWANE ZMIANY (backup: session_20240710_lufa_kolor_margin_fix)
+
+- Wymuszenie identycznego jasnego koloru tła na lufie (header/footer) jak w kolbach (tylko kolor, bez zmiany geometrii i responsywności lufy).
+- Zamiana border-left/right 20px na margin-left/right 20px w body, aby tło pod tekstem i marginesem było zawsze takie samo (w light i dark mode).
+- Sprawdzenie, czy layout pozostaje spójny po tej zmianie.
+- Backup wykonany przed zmianami.
+
+---
+
 </rewritten_file>
