@@ -131,7 +131,7 @@
       "location": "Kraków",
       "year": "2015",
       "description": "Krakowskie osiedle „Fi” to zespół budynków mieszkalnych zaprojektowanych wokół wewnętrznej przestrzeni wspólnej całkowicie wolnej od ruchu samochodowego. Głównym założeniem projektu było stworzenie przyjaznego mieszkańcom, zrównoważonego środowiska życia – wewnątrz osiedla urządzono zielone dziedzińce i strefy rekreacji dostępne wyłącznie dla pieszych, co sprzyja integracji mieszkańców i poczuciu bezpieczeństwa. Architektura utrzymana jest w nowoczesnym, minimalistycznym stylu: proste bryły budynków rozmieszczono tak, by formować półprywatne wnętrza urbanistyczne o kameralnej skali, zapewniające jednocześnie dobre nasłonecznienie mieszkań. Projekt został uhonorowany tytułem Inwestycji Roku 2015 za „kompletny i przemyślany projekt, będący miejscem przyjaznym zarówno mieszkańcom, jak i środowisku” – doceniono w ten sposób jego pozytywny wpływ na jakość życia i otoczenie.",
-      "image": "project-placeholder.jpg",
+      "image": "osiedle_fi/images-1752245328388-839691.jpg",
       "type": "mieszkaniowy",
       "area": "13 400 m²",
       "status": "realizacja",
@@ -142,8 +142,8 @@
       "usableArea": "13 400 m²",
       "stage": "realizacja",
       "images": [
-        "osiedle_fi/images-1752245328295-38282.jpg",
         "osiedle_fi/images-1752245328388-839691.jpg",
+        "osiedle_fi/images-1752245328295-38282.jpg",
         "osiedle_fi/images-1752245328521-915269.jpg",
         "osiedle_fi/images-1752245328646-13552.jpg",
         "osiedle_fi/images-1752245328805-10626.jpg",
