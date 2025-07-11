@@ -1172,4 +1172,22 @@
 
 ---
 
+### [2025-07-10] WDROŻENIE WIELOJĘZYCZNOŚCI (MULTILANG)
+- **Backup:** Utworzono pełny backup przed wdrożeniem (`backup/session_20240710_multilang_init/`).
+- **Architektura:**
+  - Dodano folder `lang/` z plikami `pl.json` i `en.json` (tłumaczenia statycznych tekstów: menu, nagłówki, przyciski).
+  - Przełącznik języka PL/EN umieszczony na dole menu hamburgera (side-menu).
+  - Wybrany język zapisywany w localStorage, domyślnie PL.
+- **Zmiany w plikach:**
+  - `index.html`: dodano przełącznik języka w menu bocznym.
+  - `style.css`: dodano style dla przełącznika języka i przycisków.
+  - `script.js`: dodano obsługę ładowania tłumaczeń, dynamiczną podmianę tekstów statycznych, obsługę wyboru języka.
+- **Testy:** Przełącznik działa, teksty menu, nagłówków i przycisków zmieniają się zgodnie z wybranym językiem.
+- **Kolejne kroki:**
+  - Rozszerzenie tłumaczeń na dynamiczne dane (`content.json` lub osobne pliki per język).
+  - Możliwość dodania kolejnych języków przez pliki w `lang/`.
+- **Status:** Wdrożenie zakończone, gotowe do testów na urządzeniach mobilnych.
+
+---
+
 </rewritten_file>

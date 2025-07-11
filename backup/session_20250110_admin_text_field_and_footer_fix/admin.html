@@ -1,0 +1,2912 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administracyjny - conder-portfolio</title>
+    <meta name="description" content="Panel do zarządzania projektami w portfolio Wojciecha Condera">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* NADPISANIE BLOKADY DESKTOP DLA PANELU ADMINA */
+        @media (min-width: 768px) {
+            html, body {
+                overflow: auto !important;
+            }
+            
+            body::before {
+                display: none !important;
+            }
+            
+            .header, main, .nav-menu {
+                display: block !important;
+            }
+        }
+        
+        /* Style specyficzne dla panelu admina */
+        .admin-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: var(--color-white);
+            border: 2px solid var(--color-black);
+            border-radius: var(--radius-md);
+        }
+
+        /* Style dla tabów */
+        .admin-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--color-black);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            background: var(--color-light-gray);
+            color: var(--color-gray);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background: var(--color-white);
+            color: var(--color-black);
+            border-bottom: 3px solid var(--color-orange);
+        }
+
+        .tab-btn:hover {
+            background: var(--color-yellow);
+            color: var(--color-black);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+        
+        .admin-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--color-black);
+        }
+        
+        .admin-title {
+            font-size: 2em;
+            font-weight: 700;
+            color: var(--color-black);
+            margin-bottom: 10px;
+        }
+        
+        .admin-subtitle {
+            color: var(--color-gray);
+            font-size: 1.1em;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--color-black);
+        }
+        
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--color-black);
+            border-radius: var(--radius-sm);
+            font-family: var(--font-primary);
+            font-size: 16px;
+            background: var(--color-white);
+            color: var(--color-black);
+        }
+        
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--color-orange);
+            box-shadow: 0 0 0 3px rgba(255, 135, 0, 0.1);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .char-counter {
+            text-align: right;
+            font-size: 0.9em;
+            color: var(--color-gray);
+            margin-top: 5px;
+        }
+        
+        .char-counter.warning {
+            color: var(--color-orange);
+        }
+        
+        .char-counter.error {
+            color: var(--color-red);
+        }
+        
+        .file-input-container {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .file-input {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .file-input-label {
+            display: block;
+            padding: 12px;
+            border: 2px dashed var(--color-black);
+            border-radius: var(--radius-sm);
+            text-align: center;
+            cursor: pointer;
+            background: var(--color-cream);
+            transition: all 0.3s ease;
+        }
+        
+        .file-input-label:hover {
+            background: var(--color-yellow);
+            border-color: var(--color-orange);
+        }
+        
+        .file-list {
+            margin-top: 10px;
+            padding: 10px;
+            background: var(--color-light-gray);
+            border-radius: var(--radius-sm);
+            font-size: 0.9em;
+        }
+        
+        .file-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid var(--color-gray);
+            border-radius: var(--radius-sm);
+            margin-bottom: 10px;
+            background: var(--color-white);
+        }
+        
+        .file-preview {
+            width: 80px;
+            height: 80px;
+            margin-right: 15px;
+            border: 1px solid var(--color-gray-light);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-light-gray);
+        }
+        
+        .file-thumbnail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+        
+        .file-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .file-name {
+            font-weight: 500;
+            color: var(--color-black);
+        }
+        
+        .file-size {
+            font-size: 0.9em;
+            color: var(--color-gray);
+        }
+        
+        .file-actions {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .remove-btn {
+            background: var(--color-red);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .remove-btn:hover {
+            background: #cc0000;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--color-orange);
+            color: var(--color-white);
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background: var(--color-red);
+        }
+        
+        .submit-btn:disabled {
+            background: var(--color-gray);
+            cursor: not-allowed;
+        }
+        
+        .status-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: var(--radius-sm);
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--color-orange);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            color: var(--color-red);
+        }
+
+        /* Style dla listy projektów */
+        .projects-list {
+            margin-top: 20px;
+        }
+
+        .project-item {
+            border: 2px solid var(--color-black);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin-bottom: 20px;
+            background: var(--color-white);
+            position: relative;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .project-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: var(--color-black);
+            margin: 0;
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-edit, .btn-delete {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-edit {
+            background: var(--color-orange);
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: #e67e00;
+        }
+
+        .btn-delete {
+            background: var(--color-red);
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #cc0000;
+        }
+
+        .project-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .project-info {
+            font-size: 14px;
+            color: var(--color-gray);
+        }
+
+        .project-info strong {
+            color: var(--color-black);
+        }
+
+        .project-images {
+            margin-top: 15px;
+        }
+
+        .project-images h4 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+            color: var(--color-black);
+        }
+
+        .images-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+        }
+
+        .image-item {
+            position: relative;
+            border: 1px solid var(--color-gray);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .add-images-section {
+            margin-top: 20px;
+            padding: 15px;
+            border: 2px dashed var(--color-gray);
+            border-radius: var(--radius-md);
+            background: var(--color-cream);
+        }
+
+        .add-images-section h4 {
+            margin: 0 0 15px 0;
+            color: var(--color-black);
+            font-size: 16px;
+        }
+
+        .image-item img {
+            width: 100%;
+            height: 80px;
+            object-fit: cover;
+        }
+
+        .image-remove {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background: rgba(255, 0, 0, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-remove:hover {
+            background: rgba(255, 0, 0, 1);
+        }
+
+        /* ===== SYSTEM KADROWANIA ZDJĘĆ ===== */
+        .image-cropper {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10000;
+            background: var(--color-white);
+            border: 3px solid var(--color-black);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow: auto;
+        }
+
+        .cropper-container {
+            text-align: center;
+        }
+
+        .cropper-mask {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+            border: 2px dashed var(--color-orange);
+            background: var(--color-light-gray);
+            overflow: hidden;
+            max-width: 100%;
+            max-height: 60vh;
+        }
+
+        .cropper-mask::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        #cropperImage {
+            max-width: 100%;
+            max-height: 60vh;
+            display: block;
+            cursor: move;
+        }
+
+        .crop-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px; /* Początkowa szerokość */
+            height: 250px; /* Proporcja 4:5 pion (szerokość = 80% wysokości) */
+            border: 2px solid var(--color-yellow);
+            background: transparent;
+            z-index: 2;
+            cursor: move;
+            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+            resize: both;
+            overflow: hidden;
+        }
+
+        /* Rękojeści do skalowania */
+        .crop-handle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--color-yellow);
+            border: 1px solid var(--color-black);
+            cursor: pointer;
+        }
+
+        .crop-handle.nw { top: -5px; left: -5px; cursor: nw-resize; }
+        .crop-handle.ne { top: -5px; right: -5px; cursor: ne-resize; }
+        .crop-handle.sw { bottom: -5px; left: -5px; cursor: sw-resize; }
+        .crop-handle.se { bottom: -5px; right: -5px; cursor: se-resize; }
+
+        .cropper-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .crop-btn {
+            padding: 8px 16px;
+            border: 2px solid var(--color-black);
+            border-radius: var(--radius-sm);
+            background: var(--color-white);
+            color: var(--color-black);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .crop-btn:hover {
+            background: var(--color-orange);
+            color: var(--color-white);
+            border-color: var(--color-orange);
+        }
+
+        #cropConfirm {
+            background: var(--color-yellow);
+            color: var(--color-black);
+        }
+
+        #cropConfirm:hover {
+            background: var(--color-orange);
+            color: var(--color-white);
+        }
+
+        #cropCancel {
+            background: var(--color-red);
+            color: var(--color-white);
+        }
+
+        #cropCancel:hover {
+            background: #cc0000;
+        }
+
+        /* Informacja o formacie */
+        .crop-info {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 12px;
+            color: var(--color-gray);
+            font-style: italic;
+        }
+
+        /* Kontrolki skalowania */
+        .crop-scale-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+            padding: 10px;
+            background: var(--color-light-gray);
+            border-radius: var(--radius-sm);
+        }
+
+        .crop-scale-controls label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-black);
+        }
+
+        .crop-scale-controls input[type="range"] {
+            width: 150px;
+            height: 6px;
+            background: var(--color-gray);
+            border-radius: 3px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .crop-scale-controls input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--color-orange);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .crop-scale-controls input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            background: var(--color-orange);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+
+        .crop-scale-controls span {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-black);
+            min-width: 40px;
+            text-align: center;
+        }
+
+        /* Style dla pól edytowalnych w projektach */
+        .editable-field {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid var(--color-gray-light);
+            border-radius: 4px;
+            background: #f9f9f9;
+        }
+
+        .editable-field label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--color-black);
+        }
+
+        .editable-field .form-input {
+            width: 100%;
+            margin-bottom: 8px;
+            padding: 8px;
+            border: 1px solid var(--color-gray);
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .editable-field textarea.form-input {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .editable-field .btn-edit {
+            padding: 6px 12px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .editable-field .status-message {
+            display: inline-block;
+            margin-left: 10px;
+            padding: 4px 8px;
+            font-size: 12px;
+            border-radius: 3px;
+        }
+
+        /* Style dla zarządzania zdjęciami w projektach */
+        .image-item {
+            position: relative;
+            border: 2px solid var(--color-gray-light);
+            border-radius: var(--radius-sm);
+            padding: 10px;
+            margin-bottom: 10px;
+            background: var(--color-white);
+        }
+
+        .image-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .image-number {
+            background: var(--color-black);
+            color: var(--color-white);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .main-image-badge {
+            background: var(--color-orange);
+            color: var(--color-white);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .image-actions {
+            display: flex;
+            gap: 5px;
+            margin-top: 8px;
+            justify-content: center;
+        }
+
+        .image-move-up, .image-move-down {
+            padding: 4px 8px;
+            border: 1px solid var(--color-gray);
+            border-radius: 3px;
+            background: var(--color-light-gray);
+            color: var(--color-black);
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .image-move-up:hover, .image-move-down:hover {
+            background: var(--color-yellow);
+            border-color: var(--color-orange);
+        }
+
+        .image-remove {
+            padding: 4px 8px;
+            border: 1px solid var(--color-red);
+            border-radius: 3px;
+            background: var(--color-red);
+            color: var(--color-white);
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .image-remove:hover {
+            background: #cc0000;
+        }
+
+        .image-crop {
+            padding: 4px 8px;
+            border: 1px solid var(--color-orange);
+            border-radius: 3px;
+            background: var(--color-orange);
+            color: var(--color-white);
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .image-crop:hover {
+            background: #ff6600;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Header panelu -->
+        <div class="admin-header">
+            <h1 class="admin-title">Panel Administracyjny</h1>
+            <p class="admin-subtitle">Zarządzaj portfolio Wojciecha Condera</p>
+        </div>
+
+        <!-- Tabs dla różnych sekcji -->
+        <div class="admin-tabs">
+            <button type="button" class="tab-btn active" onclick="showTab('projects', event)">Projekty</button>
+            <button type="button" class="tab-btn" onclick="showTab('about', event)">O mnie</button>
+        </div>
+
+        <!-- Tab: Projekty -->
+        <div id="projects-tab" class="tab-content active">
+            <!-- Formularz dodawania projektu -->
+        <form id="projectForm">
+            <!-- Tytuł inwestycji -->
+            <div class="form-group">
+                <label for="title" class="form-label">Tytuł inwestycji *</label>
+                <input type="text" id="title" name="title" class="form-input" required>
+            </div>
+
+            <!-- Autor -->
+            <div class="form-group">
+                <label for="author" class="form-label">Autor *</label>
+                <input type="text" id="author" name="author" class="form-input" required placeholder="np. Wojciech Conder">
+            </div>
+
+            <!-- Rodzaj inwestycji -->
+            <div class="form-group">
+                <label for="projectType" class="form-label">Rodzaj inwestycji *</label>
+                <input type="text" id="projectType" name="projectType" class="form-input" required placeholder="np. Mieszkaniowy, Biurowy, Handlowy, Kulturalny, Edukacyjny, Hotelowy, Przemysłowy, Infrastrukturalny, Inny">
+            </div>
+
+            <!-- Lokalizacja -->
+            <div class="form-group">
+                <label for="location" class="form-label">Lokalizacja *</label>
+                <input type="text" id="location" name="location" class="form-input" required placeholder="np. Warszawa, Mokotów">
+            </div>
+
+            <!-- Inwestor -->
+            <div class="form-group">
+                <label for="investor" class="form-label">Inwestor</label>
+                <input type="text" id="investor" name="investor" class="form-input" placeholder="np. PFR Nieruchomości">
+            </div>
+
+            <!-- Projektant / współpraca -->
+            <div class="form-group">
+                <label for="designer" class="form-label">Projektant / współpraca</label>
+                <input type="text" id="designer" name="designer" class="form-input" placeholder="np. 22ARCHITEKCI">
+            </div>
+
+            <!-- Powierzchnia całkowita -->
+            <div class="form-group">
+                <label for="totalArea" class="form-label">Powierzchnia całkowita</label>
+                <input type="text" id="totalArea" name="totalArea" class="form-input" placeholder="np. 15,000 m²">
+            </div>
+
+            <!-- Powierzchnia użytkowa -->
+            <div class="form-group">
+                <label for="usableArea" class="form-label">Powierzchnia użytkowa</label>
+                <input type="text" id="usableArea" name="usableArea" class="form-input" placeholder="np. 12,000 m²">
+            </div>
+
+            <!-- Etap -->
+            <div class="form-group">
+                <label for="stage" class="form-label">Etap *</label>
+                <select id="stage" name="stage" class="form-select" required>
+                    <option value="">Wybierz etap</option>
+                    <option value="koncepcja">Koncepcja</option>
+                    <option value="koncepcja wielobranżowa">Koncepcja wielobranżowa</option>
+                    <option value="projekt budowlany">Projekt budowlany</option>
+                    <option value="projekt wykonawczy">Projekt wykonawczy</option>
+                    <option value="realizacja">Realizacja</option>
+                </select>
+            </div>
+
+            <!-- Rok wykonania -->
+            <div class="form-group">
+                <label for="year" class="form-label">Rok wykonania *</label>
+                <input type="number" id="year" name="year" class="form-input" required min="1900" max="2030" value="2025">
+            </div>
+
+            <!-- Opis -->
+            <div class="form-group">
+                <label for="description" class="form-label">Opis *</label>
+                <textarea id="description" name="description" class="form-textarea" maxlength="1000" required placeholder="Opisz projekt (max 1000 znaków)"></textarea>
+                <div id="charCounter" class="char-counter">0/1000</div>
+            </div>
+
+            <!-- Zdjęcia z systemem kadrowania -->
+            <div class="form-group">
+                <label for="images" class="form-label">Zdjęcia (3-20 plików)</label>
+                <div class="file-input-container">
+                    <input type="file" id="images" name="images" class="file-input" multiple accept=".jpg,.jpeg,.png">
+                    <label for="images" class="file-input-label">
+                        📁 Kliknij aby wybrać zdjęcia (JPG/PNG, dowolny rozmiar)
+                    </label>
+                </div>
+                <div id="fileList" class="file-list" style="display: none;"></div>
+                <div id="imageCropper" class="image-cropper" style="display: none;">
+                    <div class="cropper-container">
+                        <div class="crop-info">📐 Format 4:5 pion - przeciągnij aby przesunąć, użyj paska aby skalować</div>
+                        <div class="cropper-mask">
+                            <img id="cropperImage" src="" alt="Podgląd do kadrowania">
+                            <div class="crop-overlay">
+                                <div class="crop-handle nw"></div>
+                                <div class="crop-handle ne"></div>
+                                <div class="crop-handle sw"></div>
+                                <div class="crop-handle se"></div>
+                            </div>
+                        </div>
+                        <div class="crop-scale-controls">
+                            <label for="cropScaleSlider">Rozmiar kadru:</label>
+                            <input type="range" id="cropScaleSlider" min="50" max="200" value="100" step="5">
+                            <span id="cropScaleValue">100%</span>
+                        </div>
+                        <div class="cropper-controls">
+                            <button type="button" id="cropConfirm" class="crop-btn">✓ Zatwierdź kadr</button>
+                            <button type="button" id="cropCancel" class="crop-btn">✗ Anuluj</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Przycisk wysłania -->
+            <button type="submit" class="submit-btn" id="submitBtn">
+                Wyślij do conder-portfolio
+            </button>
+        </form>
+
+        <!-- Komunikat statusu -->
+        <div id="statusMessage" class="status-message" style="display: none;"></div>
+
+        <!-- Link powrotu -->
+        <a href="index.html" class="back-link">← Powrót do portfolio</a>
+        </div>
+
+        <!-- Tab: O mnie -->
+        <div id="about-tab" class="tab-content">
+            <div class="admin-header">
+                <h2 class="admin-title">Sekcja "O mnie"</h2>
+                <p class="admin-subtitle">Edytuj informacje o architekcie</p>
+            </div>
+            <div id="aboutFields">
+                <!-- Zdjęcie profilowe -->
+                <div class="form-group">
+                    <label for="profileImage" class="form-label">Zdjęcie profilowe</label>
+                    <div class="file-input-container">
+                        <input type="file" id="profileImage" name="profileImage" class="file-input" accept=".jpg,.jpeg,.png">
+                        <label for="profileImage" class="file-input-label">📷 Kliknij aby wybrać zdjęcie profilowe (JPG/PNG)</label>
+                    </div>
+                    <div id="profileImagePreview" class="file-list" style="display: none;"></div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('profileImage')">Aktualizuj zdjęcie</button>
+                    <div id="status-profileImage" class="status-message" style="display:none;"></div>
+                </div>
+                <!-- Opis "O mnie" -->
+                <div class="form-group">
+                    <label for="aboutText" class="form-label">Opis "O mnie" *</label>
+                    <textarea id="aboutText" name="aboutText" class="form-textarea" maxlength="1000"></textarea>
+                    <div id="aboutCharCounter" class="char-counter">0/1000</div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('aboutText')">Aktualizuj opis</button>
+                    <div id="status-aboutText" class="status-message" style="display:none;"></div>
+                </div>
+                <!-- Edukacja -->
+                <div class="form-group">
+                    <label for="education" class="form-label">Edukacja</label>
+                    <textarea id="education" name="education" class="form-textarea" maxlength="2000"></textarea>
+                    <div id="educationCharCounter" class="char-counter">0/2000</div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('education')">Aktualizuj edukację</button>
+                    <div id="status-education" class="status-message" style="display:none;"></div>
+                </div>
+                <!-- Doświadczenie -->
+                <div class="form-group">
+                    <label for="experience" class="form-label">Doświadczenie</label>
+                    <textarea id="experience" name="experience" class="form-textarea" maxlength="2000"></textarea>
+                    <div id="experienceCharCounter" class="char-counter">0/2000</div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('experience')">Aktualizuj doświadczenie</button>
+                    <div id="status-experience" class="status-message" style="display:none;"></div>
+                </div>
+                <!-- Kluczowe osiągnięcia -->
+                <div class="form-group">
+                    <label for="achievements" class="form-label">Kluczowe osiągnięcia</label>
+                    <textarea id="achievements" name="achievements" class="form-textarea" maxlength="2000"></textarea>
+                    <div id="achievementsCharCounter" class="char-counter">0/2000</div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('achievements')">Aktualizuj osiągnięcia</button>
+                    <div id="status-achievements" class="status-message" style="display:none;"></div>
+                </div>
+                <!-- Współpraca -->
+                <div class="form-group">
+                    <label for="collaboration" class="form-label">Współpraca</label>
+                    <textarea id="collaboration" name="collaboration" class="form-textarea" maxlength="1000"></textarea>
+                    <div id="collaborationCharCounter" class="char-counter">0/1000</div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('collaboration')">Aktualizuj współpracę</button>
+                    <div id="status-collaboration" class="status-message" style="display:none;"></div>
+                </div>
+                <!-- Umiejętności -->
+                <div class="form-group">
+                    <label for="skills" class="form-label">Umiejętności</label>
+                    <textarea id="skills" name="skills" class="form-textarea" maxlength="2000"></textarea>
+                    <div id="skillsCharCounter" class="char-counter">0/2000</div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('skills')">Aktualizuj umiejętności</button>
+                    <div id="status-skills" class="status-message" style="display:none;"></div>
+                </div>
+                <!-- Obsługiwane programy komputerowe -->
+                <div class="form-group">
+                    <label for="software" class="form-label">Obsługiwane programy komputerowe</label>
+                    <textarea id="software" name="software" class="form-textarea" maxlength="1000"></textarea>
+                    <div id="softwareCharCounter" class="char-counter">0/1000</div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('software')">Aktualizuj programy</button>
+                    <div id="status-software" class="status-message" style="display:none;"></div>
+                </div>
+                <!-- Zainteresowania -->
+                <div class="form-group">
+                    <label for="interests" class="form-label">Zainteresowania</label>
+                    <textarea id="interests" name="interests" class="form-textarea" maxlength="1000"></textarea>
+                    <div id="interestsCharCounter" class="char-counter">0/1000</div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('interests')">Aktualizuj zainteresowania</button>
+                    <div id="status-interests" class="status-message" style="display:none;"></div>
+                </div>
+            </div>
+            
+            <!-- Komunikat statusu dla sekcji "O mnie" -->
+            <div id="aboutStatusMessage" class="status-message" style="display: none;"></div>
+        </div>
+    </div>
+
+    <!-- Sekcja podglądu projektów -->
+    <div class="admin-container" style="margin-top: 40px;">
+        <div class="admin-header">
+            <h2 class="admin-title">Podgląd projektów</h2>
+            <p class="admin-subtitle">Zarządzaj istniejącymi projektami</p>
+        </div>
+
+        <div id="projectsList" class="projects-list">
+            <!-- Projekty będą ładowane dynamicznie -->
+            <div class="loading-projects">
+                <p>Ładowanie projektów...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== INICJALIZACJA =====
+        document.addEventListener('DOMContentLoaded', function() {
+            initCharCounter();
+            initAboutCharCounter();
+            initEducationCharCounter();
+            initExperienceCharCounter();
+            initAchievementsCharCounter();
+            initCollaborationCharCounter();
+            initSkillsCharCounter();
+            initSoftwareCharCounter();
+            initInterestsCharCounter();
+            initFileValidation();
+            initProfileImageValidation();
+            initImageCropper();
+            initFormSubmission();
+            initAboutFormSubmission();
+            loadProjectsList();
+            loadAboutData();
+        });
+
+        // ===== SYSTEM TABÓW =====
+        function showTab(tabName, event) {
+            // Ukryj wszystkie taby
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(tab => tab.classList.remove('active'));
+            
+            // Usuń aktywną klasę ze wszystkich przycisków
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(btn => btn.classList.remove('active'));
+            
+            // Pokaż wybrany tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+            
+            // Aktywuj przycisk
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
+        }
+
+        // ===== LICZNIK ZNAKÓW =====
+        function initCharCounter() {
+            const description = document.getElementById('description');
+            const charCounter = document.getElementById('charCounter');
+            
+            description.addEventListener('input', function() {
+                const length = this.value.length;
+                const maxLength = 1000;
+                
+                charCounter.textContent = `${length}/${maxLength}`;
+                
+                // Zmiana koloru przy zbliżaniu się do limitu
+                if (length >= maxLength) {
+                    charCounter.className = 'char-counter error';
+                } else if (length >= maxLength * 0.8) {
+                    charCounter.className = 'char-counter warning';
+                } else {
+                    charCounter.className = 'char-counter';
+                }
+            });
+        }
+
+        function initAboutCharCounter() {
+            const aboutText = document.getElementById('aboutText');
+            const aboutCharCounter = document.getElementById('aboutCharCounter');
+            
+            aboutText.addEventListener('input', function() {
+                const length = this.value.length;
+                const maxLength = 1000;
+                
+                aboutCharCounter.textContent = `${length}/${maxLength}`;
+                
+                // Zmiana koloru przy zbliżaniu się do limitu
+                if (length >= maxLength) {
+                    aboutCharCounter.className = 'char-counter error';
+                } else if (length >= maxLength * 0.8) {
+                    aboutCharCounter.className = 'char-counter warning';
+                } else {
+                    aboutCharCounter.className = 'char-counter';
+                }
+            });
+        }
+
+        function initEducationCharCounter() {
+            const education = document.getElementById('education');
+            const educationCharCounter = document.getElementById('educationCharCounter');
+            
+            education.addEventListener('input', function() {
+                const length = this.value.length;
+                const maxLength = 2000;
+                
+                educationCharCounter.textContent = `${length}/${maxLength}`;
+                
+                if (length >= maxLength) {
+                    educationCharCounter.className = 'char-counter error';
+                } else if (length >= maxLength * 0.8) {
+                    educationCharCounter.className = 'char-counter warning';
+                } else {
+                    educationCharCounter.className = 'char-counter';
+                }
+            });
+        }
+
+        function initExperienceCharCounter() {
+            const experience = document.getElementById('experience');
+            const experienceCharCounter = document.getElementById('experienceCharCounter');
+            
+            experience.addEventListener('input', function() {
+                const length = this.value.length;
+                const maxLength = 2000;
+                
+                experienceCharCounter.textContent = `${length}/${maxLength}`;
+                
+                if (length >= maxLength) {
+                    experienceCharCounter.className = 'char-counter error';
+                } else if (length >= maxLength * 0.8) {
+                    experienceCharCounter.className = 'char-counter warning';
+                } else {
+                    experienceCharCounter.className = 'char-counter';
+                }
+            });
+        }
+
+        function initAchievementsCharCounter() {
+            const achievements = document.getElementById('achievements');
+            const achievementsCharCounter = document.getElementById('achievementsCharCounter');
+            
+            achievements.addEventListener('input', function() {
+                const length = this.value.length;
+                const maxLength = 2000;
+                
+                achievementsCharCounter.textContent = `${length}/${maxLength}`;
+                
+                if (length >= maxLength) {
+                    achievementsCharCounter.className = 'char-counter error';
+                } else if (length >= maxLength * 0.8) {
+                    achievementsCharCounter.className = 'char-counter warning';
+                } else {
+                    achievementsCharCounter.className = 'char-counter';
+                }
+            });
+        }
+
+        function initCollaborationCharCounter() {
+            const collaboration = document.getElementById('collaboration');
+            const collaborationCharCounter = document.getElementById('collaborationCharCounter');
+            
+            collaboration.addEventListener('input', function() {
+                const length = this.value.length;
+                const maxLength = 1000;
+                
+                collaborationCharCounter.textContent = `${length}/${maxLength}`;
+                
+                if (length >= maxLength) {
+                    collaborationCharCounter.className = 'char-counter error';
+                } else if (length >= maxLength * 0.8) {
+                    collaborationCharCounter.className = 'char-counter warning';
+                } else {
+                    collaborationCharCounter.className = 'char-counter';
+                }
+            });
+        }
+
+        function initSkillsCharCounter() {
+            const skills = document.getElementById('skills');
+            const skillsCharCounter = document.getElementById('skillsCharCounter');
+            
+            skills.addEventListener('input', function() {
+                const length = this.value.length;
+                const maxLength = 2000;
+                
+                skillsCharCounter.textContent = `${length}/${maxLength}`;
+                
+                if (length >= maxLength) {
+                    skillsCharCounter.className = 'char-counter error';
+                } else if (length >= maxLength * 0.8) {
+                    skillsCharCounter.className = 'char-counter warning';
+                } else {
+                    skillsCharCounter.className = 'char-counter';
+                }
+            });
+        }
+
+        function initSoftwareCharCounter() {
+            const software = document.getElementById('software');
+            const softwareCharCounter = document.getElementById('softwareCharCounter');
+            
+            software.addEventListener('input', function() {
+                const length = this.value.length;
+                const maxLength = 1000;
+                
+                softwareCharCounter.textContent = `${length}/${maxLength}`;
+                
+                if (length >= maxLength) {
+                    softwareCharCounter.className = 'char-counter error';
+                } else if (length >= maxLength * 0.8) {
+                    softwareCharCounter.className = 'char-counter warning';
+                } else {
+                    softwareCharCounter.className = 'char-counter';
+                }
+            });
+        }
+
+        function initInterestsCharCounter() {
+            const interests = document.getElementById('interests');
+            const interestsCharCounter = document.getElementById('interestsCharCounter');
+            
+            interests.addEventListener('input', function() {
+                const length = this.value.length;
+                const maxLength = 1000;
+                
+                interestsCharCounter.textContent = `${length}/${maxLength}`;
+                
+                if (length >= maxLength) {
+                    interestsCharCounter.className = 'char-counter error';
+                } else if (length >= maxLength * 0.8) {
+                    interestsCharCounter.className = 'char-counter warning';
+                } else {
+                    interestsCharCounter.className = 'char-counter';
+                }
+            });
+        }
+
+        // ===== WALIDACJA PLIKÓW =====
+        function initFileValidation() {
+            const fileInput = document.getElementById('images');
+            const fileList = document.getElementById('fileList');
+            
+            if (!fileInput || !fileList) {
+                console.error('Nie znaleziono elementów do walidacji plików');
+                return;
+            }
+            
+            fileInput.addEventListener('change', function() {
+                const files = Array.from(this.files);
+                
+                if (files.length === 0) {
+                    fileList.style.display = 'none';
+                    return;
+                }
+                
+                // Sprawdź liczbę plików
+                if (files.length > 20) {
+                    showStatus('Maksymalnie 20 zdjęć!', 'error');
+                    this.value = '';
+                    fileList.style.display = 'none';
+                    return;
+                }
+                
+                // Sprawdź typ plików (bez ograniczeń rozmiaru)
+                let validFiles = [];
+                let errors = [];
+                
+                files.forEach(file => {
+                    // Sprawdź tylko typ pliku
+                    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+                    if (!allowedTypes.includes(file.type)) {
+                        errors.push(`${file.name} - nieprawidłowy typ pliku`);
+                    } else {
+                        validFiles.push(file);
+                    }
+                });
+                
+                if (errors.length > 0) {
+                    showStatus('Błędy w plikach: ' + errors.join(', '), 'error');
+                    this.value = '';
+                    fileList.style.display = 'none';
+                    return;
+                }
+                
+                // Wyświetl listę plików z opcją kadrowania
+                displayFileListWithCropping(validFiles);
+            });
+        }
+
+        function displayFileListWithCropping(files) {
+            const fileList = document.getElementById('fileList');
+            
+            if (!fileList) {
+                console.error('Nie znaleziono elementu fileList');
+                return;
+            }
+            
+            fileList.innerHTML = files.map((file, index) => `
+                <div class="file-item" data-file-index="${index}">
+                    <div class="file-preview">
+                        <img src="${URL.createObjectURL(file)}" alt="${file.name}" class="file-thumbnail" onload="this.style.display='block'">
+                    </div>
+                    <div class="file-info">
+                        <span class="file-name">${file.name}</span>
+                        <span class="file-size">${(file.size / 1024 / 1024).toFixed(1)}MB</span>
+                    </div>
+                    <div class="file-actions">
+                        <button type="button" class="crop-btn" onclick="startCropFromIndex(${index})" style="margin-left: 10px; padding: 4px 8px; font-size: 12px;">
+                            ✂️ Kadruj
+                        </button>
+                        <button type="button" class="add-btn" onclick="addFileWithoutCroppingNew(${index})" style="margin-left: 5px; padding: 4px 8px; font-size: 12px; background: var(--color-green); color: white;">
+                            ➕ Dodaj bez kadrowania
+                        </button>
+                        <button type="button" class="remove-btn" onclick="removeFile(${index})" style="margin-left: 5px; padding: 4px 8px; font-size: 12px; background: var(--color-red); color: white;">
+                            ✗ Usuń
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            fileList.style.display = 'block';
+            
+            // Dodaj informację o optymalizacji
+            const infoDiv = document.createElement('div');
+            infoDiv.style.cssText = 'margin-top: 10px; padding: 10px; background: var(--color-yellow); color: var(--color-black); border-radius: 4px; font-size: 14px;';
+            infoDiv.innerHTML = 'ℹ️ Obrazy zostaną automatycznie zoptymalizowane do formatu telefonu (1200x1604px)';
+            fileList.appendChild(infoDiv);
+            
+            // Zapisz pliki globalnie
+            window.selectedFiles = files;
+        }
+
+        // ===== SYSTEM KADROWANIA ZDJĘĆ =====
+        let currentCropData = null;
+        let isDragging = false;
+        let isResizing = false;
+        let dragStart = { x: 0, y: 0 };
+        let resizeHandle = null;
+        let croppedProjectImagesList = []; // Lista kadrowanych zdjęć projektów
+
+        function initImageCropper() {
+            const cropConfirm = document.getElementById('cropConfirm');
+            const cropCancel = document.getElementById('cropCancel');
+            const cropperImage = document.getElementById('cropperImage');
+            const cropOverlay = document.querySelector('.crop-overlay');
+            const cropScaleSlider = document.getElementById('cropScaleSlider');
+            const cropScaleValue = document.getElementById('cropScaleValue');
+
+            if (cropConfirm) {
+                cropConfirm.addEventListener('click', confirmCrop);
+            }
+            if (cropCancel) {
+                cropCancel.addEventListener('click', cancelCrop);
+            }
+            if (cropperImage) {
+                cropperImage.addEventListener('mousedown', startDrag);
+                cropperImage.addEventListener('touchstart', startDrag);
+            }
+            if (cropOverlay) {
+                cropOverlay.addEventListener('mousedown', startDragOverlay);
+                cropOverlay.addEventListener('touchstart', startDragOverlay);
+            }
+
+            // Dodaj obsługę paska skalowania
+            if (cropScaleSlider) {
+                cropScaleSlider.addEventListener('input', function() {
+                    const scale = this.value / 100;
+                    cropScaleValue.textContent = this.value + '%';
+                    updateCropScale(scale);
+                });
+            }
+
+            // Dodaj obsługę rękojeści do skalowania (opcjonalne)
+            const handles = document.querySelectorAll('.crop-handle');
+            handles.forEach(handle => {
+                handle.addEventListener('mousedown', startResize);
+                handle.addEventListener('touchstart', startResize);
+            });
+
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('touchmove', drag);
+            document.addEventListener('mouseup', stopDrag);
+            document.addEventListener('touchend', stopDrag);
+        }
+
+        function addFileWithoutCroppingNew(index) {
+            if (!window.selectedFiles || !window.selectedFiles[index]) {
+                console.error('Plik nie znaleziony');
+                return;
+            }
+            
+            const file = window.selectedFiles[index];
+            
+            // Inicjalizuj globalną tablicę niekadrowanych plików dla nowych projektów
+            if (!window.nonCroppedFilesNew) {
+                window.nonCroppedFilesNew = [];
+            }
+            
+            // Dodaj plik do listy niekadrowanych
+            window.nonCroppedFilesNew.push(file);
+            
+            // Znajdź przycisk i zmień jego tekst
+            const fileItem = document.querySelector(`[data-file-index="${index}"]`);
+            if (fileItem) {
+                const addBtn = fileItem.querySelector('.add-btn');
+                if (addBtn) {
+                    addBtn.textContent = '✅ Dodano';
+                    addBtn.disabled = true;
+                    addBtn.style.background = 'var(--color-green)';
+                }
+            }
+            
+            console.log('Dodano plik bez kadrowania (nowy projekt):', file.name);
+            console.log('window.nonCroppedFilesNew:', window.nonCroppedFilesNew);
+        }
+
+        function startCropFromIndex(index) {
+            if (!window.selectedFiles || !window.selectedFiles[index]) {
+                console.error('Plik nie znaleziony');
+                return;
+            }
+            
+            const file = window.selectedFiles[index];
+            startCrop(file, index);
+        }
+
+        function startCrop(file, index) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const cropperImage = document.getElementById('cropperImage');
+                const imageCropper = document.getElementById('imageCropper');
+                
+                if (!cropperImage || !imageCropper) {
+                    console.error('Nie znaleziono elementów do kadrowania');
+                    return;
+                }
+                
+                cropperImage.src = e.target.result;
+                imageCropper.style.display = 'block';
+                
+                // Zapisz dane pliku do przycięcia (zachowaj istniejące dane jeśli są)
+                if (!currentCropData) {
+                    currentCropData = {};
+                }
+                // Zachowaj istniejące dane o projekcie
+                const existingProjectData = {
+                    projectId: currentCropData.projectId,
+                    imageName: currentCropData.imageName,
+                    imageIndex: currentCropData.imageIndex,
+                    isExistingImage: currentCropData.isExistingImage,
+                    isProjectImage: currentCropData.isProjectImage
+                };
+                
+                currentCropData.file = file;
+                currentCropData.index = index;
+                currentCropData.originalSrc = e.target.result;
+                
+                // Przywróć dane o projekcie
+                Object.assign(currentCropData, existingProjectData);
+                
+                // Ustaw rozmiar kadru po załadowaniu obrazu
+                cropperImage.onload = function() {
+                    const cropOverlay = document.querySelector('.crop-overlay');
+                    const cropScaleSlider = document.getElementById('cropScaleSlider');
+                    const cropScaleValue = document.getElementById('cropScaleValue');
+                    
+                    if (cropOverlay) {
+                        // Oblicz rozmiar kadru względem obrazu (proporcja 4:5 pion)
+                        const imageWidth = cropperImage.naturalWidth;
+                        const imageHeight = cropperImage.naturalHeight;
+                        
+                        // Format 4:5 pion - szerokość = 80% wysokości
+                        // Kadr dopasowany do wysokości wyświetlanego obrazu (80% wysokości)
+                        const rect = cropperImage.getBoundingClientRect();
+                        const cropHeight = rect.height * 0.8; // 80% wysokości wyświetlanego obrazu
+                        const cropWidth = cropHeight * 0.8; // Proporcja 4:5 pion (szerokość = 80% wysokości)
+                        
+                        // Ustaw kadr na środku obrazu
+                        const centerX = (rect.width - cropWidth) / 2;
+                        const centerY = (rect.height - cropHeight) / 2;
+                        
+                        cropOverlay.style.width = cropWidth + 'px';
+                        cropOverlay.style.height = cropHeight + 'px';
+                        cropOverlay.style.left = centerX + 'px';
+                        cropOverlay.style.top = centerY + 'px';
+                        cropOverlay.style.transform = 'none';
+                        
+                        // Ustaw pasek skalowania na 100% (maksymalny rozmiar)
+                        if (cropScaleSlider) {
+                            cropScaleSlider.value = 100;
+                            cropScaleSlider.max = 100; // Maksymalnie 100%
+                            cropScaleValue.textContent = '100%';
+                        }
+                    }
+                };
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function startDrag(e) {
+            e.preventDefault();
+            isDragging = true;
+            const rect = e.target.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            dragStart.x = clientX - rect.left;
+            dragStart.y = clientY - rect.top;
+        }
+
+        function startDragOverlay(e) {
+            e.preventDefault();
+            isDragging = true;
+            const rect = e.target.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            dragStart.x = clientX - rect.left;
+            dragStart.y = clientY - rect.top;
+        }
+
+        function startResize(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            isResizing = true;
+            resizeHandle = e.target;
+            const rect = e.target.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            dragStart.x = clientX - rect.left;
+            dragStart.y = clientY - rect.top;
+        }
+
+        function drag(e) {
+            if (!isDragging && !isResizing) return;
+            e.preventDefault();
+            
+            // Obsługa touch events
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            
+            const cropperImage = document.getElementById('cropperImage');
+            const cropOverlay = document.querySelector('.crop-overlay');
+            
+            if (cropperImage && cropOverlay) {
+                const rect = cropperImage.getBoundingClientRect();
+                
+                if (isDragging) {
+                    // Przesuwanie kadru
+                    const x = clientX - rect.left - dragStart.x;
+                    const y = clientY - rect.top - dragStart.y;
+                
+                // Ogranicz ruch do granic obrazu
+                const maxX = rect.width - cropOverlay.offsetWidth;
+                const maxY = rect.height - cropOverlay.offsetHeight;
+                
+                const clampedX = Math.max(0, Math.min(x, maxX));
+                const clampedY = Math.max(0, Math.min(y, maxY));
+                
+                cropOverlay.style.left = clampedX + 'px';
+                cropOverlay.style.top = clampedY + 'px';
+                cropOverlay.style.transform = 'none';
+                } else if (isResizing && resizeHandle) {
+                    // Płynne skalowanie kadru z zachowaniem proporcji 4:5 pion
+                    const currentWidth = cropOverlay.offsetWidth;
+                    const currentHeight = cropOverlay.offsetHeight;
+                    const currentLeft = parseFloat(cropOverlay.style.left) || 0;
+                    const currentTop = parseFloat(cropOverlay.style.top) || 0;
+                    
+                    // Oblicz deltę ruchu
+                    const deltaX = clientX - (rect.left + dragStart.x);
+                    const deltaY = clientY - (rect.top + dragStart.y);
+                    
+                    // Określ kierunek skalowania na podstawie rękojeści
+                    const handleClass = resizeHandle.className;
+                    let newWidth = currentWidth;
+                    let newHeight = currentHeight;
+                    let newLeft = currentLeft;
+                    let newTop = currentTop;
+                    
+                    // Minimalny rozmiar kadru
+                    const minSize = 80;
+                    
+                    if (handleClass.includes('se')) {
+                        // Prawy dolny róg - skaluj w prawo i w dół
+                        newWidth = Math.max(minSize, currentWidth + deltaX);
+                        newHeight = newWidth / 0.8; // Zachowaj proporcję 4:5 pion (szerokość = 80% wysokości)
+                    } else if (handleClass.includes('sw')) {
+                        // Lewy dolny róg - skaluj w lewo i w dół
+                        newWidth = Math.max(minSize, currentWidth - deltaX);
+                        newHeight = newWidth / 0.8;
+                        newLeft = currentLeft + (currentWidth - newWidth);
+                    } else if (handleClass.includes('ne')) {
+                        // Prawy górny róg - skaluj w prawo i w górę
+                        newWidth = Math.max(minSize, currentWidth + deltaX);
+                        newHeight = newWidth / 0.8;
+                        newTop = currentTop + (currentHeight - newHeight);
+                    } else if (handleClass.includes('nw')) {
+                        // Lewy górny róg - skaluj w lewo i w górę
+                        newWidth = Math.max(minSize, currentWidth - deltaX);
+                        newHeight = newWidth / 0.8;
+                        newLeft = currentLeft + (currentWidth - newWidth);
+                        newTop = currentTop + (currentHeight - newHeight);
+                    }
+                    
+                    // Ogranicz rozmiar do granic obrazu
+                    const maxWidth = rect.width - newLeft;
+                    const maxHeight = rect.height - newTop;
+                    newWidth = Math.min(newWidth, maxWidth);
+                    newHeight = Math.min(newHeight, maxHeight);
+                    
+                    // Sprawdź czy nowe wymiary zachowują proporcję
+                    const aspectRatio = 0.8; // 4:5 pion (szerokość = 80% wysokości)
+                    const expectedHeight = newWidth / aspectRatio;
+                    
+                    if (Math.abs(newHeight - expectedHeight) > 1) {
+                        // Dostosuj wysokość do proporcji
+                        newHeight = expectedHeight;
+                    }
+                    
+                    // Zastosuj nowe wymiary
+                    cropOverlay.style.transition = 'none'; // Wyłącz animację podczas przeciągania
+                    cropOverlay.style.width = newWidth + 'px';
+                    cropOverlay.style.height = newHeight + 'px';
+                    cropOverlay.style.left = newLeft + 'px';
+                    cropOverlay.style.top = newTop + 'px';
+                    cropOverlay.style.transform = 'none';
+                }
+            }
+        }
+
+        function stopDrag() {
+            isDragging = false;
+            isResizing = false;
+            resizeHandle = null;
+        }
+
+        function updateCropScale(scale) {
+            const cropOverlay = document.querySelector('.crop-overlay');
+            const cropperImage = document.getElementById('cropperImage');
+            
+            if (!cropOverlay || !cropperImage) return;
+            
+            const rect = cropperImage.getBoundingClientRect();
+            
+            // Oblicz maksymalny rozmiar kadru (100% wysokości wyświetlanego obrazu)
+            const maxHeight = rect.height; // 100% wysokości wyświetlanego obrazu
+            const maxWidth = maxHeight * 0.8; // Proporcja 4:5 pion
+            
+            // Oblicz nowe wymiary z zachowaniem proporcji 4:5 pion
+            const newHeight = maxHeight * scale; // Skaluj od 0 do maxHeight
+            const newWidth = newHeight * 0.8; // Zachowaj proporcję 4:5 pion
+            
+            // Sprawdź czy nowe wymiary mieszczą się w obrazie
+            const finalWidth = Math.min(newWidth, rect.width);
+            const finalHeight = Math.min(newHeight, rect.height);
+            
+            // Wycentruj kadr
+            const centerX = (rect.width - finalWidth) / 2;
+            const centerY = (rect.height - finalHeight) / 2;
+            
+            cropOverlay.style.width = finalWidth + 'px';
+            cropOverlay.style.height = finalHeight + 'px';
+            cropOverlay.style.left = centerX + 'px';
+            cropOverlay.style.top = centerY + 'px';
+            cropOverlay.style.transform = 'none';
+        }
+
+        function confirmCrop() {
+            if (!currentCropData) return;
+            
+            const cropOverlay = document.querySelector('.crop-overlay');
+            const cropperImage = document.getElementById('cropperImage');
+            
+            if (cropOverlay && cropperImage) {
+                const rect = cropperImage.getBoundingClientRect();
+                const cropRect = cropOverlay.getBoundingClientRect();
+                
+                // Oblicz współrzędne przycięcia względem obrazu
+                const cropData = {
+                    x: (cropRect.left - rect.left) / rect.width,
+                    y: (cropRect.top - rect.top) / rect.height,
+                    width: cropOverlay.offsetWidth / rect.width,
+                    height: cropOverlay.offsetHeight / rect.height
+                };
+                
+                console.log('Dane przycięcia:', cropData);
+                console.log('Typ kadrowania:', currentCropData.isProjectImage ? 'Nowe zdjęcie projektu' : 'Nowe zdjęcie');
+                console.log('Plik:', currentCropData.file.name);
+                
+                // Sprawdź czy dane kadrowania są poprawne
+                if (cropData.x < 0 || cropData.y < 0 || cropData.width <= 0 || cropData.height <= 0) {
+                    console.error('Nieprawidłowe dane kadrowania:', cropData);
+                    alert('Błąd kadrowania - spróbuj ponownie');
+                    return;
+                }
+                
+                // Ukryj kadrowanie
+                const imageCropper = document.getElementById('imageCropper');
+                if (imageCropper) imageCropper.style.display = 'none';
+                
+                // Sprawdź typ kadrowania
+                if (currentCropData.isExistingImage) {
+                    // Zaktualizuj istniejące zdjęcie w projekcie
+                    updateExistingImageWithCrop(currentCropData.projectId, currentCropData.imageName, currentCropData.imageIndex, cropData);
+                } else if (currentCropData.isProjectImage) {
+                    // Nowe zdjęcie projektu - dodaj do listy kadrowanych
+                    addCroppedProjectImageToList(currentCropData.file, cropData, currentCropData.projectId);
+                } else {
+                    // Dodaj do listy nowych zdjęć
+                    addCroppedImageToList(currentCropData.file, cropData);
+                }
+                
+                currentCropData = null;
+            }
+        }
+
+        function cancelCrop() {
+            const imageCropper = document.getElementById('imageCropper');
+            if (imageCropper) imageCropper.style.display = 'none';
+            currentCropData = null;
+        }
+
+        function addCroppedImageToList(file, cropData) {
+            // Przycinaj obraz na podstawie danych kadrowania
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            
+            img.onload = function() {
+                // Oblicz wymiary przyciętego obrazu
+                const cropWidth = img.width * cropData.width;
+                const cropHeight = img.height * cropData.height;
+                const cropX = img.width * cropData.x;
+                const cropY = img.height * cropData.y;
+                
+                // Ustaw wymiary canvas
+                canvas.width = cropWidth;
+                canvas.height = cropHeight;
+                
+                // Przycinaj obraz
+                ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
+                
+                // Konwertuj canvas do Blob
+                canvas.toBlob(function(blob) {
+                    // Utwórz nowy plik z przyciętym obrazem
+                    const croppedFile = new File([blob], file.name.replace(/\.[^/.]+$/, '_cropped.jpg'), {
+                        type: 'image/jpeg',
+                        lastModified: Date.now()
+                    });
+                    
+                    // Dodaj do listy plików dla nowego projektu
+                    if (!window.selectedFiles) {
+                        window.selectedFiles = [];
+                    }
+                    
+                    // Zastąp oryginalny plik przyciętym
+                    if (currentCropData && currentCropData.index !== undefined) {
+                        window.selectedFiles[currentCropData.index] = croppedFile;
+                    } else {
+                        window.selectedFiles.push(croppedFile);
+                    }
+                    
+                    // Odśwież wyświetlanie dla nowego projektu
+                    displayFileListWithCropping(window.selectedFiles);
+                    
+                }, 'image/jpeg', 0.9);
+            };
+            
+            img.src = URL.createObjectURL(file);
+        }
+
+        function addCroppedProjectImageToList(file, cropData, projectId) {
+            console.log('Rozpoczynam kadrowanie dla projektu:', projectId);
+            console.log('Dane kadrowania:', cropData);
+            
+            // Przycinaj obraz na podstawie danych kadrowania
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            
+            img.onload = function() {
+                // Oblicz wymiary przyciętego obrazu
+                const cropWidth = img.width * cropData.width;
+                const cropHeight = img.height * cropData.height;
+                const cropX = img.width * cropData.x;
+                const cropY = img.height * cropData.y;
+                
+                console.log('Oryginalne wymiary obrazu:', img.width, 'x', img.height);
+                console.log('Wymiary kadrowania:', cropWidth, 'x', cropHeight);
+                console.log('Pozycja kadrowania:', cropX, cropY);
+                
+                // Sprawdź czy wymiary są poprawne
+                if (cropWidth <= 0 || cropHeight <= 0 || cropX < 0 || cropY < 0) {
+                    console.error('Nieprawidłowe wymiary kadrowania');
+                    return;
+                }
+                
+                // Ustaw wymiary canvas
+                canvas.width = cropWidth;
+                canvas.height = cropHeight;
+                
+                // Przycinaj obraz
+                ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
+                
+                // Konwertuj canvas do Blob
+                canvas.toBlob(function(blob) {
+                    if (!blob) {
+                        console.error('Błąd tworzenia Blob');
+                        return;
+                    }
+                    
+                    // Utwórz nowy plik z przyciętym obrazem
+                    const croppedFile = new File([blob], file.name.replace(/\.[^/.]+$/, '_cropped.jpg'), {
+                        type: 'image/jpeg',
+                        lastModified: Date.now()
+                    });
+                    
+                    console.log('Utworzono kadrowany plik:', croppedFile.name, 'rozmiar:', croppedFile.size);
+                    
+                    // Dodaj do listy plików projektu
+                    if (!window.projectFiles) {
+                        window.projectFiles = {};
+                    }
+                    if (!window.projectFiles[projectId]) {
+                        window.projectFiles[projectId] = [];
+                    }
+                    
+                    window.projectFiles[projectId].push(croppedFile);
+                    
+                    console.log('Dodano przycięte zdjęcie do projektu:', projectId, 'plik:', croppedFile.name);
+                    console.log('Lista plików projektu:', window.projectFiles[projectId]);
+                    console.log('Liczba plików w projekcie:', window.projectFiles[projectId].length);
+                    
+                    // Odśwież podgląd projektu
+                    console.log('Wywołuję updateProjectPreview dla projektu:', projectId);
+                    updateProjectPreview(projectId);
+                    
+                }, 'image/jpeg', 0.9);
+            };
+            
+            img.src = URL.createObjectURL(file);
+        }
+
+        function updateProjectPreview(projectId) {
+            console.log('updateProjectPreview wywołane dla projektu:', projectId);
+            
+            const preview = document.getElementById(`project-images-preview-${projectId}`);
+            console.log('Element preview:', preview);
+            
+            if (!preview) {
+                console.error('Nie znaleziono elementu preview dla projektu:', projectId);
+                return;
+            }
+            
+            if (!window.projectFiles || !window.projectFiles[projectId]) {
+                console.log('Brak plików dla projektu:', projectId);
+                preview.style.display = 'none';
+                return;
+            }
+            
+            console.log('Liczba plików do wyświetlenia:', window.projectFiles[projectId].length);
+            
+            preview.innerHTML = '';
+            
+            window.projectFiles[projectId].forEach((file, index) => {
+                console.log('Tworzenie podglądu dla pliku:', file.name, 'indeks:', index);
+                
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                fileItem.innerHTML = `
+                    <div class="file-preview">
+                        <img src="${URL.createObjectURL(file)}" alt="Podgląd kadrowanego zdjęcia" class="file-thumbnail" style="display: block; max-width: 150px; max-height: 200px; object-fit: cover;">
+                    </div>
+                    <div class="file-info">
+                        <div class="file-name">${file.name}</div>
+                        <div class="file-size">${(file.size / 1024).toFixed(0)}KB</div>
+                        <div class="file-status" style="color: #4CAF50; font-size: 11px;">✓ Kadrowane</div>
+                    </div>
+                    <div class="file-actions">
+                        <button type="button" class="remove-btn" onclick="removeProjectFile(${projectId}, ${index})" style="margin-left: 10px; padding: 4px 8px; font-size: 12px; background: #ff4444; color: white; border: none; border-radius: 3px;">
+                            ❌ Usuń
+                        </button>
+                    </div>
+                `;
+                preview.appendChild(fileItem);
+            });
+            
+            preview.style.display = 'block';
+            console.log('Podgląd zaktualizowany dla projektu:', projectId);
+        }
+
+        function removeProjectFile(projectId, index) {
+            if (!window.projectFiles || !window.projectFiles[projectId]) {
+                return;
+            }
+            
+            window.projectFiles[projectId].splice(index, 1);
+            updateProjectPreview(projectId);
+            
+            console.log('Usunięto plik z projektu:', projectId, 'indeks:', index);
+        }
+
+        function removeFile(index) {
+            if (!window.selectedFiles || !window.selectedFiles[index]) {
+                return;
+            }
+            
+            // Usuń plik z tablicy
+            window.selectedFiles.splice(index, 1);
+            
+            // Odśwież wyświetlanie
+            if (window.selectedFiles.length > 0) {
+                displayFileListWithCropping(window.selectedFiles);
+            } else {
+                const fileList = document.getElementById('fileList');
+                if (fileList) fileList.style.display = 'none';
+                window.selectedFiles = [];
+            }
+            
+            // Resetuj input file
+            const imagesInput = document.getElementById('images');
+            if (imagesInput) imagesInput.value = '';
+        }
+
+        // ===== WYSYŁANIE FORMULARZA =====
+        function initFormSubmission() {
+            const form = document.getElementById('projectForm');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            if (!form || !submitBtn) {
+                console.error('Nie znaleziono formularza lub przycisku submit');
+                return;
+            }
+            
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Wyłącz przycisk podczas wysyłania
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Wysyłanie...';
+                
+                try {
+                    // Zbierz dane z formularza
+                    const formData = new FormData(form);
+                    
+                    // Dodaj nowe pola do formData
+                    formData.append('author', document.getElementById('author').value);
+                    formData.append('projectType', document.getElementById('projectType').value);
+                    formData.append('location', document.getElementById('location').value);
+                    formData.append('year', document.getElementById('year').value);
+                    
+                    // Przygotuj wszystkie pliki w odpowiedniej kolejności z flagami
+                    const allFiles = [];
+                    
+                    // Dodaj kadrowane pliki
+                    if (window.selectedFiles && window.selectedFiles.length > 0) {
+                        window.selectedFiles.forEach((file, index) => {
+                            allFiles.push({ file, isCropped: true });
+                        });
+                    }
+                    
+                    // Dodaj niekadrowane pliki
+                    if (window.nonCroppedFilesNew && window.nonCroppedFilesNew.length > 0) {
+                        window.nonCroppedFilesNew.forEach(file => {
+                            allFiles.push({ file, isCropped: false });
+                        });
+                    }
+                    
+                    // Dodaj pliki do FormData w kolejności
+                    allFiles.forEach(({ file, isCropped }) => {
+                        formData.append('images', file);
+                        formData.append('isCropped', isCropped.toString());
+                    });
+                    
+                    // Sprawdź czy serwer jest dostępny
+                    const serverUrl = window.location.port === '3000' ? '' : 'http://localhost:3000';
+                    
+                    // Wyślij dane do serwera
+                    const response = await fetch(`${serverUrl}/api/addProject`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        showStatus(result.message, 'success');
+                        
+                        // Reset formularza
+                        form.reset();
+                        const fileList = document.getElementById('fileList');
+                        if (fileList) fileList.style.display = 'none';
+                        const charCounter = document.getElementById('charCounter');
+                        if (charCounter) charCounter.textContent = '0/800';
+                        const year = document.getElementById('year');
+                        if (year) year.value = '2025'; // Przywróć domyślną wartość roku
+                        window.selectedFiles = []; // Wyczyść globalną tablicę plików
+                        window.nonCroppedFilesNew = []; // Wyczyść globalną tablicę niekadrowanych plików
+                        
+                        console.log('Projekt dodany:', result.project);
+                        
+                        // Dodaj przycisk do odświeżenia portfolio
+                        showRefreshButton();
+                    } else {
+                        showStatus('Błąd: ' + result.message, 'error');
+                    }
+                    
+                } catch (error) {
+                    console.error('Błąd wysyłania:', error);
+                    showStatus('Błąd połączenia z serwerem. Sprawdź czy serwer jest uruchomiony.', 'error');
+                } finally {
+                    // Przywróć przycisk
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Wyślij do conder-portfolio';
+                }
+            });
+        }
+
+        // ===== PRZYCISK ODŚWIEŻENIA =====
+        function showRefreshButton() {
+            const statusDiv = document.getElementById('statusMessage');
+            
+            if (!statusDiv) {
+                console.error('Nie znaleziono elementu statusMessage');
+                return;
+            }
+            
+            // Dodaj przycisk odświeżenia
+            const refreshBtn = document.createElement('button');
+            refreshBtn.textContent = '🔄 Odśwież portfolio';
+            refreshBtn.style.cssText = `
+                margin-top: 10px;
+                padding: 8px 16px;
+                background: var(--color-orange);
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px;
+            `;
+            
+            refreshBtn.addEventListener('click', function() {
+                // Otwórz portfolio w nowej karcie
+                window.open('index.html', '_blank');
+            });
+            
+            statusDiv.appendChild(refreshBtn);
+        }
+
+        // ===== WYŚWIETLANIE STATUSU =====
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('statusMessage');
+            if (statusDiv) {
+                statusDiv.textContent = message;
+                statusDiv.className = `status-message status-${type}`;
+                statusDiv.style.display = 'block';
+                
+                // Ukryj po 5 sekundach
+                setTimeout(() => {
+                    statusDiv.style.display = 'none';
+                }, 5000);
+            } else {
+                console.error('Nie znaleziono elementu statusMessage');
+            }
+        }
+
+        // ===== PODGLĄD PROJEKTÓW =====
+        async function loadProjectsList() {
+            try {
+                const response = await fetch('content.json');
+                const data = await response.json();
+                
+                const projectsList = document.getElementById('projectsList');
+                
+                if (data.projects && data.projects.length > 0) {
+                    projectsList.innerHTML = data.projects.map(project => createProjectItem(project)).join('');
+                } else {
+                    projectsList.innerHTML = '<p>Brak projektów do wyświetlenia</p>';
+                }
+            } catch (error) {
+                console.error('Błąd ładowania projektów:', error);
+                const projectsList = document.getElementById('projectsList');
+                if (projectsList) {
+                    projectsList.innerHTML = '<p>Błąd ładowania projektów</p>';
+                }
+            }
+        }
+
+        function createProjectItem(project) {
+            const imagesHtml = project.images && project.images.length > 0 
+                ? `
+                    <div class="project-images">
+                        <h4>Zdjęcia (${project.images.length}/20):</h4>
+                        <div class="images-grid">
+                            ${project.images.map((image, index) => `
+                                <div class="image-item" data-image-index="${index}">
+                                    <div class="image-header">
+                                        <span class="image-number">${index + 1}</span>
+                                        ${index === 0 ? '<span class="main-image-badge">GŁÓWNE</span>' : ''}
+                                    </div>
+                                    <img src="uploads/${image}" alt="${project.title}" onerror="this.style.display='none'">
+                                    <div class="image-actions">
+                                        ${index > 0 ? `<button class="image-move-up" onclick="moveImageUp(${project.id}, ${index})" title="Przesuń w górę">↑</button>` : ''}
+                                        ${index < project.images.length - 1 ? `<button class="image-move-down" onclick="moveImageDown(${project.id}, ${index})" title="Przesuń w dół">↓</button>` : ''}
+                                        <button class="image-crop" onclick="cropExistingImage(${project.id}, '${image}', ${index})" title="Kadruj zdjęcie">✂️</button>
+                                        <button class="image-remove" onclick="removeImage(${project.id}, '${image}')" title="Usuń zdjęcie">×</button>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                ` : '<p>Brak zdjęć</p>';
+            
+            // Sekcja dodawania nowych zdjęć
+            const addImagesHtml = `
+                <div class="add-images-section">
+                    <h4>Dodaj nowe zdjęcia:</h4>
+                    <div class="file-input-container">
+                        <input type="file" id="project-images-${project.id}" class="file-input" multiple accept="image/*" onchange="handleProjectImagesChange(${project.id})">
+                        <label for="project-images-${project.id}" class="file-input-label">
+                            📷 Wybierz zdjęcia (max 20)
+                        </label>
+                    </div>
+                    <div id="project-images-preview-${project.id}" class="file-list" style="display:none;"></div>
+                    <button type="button" class="btn-edit" onclick="addImagesToProject(${project.id})" style="margin-top:10px;">Dodaj zdjęcia</button>
+                    <span class="status-message" id="status-project-images-${project.id}" style="display:none;"></span>
+                </div>
+            `;
+
+            // Pola edytowalne z osobnym przyciskiem i komunikatem
+            function editableField(label, field, value, type = 'text', rows = 1) {
+                const inputId = `project-${project.id}-${field}`;
+                return `
+                    <div class="editable-field">
+                        <label for="${inputId}"><strong>${label}:</strong></label><br>
+                        ${type === 'textarea' ?
+                            `<textarea id="${inputId}" rows="${rows}" class="form-input">${value || ''}</textarea>` :
+                            `<input type="${type}" id="${inputId}" class="form-input" value="${value || ''}">`
+                        }
+                        <button class="btn-edit" onclick="updateProjectField(${project.id}, '${field}')">Aktualizuj</button>
+                        <span class="status-message" id="status-${inputId}" style="display:none;"></span>
+                    </div>
+                `;
+            }
+
+            return `
+                <div class="project-item" data-project-id="${project.id}">
+                    <div class="project-header">
+                        <h3 class="project-title">${project.title}</h3>
+                        <div class="project-actions">
+                            <button class="btn-delete" onclick="deleteProject(${project.id})">Usuń</button>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <div class="project-info">
+                            ${editableField('Tytuł', 'title', project.title)}
+                            ${editableField('Autor', 'author', project.author)}
+                            ${editableField('Rodzaj', 'projectType', project.projectType || project.type)}
+                            ${editableField('Lokalizacja', 'location', project.location)}
+                            ${editableField('Rok', 'year', project.year)}
+                            ${editableField('Etap', 'stage', project.stage || project.status)}
+                        </div>
+                        <div class="project-info">
+                            ${editableField('Powierzchnia całkowita', 'totalArea', project.totalArea)}
+                            ${editableField('Powierzchnia użytkowa', 'usableArea', project.usableArea)}
+                            ${editableField('Powierzchnia', 'area', project.area)}
+                            ${editableField('Inwestor', 'investor', project.investor)}
+                            ${editableField('Projektant', 'designer', project.designer)}
+                        </div>
+                    </div>
+                    ${editableField('Opis', 'description', project.description, 'textarea', 4)}
+                    ${imagesHtml}
+                    ${addImagesHtml}
+                </div>
+            `;
+        }
+
+        // ===== AKTUALIZACJA POJEDYNCZEGO POLA PROJEKTU =====
+        async function updateProjectField(projectId, field) {
+            const input = document.getElementById(`project-${projectId}-${field}`);
+            const status = document.getElementById(`status-project-${projectId}-${field}`);
+            if (!input || !status) {
+                console.error('Nie znaleziono elementu:', `project-${projectId}-${field}`);
+                return;
+            }
+            status.style.display = 'inline';
+            status.textContent = 'Aktualizuję...';
+            status.className = 'status-message';
+            try {
+                const value = input.value;
+                const response = await fetch(`/api/updateProjectField/${projectId}`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ field, value })
+                });
+                const result = await response.json();
+                if (result.success) {
+                    status.textContent = 'Zaktualizowano!';
+                    status.className = 'status-message status-success';
+                    loadProjectsList();
+                } else {
+                    status.textContent = 'Błąd: ' + (result.message || 'Nie udało się zaktualizować');
+                    status.className = 'status-message status-error';
+                }
+            } catch (e) {
+                console.error('Błąd aktualizacji pola projektu:', e);
+                status.textContent = 'Błąd połączenia z serwerem';
+                status.className = 'status-message status-error';
+            }
+            setTimeout(() => { status.style.display = 'none'; }, 2500);
+        }
+
+        // ===== USUWANIE PROJEKTU =====
+        async function deleteProject(projectId) {
+            if (!confirm('Czy na pewno chcesz usunąć ten projekt?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/deleteProject/${projectId}`, {
+                    method: 'DELETE'
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showStatus('Projekt został usunięty', 'success');
+                    loadProjectsList(); // Odśwież listę
+                } else {
+                    showStatus('Błąd usuwania projektu: ' + result.message, 'error');
+                }
+            } catch (error) {
+                console.error('Błąd usuwania projektu:', error);
+                showStatus('Błąd połączenia z serwerem', 'error');
+            }
+        }
+
+        // ===== USUWANIE ZDJĘCIA =====
+        async function removeImage(projectId, imageName) {
+            if (!confirm('Czy na pewno chcesz usunąć to zdjęcie?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/removeImage/${projectId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ imageName })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showStatus('Zdjęcie zostało usunięte', 'success');
+                    loadProjectsList(); // Odśwież listę
+                } else {
+                    showStatus('Błąd usuwania zdjęcia: ' + result.message, 'error');
+                }
+            } catch (error) {
+                console.error('Błąd usuwania zdjęcia:', error);
+                showStatus('Błąd połączenia z serwerem', 'error');
+            }
+        }
+
+        // ===== ZMIANA KOLEJNOŚCI ZDJĘĆ =====
+        async function moveImageUp(projectId, imageIndex) {
+            try {
+                const response = await fetch(`/api/moveImage/${projectId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        imageIndex, 
+                        direction: 'up' 
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showStatus('Kolejność zdjęć została zmieniona', 'success');
+                    loadProjectsList(); // Odśwież listę
+                } else {
+                    showStatus('Błąd zmiany kolejności: ' + result.message, 'error');
+                }
+            } catch (error) {
+                console.error('Błąd zmiany kolejności zdjęcia:', error);
+                showStatus('Błąd połączenia z serwerem', 'error');
+            }
+        }
+
+        async function moveImageDown(projectId, imageIndex) {
+            try {
+                const response = await fetch(`/api/moveImage/${projectId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        imageIndex, 
+                        direction: 'down' 
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showStatus('Kolejność zdjęć została zmieniona', 'success');
+                    loadProjectsList(); // Odśwież listę
+                } else {
+                    showStatus('Błąd zmiany kolejności: ' + result.message, 'error');
+                }
+            } catch (error) {
+                console.error('Błąd zmiany kolejności zdjęcia:', error);
+                showStatus('Błąd połączenia z serwerem', 'error');
+            }
+        }
+
+        // ===== KADROWANIE ISTNIEJĄCYCH ZDJĘĆ =====
+        async function cropExistingImage(projectId, imageName, imageIndex) {
+            try {
+                // Pobierz zdjęcie z serwera
+                const response = await fetch(`uploads/${imageName}`);
+                const blob = await response.blob();
+                
+                // Utwórz plik z blob
+                const file = new File([blob], imageName, { type: 'image/jpeg' });
+                
+                // Ustaw dane do kadrowania PRZED wywołaniem startCrop
+                currentCropData = {
+                    file: file,
+                    index: imageIndex,
+                    projectId: projectId,
+                    imageName: imageName,
+                    imageIndex: imageIndex,
+                    isExistingImage: true
+                };
+                
+                // Uruchom kadrowanie
+                startCrop(file, imageIndex);
+                
+            } catch (error) {
+                console.error('Błąd ładowania zdjęcia do kadrowania:', error);
+                showStatus('Błąd ładowania zdjęcia do kadrowania', 'error');
+            }
+        }
+
+        // ===== AKTUALIZACJA ISTNIEJĄCEGO ZDJĘCIA Z KADROWANIEM =====
+        async function updateExistingImageWithCrop(projectId, imageName, imageIndex, cropData) {
+            try {
+                // Przycinaj obraz na podstawie danych kadrowania
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                const img = new Image();
+                
+                img.onload = function() {
+                    // Oblicz wymiary przyciętego obrazu
+                    const cropWidth = img.width * cropData.width;
+                    const cropHeight = img.height * cropData.height;
+                    const cropX = img.width * cropData.x;
+                    const cropY = img.height * cropData.y;
+                    
+                    // Ustaw wymiary canvas
+                    canvas.width = cropWidth;
+                    canvas.height = cropHeight;
+                    
+                    // Przycinaj obraz
+                    ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
+                    
+                    // Konwertuj canvas do Blob
+                    canvas.toBlob(async function(blob) {
+                        try {
+                            // Utwórz FormData z przyciętym obrazem
+                            const formData = new FormData();
+                            formData.append('croppedImage', blob, imageName);
+                            formData.append('projectId', projectId);
+                            formData.append('imageIndex', imageIndex);
+                            
+                            // Wyślij do serwera
+                            const response = await fetch('/api/updateImageWithCrop', {
+                                method: 'POST',
+                                body: formData
+                            });
+                            
+                            const result = await response.json();
+                            
+                            if (result.success) {
+                                showStatus('Zdjęcie zostało przycięte i zaktualizowane', 'success');
+                                loadProjectsList(); // Odśwież listę
+                            } else {
+                                showStatus('Błąd aktualizacji zdjęcia: ' + result.message, 'error');
+                            }
+                        } catch (error) {
+                            console.error('Błąd wysyłania przyciętego zdjęcia:', error);
+                            showStatus('Błąd wysyłania przyciętego zdjęcia', 'error');
+                        }
+                    }, 'image/jpeg', 0.9);
+                };
+                
+                // Załaduj obraz z serwera
+                const response = await fetch(`uploads/${imageName}`);
+                const blob = await response.blob();
+                img.src = URL.createObjectURL(blob);
+                
+            } catch (error) {
+                console.error('Błąd aktualizacji zdjęcia z kadrowaniem:', error);
+                showStatus('Błąd aktualizacji zdjęcia z kadrowaniem', 'error');
+            }
+        }
+
+        // ===== EDYCJA PROJEKTU =====
+        function editProject(projectId) {
+            // TODO: Implementacja edycji projektu
+            showStatus('Funkcja edycji będzie dostępna wkrótce', 'info');
+        }
+
+        // ===== OBSŁUGA DODAWANIA ZDJĘĆ DO PROJEKTU =====
+        function handleProjectImagesChange(projectId) {
+            const input = document.getElementById(`project-images-${projectId}`);
+            const preview = document.getElementById(`project-images-preview-${projectId}`);
+            
+            if (!input || !preview) {
+                console.error('Nie znaleziono elementów do obsługi zdjęć projektu');
+                return;
+            }
+            
+            const files = input.files;
+            if (!files || files.length === 0) {
+                preview.style.display = 'none';
+                return;
+            }
+            
+            // Sprawdź typy plików
+            const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+            for (let file of files) {
+                if (!allowedTypes.includes(file.type)) {
+                    alert(`Plik ${file.name} ma nieprawidłowy typ. Użyj JPG lub PNG.`);
+                    input.value = '';
+                    preview.style.display = 'none';
+                    return;
+                }
+            }
+            
+            // Pokaż podgląd z przyciskami kadrowania
+            preview.innerHTML = '';
+            let loadedCount = 0;
+            const totalFiles = files.length;
+            
+            for (let file of files) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'file-item';
+                    fileItem.innerHTML = `
+                            <div class="file-preview">
+                                <img src="${e.target.result}" alt="Podgląd" class="file-thumbnail" style="display: block;">
+                            </div>
+                            <div class="file-info">
+                                <div class="file-name">${file.name}</div>
+                                <div class="file-size">${(file.size / 1024).toFixed(0)}KB</div>
+                            </div>
+                        <div class="file-actions">
+                            <button type="button" class="crop-btn" onclick="startCropForProject(${projectId}, '${file.name}', this)" style="margin-left: 10px; padding: 4px 8px; font-size: 12px;">
+                                ✂️ Kadruj
+                            </button>
+                            <button type="button" class="add-btn" onclick="addFileWithoutCropping(${projectId}, '${file.name}', this)" style="margin-left: 5px; padding: 4px 8px; font-size: 12px; background: var(--color-green); color: white;">
+                                ➕ Dodaj bez kadrowania
+                            </button>
+                        </div>
+                    `;
+                    preview.appendChild(fileItem);
+                    
+                    loadedCount++;
+                    if (loadedCount === totalFiles) {
+                    preview.style.display = 'block';
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // ===== DODAWANIE ZDJĘCIA BEZ KADROWANIA =====
+        function addFileWithoutCropping(projectId, fileName, buttonElement) {
+            console.log('addFileWithoutCropping wywołane:', projectId, fileName);
+            
+            const input = document.getElementById(`project-images-${projectId}`);
+            const files = input.files;
+            
+            if (!files || files.length === 0) {
+                alert('Nie wybrano plików');
+                return;
+            }
+            
+            // Znajdź plik o danej nazwie
+            const file = Array.from(files).find(f => f.name === fileName);
+            
+            if (!file) {
+                alert('Nie znaleziono pliku');
+                return;
+            }
+            
+            // Inicjalizuj globalną tablicę niekadrowanych plików
+            if (!window.nonCroppedFiles) {
+                window.nonCroppedFiles = {};
+            }
+            if (!window.nonCroppedFiles[projectId]) {
+                window.nonCroppedFiles[projectId] = [];
+            }
+            
+            // Dodaj plik do listy niekadrowanych
+            window.nonCroppedFiles[projectId].push(file);
+            
+            // Zmień przycisk na "Dodano"
+            if (buttonElement) {
+                buttonElement.textContent = '✅ Dodano';
+                buttonElement.disabled = true;
+                buttonElement.style.background = 'var(--color-green)';
+            }
+            
+            console.log('Dodano plik bez kadrowania:', fileName);
+            console.log('window.nonCroppedFiles[projectId]:', window.nonCroppedFiles[projectId]);
+        }
+
+        // ===== KADROWANIE ZDJĘĆ DLA PROJEKTU =====
+        function startCropForProject(projectId, fileName, buttonElement) {
+            console.log('startCropForProject wywołane:', projectId, fileName);
+            
+            const input = document.getElementById(`project-images-${projectId}`);
+            const files = input.files;
+            
+            console.log('Input element:', input);
+            console.log('Liczba plików:', files ? files.length : 0);
+            
+            if (!files || files.length === 0) {
+                alert('Nie wybrano plików');
+                return;
+            }
+            
+            // Znajdź plik o danej nazwie
+            const file = Array.from(files).find(f => f.name === fileName);
+            console.log('Znaleziony plik:', file ? file.name : 'nie znaleziono');
+            
+            if (!file) {
+                alert('Nie znaleziono pliku');
+                return;
+            }
+            
+            // Ustaw dane do kadrowania
+            currentCropData = {
+                file: file,
+                projectId: projectId,
+                fileName: fileName,
+                isProjectImage: true
+            };
+            
+            console.log('Ustawiono currentCropData:', currentCropData);
+            
+            // Uruchom kadrowanie
+            startCrop(file, -1); // -1 oznacza, że to nowe zdjęcie projektu
+        }
+
+        // ===== DODAWANIE ZDJĘĆ DO PROJEKTU =====
+        async function addImagesToProject(projectId) {
+            const status = document.getElementById(`status-project-images-${projectId}`);
+            
+            if (!status) {
+                console.error('Nie znaleziono elementu statusu');
+                return;
+            }
+            
+            console.log('Sprawdzanie plików dla projektu:', projectId);
+            console.log('window.projectFiles:', window.projectFiles);
+            console.log('window.projectFiles[projectId]:', window.projectFiles ? window.projectFiles[projectId] : 'undefined');
+            
+            // Sprawdź czy są pliki do dodania (kadrowane lub niekadrowane)
+            const hasCroppedFiles = window.projectFiles && window.projectFiles[projectId] && window.projectFiles[projectId].length > 0;
+            const hasNonCroppedFiles = window.nonCroppedFiles && window.nonCroppedFiles[projectId] && window.nonCroppedFiles[projectId].length > 0;
+            
+            if (!hasCroppedFiles && !hasNonCroppedFiles) {
+                status.textContent = 'Najpierw wybierz zdjęcia!';
+                status.className = 'status-message status-error';
+                status.style.display = 'inline';
+                setTimeout(() => { status.style.display = 'none'; }, 3000);
+                return;
+            }
+            
+            // Sprawdź limit zdjęć w projekcie
+            try {
+                const response = await fetch('content.json');
+                const data = await response.json();
+                const project = data.projects.find(p => p.id === projectId);
+                
+                if (project && project.images) {
+                    const currentImageCount = project.images.length;
+                    const newImageCount = window.projectFiles[projectId].length;
+                    if (currentImageCount + newImageCount > 20) {
+                        status.textContent = `Za dużo zdjęć! Projekt ma już ${currentImageCount} zdjęć. Można dodać maksymalnie ${20 - currentImageCount} zdjęć.`;
+                        status.className = 'status-message status-error';
+                        status.style.display = 'inline';
+                        setTimeout(() => { status.style.display = 'none'; }, 5000);
+                        return;
+                    }
+                }
+            } catch (error) {
+                console.error('Błąd sprawdzania liczby zdjęć:', error);
+            }
+            
+            // Pokaż status
+            status.style.display = 'inline';
+            status.textContent = 'Dodaję zdjęcia...';
+            status.className = 'status-message';
+            
+            try {
+                const formData = new FormData();
+                
+                                // Przygotuj wszystkie pliki w odpowiedniej kolejności z flagami
+                const allFiles = [];
+                
+                // Dodaj kadrowane pliki
+                if (window.projectFiles && window.projectFiles[projectId]) {
+                    window.projectFiles[projectId].forEach(file => {
+                        allFiles.push({ file, isCropped: true });
+                    });
+                }
+                
+                // Dodaj niekadrowane pliki
+                if (window.nonCroppedFiles && window.nonCroppedFiles[projectId]) {
+                    window.nonCroppedFiles[projectId].forEach(file => {
+                        allFiles.push({ file, isCropped: false });
+                    });
+                }
+                
+                // Dodaj pliki do FormData w kolejności
+                allFiles.forEach(({ file, isCropped }) => {
+                    formData.append('images', file);
+                    formData.append('isCropped', isCropped.toString());
+                });
+                
+                formData.append('projectId', projectId);
+                
+                // Sprawdź czy serwer jest dostępny
+                const serverUrl = window.location.port === '3000' ? '' : 'http://localhost:3000';
+                
+                const response = await fetch(`${serverUrl}/api/addImagesToProject`, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    status.textContent = 'Zdjęcia dodane!';
+                    status.className = 'status-message status-success';
+                    
+                    // Wyczyść input i podgląd
+                    const input = document.getElementById(`project-images-${projectId}`);
+                    if (input) input.value = '';
+                    
+                    const preview = document.getElementById(`project-images-preview-${projectId}`);
+                    if (preview) {
+                        preview.style.display = 'none';
+                        preview.innerHTML = '';
+                    }
+                    
+                    // Wyczyść listę plików projektu
+                    if (window.projectFiles && window.projectFiles[projectId]) {
+                        window.projectFiles[projectId] = [];
+                    }
+                    if (window.nonCroppedFiles && window.nonCroppedFiles[projectId]) {
+                        window.nonCroppedFiles[projectId] = [];
+                    }
+                    
+                    // Odśwież listę projektów
+                    loadProjectsList();
+                } else {
+                    status.textContent = 'Błąd: ' + (result.message || 'Nie udało się dodać zdjęć');
+                    status.className = 'status-message status-error';
+                }
+            } catch (error) {
+                console.error('Błąd dodawania zdjęć:', error);
+                status.textContent = 'Błąd połączenia z serwerem: ' + error.message;
+                status.className = 'status-message status-error';
+            }
+            
+            setTimeout(() => { status.style.display = 'none'; }, 3000);
+        }
+
+        // ===== WALIDACJA ZDJĘCIA PROFILOWEGO =====
+        function initProfileImageValidation() {
+            const profileImageInput = document.getElementById('profileImage');
+            const profileImagePreview = document.getElementById('profileImagePreview');
+            
+            if (!profileImageInput || !profileImagePreview) {
+                console.error('Nie znaleziono elementów do walidacji zdjęcia profilowego');
+                return;
+            }
+            
+            profileImageInput.addEventListener('change', function() {
+                const file = this.files[0];
+                
+                if (!file) {
+                    profileImagePreview.style.display = 'none';
+                    return;
+                }
+                
+                // Sprawdź typ pliku
+                const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+                if (!allowedTypes.includes(file.type)) {
+                    showAboutStatus('Nieprawidłowy typ pliku. Użyj JPG lub PNG.', 'error');
+                    this.value = '';
+                    profileImagePreview.style.display = 'none';
+                    return;
+                }
+                
+                // Pokaż podgląd
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    profileImagePreview.innerHTML = `
+                        <div class="file-item">
+                            <div class="file-preview">
+                                <img src="${e.target.result}" alt="Podgląd" class="file-thumbnail" style="display: block;">
+                            </div>
+                            <div class="file-info">
+                                <div class="file-name">${file.name}</div>
+                                <div class="file-size">${(file.size / 1024).toFixed(0)}KB</div>
+                            </div>
+                        </div>
+                    `;
+                    profileImagePreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // ===== OBSŁUGA FORMULARZA "O MNIE" =====
+        function initAboutFormSubmission() {
+            // Ta funkcja jest już obsługiwana przez updateAboutField
+            console.log('Inicjalizacja formularza "O mnie" - gotowe');
+        }
+
+        // ===== ŁADOWANIE DANYCH "O MNIE" =====
+        async function loadAboutData() {
+            try {
+                const response = await fetch('content.json');
+                const data = await response.json();
+                
+                if (data.about) {
+                    // Funkcja pomocnicza do formatowania tekstu dla inputów
+                    const formatTextForInput = (text) => {
+                        if (!text) return '';
+                        // Zamień \r\n na \n dla inputów
+                        return text.replace(/\r\n/g, '\n');
+                    };
+                    
+                    // Opis "O mnie"
+                    const aboutText = document.getElementById('aboutText');
+                    if (aboutText) {
+                        aboutText.value = formatTextForInput(data.about.bio || '');
+                        aboutText.dispatchEvent(new Event('input'));
+                    }
+
+                    // Edukacja
+                    const education = document.getElementById('education');
+                    if (education) {
+                        education.value = formatTextForInput(data.about.education || '');
+                        education.dispatchEvent(new Event('input'));
+                    }
+
+                    // Doświadczenie
+                    const experience = document.getElementById('experience');
+                    if (experience) {
+                        experience.value = formatTextForInput(data.about.experience || '');
+                        experience.dispatchEvent(new Event('input'));
+                    }
+
+                    // Kluczowe osiągnięcia
+                    const achievements = document.getElementById('achievements');
+                    if (achievements) {
+                        achievements.value = formatTextForInput(data.about.achievements || '');
+                        achievements.dispatchEvent(new Event('input'));
+                    }
+
+                    // Współpraca
+                    const collaboration = document.getElementById('collaboration');
+                    if (collaboration) {
+                        collaboration.value = formatTextForInput(data.about.collaboration || '');
+                        collaboration.dispatchEvent(new Event('input'));
+                    }
+
+                    // Umiejętności
+                    const skills = document.getElementById('skills');
+                    if (skills) {
+                        skills.value = formatTextForInput(data.about.skills || '');
+                        skills.dispatchEvent(new Event('input'));
+                    }
+
+                    // Programy komputerowe
+                    const software = document.getElementById('software');
+                    if (software) {
+                        software.value = formatTextForInput(data.about.software || '');
+                        software.dispatchEvent(new Event('input'));
+                    }
+
+                    // Zainteresowania
+                    const interests = document.getElementById('interests');
+                    if (interests) {
+                        interests.value = formatTextForInput(data.about.interests || '');
+                        interests.dispatchEvent(new Event('input'));
+                    }
+                }
+            } catch (error) {
+                console.error('Błąd ładowania danych "O mnie":', error);
+            }
+        }
+
+        // ===== WYŚWIETLANIE STATUSU "O MNIE" =====
+        function showAboutStatus(message, type) {
+            const statusDiv = document.getElementById('aboutStatusMessage');
+            if (statusDiv) {
+                statusDiv.textContent = message;
+                statusDiv.className = `status-message status-${type}`;
+                statusDiv.style.display = 'block';
+                
+                // Ukryj po 5 sekundach
+                setTimeout(() => {
+                    statusDiv.style.display = 'none';
+                }, 5000);
+            } else {
+                console.error('Nie znaleziono elementu aboutStatusMessage');
+            }
+        }
+
+        // ===== Aktualizacja pola "O mnie" =====
+        async function updateAboutField(field) {
+            const input = document.getElementById(field);
+            const statusDiv = document.getElementById(`status-${field}`);
+            
+            if (!input || !statusDiv) {
+                console.error('Nie znaleziono elementu:', field);
+                return;
+            }
+            
+            // Pokaż status
+            statusDiv.style.display = 'inline';
+            statusDiv.textContent = 'Aktualizuję...';
+            statusDiv.className = 'status-message';
+            
+            try {
+                // Sprawdź czy serwer jest dostępny
+                const serverUrl = window.location.port === '3000' ? '' : 'http://localhost:3000';
+                
+                let response;
+                
+                // Specjalna obsługa dla zdjęcia profilowego
+                if (field === 'profileImage') {
+                    const file = input.files[0];
+                    if (!file) {
+                        statusDiv.textContent = 'Wybierz plik!';
+                        statusDiv.className = 'status-message status-error';
+                        setTimeout(() => { statusDiv.style.display = 'none'; }, 3000);
+                        return;
+                    }
+                    
+                    const formData = new FormData();
+                    formData.append('profileImage', file);
+                    
+                    response = await fetch(`${serverUrl}/api/updateAbout`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                } else {
+                    // Mapowanie pól HTML na pola JSON
+                    const fieldMapping = {
+                        'aboutText': 'bio',
+                        'profileImage': 'profileImage',
+                        'education': 'education',
+                        'experience': 'experience',
+                        'achievements': 'achievements',
+                        'collaboration': 'collaboration',
+                        'skills': 'skills',
+                        'software': 'software',
+                        'interests': 'interests'
+                    };
+                    
+                    const jsonField = fieldMapping[field] || field;
+                    // Zachowaj znaki nowej linii - zamień \n na \r\n dla spójności z backendem
+                    const value = input.value.replace(/\n/g, '\r\n');
+                    
+                    response = await fetch(`${serverUrl}/api/updateAbout`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ [jsonField]: value })
+                    });
+                }
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    statusDiv.textContent = 'Zaktualizowano!';
+                    statusDiv.className = 'status-message status-success';
+                } else {
+                    statusDiv.textContent = 'Błąd: ' + (result.message || 'Nieznany błąd');
+                    statusDiv.className = 'status-message status-error';
+                }
+            } catch (error) {
+                console.error('Błąd wysyłania:', error);
+                statusDiv.textContent = 'Błąd połączenia z serwerem';
+                statusDiv.className = 'status-message status-error';
+            }
+            
+            // Ukryj status po 3 sekundach
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html> 
