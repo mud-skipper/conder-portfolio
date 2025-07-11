@@ -1031,4 +1031,15 @@ main {
 /* USUNIĘTO SKOMPLIKOWANE MEDIA QUERIES - PRZYCISKI ZAWSZE STAŁE */
 /* ================= KONIEC PRZYCISKÓW FOOTER ================= */
 
+/* ================= WYMUSZENIE JASNEGO KOLORU DLA LUFY HEADER I FOOTER ================= */
+@media (prefers-color-scheme: dark) {
+  .lufa-header,
+  .lufa-footer {
+    background: #fff !important;
+    color-scheme: light !important;
+    forced-color-adjust: none !important;
+    filter: none !important;
+  }
+}
+
  
