@@ -344,7 +344,7 @@ section {
 .project-card {
     background: var(--color-white);
     padding: 0;
-    margin: 15px 0 0 0; /* Dodany margin-top: 15px dla lepszego spacing */
+    margin: 55px 0 0 0; /* Zmieniony margin-top: 55px dla lepszego spacing */
     border: none;
     box-shadow: none;
 }
