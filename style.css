@@ -146,15 +146,15 @@ section {
 
 /* Specjalne opuszczenie dla nagłówków sekcji */
 .home-section .header-container {
-    margin-top: 10px; /* Opuszczenie o 10px */
+    margin-top: 15px; /* Opuszczenie o 15px */
 }
 
 .projects-section .header-container {
-    margin-top: 10px; /* Opuszczenie o 10px */
+    margin-top: 15px; /* Opuszczenie o 15px */
 }
 
 .contact-section .header-container {
-    margin-top: 10px; /* Opuszczenie o 10px */
+    margin-top: 15px; /* Opuszczenie o 15px */
 }
 
 /* Kolorowy pasek na całą szerokość */
@@ -986,23 +986,23 @@ main {
     forced-color-adjust: none;
 }
 .footer-btn-yellow {
-    background: var(--color-red) !important;
+    background: var(--color-black) !important;
     color: #fff !important;
-    border-color: var(--color-red) !important;
+    border-color: var(--color-black) !important;
     color-scheme: light !important;
     forced-color-adjust: none !important;
 }
 .footer-btn-yellow:hover {
-    background: #ff3333;
+    background: #333333;
     filter: brightness(1.08);
 }
 .footer-btn-red {
-    background: var(--color-red);
+    background: var(--color-black);
     color: #fff;
     clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
 }
 .footer-btn-red:hover {
-    background: #ff3333;
+    background: #333333;
     filter: brightness(1.08);
 }
 .footer-btn-icon {
