@@ -1,0 +1,16 @@
+{
+  "menu": {
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "footer": {
+    "send": "Send",
+    "cv": "CV"
+  },
+  "sections": {
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact"
+  }
+} 

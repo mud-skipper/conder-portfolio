@@ -1,0 +1,16 @@
+{
+  "menu": {
+    "about": "O mnie",
+    "projects": "Projekty",
+    "contact": "Kontakt"
+  },
+  "footer": {
+    "send": "Wyślij",
+    "cv": "CV"
+  },
+  "sections": {
+    "about": "O mnie",
+    "projects": "Projekty",
+    "contact": "Kontakt"
+  }
+}  

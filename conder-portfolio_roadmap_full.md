@@ -1202,4 +1202,27 @@
 
 ---
 
+### [2025-07-10] 🚀 WDROŻENIE WIELOJĘZYCZNOŚCI (PL/EN) + BACKUP + PANEL ADMINA
+- **Cel:** Wdrożenie profesjonalnej, rozwojowej wielojęzyczności (PL/EN) w portfolio architekta, z zachowaniem bezpieczeństwa, backupów, dokumentacji i retro-minimalistycznego stylu.
+- **Backup:** Utworzono pełny backup po wdrożeniu: `backup/session_20240710_multilang_admin_final/` (index.html, script.js, style.css, content.json, lang/)
+- **Architektura:**
+  - Dodano folder `lang/` z plikami `pl.json`, `en.json` (statyczne tłumaczenia sekcji/menu).
+  - Rozszerzono `content.json` o pola EN (`title_en`, `description_en`, itd.) dla projektów i sekcji „O mnie”.
+  - Przełącznik języka w menu hamburgera (PL/EN), dynamiczne ładowanie tłumaczeń w JS.
+  - Fallback: jeśli pole EN puste, wyświetla się polski tekst.
+- **Panel administratora:**
+  - Rozbudowa o dwie kolumny (PL/EN) przy dodawaniu i edycji projektów oraz sekcji „O mnie”.
+  - Automatyczna migracja danych: pola EN wypełnione polskimi tekstami na start.
+  - Pełna edycja obu języków z poziomu panelu admina.
+- **Testy i poprawki:**
+  - Przetestowano całość, poprawiono format plików lang/*.json (prawidłowy JSON).
+  - Tłumaczenia sekcji i menu podmieniają się dynamicznie.
+  - Wszystkie zmiany backupowane, dokumentowane i wypchnięte na GitHub.
+- **Podsumowanie:**
+  - System wielojęzyczności działa dla nowych i istniejących projektów oraz sekcji „O mnie”.
+  - Panel admina umożliwia pełną edycję obu języków.
+  - Zgodność z roadmapą, bezpieczeństwem i stylem retro-minimalistycznym.
+
+---
+
 </rewritten_file>

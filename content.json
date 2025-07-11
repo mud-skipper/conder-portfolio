@@ -291,7 +291,8 @@
     "software_en": "● MS Office\n● AutoCAD\n● ZWCad\n● Revit\n● Sketchup\n● Photoshop\n● Illustrator\n● Enscape\n● Cursor - code editor",
     "interests_en": "● Lotnictwo,\r\n● Licencja pilota szybowcowego SPL – członek Aeroklubu Warszawskiego [w trakcie wykonywania],\r\n● Licencja pilota samolotowego PPL Private Pilot License – [w trakcie wykonywania],\r\n● Modelarstwo,\r\n● Astronomia,\r\n● Sport: Piłka nożna, F1, Windsurfing, tenis.",
     "experience_years_en": "8+ lat",
-    "location_en": "Warszawa / zdalnie"
+    "location_en": "Warszawa / zdalnie",
+    "field": "aboutText_en"
   },
   "contact": {
     "email": "wojciech@conder-architekt.pl",

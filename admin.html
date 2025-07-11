@@ -2247,24 +2247,38 @@
                             <button class="btn-delete" onclick="deleteProject(${project.id})">Usuń</button>
                         </div>
                     </div>
-                    <div class="project-details">
-                        <div class="project-info">
+                    <div class="project-details" style="display: flex; gap: 32px; flex-wrap: wrap;">
+                        <!-- Kolumna PL -->
+                        <div class="project-info" style="flex: 1 1 300px; min-width: 260px;">
                             ${editableField('Tytuł', 'title', project.title)}
                             ${editableField('Autor', 'author', project.author)}
                             ${editableField('Rodzaj', 'projectType', project.projectType || project.type)}
                             ${editableField('Lokalizacja', 'location', project.location)}
                             ${editableField('Rok', 'year', project.year)}
                             ${editableField('Etap', 'stage', project.stage || project.status)}
-                        </div>
-                        <div class="project-info">
                             ${editableField('Powierzchnia całkowita', 'totalArea', project.totalArea)}
                             ${editableField('Powierzchnia użytkowa', 'usableArea', project.usableArea)}
                             ${editableField('Powierzchnia', 'area', project.area)}
                             ${editableField('Inwestor', 'investor', project.investor)}
                             ${editableField('Projektant', 'designer', project.designer)}
+                            ${editableField('Opis', 'description', project.description, 'textarea', 4)}
+                        </div>
+                        <!-- Kolumna EN -->
+                        <div class="project-info" style="flex: 1 1 300px; min-width: 260px;">
+                            ${editableField('Title (EN)', 'title_en', project.title_en)}
+                            ${editableField('Author (EN)', 'author_en', project.author_en)}
+                            ${editableField('Project type (EN)', 'projectType_en', project.projectType_en || project.type_en)}
+                            ${editableField('Location (EN)', 'location_en', project.location_en)}
+                            ${editableField('Year (EN)', 'year_en', project.year_en)}
+                            ${editableField('Stage (EN)', 'stage_en', project.stage_en || project.status_en)}
+                            ${editableField('Total area (EN)', 'totalArea_en', project.totalArea_en)}
+                            ${editableField('Usable area (EN)', 'usableArea_en', project.usableArea_en)}
+                            ${editableField('Area (EN)', 'area_en', project.area_en)}
+                            ${editableField('Investor (EN)', 'investor_en', project.investor_en)}
+                            ${editableField('Designer (EN)', 'designer_en', project.designer_en)}
+                            ${editableField('Description (EN)', 'description_en', project.description_en, 'textarea', 4)}
                         </div>
                     </div>
-                    ${editableField('Opis', 'description', project.description, 'textarea', 4)}
                     ${imagesHtml}
                     ${addImagesHtml}
                 </div>
