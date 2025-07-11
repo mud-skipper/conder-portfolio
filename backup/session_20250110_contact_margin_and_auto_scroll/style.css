@@ -674,7 +674,7 @@ main {
     width: 300px;
     height: 60px;
     z-index: 10001; /* Wyższy niż lufa (9999) */
-    pointer-events: auto; /* Kolba musi być klikalna dla przycisków */
+    pointer-events: none; /* Kolba nie blokuje kliknięć pod spodem */
     transform: none; /* Blokada skalowania */
     -webkit-transform: none; /* Safari support */
     will-change: transform; /* Optymalizacja dla przeglądarek */
@@ -935,7 +935,7 @@ main {
 
 /* ================= KONIEC MENU BOCZNEGO ================= */
 
-/* ================= PRZYCISKI FOOTER (STABILNA WERSJA) ================= */
+/* ================= PRZYCISKI FOOTER (PRECYZYJNA WERSJA) ================= */
 .footer-buttons {
     position: absolute;
     left: 20px;
@@ -950,12 +950,8 @@ main {
     pointer-events: auto;
     width: auto;
     /* Wymuszenie stałego rozmiaru - nieskalowalne */
-    transform: none !important;
-    -webkit-transform: none !important;
-    /* Dodatkowe zabezpieczenia pozycjonowania */
-    position: absolute !important;
-    left: 20px !important;
-    bottom: 20px !important;
+    transform: none;
+    -webkit-transform: none;
     /* Wymuszenie białego tła w trybie ciemnym */
     color-scheme: light;
     forced-color-adjust: none;
@@ -983,15 +979,8 @@ main {
     position: relative;
     border-radius: 0;
     /* Wymuszenie stałego rozmiaru - nieskalowalne */
-    transform: none !important;
-    -webkit-transform: none !important;
-    /* Dodatkowe zabezpieczenia wymiarów */
-    width: 110px !important;
-    height: 20px !important;
-    min-width: 110px !important;
-    min-height: 20px !important;
-    max-width: 110px !important;
-    max-height: 20px !important;
+    transform: none;
+    -webkit-transform: none;
     /* Wymuszenie białego tła w trybie ciemnym */
     color-scheme: light;
     forced-color-adjust: none;
@@ -1028,7 +1017,22 @@ main {
     width: 18px;
     height: 18px;
 }
-/* USUNIĘTO SKOMPLIKOWANE MEDIA QUERIES - PRZYCISKI ZAWSZE STAŁE */
+@media (max-width: 400px) {
+    .footer-buttons {
+        left: 8px;
+        bottom: 8px;
+        gap: 12px;
+    }
+    .footer-btn {
+        width: 80px;
+        height: 18px;
+        font-size: 12px;
+    }
+    .footer-btn-icon, .footer-btn svg {
+        width: 14px;
+        height: 14px;
+    }
+}
 /* ================= KONIEC PRZYCISKÓW FOOTER ================= */
 
  
