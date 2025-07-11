@@ -776,114 +776,81 @@
         <div id="projects-tab" class="tab-content active">
             <!-- Formularz dodawania projektu -->
         <form id="projectForm">
-            <div style="display: flex; gap: 32px; flex-wrap: wrap;">
-                <!-- Kolumna PL -->
-                <div style="flex: 1 1 300px; min-width: 260px;">
-                    <h3 style="margin-bottom: 10px;">Polski</h3>
-                    <div class="form-group">
-                        <label for="title" class="form-label">Tytuł inwestycji *</label>
-                        <input type="text" id="title" name="title" class="form-input" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="author" class="form-label">Autor *</label>
-                        <input type="text" id="author" name="author" class="form-input" required placeholder="np. Wojciech Conder">
-                    </div>
-                    <div class="form-group">
-                        <label for="projectType" class="form-label">Rodzaj inwestycji *</label>
-                        <input type="text" id="projectType" name="projectType" class="form-input" required placeholder="np. Mieszkaniowy, Biurowy, Handlowy, Kulturalny, Edukacyjny, Hotelowy, Przemysłowy, Infrastrukturalny, Inny">
-                    </div>
-                    <div class="form-group">
-                        <label for="location" class="form-label">Lokalizacja *</label>
-                        <input type="text" id="location" name="location" class="form-input" required placeholder="np. Warszawa, Mokotów">
-                    </div>
-                    <div class="form-group">
-                        <label for="investor" class="form-label">Inwestor</label>
-                        <input type="text" id="investor" name="investor" class="form-input" placeholder="np. PFR Nieruchomości">
-                    </div>
-                    <div class="form-group">
-                        <label for="designer" class="form-label">Projektant / współpraca</label>
-                        <input type="text" id="designer" name="designer" class="form-input" placeholder="np. 22ARCHITEKCI">
-                    </div>
-                    <div class="form-group">
-                        <label for="totalArea" class="form-label">Powierzchnia całkowita</label>
-                        <input type="text" id="totalArea" name="totalArea" class="form-input" placeholder="np. 15,000 m²">
-                    </div>
-                    <div class="form-group">
-                        <label for="usableArea" class="form-label">Powierzchnia użytkowa</label>
-                        <input type="text" id="usableArea" name="usableArea" class="form-input" placeholder="np. 12,000 m²">
-                    </div>
-                    <div class="form-group">
-                        <label for="stage" class="form-label">Etap *</label>
-                        <select id="stage" name="stage" class="form-select" required>
-                            <option value="">Wybierz etap</option>
-                            <option value="koncepcja">Koncepcja</option>
-                            <option value="koncepcja wielobranżowa">Koncepcja wielobranżowa</option>
-                            <option value="projekt budowlany">Projekt budowlany</option>
-                            <option value="projekt wykonawczy">Projekt wykonawczy</option>
-                            <option value="realizacja">Realizacja</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="year" class="form-label">Rok wykonania *</label>
-                        <input type="number" id="year" name="year" class="form-input" required min="1900" max="2030" value="2025">
-                    </div>
-                    <div class="form-group">
-                        <label for="description" class="form-label">Opis *</label>
-                        <textarea id="description" name="description" class="form-textarea" maxlength="1000" required placeholder="Opisz projekt (max 1000 znaków)"></textarea>
-                        <div id="charCounter" class="char-counter">0/1000</div>
-                    </div>
-                </div>
-                <!-- Kolumna EN -->
-                <div style="flex: 1 1 300px; min-width: 260px;">
-                    <h3 style="margin-bottom: 10px;">English</h3>
-                    <div class="form-group">
-                        <label for="title_en" class="form-label">Title</label>
-                        <input type="text" id="title_en" name="title_en" class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label for="author_en" class="form-label">Author</label>
-                        <input type="text" id="author_en" name="author_en" class="form-input" placeholder="e.g. Wojciech Conder">
-                    </div>
-                    <div class="form-group">
-                        <label for="projectType_en" class="form-label">Project type</label>
-                        <input type="text" id="projectType_en" name="projectType_en" class="form-input" placeholder="e.g. Residential, Office, ...">
-                    </div>
-                    <div class="form-group">
-                        <label for="location_en" class="form-label">Location</label>
-                        <input type="text" id="location_en" name="location_en" class="form-input" placeholder="e.g. Warsaw, Mokotów">
-                    </div>
-                    <div class="form-group">
-                        <label for="investor_en" class="form-label">Investor</label>
-                        <input type="text" id="investor_en" name="investor_en" class="form-input" placeholder="e.g. PFR Real Estate">
-                    </div>
-                    <div class="form-group">
-                        <label for="designer_en" class="form-label">Designer / collaboration</label>
-                        <input type="text" id="designer_en" name="designer_en" class="form-input" placeholder="e.g. 22ARCHITEKCI">
-                    </div>
-                    <div class="form-group">
-                        <label for="totalArea_en" class="form-label">Total area</label>
-                        <input type="text" id="totalArea_en" name="totalArea_en" class="form-input" placeholder="e.g. 15,000 m²">
-                    </div>
-                    <div class="form-group">
-                        <label for="usableArea_en" class="form-label">Usable area</label>
-                        <input type="text" id="usableArea_en" name="usableArea_en" class="form-input" placeholder="e.g. 12,000 m²">
-                    </div>
-                    <div class="form-group">
-                        <label for="stage_en" class="form-label">Stage</label>
-                        <input type="text" id="stage_en" name="stage_en" class="form-input" placeholder="e.g. Concept, Construction, Realization">
-                    </div>
-                    <div class="form-group">
-                        <label for="year_en" class="form-label">Year</label>
-                        <input type="number" id="year_en" name="year_en" class="form-input" min="1900" max="2030" value="2025">
-                    </div>
-                    <div class="form-group">
-                        <label for="description_en" class="form-label">Description</label>
-                        <textarea id="description_en" name="description_en" class="form-textarea" maxlength="1000" placeholder="Describe the project (max 1000 characters)"></textarea>
-                        <div id="charCounter_en" class="char-counter">0/1000</div>
-                    </div>
-                </div>
+            <!-- Tytuł inwestycji -->
+            <div class="form-group">
+                <label for="title" class="form-label">Tytuł inwestycji *</label>
+                <input type="text" id="title" name="title" class="form-input" required>
             </div>
-            <!-- Zdjęcia z systemem kadrowania (wspólne dla obu języków) -->
+
+            <!-- Autor -->
+            <div class="form-group">
+                <label for="author" class="form-label">Autor *</label>
+                <input type="text" id="author" name="author" class="form-input" required placeholder="np. Wojciech Conder">
+            </div>
+
+            <!-- Rodzaj inwestycji -->
+            <div class="form-group">
+                <label for="projectType" class="form-label">Rodzaj inwestycji *</label>
+                <input type="text" id="projectType" name="projectType" class="form-input" required placeholder="np. Mieszkaniowy, Biurowy, Handlowy, Kulturalny, Edukacyjny, Hotelowy, Przemysłowy, Infrastrukturalny, Inny">
+            </div>
+
+            <!-- Lokalizacja -->
+            <div class="form-group">
+                <label for="location" class="form-label">Lokalizacja *</label>
+                <input type="text" id="location" name="location" class="form-input" required placeholder="np. Warszawa, Mokotów">
+            </div>
+
+            <!-- Inwestor -->
+            <div class="form-group">
+                <label for="investor" class="form-label">Inwestor</label>
+                <input type="text" id="investor" name="investor" class="form-input" placeholder="np. PFR Nieruchomości">
+            </div>
+
+            <!-- Projektant / współpraca -->
+            <div class="form-group">
+                <label for="designer" class="form-label">Projektant / współpraca</label>
+                <input type="text" id="designer" name="designer" class="form-input" placeholder="np. 22ARCHITEKCI">
+            </div>
+
+            <!-- Powierzchnia całkowita -->
+            <div class="form-group">
+                <label for="totalArea" class="form-label">Powierzchnia całkowita</label>
+                <input type="text" id="totalArea" name="totalArea" class="form-input" placeholder="np. 15,000 m²">
+            </div>
+
+            <!-- Powierzchnia użytkowa -->
+            <div class="form-group">
+                <label for="usableArea" class="form-label">Powierzchnia użytkowa</label>
+                <input type="text" id="usableArea" name="usableArea" class="form-input" placeholder="np. 12,000 m²">
+            </div>
+
+            <!-- Etap -->
+            <div class="form-group">
+                <label for="stage" class="form-label">Etap *</label>
+                <select id="stage" name="stage" class="form-select" required>
+                    <option value="">Wybierz etap</option>
+                    <option value="koncepcja">Koncepcja</option>
+                    <option value="koncepcja wielobranżowa">Koncepcja wielobranżowa</option>
+                    <option value="projekt budowlany">Projekt budowlany</option>
+                    <option value="projekt wykonawczy">Projekt wykonawczy</option>
+                    <option value="realizacja">Realizacja</option>
+                </select>
+            </div>
+
+            <!-- Rok wykonania -->
+            <div class="form-group">
+                <label for="year" class="form-label">Rok wykonania *</label>
+                <input type="number" id="year" name="year" class="form-input" required min="1900" max="2030" value="2025">
+            </div>
+
+            <!-- Opis -->
+            <div class="form-group">
+                <label for="description" class="form-label">Opis *</label>
+                <textarea id="description" name="description" class="form-textarea" maxlength="1000" required placeholder="Opisz projekt (max 1000 znaków)"></textarea>
+                <div id="charCounter" class="char-counter">0/1000</div>
+            </div>
+
+            <!-- Zdjęcia z systemem kadrowania -->
             <div class="form-group">
                 <label for="images" class="form-label">Zdjęcia (3-20 plików)</label>
                 <div class="file-input-container">
@@ -917,9 +884,10 @@
                     </div>
                 </div>
             </div>
-            <!-- Przycisk wysłania/aktualizacji -->
+
+            <!-- Przycisk wysłania -->
             <button type="submit" class="submit-btn" id="submitBtn">
-                Wyślij / Aktualizuj projekt
+                Wyślij do conder-portfolio
             </button>
         </form>
 
@@ -936,137 +904,81 @@
                 <h2 class="admin-title">Sekcja "O mnie"</h2>
                 <p class="admin-subtitle">Edytuj informacje o architekcie</p>
             </div>
-            <div id="aboutFields" style="display: flex; gap: 32px; flex-wrap: wrap;">
-                <!-- Kolumna PL -->
-                <div style="flex: 1 1 300px; min-width: 260px;">
-                    <h3 style="margin-bottom: 10px;">Polski</h3>
-                    <!-- Zdjęcie profilowe (wspólne) -->
-                    <div class="form-group">
-                        <label for="profileImage" class="form-label">Zdjęcie profilowe</label>
-                        <div class="file-input-container">
-                            <input type="file" id="profileImage" name="profileImage" class="file-input" accept=".jpg,.jpeg,.png">
-                            <label for="profileImage" class="file-input-label">📷 Kliknij aby wybrać zdjęcie profilowe (JPG/PNG)</label>
-                        </div>
-                        <div id="profileImagePreview" class="file-list" style="display: none;"></div>
-                        <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('profileImage')">Aktualizuj zdjęcie</button>
-                        <div id="status-profileImage" class="status-message" style="display:none;"></div>
+            <div id="aboutFields">
+                <!-- Zdjęcie profilowe -->
+                <div class="form-group">
+                    <label for="profileImage" class="form-label">Zdjęcie profilowe</label>
+                    <div class="file-input-container">
+                        <input type="file" id="profileImage" name="profileImage" class="file-input" accept=".jpg,.jpeg,.png">
+                        <label for="profileImage" class="file-input-label">📷 Kliknij aby wybrać zdjęcie profilowe (JPG/PNG)</label>
                     </div>
-                    <div class="form-group">
-                        <label for="aboutText" class="form-label">Opis "O mnie" *</label>
-                        <textarea id="aboutText" name="aboutText" class="form-textarea" maxlength="1000"></textarea>
-                        <div id="aboutCharCounter" class="char-counter">0/1000</div>
-                        <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('aboutText')">Aktualizuj opis</button>
-                        <div id="status-aboutText" class="status-message" style="display:none;"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="education" class="form-label">Edukacja</label>
-                        <textarea id="education" name="education" class="form-textarea" maxlength="2000"></textarea>
-                        <div id="educationCharCounter" class="char-counter">0/2000</div>
-                        <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('education')">Aktualizuj edukację</button>
-                        <div id="status-education" class="status-message" style="display:none;"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="experience" class="form-label">Doświadczenie</label>
-                        <textarea id="experience" name="experience" class="form-textarea" maxlength="2000"></textarea>
-                        <div id="experienceCharCounter" class="char-counter">0/2000</div>
-                        <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('experience')">Aktualizuj doświadczenie</button>
-                        <div id="status-experience" class="status-message" style="display:none;"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="achievements" class="form-label">Kluczowe osiągnięcia</label>
-                        <textarea id="achievements" name="achievements" class="form-textarea" maxlength="2000"></textarea>
-                        <div id="achievementsCharCounter" class="char-counter">0/2000</div>
-                        <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('achievements')">Aktualizuj osiągnięcia</button>
-                        <div id="status-achievements" class="status-message" style="display:none;"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="collaboration" class="form-label">Współpraca</label>
-                        <textarea id="collaboration" name="collaboration" class="form-textarea" maxlength="1000"></textarea>
-                        <div id="collaborationCharCounter" class="char-counter">0/1000</div>
-                        <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('collaboration')">Aktualizuj współpracę</button>
-                        <div id="status-collaboration" class="status-message" style="display:none;"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="skills" class="form-label">Umiejętności</label>
-                        <textarea id="skills" name="skills" class="form-textarea" maxlength="2000"></textarea>
-                        <div id="skillsCharCounter" class="char-counter">0/2000</div>
-                        <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('skills')">Aktualizuj umiejętności</button>
-                        <div id="status-skills" class="status-message" style="display:none;"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="software" class="form-label">Obsługiwane programy komputerowe</label>
-                        <textarea id="software" name="software" class="form-textarea" maxlength="1000"></textarea>
-                        <div id="softwareCharCounter" class="char-counter">0/1000</div>
-                        <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('software')">Aktualizuj programy</button>
-                        <div id="status-software" class="status-message" style="display:none;"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="interests" class="form-label">Zainteresowania</label>
-                        <textarea id="interests" name="interests" class="form-textarea" maxlength="1000"></textarea>
-                        <div id="interestsCharCounter" class="char-counter">0/1000</div>
-                        <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('interests')">Aktualizuj zainteresowania</button>
-                        <div id="status-interests" class="status-message" style="display:none;"></div>
-                    </div>
+                    <div id="profileImagePreview" class="file-list" style="display: none;"></div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('profileImage')">Aktualizuj zdjęcie</button>
+                    <div id="status-profileImage" class="status-message" style="display:none;"></div>
                 </div>
-                <!-- Kolumna EN -->
-                <div style="flex: 1 1 300px; min-width: 260px;">
-                    <h3 style="margin-bottom: 10px;">English</h3>
-                    <div class="form-group">
-                        <label for="aboutText_en" class="form-label">About (EN)</label>
-                        <textarea id="aboutText_en" name="aboutText_en" class="form-textarea" maxlength="1000"></textarea>
-                        <div id="aboutCharCounter_en" class="char-counter">0/1000</div>
-                        <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('aboutText_en')">Update about</button>
-                        <div id="status-aboutText_en" class="status-message" style="display:none;"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="education_en" class="form-label">Education (EN)</label>
-                        <textarea id="education_en" name="education_en" class="form-textarea" maxlength="2000"></textarea>
-                        <div id="educationCharCounter_en" class="char-counter">0/2000</div>
-                        <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('education_en')">Update education</button>
-                        <div id="status-education_en" class="status-message" style="display:none;"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="experience_en" class="form-label">Experience (EN)</label>
-                        <textarea id="experience_en" name="experience_en" class="form-textarea" maxlength="2000"></textarea>
-                        <div id="experienceCharCounter_en" class="char-counter">0/2000</div>
-                        <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('experience_en')">Update experience</button>
-                        <div id="status-experience_en" class="status-message" style="display:none;"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="achievements_en" class="form-label">Achievements (EN)</label>
-                        <textarea id="achievements_en" name="achievements_en" class="form-textarea" maxlength="2000"></textarea>
-                        <div id="achievementsCharCounter_en" class="char-counter">0/2000</div>
-                        <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('achievements_en')">Update achievements</button>
-                        <div id="status-achievements_en" class="status-message" style="display:none;"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="collaboration_en" class="form-label">Collaboration (EN)</label>
-                        <textarea id="collaboration_en" name="collaboration_en" class="form-textarea" maxlength="1000"></textarea>
-                        <div id="collaborationCharCounter_en" class="char-counter">0/1000</div>
-                        <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('collaboration_en')">Update collaboration</button>
-                        <div id="status-collaboration_en" class="status-message" style="display:none;"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="skills_en" class="form-label">Skills (EN)</label>
-                        <textarea id="skills_en" name="skills_en" class="form-textarea" maxlength="2000"></textarea>
-                        <div id="skillsCharCounter_en" class="char-counter">0/2000</div>
-                        <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('skills_en')">Update skills</button>
-                        <div id="status-skills_en" class="status-message" style="display:none;"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="software_en" class="form-label">Software (EN)</label>
-                        <textarea id="software_en" name="software_en" class="form-textarea" maxlength="1000"></textarea>
-                        <div id="softwareCharCounter_en" class="char-counter">0/1000</div>
-                        <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('software_en')">Update software</button>
-                        <div id="status-software_en" class="status-message" style="display:none;"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="interests_en" class="form-label">Interests (EN)</label>
-                        <textarea id="interests_en" name="interests_en" class="form-textarea" maxlength="1000"></textarea>
-                        <div id="interestsCharCounter_en" class="char-counter">0/1000</div>
-                        <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('interests_en')">Update interests</button>
-                        <div id="status-interests_en" class="status-message" style="display:none;"></div>
-                    </div>
+                <!-- Opis "O mnie" -->
+                <div class="form-group">
+                    <label for="aboutText" class="form-label">Opis "O mnie" *</label>
+                    <textarea id="aboutText" name="aboutText" class="form-textarea" maxlength="1000"></textarea>
+                    <div id="aboutCharCounter" class="char-counter">0/1000</div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('aboutText')">Aktualizuj opis</button>
+                    <div id="status-aboutText" class="status-message" style="display:none;"></div>
+                </div>
+                <!-- Edukacja -->
+                <div class="form-group">
+                    <label for="education" class="form-label">Edukacja</label>
+                    <textarea id="education" name="education" class="form-textarea" maxlength="2000"></textarea>
+                    <div id="educationCharCounter" class="char-counter">0/2000</div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('education')">Aktualizuj edukację</button>
+                    <div id="status-education" class="status-message" style="display:none;"></div>
+                </div>
+                <!-- Doświadczenie -->
+                <div class="form-group">
+                    <label for="experience" class="form-label">Doświadczenie</label>
+                    <textarea id="experience" name="experience" class="form-textarea" maxlength="2000"></textarea>
+                    <div id="experienceCharCounter" class="char-counter">0/2000</div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('experience')">Aktualizuj doświadczenie</button>
+                    <div id="status-experience" class="status-message" style="display:none;"></div>
+                </div>
+                <!-- Kluczowe osiągnięcia -->
+                <div class="form-group">
+                    <label for="achievements" class="form-label">Kluczowe osiągnięcia</label>
+                    <textarea id="achievements" name="achievements" class="form-textarea" maxlength="2000"></textarea>
+                    <div id="achievementsCharCounter" class="char-counter">0/2000</div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('achievements')">Aktualizuj osiągnięcia</button>
+                    <div id="status-achievements" class="status-message" style="display:none;"></div>
+                </div>
+                <!-- Współpraca -->
+                <div class="form-group">
+                    <label for="collaboration" class="form-label">Współpraca</label>
+                    <textarea id="collaboration" name="collaboration" class="form-textarea" maxlength="1000"></textarea>
+                    <div id="collaborationCharCounter" class="char-counter">0/1000</div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('collaboration')">Aktualizuj współpracę</button>
+                    <div id="status-collaboration" class="status-message" style="display:none;"></div>
+                </div>
+                <!-- Umiejętności -->
+                <div class="form-group">
+                    <label for="skills" class="form-label">Umiejętności</label>
+                    <textarea id="skills" name="skills" class="form-textarea" maxlength="2000"></textarea>
+                    <div id="skillsCharCounter" class="char-counter">0/2000</div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('skills')">Aktualizuj umiejętności</button>
+                    <div id="status-skills" class="status-message" style="display:none;"></div>
+                </div>
+                <!-- Obsługiwane programy komputerowe -->
+                <div class="form-group">
+                    <label for="software" class="form-label">Obsługiwane programy komputerowe</label>
+                    <textarea id="software" name="software" class="form-textarea" maxlength="1000"></textarea>
+                    <div id="softwareCharCounter" class="char-counter">0/1000</div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('software')">Aktualizuj programy</button>
+                    <div id="status-software" class="status-message" style="display:none;"></div>
+                </div>
+                <!-- Zainteresowania -->
+                <div class="form-group">
+                    <label for="interests" class="form-label">Zainteresowania</label>
+                    <textarea id="interests" name="interests" class="form-textarea" maxlength="1000"></textarea>
+                    <div id="interestsCharCounter" class="char-counter">0/1000</div>
+                    <button type="button" class="submit-btn" style="margin-top:10px;" onclick="updateAboutField('interests')">Aktualizuj zainteresowania</button>
+                    <div id="status-interests" class="status-message" style="display:none;"></div>
                 </div>
             </div>
             
@@ -2020,30 +1932,11 @@
                     // Zbierz dane z formularza
                     const formData = new FormData(form);
                     
-                    // Dodaj pola PL
+                    // Dodaj nowe pola do formData
                     formData.append('author', document.getElementById('author').value);
                     formData.append('projectType', document.getElementById('projectType').value);
                     formData.append('location', document.getElementById('location').value);
                     formData.append('year', document.getElementById('year').value);
-                    formData.append('title', document.getElementById('title').value);
-                    formData.append('description', document.getElementById('description').value);
-                    formData.append('investor', document.getElementById('investor').value);
-                    formData.append('designer', document.getElementById('designer').value);
-                    formData.append('totalArea', document.getElementById('totalArea').value);
-                    formData.append('usableArea', document.getElementById('usableArea').value);
-                    formData.append('stage', document.getElementById('stage').value);
-                    // Dodaj pola EN
-                    formData.append('author_en', document.getElementById('author_en').value);
-                    formData.append('projectType_en', document.getElementById('projectType_en').value);
-                    formData.append('location_en', document.getElementById('location_en').value);
-                    formData.append('year_en', document.getElementById('year_en').value);
-                    formData.append('title_en', document.getElementById('title_en').value);
-                    formData.append('description_en', document.getElementById('description_en').value);
-                    formData.append('investor_en', document.getElementById('investor_en').value);
-                    formData.append('designer_en', document.getElementById('designer_en').value);
-                    formData.append('totalArea_en', document.getElementById('totalArea_en').value);
-                    formData.append('usableArea_en', document.getElementById('usableArea_en').value);
-                    formData.append('stage_en', document.getElementById('stage_en').value);
                     
                     // Przygotuj wszystkie pliki w odpowiedniej kolejności z flagami
                     const allFiles = [];
@@ -2931,30 +2824,88 @@
 
         // ===== Aktualizacja pola "O mnie" =====
         async function updateAboutField(field) {
-            const value = document.getElementById(field).value;
-            const statusDiv = document.getElementById('status-' + field);
+            const input = document.getElementById(field);
+            const statusDiv = document.getElementById(`status-${field}`);
+            
+            if (!input || !statusDiv) {
+                console.error('Nie znaleziono elementu:', field);
+                return;
+            }
+            
+            // Pokaż status
+            statusDiv.style.display = 'inline';
+            statusDiv.textContent = 'Aktualizuję...';
+            statusDiv.className = 'status-message';
+            
             try {
-                const response = await fetch('/api/updateAbout', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ field, value })
-                });
-                const result = await response.json();
-                if (result.success) {
-                    statusDiv.textContent = 'Zaktualizowano';
-                    statusDiv.className = 'status-message status-success';
-                    statusDiv.style.display = 'inline-block';
+                // Sprawdź czy serwer jest dostępny
+                const serverUrl = window.location.port === '3000' ? '' : 'http://localhost:3000';
+                
+                let response;
+                
+                // Specjalna obsługa dla zdjęcia profilowego
+                if (field === 'profileImage') {
+                    const file = input.files[0];
+                    if (!file) {
+                        statusDiv.textContent = 'Wybierz plik!';
+                        statusDiv.className = 'status-message status-error';
+                        setTimeout(() => { statusDiv.style.display = 'none'; }, 3000);
+                        return;
+                    }
+                    
+                    const formData = new FormData();
+                    formData.append('profileImage', file);
+                    
+                    response = await fetch(`${serverUrl}/api/updateAbout`, {
+                        method: 'POST',
+                        body: formData
+                    });
                 } else {
-                    statusDiv.textContent = 'Błąd: ' + result.message;
+                    // Mapowanie pól HTML na pola JSON
+                    const fieldMapping = {
+                        'aboutText': 'bio',
+                        'profileImage': 'profileImage',
+                        'education': 'education',
+                        'experience': 'experience',
+                        'achievements': 'achievements',
+                        'collaboration': 'collaboration',
+                        'skills': 'skills',
+                        'software': 'software',
+                        'interests': 'interests'
+                    };
+                    
+                    const jsonField = fieldMapping[field] || field;
+                    // Zachowaj znaki nowej linii - zamień \n na \r\n dla spójności z backendem
+                    const value = input.value.replace(/\n/g, '\r\n');
+                    
+                    response = await fetch(`${serverUrl}/api/updateAbout`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ [jsonField]: value })
+                    });
+                }
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    statusDiv.textContent = 'Zaktualizowano!';
+                    statusDiv.className = 'status-message status-success';
+                } else {
+                    statusDiv.textContent = 'Błąd: ' + (result.message || 'Nieznany błąd');
                     statusDiv.className = 'status-message status-error';
-                    statusDiv.style.display = 'inline-block';
                 }
             } catch (error) {
+                console.error('Błąd wysyłania:', error);
                 statusDiv.textContent = 'Błąd połączenia z serwerem';
                 statusDiv.className = 'status-message status-error';
-                statusDiv.style.display = 'inline-block';
             }
-            setTimeout(() => { statusDiv.style.display = 'none'; }, 4000);
+            
+            // Ukryj status po 3 sekundach
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 3000);
         }
     </script>
 </body>

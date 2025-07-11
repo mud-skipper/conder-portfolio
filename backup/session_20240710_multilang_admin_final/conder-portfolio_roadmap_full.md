@@ -1190,16 +1190,4 @@
 
 ---
 
-### [2025-07-10] WDROŻENIE PEŁNEJ WIELOJĘZYCZNOŚCI W PANELU ADMINA
-- **Backup:** Wykonano backup przed i po wdrożeniu (`session_20240710_multilang_admin`, `session_20240710_multilang_admin_final`).
-- **Migracja danych:** Automatycznie dodano pola EN do wszystkich projektów i sekcji 'O mnie' w content.json (skopiowano polskie teksty jako domyślne).
-- **Panel admina:**
-  - Rozbudowano formularz projektów o dwie kolumny (PL/EN) – wszystkie pola edytowalne w obu językach.
-  - Sekcja "O mnie" również w dwóch kolumnach (PL/EN) – edycja i aktualizacja każdego pola osobno.
-  - Logika JS obsługuje oba języki przy zapisie i odczycie.
-- **Testy:** Przetestowano dodawanie, edycję, zapis i odczyt danych w obu językach. Fallback działa – jeśli pole EN puste, wyświetla się polski tekst.
-- **Status:** Wdrożenie zakończone, gotowe do testów na urządzeniach mobilnych.
-
----
-
 </rewritten_file>
