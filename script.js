@@ -356,30 +356,11 @@ function safeScrollToSection(sectionId) {
         return;
     }
 
-    // Specjalna obsługa dla sekcji kontakt - może wymagać dodatkowego czasu
+    // Specjalna obsługa dla sekcji kontakt - prostsze sprawdzenie
     if (sectionId === 'contact') {
-        // Sprawdź czy sekcja kontakt jest w pełni wyrenderowana
+        // Sprawdź czy sekcja kontakt jest w pełni załadowana
         const contactSection = document.querySelector('.contact-section');
         if (contactSection && contactSection.offsetHeight < 100) {
-            setTimeout(() => safeScrollToSection(sectionId), 150);
-            return;
-        }
-
-        // Dodatkowe sprawdzenie czy strona jest w pełni załadowana
-        if (document.readyState !== 'complete' || window.scrollY === 0) {
-            setTimeout(() => safeScrollToSection(sectionId), 200);
-            return;
-        }
-
-        // Dodatkowe sprawdzenie czy sekcja kontakt jest w pełni pozycjonowana
-        const contactRect = contactSection.getBoundingClientRect();
-        if (contactRect.height < 400) {
-            setTimeout(() => safeScrollToSection(sectionId), 100);
-            return;
-        }
-
-        // Dodatkowe sprawdzenie czy sekcja kontakt jest w pełni załadowana
-        if (contactSection.offsetTop === 0) {
             setTimeout(() => safeScrollToSection(sectionId), 100);
             return;
         }
