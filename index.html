@@ -24,13 +24,11 @@
     <meta property="og:type" content="website">
 </head>
 <body>
-    <!-- WORKAROUND: Białe tło SVG na najniższej warstwie (dark mode fix) -->
-    <svg id="white-bg-svg" width="100vw" height="100vh" viewBox="0 0 100 100" preserveAspectRatio="none" style="position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:0;pointer-events:none;display:block;"><rect x="0" y="0" width="100" height="100" fill="#fff"/></svg>
-
-    <!-- ================= HEADER: Lufa (prosty prostokąt 40px wysokości, cała szerokość) ================= -->
+    <!-- ================= HEADER: Lufa (SVG prostokąt 40px wysokości, cała szerokość) ================= -->
     <div class="lufa-header">
-      <!-- SVG lufy (jeśli jest) powinien mieć preserveAspectRatio="none" i fill="#fff" -->
-      <!-- (obecnie lufa to div, więc nie dotyczy) -->
+      <svg width="100vw" height="40" viewBox="0 0 100 40" preserveAspectRatio="none" style="width:100vw;height:40px;display:block;" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="100" height="40" fill="#fff" />
+      </svg>
     </div>
     <!-- ================= KOLBA: SVG poligon w prawym górnym rogu ================= -->
     <div class="kolba-header">
@@ -48,8 +46,12 @@
     
     <!-- Główna zawartość -->
     <main class="main-content">
-        <!-- ================= FOOTER: Lufa (prosty prostokąt 20px wysokości, cała szerokość) ================= -->
-        <div class="lufa-footer"></div>
+        <!-- ================= FOOTER: Lufa (SVG prostokąt 20px wysokości, cała szerokość) ================= -->
+        <div class="lufa-footer">
+          <svg width="100vw" height="20" viewBox="0 0 100 20" preserveAspectRatio="none" style="width:100vw;height:20px;display:block;" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="100" height="20" fill="#fff" />
+          </svg>
+        </div>
         <!-- ================= KOLBA: SVG poligon w lewym dolnym rogu (nad lufą) ================= -->
         <div class="kolba-footer">
           <svg width="300" height="60" viewBox="0 0 300 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet">
