@@ -605,7 +605,19 @@ app.post('/api/updateAbout', upload.single('profileImage'), async (req, res) => 
                     'Adaptacje zabytków',
                     'Zrównoważone budownictwo'
                 ],
-                location: content.about?.location || 'Warszawa / zdalnie'
+                location: content.about?.location || 'Warszawa / zdalnie',
+                // EN FIELDS
+                title_en: req.body.title_en || content.about?.title_en || '',
+                bio_en: req.body.aboutText_en || content.about?.bio_en || '',
+                education_en: req.body.education_en || content.about?.education_en || '',
+                experience_en: req.body.experience_en || content.about?.experience_en || '',
+                achievements_en: req.body.achievements_en || content.about?.achievements_en || '',
+                collaboration_en: req.body.collaboration_en || content.about?.collaboration_en || '',
+                skills_en: req.body.skills_en || content.about?.skills_en || '',
+                software_en: req.body.software_en || content.about?.software_en || '',
+                interests_en: req.body.interests_en || content.about?.interests_en || '',
+                experience_years_en: req.body.experience_years_en || content.about?.experience_years_en || '',
+                location_en: req.body.location_en || content.about?.location_en || ''
             };
             
             // Przetwórz zdjęcie profilowe jeśli zostało przesłane

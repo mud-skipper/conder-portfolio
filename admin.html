@@ -1109,6 +1109,14 @@
             initAboutFormSubmission();
             loadProjectsList();
             loadAboutData();
+            initAboutCharCounterEN();
+            initEducationCharCounterEN();
+            initExperienceCharCounterEN();
+            initAchievementsCharCounterEN();
+            initCollaborationCharCounterEN();
+            initSkillsCharCounterEN();
+            initSoftwareCharCounterEN();
+            initInterestsCharCounterEN();
         });
 
         // ===== SYSTEM TABÓW =====
@@ -1313,6 +1321,135 @@
             });
         }
 
+        // ===== LICZNIKI ZNAKÓW DLA EN =====
+        function initAboutCharCounterEN() {
+            const aboutText_en = document.getElementById('aboutText_en');
+            const aboutCharCounter_en = document.getElementById('aboutCharCounter_en');
+            aboutText_en.addEventListener('input', function() {
+                const length = this.value.length;
+                const maxLength = 1000;
+                aboutCharCounter_en.textContent = `${length}/${maxLength}`;
+                if (length >= maxLength) {
+                    aboutCharCounter_en.className = 'char-counter error';
+                } else if (length >= maxLength * 0.8) {
+                    aboutCharCounter_en.className = 'char-counter warning';
+                } else {
+                    aboutCharCounter_en.className = 'char-counter';
+                }
+            });
+        }
+        function initEducationCharCounterEN() {
+            const education_en = document.getElementById('education_en');
+            const educationCharCounter_en = document.getElementById('educationCharCounter_en');
+            education_en.addEventListener('input', function() {
+                const length = this.value.length;
+                const maxLength = 2000;
+                educationCharCounter_en.textContent = `${length}/${maxLength}`;
+                if (length >= maxLength) {
+                    educationCharCounter_en.className = 'char-counter error';
+                } else if (length >= maxLength * 0.8) {
+                    educationCharCounter_en.className = 'char-counter warning';
+                } else {
+                    educationCharCounter_en.className = 'char-counter';
+                }
+            });
+        }
+        function initExperienceCharCounterEN() {
+            const experience_en = document.getElementById('experience_en');
+            const experienceCharCounter_en = document.getElementById('experienceCharCounter_en');
+            experience_en.addEventListener('input', function() {
+                const length = this.value.length;
+                const maxLength = 2000;
+                experienceCharCounter_en.textContent = `${length}/${maxLength}`;
+                if (length >= maxLength) {
+                    experienceCharCounter_en.className = 'char-counter error';
+                } else if (length >= maxLength * 0.8) {
+                    experienceCharCounter_en.className = 'char-counter warning';
+                } else {
+                    experienceCharCounter_en.className = 'char-counter';
+                }
+            });
+        }
+        function initAchievementsCharCounterEN() {
+            const achievements_en = document.getElementById('achievements_en');
+            const achievementsCharCounter_en = document.getElementById('achievementsCharCounter_en');
+            achievements_en.addEventListener('input', function() {
+                const length = this.value.length;
+                const maxLength = 2000;
+                achievementsCharCounter_en.textContent = `${length}/${maxLength}`;
+                if (length >= maxLength) {
+                    achievementsCharCounter_en.className = 'char-counter error';
+                } else if (length >= maxLength * 0.8) {
+                    achievementsCharCounter_en.className = 'char-counter warning';
+                } else {
+                    achievementsCharCounter_en.className = 'char-counter';
+                }
+            });
+        }
+        function initCollaborationCharCounterEN() {
+            const collaboration_en = document.getElementById('collaboration_en');
+            const collaborationCharCounter_en = document.getElementById('collaborationCharCounter_en');
+            collaboration_en.addEventListener('input', function() {
+                const length = this.value.length;
+                const maxLength = 1000;
+                collaborationCharCounter_en.textContent = `${length}/${maxLength}`;
+                if (length >= maxLength) {
+                    collaborationCharCounter_en.className = 'char-counter error';
+                } else if (length >= maxLength * 0.8) {
+                    collaborationCharCounter_en.className = 'char-counter warning';
+                } else {
+                    collaborationCharCounter_en.className = 'char-counter';
+                }
+            });
+        }
+        function initSkillsCharCounterEN() {
+            const skills_en = document.getElementById('skills_en');
+            const skillsCharCounter_en = document.getElementById('skillsCharCounter_en');
+            skills_en.addEventListener('input', function() {
+                const length = this.value.length;
+                const maxLength = 2000;
+                skillsCharCounter_en.textContent = `${length}/${maxLength}`;
+                if (length >= maxLength) {
+                    skillsCharCounter_en.className = 'char-counter error';
+                } else if (length >= maxLength * 0.8) {
+                    skillsCharCounter_en.className = 'char-counter warning';
+                } else {
+                    skillsCharCounter_en.className = 'char-counter';
+                }
+            });
+        }
+        function initSoftwareCharCounterEN() {
+            const software_en = document.getElementById('software_en');
+            const softwareCharCounter_en = document.getElementById('softwareCharCounter_en');
+            software_en.addEventListener('input', function() {
+                const length = this.value.length;
+                const maxLength = 1000;
+                softwareCharCounter_en.textContent = `${length}/${maxLength}`;
+                if (length >= maxLength) {
+                    softwareCharCounter_en.className = 'char-counter error';
+                } else if (length >= maxLength * 0.8) {
+                    softwareCharCounter_en.className = 'char-counter warning';
+                } else {
+                    softwareCharCounter_en.className = 'char-counter';
+                }
+            });
+        }
+        function initInterestsCharCounterEN() {
+            const interests_en = document.getElementById('interests_en');
+            const interestsCharCounter_en = document.getElementById('interestsCharCounter_en');
+            interests_en.addEventListener('input', function() {
+                const length = this.value.length;
+                const maxLength = 1000;
+                interestsCharCounter_en.textContent = `${length}/${maxLength}`;
+                if (length >= maxLength) {
+                    interestsCharCounter_en.className = 'char-counter error';
+                } else if (length >= maxLength * 0.8) {
+                    interestsCharCounter_en.className = 'char-counter warning';
+                } else {
+                    interestsCharCounter_en.className = 'char-counter';
+                }
+            });
+        }
         // ===== WALIDACJA PLIKÓW =====
         function initFileValidation() {
             const fileInput = document.getElementById('images');
@@ -2970,6 +3107,34 @@
             }
             setTimeout(() => { statusDiv.style.display = 'none'; }, 4000);
         }
+
+        // ===== ŁADOWANIE DANYCH EN DO FORMULARZA =====
+        async function loadAboutDataToForm() {
+            try {
+                const response = await fetch('content.json?t=' + new Date().getTime());
+                const data = await response.json();
+                if (data.about) {
+                    document.getElementById('aboutText').value = data.about.bio || '';
+                    document.getElementById('education').value = data.about.education || '';
+                    document.getElementById('experience').value = data.about.experience || '';
+                    document.getElementById('achievements').value = data.about.achievements || '';
+                    document.getElementById('collaboration').value = data.about.collaboration || '';
+                    document.getElementById('skills').value = data.about.skills || '';
+                    document.getElementById('software').value = data.about.software || '';
+                    document.getElementById('interests').value = data.about.interests || '';
+                    // EN
+                    document.getElementById('aboutText_en').value = data.about.bio_en || '';
+                    document.getElementById('education_en').value = data.about.education_en || '';
+                    document.getElementById('experience_en').value = data.about.experience_en || '';
+                    document.getElementById('achievements_en').value = data.about.achievements_en || '';
+                    document.getElementById('collaboration_en').value = data.about.collaboration_en || '';
+                    document.getElementById('skills_en').value = data.about.skills_en || '';
+                    document.getElementById('software_en').value = data.about.software_en || '';
+                    document.getElementById('interests_en').value = data.about.interests_en || '';
+                }
+            } catch (e) { console.error('Błąd ładowania danych about:', e); }
+        }
+        document.addEventListener('DOMContentLoaded', loadAboutDataToForm);
     </script>
 </body>
 </html> 
