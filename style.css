@@ -521,7 +521,7 @@ section {
     width: 100%;
     background: var(--color-white);
     padding-top: 36px;
-    padding-bottom: 400px; /* Zwiększone z 200px do 400px - więcej przestrzeni pod kontaktem */
+    padding-bottom: 405px; /* Zwiększone z 400px o 5px dla idealnego pozycjonowania */
     /* Dodatkowe właściwości dla lepszej kompatybilności */
     position: relative;
     transform: translateZ(0); /* Hardware acceleration */
