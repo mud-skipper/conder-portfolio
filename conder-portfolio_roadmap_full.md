@@ -1263,4 +1263,17 @@
 
 ---
 
+### [2025-07-11] Synchronizacja stylów lufy i kolby (kolory, tryb jasny)
+- **Cel:** Zapewnienie identycznych wymuszeń kolorów i trybu jasnego dla lufy (header/footer) i kolby (header/footer), aby wszystkie te elementy wyglądały identycznie niezależnie od trybu systemowego.
+- **Zakres:**
+  - Dodano do SVG lufy (header/footer) style: `color-scheme: light !important;` oraz `forced-color-adjust: none !important;` (tak jak w kolbie)
+  - Ujednolicono wymuszenia kolorów i trybu jasnego w CSS dla `.lufa-header`, `.lufa-footer`, `.kolba-header`, `.kolba-footer` oraz ich SVG
+  - **Cień**: Pozostawiono tylko dla lufy (header/footer), kolba bez cienia
+  - **Responsywność:** Lufa pozostaje responsywna, kolba nierozciągliwa
+- **Testy:** Sprawdzono wygląd w trybie jasnym i ciemnym na urządzeniach mobilnych i desktopowych
+- **Backup:** backup/session_20240711_lufa_kolba_color_sync
+- **Status:** Zmiana wdrożona, projekt spójny wizualnie
+
+---
+
 </rewritten_file>

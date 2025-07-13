@@ -1051,6 +1051,14 @@ main {
     background: #fff !important;
 }
 
+/* ================= LUFA: WYMUSZENIE KOLORÓW I TRYBU JASNEGO DLA SVG ================= */
+.lufa-header svg,
+.lufa-footer svg {
+    color-scheme: light !important;
+    forced-color-adjust: none !important;
+}
+/* ================= KONIEC: LUFA SVG WYMUSZENIE ================= */
+
 /* ================= ZAMIANA BORDER NA MARGIN ================= */
 body {
     margin-left: 20px;
