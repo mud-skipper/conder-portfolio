@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!window.location.hash) {
         setTimeout(() => {
             safeScrollToSection('home');
-        }, 100);
+        }, 300); // Dłuższe opóźnienie dla pełnego załadowania strony
     }
 });
 
@@ -299,6 +299,35 @@ function safeScrollToSection(sectionId) {
      */
     const targetElement = document.getElementById(sectionId);
     if (!targetElement) return;
+
+    // Specjalna obsługa dla sekcji home - prostsze sprawdzenie
+    if (sectionId === 'home') {
+        // Sprawdź czy strona jest w pełni załadowana
+        if (document.readyState !== 'complete') {
+            setTimeout(() => safeScrollToSection(sectionId), 100);
+            return;
+        }
+        
+        // Dodatkowe sprawdzenie czy sekcja home jest w pełni załadowana
+        if (targetElement.offsetTop === 0) {
+            setTimeout(() => safeScrollToSection(sectionId), 100);
+            return;
+        }
+        
+        // Dodatkowe sprawdzenie czy sekcja home jest w pełni pozycjonowana
+        const homeRect = targetElement.getBoundingClientRect();
+        if (homeRect.height < 100) {
+            setTimeout(() => safeScrollToSection(sectionId), 100);
+            return;
+        }
+        
+        // Przewiń do sekcji home
+        window.scrollTo({
+            top: targetElement.offsetTop,
+            behavior: 'smooth'
+        });
+        return;
+    }
 
     // Sprawdź czy strona jest w pełni załadowana
     if (document.readyState !== 'complete') {
