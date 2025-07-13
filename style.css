@@ -156,7 +156,7 @@ section {
 
 /* Specjalne opuszczenie dla nagłówków sekcji */
 .home-section .header-container {
-    margin-top: 15px; /* Opuszczenie o 15px */
+    margin-top: 51px; /* Opuszczenie o 51px (15px + 36px) aby zachować oryginalne pozycjonowanie */
 }
 
 .projects-section .header-container {
@@ -615,7 +615,7 @@ main {
 /* ===== SEKCJA GŁÓWNA (HERO) ===== */
 .home-section {
     position: relative;
-    padding-top: 36px;
+    padding-top: 0; /* Usunięto padding-top aby strona ładowała się na górze */
 }
 
 .home-section .section-header-yellow {
