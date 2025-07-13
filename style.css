@@ -945,7 +945,7 @@ main {
 
 /* Animacja dla logo podczas otwierania menu */
 .logo-hamburger.menu-open {
-    transform: scale(1.1);
+    transform: scale(1.2);
     transition: transform 0.3s ease; /* Płynna animacja skalowania */
 }
 
