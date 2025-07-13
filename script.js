@@ -3,11 +3,13 @@ document.addEventListener('DOMContentLoaded', function() {
     loadProjectsFromJSON();
     loadAboutData();
     initAutoRefresh();
-    
-    // Usunięto automatyczne przewijanie do sekcji "O mnie" - może powodować konflikty z menu
-    // setTimeout(() => {
-    //     safeScrollToSection('home');
-    // }, 100);
+
+    // Przewijaj do "O mnie" tylko jeśli nie ma hasha w adresie
+    if (!window.location.hash) {
+        setTimeout(() => {
+            safeScrollToSection('home');
+        }, 100);
+    }
 });
 
 // ================= LOGO HAMBURGER MENU =================
@@ -17,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const sideMenuOverlay = document.getElementById('sideMenuOverlay');
     const sideMenuClose = document.getElementById('sideMenuClose');
     const sideMenuLinks = document.querySelectorAll('.side-menu-link');
-    
+
     // Funkcja otwierania menu
     function openSideMenu() {
         sideMenu.classList.add('active');
@@ -25,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
         logoHamburger.classList.add('menu-open');
         document.body.style.overflow = 'hidden'; // Blokuje scroll na body
     }
-    
+
     // Funkcja zamykania menu
     function closeSideMenu() {
         sideMenu.classList.remove('active');
@@ -33,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
         logoHamburger.classList.remove('menu-open');
         document.body.style.overflow = ''; // Przywraca scroll
     }
-    
+
     // Kliknięcie w logo hamburger
     if (logoHamburger) {
         logoHamburger.addEventListener('click', function(e) {
@@ -42,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
             openSideMenu();
         });
     }
-    
+
     // Kliknięcie w przycisk zamknięcia
     if (sideMenuClose) {
         sideMenuClose.addEventListener('click', function(e) {
@@ -50,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
             closeSideMenu();
         });
     }
-    
+
     // Kliknięcie w overlay (poza menu)
     if (sideMenuOverlay) {
         sideMenuOverlay.addEventListener('click', function(e) {
@@ -59,20 +61,20 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
+
     // Kliknięcie w linki menu
     sideMenuLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             const targetSection = this.getAttribute('data-section');
-            
+
             // Zamykanie menu najpierw
             closeSideMenu();
-            
+
             // Natychmiastowe przewijanie bez opóźnienia
             safeScrollToSection(targetSection);
         });
     });
-    
+
     // Zamykanie menu klawiszem Escape
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && sideMenu.classList.contains('active')) {
@@ -109,7 +111,7 @@ async function loadProjectsFromJSON() {
         const timestamp = new Date().getTime();
         const response = await fetch(`content.json?t=${timestamp}`);
         const data = await response.json();
-        
+
         if (data.projects && data.projects.length > 0) {
             // Sortuj projekty po dacie realizacji (od najnowszego do najstarszego)
             const sortedProjects = data.projects.sort((a, b) => {
@@ -117,7 +119,7 @@ async function loadProjectsFromJSON() {
                 const yearB = parseInt(b.year) || 0;
                 return yearB - yearA; // Malejąco (najnowsze pierwsze)
             });
-            
+
             displayProjects(sortedProjects);
         } else {
             displayEmptyProjects();
@@ -130,7 +132,7 @@ async function loadProjectsFromJSON() {
 // ===== WYŚWIETLANIE PROJEKTÓW =====
 function displayProjects(projects) {
     const projectsGrid = document.getElementById('projects-grid');
-    
+
     if (!projectsGrid) {
         return;
     }
@@ -144,20 +146,20 @@ function displayProjects(projects) {
         // Sprawdź czy projekt ma zdjęcia
         const hasImages = project.images && project.images.length > 0;
         const mainImage = hasImages ? project.images[0] : (project.image || 'project-placeholder.jpg');
-        
+
         // Przygotuj HTML dla zdjęć z minimalistycznymi strzałkami
         const imagesHTML = hasImages ? `
             <div class="project-images" data-project-id="${project.id}">
                 <div class="image-container">
                     ${project.images.map((image, index) => `
-                        <img src="uploads/${image}" 
-                             alt="${project.title} - zdjęcie ${index + 1}" 
+                        <img src="uploads/${image}"
+                             alt="${project.title} - zdjęcie ${index + 1}"
                              class="project-image ${index === 0 ? 'active' : ''}"
                              data-index="${index}"
                              onerror="this.src='project-placeholder.jpg'; this.style.display='none';"
                              loading="lazy">
                     `).join('')}
-                    
+
                     ${project.images.length > 1 ? `
                         <button class="image-nav-btn image-nav-prev" onclick="changeImage(${project.id}, -1)">
                             <span class="nav-arrow">‹</span>
@@ -172,8 +174,8 @@ function displayProjects(projects) {
         ` : `
             <div class="project-images">
                 <div class="image-container">
-                    <img src="${mainImage.startsWith('uploads/') ? mainImage : `uploads/${mainImage}`}" 
-                         alt="${project.title}" 
+                    <img src="${mainImage.startsWith('uploads/') ? mainImage : `uploads/${mainImage}`}"
+                         alt="${project.title}"
                          class="project-image active"
                          onerror="this.src='project-placeholder.jpg';"
                          loading="lazy">
@@ -200,18 +202,18 @@ function displayProjects(projects) {
             <div class="project-card" data-project-id="${project.id}" id="project-${project.id}">
                 <!-- 1. Nazwa inwestycji -->
                 <h3 class="project-title">${project.title}</h3>
-                
+
                 <!-- 2. Lokalizacja -->
                 <div class="project-location">${displayLocation}</div>
-                
+
                 <!-- 3. Zdjęcie z nawigacją -->
                 ${imagesHTML}
-                
+
                 <!-- 4. Opis -->
                 <div class="project-description">
                     <p>${project.description}</p>
                 </div>
-                
+
                 <!-- 5. Dane szczegółowe -->
                 <div class="project-details">
                     ${displayAuthor ? `
@@ -251,7 +253,7 @@ function displayProjects(projects) {
                         </div>
                     ` : ''}
                 </div>
-                
+
                 ${projectIndex < projects.length - 1 ? '<div class="project-separator"></div>' : ''}
             </div>
         `;
@@ -263,7 +265,7 @@ function displayProjects(projects) {
 // ===== FUNKCJE POMOCNICZE =====
 function displayEmptyProjects() {
     const projectsGrid = document.getElementById('projects-grid');
-    
+
     if (!projectsGrid) {
         return;
     }
@@ -280,9 +282,9 @@ function displayEmptyProjects() {
 function areProjectsLoaded() {
     const projectsGrid = document.getElementById('projects-grid');
     if (!projectsGrid) return false;
-    
+
     // Sprawdź czy są projekty lub komunikat o braku projektów
-    return projectsGrid.children.length > 0 && 
+    return projectsGrid.children.length > 0 &&
            !projectsGrid.querySelector('.loading-projects');
 }
 
@@ -318,20 +320,20 @@ function safeScrollToSection(sectionId) {
             setTimeout(() => safeScrollToSection(sectionId), 150);
             return;
         }
-        
+
         // Dodatkowe sprawdzenie czy strona jest w pełni załadowana
         if (document.readyState !== 'complete' || window.scrollY === 0) {
             setTimeout(() => safeScrollToSection(sectionId), 200);
             return;
         }
-        
+
         // Dodatkowe sprawdzenie czy sekcja kontakt jest w pełni pozycjonowana
         const contactRect = contactSection.getBoundingClientRect();
         if (contactRect.height < 400) {
             setTimeout(() => safeScrollToSection(sectionId), 100);
             return;
         }
-        
+
         // Dodatkowe sprawdzenie czy sekcja kontakt jest w pełni załadowana
         if (contactSection.offsetTop === 0) {
             setTimeout(() => safeScrollToSection(sectionId), 100);
@@ -346,11 +348,11 @@ function safeScrollToSection(sectionId) {
 
     // Płynne przewijanie z lepszym zarządzaniem animacjami
     const targetPosition = targetElement.offsetTop - scrollOffset;
-    
+
     // Sprawdź czy już jesteśmy blisko celu
     const currentScroll = window.scrollY;
     const distance = Math.abs(currentScroll - targetPosition);
-    
+
     // Jeśli jesteśmy już blisko, przewiń natychmiast
     if (distance < 50) {
         window.scrollTo({
@@ -378,27 +380,27 @@ function initAutoRefresh() {
 function changeImage(projectId, direction) {
     const projectImages = document.querySelectorAll(`[data-project-id="${projectId}"] .project-image`);
     const counter = document.querySelector(`[data-project-id="${projectId}"] .image-counter`);
-    
+
     if (projectImages.length <= 1) return;
-    
+
     let currentIndex = 0;
     projectImages.forEach((img, index) => {
         if (img.classList.contains('active')) {
             currentIndex = index;
         }
     });
-    
+
     // Ukryj aktualne zdjęcie
     projectImages[currentIndex].classList.remove('active');
-    
+
     // Oblicz nowy indeks
     let newIndex = currentIndex + direction;
     if (newIndex < 0) newIndex = projectImages.length - 1;
     if (newIndex >= projectImages.length) newIndex = 0;
-    
+
     // Pokaż nowe zdjęcie
     projectImages[newIndex].classList.add('active');
-    
+
     // Zaktualizuj licznik
     if (counter) {
         counter.textContent = `${newIndex + 1}/${projectImages.length}`;
@@ -449,9 +451,9 @@ async function loadAboutData() {
         const timestamp = new Date().getTime();
         const response = await fetch(`content.json?t=${timestamp}`);
         const data = await response.json();
-        
+
         console.log('Dane "O mnie" załadowane:', data.about);
-        
+
         if (data.about) {
             // Ustaw hero-image na zdjęcie profilowe
             const mainProfileImage = document.getElementById('mainProfileImage');
@@ -555,7 +557,7 @@ async function loadAboutData() {
 
 /* Usunięta nieużywana funkcja nawigacji zdjęć */
 
-/* Usunięte nieużywane event listenery dla przycisków */ 
+/* Usunięte nieużywane event listenery dla przycisków */
 
 // ====== WIELOJĘZYCZNOŚĆ: ŁADOWANIE I PRZEŁĄCZANIE JĘZYKA ======
 const LANG_KEY = 'portfolio_lang';
