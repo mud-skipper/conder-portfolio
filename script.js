@@ -293,7 +293,7 @@ function areProjectsLoaded() {
 // Funkcja do bezpiecznego przewijania z uwzględnieniem dynamicznych elementów
 function safeScrollToSection(sectionId) {
     /*
-     * Blokowa logika offsetu przewijania (aktualizacja 2025-01-10):
+     * Blokowa logika offsetu przewijania (aktualizacja 2025-07-10):
      * - home: 0px (bez offsetu)
      * - projects: 0px (bez offsetu)
      * - contact: 0px (bez offsetu)
@@ -301,27 +301,39 @@ function safeScrollToSection(sectionId) {
      */
     const targetElement = document.getElementById(sectionId);
     if (!targetElement) return;
-    
+
     // Jeśli to sekcja projektów, poczekaj na załadowanie
     if (sectionId === 'projects' && !areProjectsLoaded()) {
         setTimeout(() => safeScrollToSection(sectionId), 200);
         return;
     }
-    
+
     let scrollOffset = 0; // bez offsetu dla wszystkich sekcji
     if (sectionId.startsWith('project-')) {
         scrollOffset = 120; // offset dla pojedynczego projektu
     }
-    
-    // Uniwersalne rozwiązanie dla wszystkich przeglądarek
-    const scrollToElement = () => {
+
+    // Nowa logika: powtarzaj przewijanie do skutku (max 10 prób)
+    let attempts = 0;
+    const maxAttempts = 10;
+    const tolerance = 2; // px tolerancji
+    function scrollToElementRepeated() {
         const targetPosition = targetElement.offsetTop - scrollOffset;
+        const currentScroll = window.scrollY;
         window.scrollTo({
             top: targetPosition,
             behavior: 'smooth'
         });
-    };
-    setTimeout(scrollToElement, 50);
+        // Sprawdź po krótkim czasie, czy jesteśmy blisko celu
+        setTimeout(() => {
+            const newScroll = window.scrollY;
+            if (Math.abs(newScroll - targetPosition) > tolerance && attempts < maxAttempts) {
+                attempts++;
+                scrollToElementRepeated();
+            }
+        }, 180);
+    }
+    setTimeout(scrollToElementRepeated, 50);
 }
 
 // Automatyczne odświeżanie projektów co 30 sekund
