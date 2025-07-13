@@ -7,7 +7,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // Przewijaj do "O mnie" tylko jeśli nie ma hasha w adresie
     if (!window.location.hash) {
         setTimeout(() => {
-            safeScrollToSection('home');
+            // Sprawdź czy strona jest w pełni załadowana
+            if (document.readyState === 'complete') {
+                // Przewiń do góry strony zamiast do sekcji home
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            } else {
+                // Jeśli strona nie jest jeszcze załadowana, spróbuj ponownie
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }, 200);
+            }
         }, 300); // Dłuższe opóźnienie dla pełnego załadowania strony
     }
 });
