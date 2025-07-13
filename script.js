@@ -336,9 +336,9 @@ function safeScrollToSection(sectionId) {
             return;
         }
         
-        // Przewiń do sekcji home
+        // Przewiń do góry strony
         window.scrollTo({
-            top: targetElement.offsetTop,
+            top: 0,
             behavior: 'smooth'
         });
         return;
