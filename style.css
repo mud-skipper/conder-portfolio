@@ -84,6 +84,12 @@ html {
     color-scheme: light;
     background: #fff !important;
     color: #000 !important;
+    /* Optymalizacja przewijania */
+    -webkit-overflow-scrolling: touch;
+    /* Szybsze przewijanie */
+    scroll-behavior: smooth;
+    scroll-padding-top: 0;
+    scroll-padding-bottom: 0;
 }
 
 body {
@@ -109,6 +115,8 @@ body {
     color-scheme: light;
     background: #fff !important;
     color: #000 !important;
+    /* Optymalizacja przewijania */
+    -webkit-overflow-scrolling: touch;
 }
 
 .container {
@@ -248,6 +256,8 @@ section {
     will-change: transform;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+    /* Optymalizacja przewijania */
+    contain: layout style paint;
 }
 
 .about-content {
@@ -329,6 +339,8 @@ section {
     will-change: transform;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+    /* Optymalizacja przewijania */
+    contain: layout style paint;
 }
 
 .projects-content {
@@ -529,6 +541,8 @@ section {
     will-change: transform; /* Optymalizacja */
     backface-visibility: hidden; /* Zapobiega artefaktom renderowania */
     -webkit-backface-visibility: hidden; /* Safari support */
+    /* Optymalizacja przewijania */
+    contain: layout style paint;
 }
 
 .contact-content {
@@ -783,7 +797,7 @@ main {
     z-index: 20000;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease; /* Szybsza animacja */
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
 }
@@ -802,7 +816,7 @@ main {
     background: var(--color-white);
     box-shadow: -4px 0 16px rgba(0, 0, 0, 0.2);
     z-index: 20001;
-    transition: right 0.3s ease;
+    transition: right 0.2s ease; /* Szybsza animacja */
     display: flex;
     flex-direction: column;
     border-left: 1px solid #bbb;
@@ -924,6 +938,7 @@ main {
 /* Animacja dla logo podczas otwierania menu */
 .logo-hamburger.menu-open {
     transform: rotate(90deg);
+    transition: transform 0.2s ease; /* Szybsza animacja */
 }
 
 /* Responsywność menu */

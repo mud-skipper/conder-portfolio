@@ -69,11 +69,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // Zamykanie menu najpierw
             closeSideMenu();
             
-            // Opóźnienie dla lepszego pozycjonowania
-            setTimeout(() => {
-                // Bezpieczne przewijanie z uwzględnieniem dynamicznych elementów
-                safeScrollToSection(targetSection);
-            }, 100); // Opóźnienie po zamknięciu menu
+            // Natychmiastowe przewijanie bez opóźnienia
+            safeScrollToSection(targetSection);
         });
     });
     
@@ -293,7 +290,7 @@ function areProjectsLoaded() {
 // Funkcja do bezpiecznego przewijania z uwzględnieniem dynamicznych elementów
 function safeScrollToSection(sectionId) {
     /*
-     * Blokowa logika offsetu przewijania (aktualizacja 2025-07-10):
+     * Uproszczona logika przewijania (aktualizacja 2025-01-10):
      * - home: 0px (bez offsetu)
      * - projects: 0px (bez offsetu)
      * - contact: 0px (bez offsetu)
@@ -313,27 +310,26 @@ function safeScrollToSection(sectionId) {
         scrollOffset = 120; // offset dla pojedynczego projektu
     }
 
-    // Nowa logika: powtarzaj przewijanie do skutku (max 10 prób)
-    let attempts = 0;
-    const maxAttempts = 10;
-    const tolerance = 2; // px tolerancji
-    function scrollToElementRepeated() {
-        const targetPosition = targetElement.offsetTop - scrollOffset;
-        const currentScroll = window.scrollY;
+    // Płynne przewijanie z lepszym zarządzaniem animacjami
+    const targetPosition = targetElement.offsetTop - scrollOffset;
+    
+    // Sprawdź czy już jesteśmy blisko celu
+    const currentScroll = window.scrollY;
+    const distance = Math.abs(currentScroll - targetPosition);
+    
+    // Jeśli jesteśmy już blisko, przewiń natychmiast
+    if (distance < 50) {
+        window.scrollTo({
+            top: targetPosition,
+            behavior: 'auto'
+        });
+    } else {
+        // W przeciwnym razie użyj płynnej animacji
         window.scrollTo({
             top: targetPosition,
             behavior: 'smooth'
         });
-        // Sprawdź po krótkim czasie, czy jesteśmy blisko celu
-        setTimeout(() => {
-            const newScroll = window.scrollY;
-            if (Math.abs(newScroll - targetPosition) > tolerance && attempts < maxAttempts) {
-                attempts++;
-                scrollToElementRepeated();
-            }
-        }, 180);
     }
-    setTimeout(scrollToElementRepeated, 50);
 }
 
 // Automatyczne odświeżanie projektów co 30 sekund
