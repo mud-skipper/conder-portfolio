@@ -4,11 +4,10 @@ document.addEventListener('DOMContentLoaded', function() {
     loadAboutData();
     initAutoRefresh();
     
-    // Automatyczne przewijanie do sekcji "O mnie" przy ładowaniu strony
-    setTimeout(() => {
-        // Użycie funkcji safeScrollToSection dla spójności z menu hamburger
-        safeScrollToSection('home');
-    }, 100); // Krótkie opóźnienie dla lepszego UX
+    // Usunięto automatyczne przewijanie do sekcji "O mnie" - może powodować konflikty z menu
+    // setTimeout(() => {
+    //     safeScrollToSection('home');
+    // }, 100);
 });
 
 // ================= LOGO HAMBURGER MENU =================
@@ -299,10 +298,45 @@ function safeScrollToSection(sectionId) {
     const targetElement = document.getElementById(sectionId);
     if (!targetElement) return;
 
+    // Sprawdź czy strona jest w pełni załadowana
+    if (document.readyState !== 'complete') {
+        setTimeout(() => safeScrollToSection(sectionId), 100);
+        return;
+    }
+
     // Jeśli to sekcja projektów, poczekaj na załadowanie
     if (sectionId === 'projects' && !areProjectsLoaded()) {
         setTimeout(() => safeScrollToSection(sectionId), 200);
         return;
+    }
+
+    // Specjalna obsługa dla sekcji kontakt - może wymagać dodatkowego czasu
+    if (sectionId === 'contact') {
+        // Sprawdź czy sekcja kontakt jest w pełni wyrenderowana
+        const contactSection = document.querySelector('.contact-section');
+        if (contactSection && contactSection.offsetHeight < 100) {
+            setTimeout(() => safeScrollToSection(sectionId), 150);
+            return;
+        }
+        
+        // Dodatkowe sprawdzenie czy strona jest w pełni załadowana
+        if (document.readyState !== 'complete' || window.scrollY === 0) {
+            setTimeout(() => safeScrollToSection(sectionId), 200);
+            return;
+        }
+        
+        // Dodatkowe sprawdzenie czy sekcja kontakt jest w pełni pozycjonowana
+        const contactRect = contactSection.getBoundingClientRect();
+        if (contactRect.height < 400) {
+            setTimeout(() => safeScrollToSection(sectionId), 100);
+            return;
+        }
+        
+        // Dodatkowe sprawdzenie czy sekcja kontakt jest w pełni załadowana
+        if (contactSection.offsetTop === 0) {
+            setTimeout(() => safeScrollToSection(sectionId), 100);
+            return;
+        }
     }
 
     let scrollOffset = 0; // bez offsetu dla wszystkich sekcji

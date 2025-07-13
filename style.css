@@ -543,6 +543,14 @@ section {
     -webkit-backface-visibility: hidden; /* Safari support */
     /* Optymalizacja przewijania */
     contain: layout style paint;
+    /* Dodatkowa optymalizacja dla lepszego pozycjonowania */
+    min-height: 500px; /* Minimalna wysokość dla lepszego pozycjonowania */
+    /* Dodatkowa optymalizacja dla lepszego renderowania */
+    display: block;
+    box-sizing: border-box;
+    /* Dodatkowa optymalizacja dla lepszego pozycjonowania */
+    scroll-margin-top: 0;
+    scroll-margin-bottom: 0;
 }
 
 .contact-content {
