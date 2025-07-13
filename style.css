@@ -945,8 +945,8 @@ main {
 
 /* Animacja dla logo podczas otwierania menu */
 .logo-hamburger.menu-open {
-    transform: rotate(90deg);
-    transition: transform 0.2s ease; /* Szybsza animacja */
+    transform: scale(1.1);
+    transition: transform 0.3s ease; /* Płynna animacja skalowania */
 }
 
 /* Responsywność menu */
