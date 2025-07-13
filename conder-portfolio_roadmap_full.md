@@ -1225,4 +1225,14 @@
 
 ---
 
+### [2025-07-11] BACKUP + WORKAROUND: Białe tło SVG jako najniższa warstwa (dark mode fix)
+- Wykonano pełny backup projektu w folderze backup/session_20240711_white_bg_svg/ przed wdrożeniem workaroundu.
+- Problem: Na niektórych nowych telefonach (np. Samsung S25) systemowy dark mode wymusza ciemne tło, ignorując CSS `background: #fff`.
+- Rozwiązanie: Dodano responsywne SVG z białym prostokątem (`<rect fill="#fff" ...>`) jako najniższą warstwę strony (tuż po <body>), z `position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none;`.
+- Efekt: SVG nie podlega nadpisywaniu przez dark mode, więc cała strona zawsze ma białe tło niezależnie od ustawień systemowych.
+- Zmiana nie wpływa na layout ani interaktywność strony.
+- Po wdrożeniu zmiany wypchnięto projekt na GitHub do testów na urządzeniach docelowych.
+
+---
+
 </rewritten_file>

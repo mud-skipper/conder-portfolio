@@ -24,6 +24,8 @@
     <meta property="og:type" content="website">
 </head>
 <body>
+    <!-- WORKAROUND: Białe tło SVG na najniższej warstwie (dark mode fix) -->
+    <svg id="white-bg-svg" width="100vw" height="100vh" viewBox="0 0 100 100" preserveAspectRatio="none" style="position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:0;pointer-events:none;display:block;"><rect x="0" y="0" width="100" height="100" fill="#fff"/></svg>
 
     <!-- ================= HEADER: Lufa (prosty prostokąt 40px wysokości, cała szerokość) ================= -->
     <div class="lufa-header">
