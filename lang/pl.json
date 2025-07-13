@@ -12,5 +12,25 @@
     "about": "O mnie",
     "projects": "Projekty",
     "contact": "Kontakt"
+  },
+  "subtitles": {
+    "education": "Edukacja",
+    "experience": "Doświadczenie",
+    "achievements": "Kluczowe osiągnięcia",
+    "collaboration": "Współpraca",
+    "skills": "Umiejętności",
+    "software": "Obsługiwane programy komputerowe",
+    "interests": "Zainteresowania"
+  },
+  "project_labels": {
+    "author": "Autor",
+    "type": "Typ",
+    "total_area": "Powierzchnia całkowita",
+    "usable_area": "Powierzchnia użytkowa",
+    "area": "Powierzchnia",
+    "status": "Status",
+    "investor": "Inwestor",
+    "designer": "Projektant",
+    "none": "Brak"
   }
 }  

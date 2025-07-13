@@ -202,58 +202,58 @@ function displayProjects(projects) {
             <div class="project-card" data-project-id="${project.id}" id="project-${project.id}">
                 <!-- 1. Nazwa inwestycji -->
                 <h3 class="project-title">${project.title}</h3>
-
+                
                 <!-- 2. Lokalizacja -->
                 <div class="project-location">${displayLocation}</div>
-
+                
                 <!-- 3. Zdjęcie z nawigacją -->
                 ${imagesHTML}
-
+                
                 <!-- 4. Opis -->
                 <div class="project-description">
                     <p>${project.description}</p>
                 </div>
-
+                
                 <!-- 5. Dane szczegółowe -->
                 <div class="project-details">
                     ${displayAuthor ? `
                         <div class="project-detail">
-                            <strong>Autor:</strong> ${displayAuthor}
+                            <strong>${translations.project_labels?.author || 'Autor'}:</strong> ${displayAuthor}
                         </div>
                     ` : ''}
                     <div class="project-detail">
-                        <strong>Typ:</strong> ${displayProjectType || displayType || 'Brak'}
+                        <strong>${translations.project_labels?.type || 'Typ'}:</strong> ${displayProjectType || displayType || (translations.project_labels?.none || 'Brak')}
                     </div>
                     ${project.totalArea ? `
                         <div class="project-detail">
-                            <strong>Powierzchnia całkowita:</strong> ${project.totalArea}
+                            <strong>${translations.project_labels?.total_area || 'Powierzchnia całkowita'}:</strong> ${project.totalArea}
                         </div>
                     ` : ''}
                     ${project.usableArea ? `
                         <div class="project-detail">
-                            <strong>Powierzchnia użytkowa:</strong> ${project.usableArea}
+                            <strong>${translations.project_labels?.usable_area || 'Powierzchnia użytkowa'}:</strong> ${project.usableArea}
                         </div>
                     ` : ''}
                     ${!project.totalArea && !project.usableArea && project.area ? `
                         <div class="project-detail">
-                            <strong>Powierzchnia:</strong> ${project.area}
+                            <strong>${translations.project_labels?.area || 'Powierzchnia'}:</strong> ${project.area}
                         </div>
                     ` : ''}
                     <div class="project-detail">
-                        <strong>Status:</strong> ${project.stage || project.status || 'Brak'}${project.year ? ` (${project.year})` : ''}
+                        <strong>${translations.project_labels?.status || 'Status'}:</strong> ${project.stage || project.status || (translations.project_labels?.none || 'Brak')}${project.year ? ` (${project.year})` : ''}
                     </div>
                     ${project.investor ? `
                         <div class="project-detail">
-                            <strong>Inwestor:</strong> ${project.investor}
+                            <strong>${translations.project_labels?.investor || 'Inwestor'}:</strong> ${project.investor}
                         </div>
                     ` : ''}
                     ${project.designer ? `
                         <div class="project-detail">
-                            <strong>Projektant:</strong> ${project.designer}
+                            <strong>${translations.project_labels?.designer || 'Projektant'}:</strong> ${project.designer}
                         </div>
                     ` : ''}
                 </div>
-
+                
                 ${projectIndex < projects.length - 1 ? '<div class="project-separator"></div>' : ''}
             </div>
         `;
@@ -582,6 +582,9 @@ async function loadAboutData() {
     } catch (error) {
         console.error('Błąd ładowania danych "O mnie":', error);
     }
+    
+    // Odśwież podtytuły po załadowaniu danych
+    updateStaticTexts();
 }
 
 /* Usunięta nieużywana funkcja nawigacji zdjęć */
@@ -611,6 +614,7 @@ function updateStaticTexts() {
     if (menuAbout && translations.menu) menuAbout.textContent = translations.menu.about;
     if (menuProjects && translations.menu) menuProjects.textContent = translations.menu.projects;
     if (menuContact && translations.menu) menuContact.textContent = translations.menu.contact;
+    
     // Nagłówki sekcji
     const sectionAbout = document.querySelector('.section-header-yellow');
     const sectionProjects = document.querySelector('.section-header-orange');
@@ -618,6 +622,26 @@ function updateStaticTexts() {
     if (sectionAbout && translations.sections) sectionAbout.textContent = translations.sections.about;
     if (sectionProjects && translations.sections) sectionProjects.textContent = translations.sections.projects;
     if (sectionContact && translations.sections) sectionContact.textContent = translations.sections.contact;
+    
+    // Podtytuły sekcji "O mnie"
+    const educationSubtitle = document.querySelector('#educationSection .about-subtitle');
+    const experienceSubtitle = document.querySelector('#experienceSection .about-subtitle');
+    const achievementsSubtitle = document.querySelector('#achievementsSection .about-subtitle');
+    const collaborationSubtitle = document.querySelector('#collaborationSection .about-subtitle');
+    const skillsSubtitle = document.querySelector('#skillsSection .about-subtitle');
+    const softwareSubtitle = document.querySelector('#softwareSection .about-subtitle');
+    const interestsSubtitle = document.querySelector('#interestsSection .about-subtitle');
+    
+    if (translations.subtitles) {
+        if (educationSubtitle) educationSubtitle.textContent = translations.subtitles.education;
+        if (experienceSubtitle) experienceSubtitle.textContent = translations.subtitles.experience;
+        if (achievementsSubtitle) achievementsSubtitle.textContent = translations.subtitles.achievements;
+        if (collaborationSubtitle) collaborationSubtitle.textContent = translations.subtitles.collaboration;
+        if (skillsSubtitle) skillsSubtitle.textContent = translations.subtitles.skills;
+        if (softwareSubtitle) softwareSubtitle.textContent = translations.subtitles.software;
+        if (interestsSubtitle) interestsSubtitle.textContent = translations.subtitles.interests;
+    }
+    
     // Przyciski footer
     const btnSend = document.getElementById('footerSendButton');
     const btnCv = document.getElementById('footerCvButton');
@@ -641,6 +665,9 @@ async function switchLanguage(lang) {
     await loadTranslations(lang);
     updateStaticTexts();
     setActiveLangButton();
+    
+    // Odśwież projekty po zmianie języka (żeby zaktualizować etykiety)
+    loadProjectsFromJSON();
 }
 
 document.addEventListener('DOMContentLoaded', function() {

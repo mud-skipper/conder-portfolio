@@ -12,5 +12,25 @@
     "about": "About",
     "projects": "Projects",
     "contact": "Contact"
+  },
+  "subtitles": {
+    "education": "Education",
+    "experience": "Experience",
+    "achievements": "Key Achievements",
+    "collaboration": "Collaboration",
+    "skills": "Skills",
+    "software": "Software",
+    "interests": "Interests"
+  },
+  "project_labels": {
+    "author": "Author",
+    "type": "Type",
+    "total_area": "Total Area",
+    "usable_area": "Usable Area",
+    "area": "Area",
+    "status": "Status",
+    "investor": "Investor",
+    "designer": "Designer",
+    "none": "None"
   }
 } 
