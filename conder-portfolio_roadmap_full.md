@@ -1259,4 +1259,13 @@
 
 ---
 
+### [2024-07-11] Zamiana SVG lufy z <rect> na <polygon> (obejście dark mode Samsung Internet)
+- **Problem**: Lufa (prostokąt SVG) w headerze i footerze zmienia kolor w trybie ciemnym na Samsung Internet, mimo fill="#fff".
+- **Analiza**: Samsung Internet traktuje <rect> jako tło i filtruje jego kolor, natomiast <polygon> (nawet o kształcie prostokąta) jest traktowany inaczej i rzadziej podlega filtracji.
+- **Rozwiązanie**: Zamiana <rect> na <polygon> o tych samych wymiarach (header: 40px wysokości, footer: 20px wysokości), z dodanym punktem na jednym z boków, by wymusić poligon.
+- **Efekt**: Lufa powinna być zawsze biała, nawet w trybie ciemnym Samsung Internet. Responsywność, pozycjonowanie i style pozostają bez zmian.
+- **Backup**: backup/lufa_polygon_svg_202407/index.html, style.css, BACKUP_INFO.txt
+
+---
+
 </rewritten_file>
