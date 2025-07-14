@@ -553,9 +553,31 @@ app.post('/api/updateAbout', upload.single('profileImage'), async (req, res) => 
             const updateData = req.body;
             const fieldName = Object.keys(updateData)[0];
             const fieldValue = updateData[fieldName];
-            
-            console.log(`Aktualizacja pojedynczego pola: ${fieldName} = ${fieldValue}`);
-            
+
+            // MAPOWANIE NAZW PÓL PANELU ADMINA NA POLA W content.json
+            const aboutFieldMap = {
+                aboutText: 'bio',
+                aboutText_en: 'bio_en',
+                education: 'education',
+                education_en: 'education_en',
+                experience: 'experience',
+                experience_en: 'experience_en',
+                achievements: 'achievements',
+                achievements_en: 'achievements_en',
+                collaboration: 'collaboration',
+                collaboration_en: 'collaboration_en',
+                skills: 'skills',
+                skills_en: 'skills_en',
+                software: 'software',
+                software_en: 'software_en',
+                interests: 'interests',
+                interests_en: 'interests_en',
+                // Dodaj inne mapowania jeśli potrzeba
+            };
+            const mappedField = aboutFieldMap[fieldName] || fieldName;
+
+            console.log(`Aktualizacja pojedynczego pola: ${fieldName} (mapowane na: ${mappedField}) = ${fieldValue}`);
+
             // Inicjalizuj sekcję about jeśli nie istnieje
             if (!content.about) {
                 content.about = {
@@ -580,9 +602,9 @@ app.post('/api/updateAbout', upload.single('profileImage'), async (req, res) => 
                     location: 'Warszawa / zdalnie'
                 };
             }
-            
-            // Aktualizuj konkretne pole
-            content.about[fieldName] = fieldValue;
+
+            // Aktualizuj konkretne pole (po mapowaniu)
+            content.about[mappedField] = fieldValue;
             
         } else {
             // Aktualizacja całego formularza (FormData)
