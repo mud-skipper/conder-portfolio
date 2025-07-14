@@ -130,15 +130,9 @@ body {
 }
 
 /* ================= PRZESUNIĘCIE GŁÓWNEGO ZDJĘCIA O 16PX W DÓŁ (2025-07-11) ================= */
-.hero-image-block {
-    margin-top: 16px;
-}
-/* ================= KONIEC PRZESUNIĘCIA ZDJĘCIA 16PX ================= */
-
+/* USUNIĘTO: .hero-image-block { margin-top: 16px; } */
 /* ================= WIĘKSZY DYSTANS MIĘDZY TYTUŁEM A ZDJĘCIEM (2025-07-11) ================= */
-.hero-image-block {
-    margin-top: 48px;
-}
+/* USUNIĘTO: .hero-image-block { margin-top: 48px; } */
 /* ================= KONIEC DYSTANSU 32PX ================= */
 
 /* ===== SEKCJE OGÓLNE ===== */
