@@ -135,6 +135,12 @@ body {
 }
 /* ================= KONIEC PRZESUNIĘCIA 16PX ================= */
 
+/* ================= PRZESUNIĘCIE GŁÓWNEGO ZDJĘCIA O 16PX W DÓŁ (2025-07-11) ================= */
+.hero-image-block {
+    margin-top: 16px;
+}
+/* ================= KONIEC PRZESUNIĘCIA ZDJĘCIA 16PX ================= */
+
 /* ===== SEKCJE OGÓLNE ===== */
 section {
     /* Podstawowe style sekcji */
@@ -766,7 +772,7 @@ main {
 /* ================= LOGO HAMBURGER ================= */
 .logo-hamburger {
     position: absolute;
-    top: 20px;
+    top: 8px;
     right: 20px;
     width: 60px;
     height: 60px;
@@ -928,9 +934,11 @@ main {
 }
 
 .side-menu-footer {
-    padding: 20px;
-    border-top: 1px solid #eee;
-    background: #f8f8f8;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
 }
 
 .side-menu-info {
