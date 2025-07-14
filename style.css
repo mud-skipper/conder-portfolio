@@ -1052,20 +1052,16 @@ main {
 .footer-btn-icon {
     width: 20px;
     height: 20px;
-}
-/* ================= KONIEC POWIĘKSZENIA IKONY KOPERTY ================= */
-.footer-btn-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 18px;
-    height: 18px;
 }
 .footer-btn svg {
     display: block;
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
 }
+/* ================= KONIEC POWIĘKSZENIA IKONY KOPERTY ================= */
 /* USUNIĘTO SKOMPLIKOWANE MEDIA QUERIES - PRZYCISKI ZAWSZE STAŁE */
 /* ================= KONIEC PRZYCISKÓW FOOTER ================= */
 
@@ -1135,5 +1131,15 @@ body {
     color: var(--color-white);
     border-color: var(--color-orange);
 }
+
+/* ================= KOLEJNOŚĆ W STOPCE MENU BOCZNEGO (2025-07-11) ================= */
+.side-menu-lang-switcher {
+    order: 1;
+}
+.menu-version, .menu-copyright {
+    order: 2;
+    margin-top: 12px;
+}
+/* ================= KONIEC KOLEJNOŚCI W STOPCE MENU ================= */
 
  
