@@ -767,7 +767,7 @@ main {
 /* ================= LOGO HAMBURGER ================= */
 .logo-hamburger {
     position: absolute;
-    top: 8px;
+    top: 20px;
     right: 20px;
     width: 60px;
     height: 60px;
@@ -891,7 +891,7 @@ main {
     list-style: none;
     margin: 0;
     padding: 0;
-    flex: 1;
+    /* USUNIĘTO flex: 1; */
 }
 
 .side-menu-item {
