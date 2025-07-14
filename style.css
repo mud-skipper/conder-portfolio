@@ -1054,6 +1054,12 @@ main {
     background: #333333;
     filter: brightness(1.08);
 }
+/* ================= POWIĘKSZENIE IKONY KOPERTY W FOOTERZE (2025-07-11) ================= */
+.footer-btn-icon {
+    width: 20px;
+    height: 20px;
+}
+/* ================= KONIEC POWIĘKSZENIA IKONY KOPERTY ================= */
 .footer-btn-icon {
     display: flex;
     align-items: center;
