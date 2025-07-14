@@ -135,6 +135,12 @@ body {
 }
 /* ================= KONIEC PRZESUNIĘCIA ZDJĘCIA 16PX ================= */
 
+/* ================= WIĘKSZY DYSTANS MIĘDZY TYTUŁEM A ZDJĘCIEM (2025-07-11) ================= */
+.hero-image-block {
+    margin-top: 32px;
+}
+/* ================= KONIEC DYSTANSU 32PX ================= */
+
 /* ===== SEKCJE OGÓLNE ===== */
 section {
     /* Podstawowe style sekcji */
