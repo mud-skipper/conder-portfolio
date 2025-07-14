@@ -142,9 +142,7 @@ body {
 /* ================= KONIEC DYSTANSU 32PX ================= */
 
 /* ===== SEKCJE OGÓLNE ===== */
-section {
-    /* Podstawowe style sekcji */
-}
+/* USUNIĘTO PUSTĄ REGUŁĘ: section { } */
 
 .section-content {
     padding-left: 0; /* Dosunięcie do ramki 20px body */
@@ -190,10 +188,7 @@ section {
     z-index: 1;
 }
 
-/* Specjalne pozycjonowanie dla żółtego paska w sekcji "O mnie" */
-.home-section .header-stripe-yellow {
-    /* Usunięto specjalne pozycjonowanie - używa standardowego */
-}
+/* USUNIĘTO PUSTĄ REGUŁĘ: .home-section .header-stripe-yellow { } */
 
 .header-stripe-yellow {
     background: var(--color-yellow);
@@ -734,7 +729,7 @@ main {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     /* Wymuszenie stałego rozmiaru - nieskalowalna */
-    preserveAspectRatio: xMinYMin meet;
+    /* USUNIĘTO preserveAspectRatio: xMinYMin meet; */
     /* Wymuszenie białego tła w trybie ciemnym */
     color-scheme: light;
     forced-color-adjust: none;
