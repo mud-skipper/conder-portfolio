@@ -1138,14 +1138,19 @@ body {
     border-color: var(--color-orange);
 }
 
+/* ================= POPRAWKA POZYCJONOWANIA MENU BOCZNEGO (2025-07-11) ================= */
+.side-menu-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.side-menu-footer {
+    margin-top: auto;
+}
+/* ================= KONIEC POPRAWKI MENU BOCZNEGO ================= */
+
 /* ================= KOLEJNOŚĆ W STOPCE MENU BOCZNEGO (2025-07-11) ================= */
-.side-menu-lang-switcher {
-    order: 1;
-}
-.menu-version, .menu-copyright {
-    order: 2;
-    margin-top: 12px;
-}
+/* USUNIĘTO order z .side-menu-lang-switcher, .menu-version, .menu-copyright */
 /* ================= KONIEC KOLEJNOŚCI W STOPCE MENU ================= */
 
  
