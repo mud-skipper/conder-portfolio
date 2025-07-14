@@ -627,7 +627,7 @@ main {
 .hero-image-block {
     position: relative;
     width: 100%;
-    margin: 48px auto 0 auto;
+    margin: 28px auto 0 auto;
     background: #fff;
     overflow: hidden;
 }
