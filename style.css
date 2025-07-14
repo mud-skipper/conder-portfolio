@@ -1099,14 +1099,7 @@ main {
 /* ================= KONIEC: LUFA SVG WYMUSZENIE ================= */
 
 /* ================= ZAMIANA BORDER NA MARGIN ================= */
-body {
-    margin-left: 20px;
-    margin-right: 20px;
-    border-left: none !important;
-    border-right: none !important;
-    /* pozostałe style bez zmian */
-}
-
+/* USUNIĘTO POWTÓRZONY BLOK body { margin-left: 20px; margin-right: 20px; border-left: none; border-right: none; } */
 .side-menu-lang-switcher {
     display: flex;
     justify-content: center;

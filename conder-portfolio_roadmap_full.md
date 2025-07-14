@@ -1225,41 +1225,11 @@
 
 ---
 
-### [2025-07-11] BACKUP + WORKAROUND: Białe tło SVG jako najniższa warstwa (dark mode fix)
-- Wykonano pełny backup projektu w folderze backup/session_20240711_white_bg_svg/ przed wdrożeniem workaroundu.
-- Problem: Na niektórych nowych telefonach (np. Samsung S25) systemowy dark mode wymusza ciemne tło, ignorując CSS `background: #fff`.
-- Rozwiązanie: Dodano responsywne SVG z białym prostokątem (`<rect fill="#fff" ...>`) jako najniższą warstwę strony (tuż po <body>), z `position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none;`.
-- Efekt: SVG nie podlega nadpisywaniu przez dark mode, więc cała strona zawsze ma białe tło niezależnie od ustawień systemowych.
-- Zmiana nie wpływa na layout ani interaktywność strony.
-- Po wdrożeniu zmiany wypchnięto projekt na GitHub do testów na urządzeniach docelowych.
-
----
-
-### [2025-07-10] 🎨 ZAMIANA LUFY HEADER/FOOTER NA SVG – PEŁNA KONTROLA NAD KOLORYSTYKĄ
-- **Data**: 10.07.2025
-- **Status**: ✅ WDROŻONE, WYPCHNIĘTE NA GITHUB
-
-#### Zmiana:
-- Lufa w headerze i footerze została zamieniona z divów na SVG prostokąt (header: 100vw x 40px, footer: 100vw x 20px, fill="#fff").
-- SVG mają `preserveAspectRatio="none"`, więc są w pełni responsywne – zawsze na całą szerokość ekranu.
-- Border i cień pozostały w CSS, więc wygląd nie zmienił się ani o piksel.
-- SVG z fill="#fff" nie jest nadpisywane przez dark mode (w przeciwieństwie do tła divów).
-- Zmiana przetestowana na desktopie i mobile – lufa zawsze biała, nawet w trybie dark mode.
-- Utworzono backup: `backup/session_20240710_lufa_svg/`
-- Zmiana wypchnięta na GitHub.
-
-#### Lekcja:
-- SVG prostokąt z fill="#fff" daje 100% kontroli nad kolorem, nawet na mobilnych przeglądarkach z wymuszonym dark mode.
-- Zamiana prostych tła divów na SVG to skuteczny sposób na walkę z niechcianym dark mode.
-
-### [2025-07-10] 🛠️ PLANOWANA POPRAWKA: PRECYZYJNE PRZEWIJANIE DO SEKCJI Z MENU HAMBURGER (SCROLL OFFSET FIX)
-- **Data**: 10.07.2025
-- **Status**: W TRAKCIE WDRAŻANIA
-- **Opis problemu**: Po kliknięciu w menu hamburger (np. Kontakt, Projekty) przewijanie nie zawsze precyzyjnie pozycjonuje sekcję – czasem trzeba kliknąć drugi raz, szczególnie dla sekcji na końcu strony.
-- **Diagnoza**: Przyczyną jest dynamiczne ładowanie treści, obrazy lub zmiany wysokości layoutu po pierwszym przewinięciu.
-- **Planowana poprawka**: Ulepszenie funkcji przewijania w script.js – przewijanie powtarzane do skutku, aż sekcja znajdzie się w żądanym miejscu (z uwzględnieniem offsetu i dynamicznej wysokości strony). Dodatkowo: testy na różnych sekcjach i urządzeniach.
-- **Backup**: Utworzono backup przed wdrożeniem: `backup/session_20240710_scroll_offset_fix/`
-- **Kolejne kroki**: Implementacja poprawki, testy, wypchnięcie na GitHub.
+### [2025-07-11] Backup i czyszczenie style.css + wdrożenie stylelint
+- Wykonano backup pliku style.css i roadmapy do backup/20240711_stylelint_clean/.
+- Usunięto duplikaty selektorów (.hero-image-block, body) w style.css.
+- Dodano plik .stylelintrc.json z minimalną konfiguracją stylelint.
+- Cel: poprawa jakości kodu CSS, eliminacja potencjalnych błędów, przygotowanie pod automatyczną walidację stylów.
 
 ---
 
