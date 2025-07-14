@@ -113,7 +113,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (footerCvButton) {
         footerCvButton.addEventListener('click', function(e) {
             e.preventDefault();
-            window.open('uploads/Wojciech Conder - CV 2025.pdf', '_blank');
+            // Otwórz CV z parametrem cache-busting, aby wymusić pobranie nowej wersji
+            window.open('uploads/Wojciech Conder - CV 2025.pdf?v=2', '_blank');
         });
     }
 });
