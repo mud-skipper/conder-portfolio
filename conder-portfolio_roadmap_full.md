@@ -1281,4 +1281,12 @@
 
 ---
 
+### [2025-07-11] Przesunięcie głównego zdjęcia i kontentu o 16px w dół
+- Na prośbę użytkownika cała zawartość (w tym kontener głównego zdjęcia) zostaje przesunięta o 16px w dół względem górnej krawędzi.
+- Cel: poprawa wizualnego balansu layoutu.
+- Backup wykonany: backup/20240711_shift_hero_image_16px/ (index.html, style.css, script.js)
+- Zmiana dotyczy tylko pozycjonowania, nie wpływa na inne elementy.
+
+---
+
 </rewritten_file>

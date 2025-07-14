@@ -129,6 +129,12 @@ body {
     z-index: 1;
 }
 
+/* ================= PRZESUNIĘCIE CAŁEGO KONTENTU O 16PX W DÓŁ (2025-07-11) ================= */
+.main-content {
+    margin-top: 16px;
+}
+/* ================= KONIEC PRZESUNIĘCIA 16PX ================= */
+
 /* ===== SEKCJE OGÓLNE ===== */
 section {
     /* Podstawowe style sekcji */
