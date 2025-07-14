@@ -226,7 +226,7 @@ function displayProjects(projects) {
                 
                 <!-- 4. Opis -->
                 <div class="project-description">
-                    <p>${project.description}</p>
+                    <p>${currentLang === 'en' ? (project.description_en || project.description || '') : (project.description || project.description_en || '')}</p>
                 </div>
                 
                 <!-- 5. Dane szczegółowe -->
