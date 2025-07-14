@@ -664,6 +664,8 @@ async function switchLanguage(lang) {
     
     // Odśwież projekty po zmianie języka (żeby zaktualizować etykiety)
     loadProjectsFromJSON();
+    // Odśwież dane "O mnie" po zmianie języka
+    loadAboutData();
 }
 
 document.addEventListener('DOMContentLoaded', function() {
