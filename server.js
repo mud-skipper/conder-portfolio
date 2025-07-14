@@ -551,9 +551,16 @@ app.post('/api/updateAbout', upload.single('profileImage'), async (req, res) => 
         if (isSingleFieldUpdate) {
             // Aktualizacja pojedynczego pola
             const updateData = req.body;
-            const fieldName = Object.keys(updateData)[0];
-            const fieldValue = updateData[fieldName];
-
+            let fieldName, fieldValue;
+            if ('field' in updateData && 'value' in updateData) {
+                // Przypadek: { field: "aboutText_en", value: "..." }
+                fieldName = updateData.field;
+                fieldValue = updateData.value;
+            } else {
+                // Przypadek: { "aboutText_en": "..." }
+                fieldName = Object.keys(updateData)[0];
+                fieldValue = updateData[fieldName];
+            }
             // MAPOWANIE NAZW PÓL PANELU ADMINA NA POLA W content.json
             const aboutFieldMap = {
                 aboutText: 'bio',
